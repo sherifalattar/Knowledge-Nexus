@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="A presentation of setting-of-care principles for clinical and insurance stewardship.">
+<title>Setting of Care Principles</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@300;400;500;600;700;800;900&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0b0b0b;--bg2:#0e0f12;--ink:#f2f5fa;--dim:#9aa3b2;--faint:#5a6373;
+  --line:rgba(255,255,255,.09);--line2:rgba(255,255,255,.16);
+  --glass:rgba(255,255,255,.045);--glass2:rgba(255,255,255,.07);
+  --cyan:#26e0df;--blue:#4d8dff;--emerald:#34e8a6;--amber:#f5c36b;
+  --shadow:0 30px 80px -34px rgba(0,0,0,.9);color-scheme:dark;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;background:var(--bg);overflow:hidden}
+body{font-family:"Archivo",sans-serif;color:var(--ink);-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+.mono{font-family:"IBM Plex Mono",monospace}
+.bg{position:fixed;inset:0;z-index:0;overflow:hidden;background:radial-gradient(110% 90% at 15% -10%,#11161f 0%,rgba(17,22,31,0) 46%),radial-gradient(100% 90% at 90% 0%,#101a1a 0%,rgba(16,26,26,0) 44%),radial-gradient(120% 120% at 80% 115%,#0c1422 0%,rgba(12,20,34,0) 50%),linear-gradient(180deg,#0d0e11 0%,var(--bg) 60%)}
+.blob{position:absolute;border-radius:50%;filter:blur(80px);opacity:.4;mix-blend-mode:screen;will-change:transform}
+.b1{width:560px;height:560px;left:-160px;top:-200px;background:radial-gradient(circle,#16c8c4,transparent 66%);animation:float1 26s ease-in-out infinite}
+.b2{width:520px;height:520px;right:-160px;top:-120px;background:radial-gradient(circle,#3a6dff,transparent 66%);animation:float2 30s ease-in-out infinite}
+.b3{width:620px;height:620px;left:38%;bottom:-300px;background:radial-gradient(circle,#1f9d72,transparent 68%);opacity:.28;animation:float1 34s ease-in-out infinite reverse}
+@keyframes float1{0%,100%{transform:translate(0,0)}50%{transform:translate(46px,34px)}}
+@keyframes float2{0%,100%{transform:translate(0,0)}50%{transform:translate(-42px,30px)}}
+.grain{position:fixed;inset:0;z-index:1;pointer-events:none;opacity:.045;mix-blend-mode:soft-light;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+.gridlines{position:fixed;inset:0;z-index:1;pointer-events:none;opacity:.55;background-image:linear-gradient(rgba(255,255,255,.018) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.018) 1px,transparent 1px);background-size:64px 64px;mask-image:radial-gradient(120% 100% at 50% 40%,#000 30%,transparent 80%)}
+.deck{position:fixed;inset:0;z-index:2}
+.slide{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;padding:clamp(28px,4.2vw,64px) clamp(40px,6vw,104px);opacity:0;visibility:hidden;transform:scale(.985);transition:opacity .6s ease,transform .8s cubic-bezier(.2,.7,.2,1),visibility .6s}
+.slide.active{opacity:1;visibility:visible;transform:none}
+.up,.fade,.left,.scin{opacity:0;transition:opacity .75s cubic-bezier(.2,.7,.2,1),transform .75s cubic-bezier(.2,.7,.2,1)}
+.up{transform:translateY(28px)}.left{transform:translateX(-26px)}.scin{transform:scale(.94)}
+.slide.active .up,.slide.active .fade,.slide.active .left,.slide.active .scin{opacity:1;transform:none}
+.eyebrow{font-family:"IBM Plex Mono",monospace;font-size:clamp(11px,1vw,13px);font-weight:500;letter-spacing:.34em;text-transform:uppercase;color:var(--cyan);display:inline-flex;align-items:center;gap:13px}
+.eyebrow::before{content:"";width:34px;height:1px;background:linear-gradient(90deg,var(--cyan),transparent);box-shadow:0 0 8px var(--cyan)}
+.eyebrow.blue{color:var(--blue)}.eyebrow.blue::before{background:linear-gradient(90deg,var(--blue),transparent);box-shadow:0 0 8px var(--blue)}
+.eyebrow.em{color:var(--emerald)}.eyebrow.em::before{background:linear-gradient(90deg,var(--emerald),transparent);box-shadow:0 0 8px var(--emerald)}
+.eyebrow.am{color:var(--amber)}.eyebrow.am::before{background:linear-gradient(90deg,var(--amber),transparent);box-shadow:0 0 8px var(--amber)}
+h2.title{font-size:clamp(25px,3.3vw,42px);font-weight:800;line-height:1.05;letter-spacing:-.022em;margin-top:13px;max-width:24ch}
+.lede{font-size:clamp(13px,1.25vw,16px);line-height:1.55;color:var(--dim);max-width:68ch;margin-top:13px}
+.glass{background:linear-gradient(180deg,var(--glass2),var(--glass));border:1px solid var(--line);border-radius:20px;box-shadow:var(--shadow),inset 0 1px 0 rgba(255,255,255,.05);backdrop-filter:blur(10px)}
+.chrome{position:fixed;top:0;left:0;right:0;z-index:6;display:flex;justify-content:space-between;align-items:center;padding:18px clamp(40px,6vw,104px);font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--faint);pointer-events:none;transition:opacity .5s}
+.chrome .r{color:var(--dim)}.deck.chromeless .chrome{opacity:0}
+.nav{position:fixed;bottom:0;left:0;right:0;z-index:6;display:flex;align-items:center;gap:20px;padding:16px clamp(40px,6vw,104px)}
+.bar{flex:1;height:2px;background:rgba(255,255,255,.1);border-radius:2px;overflow:hidden}.bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--cyan),var(--blue));box-shadow:0 0 10px var(--cyan);transition:width .6s cubic-bezier(.2,.7,.2,1)}
+.counter{font-family:"IBM Plex Mono",monospace;font-size:12px;letter-spacing:.1em;color:var(--dim);min-width:70px;text-align:right}.counter b{color:var(--cyan);font-weight:600}
+.arrows{display:flex;gap:8px}.arrows button{width:38px;height:38px;border-radius:11px;border:1px solid var(--line2);background:var(--glass);color:var(--dim);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:.2s}.arrows button:hover,.arrows button:focus-visible{color:var(--ink);border-color:var(--cyan);box-shadow:0 0 18px -6px var(--cyan);outline:none}.arrows svg{width:17px;height:17px}
+.edge{position:fixed;top:0;bottom:0;width:8%;z-index:5;cursor:pointer}.edge.l{left:0}.edge.r{right:0}
+.cover .inner{position:relative;z-index:2;max-width:64%}.cover h1{font-size:clamp(36px,5.4vw,68px);font-weight:800;line-height:.98;letter-spacing:-.03em;margin-top:18px;background:linear-gradient(104deg,#fff 4%,var(--cyan) 46%,var(--blue) 78%,#cfe6ff 100%);-webkit-background-clip:text;background-clip:text;color:transparent}.cover .sub{font-size:clamp(14px,1.45vw,18px);color:var(--dim);margin-top:15px;max-width:48ch;line-height:1.5}.cover .meta{display:flex;gap:34px;margin-top:32px;flex-wrap:wrap}.cover .meta .k{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--faint);margin-bottom:7px}.cover .meta .v{font-size:14px;color:var(--ink);font-weight:600}
+.radar{position:absolute;right:clamp(40px,5vw,110px);top:50%;transform:translateY(-50%);width:min(38vw,460px);aspect-ratio:1;z-index:1}.radar .ring{position:absolute;inset:0;border-radius:50%;border:1px solid rgba(255,255,255,.08)}.radar .ring:nth-child(2){inset:13%}.radar .ring:nth-child(3){inset:28%}.radar .ring:nth-child(4){inset:44%}.radar .core{position:absolute;inset:60%;border-radius:50%;background:radial-gradient(circle,var(--cyan),transparent 70%);filter:blur(2px);box-shadow:0 0 40px var(--cyan);animation:pulse 3.4s ease-in-out infinite}.radar .sweep{position:absolute;inset:0;border-radius:50%;background:conic-gradient(from 0deg,transparent 0deg,color-mix(in srgb,var(--cyan) 38%,transparent) 36deg,transparent 70deg);animation:spin 5.5s linear infinite;mask:radial-gradient(circle,transparent 8%,#000 9%)}.radar .dot{position:absolute;width:9px;height:9px;border-radius:50%;background:var(--emerald);box-shadow:0 0 12px var(--emerald)}.radar .dot.a{top:24%;left:62%}.radar .dot.b{top:58%;left:34%;animation:pulse 2.6s ease-in-out infinite}.radar .dot.c{top:71%;left:66%}@keyframes spin{to{transform:rotate(360deg)}}@keyframes pulse{0%,100%{opacity:.6;transform:scale(1)}50%{opacity:1;transform:scale(1.25)}}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:24px}.cards.two{grid-template-columns:repeat(2,1fr)}.card{position:relative;overflow:hidden;padding:21px 22px;min-height:158px}.card::before{content:"";position:absolute;left:22px;top:19px;width:30px;height:3px;border-radius:3px;background:var(--ac,var(--cyan));box-shadow:0 0 14px var(--ac,var(--cyan))}.card .num{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.16em;color:var(--faint);margin-top:13px}.card h3{font-size:clamp(16px,1.45vw,20px);line-height:1.18;letter-spacing:-.02em;margin-top:11px}.card p{font-size:12.5px;line-height:1.5;color:var(--dim);margin-top:9px}.card.feature{grid-column:span 2}.card.feature h3{font-size:clamp(18px,1.85vw,25px);max-width:26ch}
+.statement{align-items:center;text-align:center}.statement .big{font-size:clamp(27px,3.7vw,50px);font-weight:800;line-height:1.08;letter-spacing:-.028em;max-width:21ch;margin-top:18px}.statement .mut{color:var(--faint)}.statement .gl{color:var(--cyan);text-shadow:0 0 34px color-mix(in srgb,var(--cyan) 55%,transparent)}.statement .note{margin-top:22px;max-width:66ch;color:var(--dim);font-size:clamp(13px,1.2vw,15px);line-height:1.55}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:22px}.step{padding:17px;min-height:112px}.step .top{display:flex;align-items:center;gap:13px}.step .n{width:34px;height:34px;border-radius:10px;border:1px solid color-mix(in srgb,var(--cyan) 42%,transparent);color:var(--cyan);display:flex;align-items:center;justify-content:center;font-family:"IBM Plex Mono",monospace;font-size:12px}.step h3{font-size:15.5px}.step p{font-size:13px;color:var(--dim);line-height:1.45;margin-top:9px}
+.chain{display:flex;align-items:stretch;margin-top:26px}.chain .node{flex:1;padding:17px 15px;text-align:center}.chain .node .n{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.15em;color:var(--cyan)}.chain .node h3{font-size:clamp(14px,1.25vw,17px);margin-top:8px}.chain .conn{width:54px;display:flex;align-items:center}.chain .conn::before{content:"";height:2px;width:100%;background:linear-gradient(90deg,var(--cyan),var(--blue));box-shadow:0 0 8px rgba(77,141,255,.5)}
+.quote{margin-top:20px;padding:17px 24px;display:flex;gap:16px;align-items:flex-start}.quote .mark{font-size:25px;line-height:1;color:var(--emerald)}.quote p{font-size:clamp(13px,1.2vw,15px);line-height:1.55}
+.final{align-items:flex-start}.final h1{font-size:clamp(31px,4.2vw,56px);font-weight:800;line-height:1.02;letter-spacing:-.028em;margin-top:18px;max-width:20ch;background:linear-gradient(104deg,#fff 8%,var(--emerald) 60%,#bff3df 100%);-webkit-background-clip:text;background-clip:text;color:transparent}.pillars{display:flex;gap:13px;margin-top:28px;flex-wrap:wrap}.pillar{padding:16px 22px;border-radius:14px;background:var(--glass);border:1px solid var(--line)}.pillar .k{font-family:"IBM Plex Mono",monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--emerald)}.pillar .v{font-size:14px;font-weight:600;margin-top:5px}
+@media(max-width:900px){.cards{grid-template-columns:repeat(2,1fr)}.card.feature{grid-column:span 1}.steps{grid-template-columns:repeat(2,1fr)}.cover .inner{max-width:78%}.radar{opacity:.42}}
+@media(max-width:640px){.slide{padding:74px 24px 82px;justify-content:flex-start;overflow-y:auto}.chrome{padding:18px 24px}.chrome .r{display:none}.nav{padding:14px 24px}.edge{display:none}.cover{justify-content:center}.cover .inner{max-width:100%}.radar{display:none}.cover .meta{margin-top:34px;gap:20px}.cards,.cards.two,.steps{grid-template-columns:1fr}.card{min-height:0}.chain{display:grid;grid-template-columns:1fr}.chain .conn{width:100%;height:18px;justify-content:center}.chain .conn::before{width:2px;height:100%;margin:auto}.statement{justify-content:center}.final{justify-content:center}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition-duration:.01ms!important}}
+@media print{html,body{overflow:visible;background:#fff}.bg,.grain,.gridlines,.chrome,.nav,.edge{display:none}.deck{position:static}.slide{position:relative;min-height:100vh;opacity:1;visibility:visible;transform:none;page-break-after:always;background:#0b0b0b}.up,.fade,.left,.scin{opacity:1;transform:none}}
+
+/* back to hub */
+.kn-back{position:fixed;top:22px;left:clamp(40px,6vw,104px);z-index:60;display:inline-flex;align-items:center;gap:9px;
+  font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--dim);text-decoration:none;pointer-events:auto;transition:color .35s ease,gap .35s ease}
+.kn-back .a{display:inline-block;transition:transform .35s ease}
+.kn-back:hover{color:var(--cyan);gap:13px}
+.kn-back:hover .a{transform:translateX(-4px)}
+.kn-back:focus-visible{outline:1px solid var(--cyan);outline-offset:4px;border-radius:2px}
+@media(max-width:760px){.kn-back{top:16px;left:24px;font-size:10px}}
+</style>
+</head>
+<body>
+<a class="kn-back" href="observatory.html" aria-label="Back to Knowledge Nexus"><span class="a">←</span> Knowledge Nexus</a>
+<div class="bg"><div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div></div>
+<div class="grain"></div><div class="gridlines"></div>
+<div class="deck" id="deck">
+  <div class="chrome"><span aria-hidden="true"></span><span class="r" id="slideName">Cover</span></div>
+
+  <section class="slide cover active" data-name="Cover" data-chromeless>
+    <div class="radar fade" style="transition-delay:.3s"><div class="ring"></div><div class="ring"></div><div class="ring"></div><div class="ring"></div><div class="sweep"></div><div class="core"></div><div class="dot a"></div><div class="dot b"></div><div class="dot c"></div></div>
+    <div class="inner">
+      <span class="eyebrow up">Principles for responsible care</span>
+      <h1 class="up" style="transition-delay:.08s">Setting of Care Principles</h1>
+      <p class="sub up" style="transition-delay:.16s">A framework for reconciling clinical necessity, provider behavior, insurance stewardship, and patient welfare.</p>
+      <div class="meta up" style="transition-delay:.24s">
+        <div><div class="k">Foundation</div><div class="v">Clinical proportionality</div></div>
+        <div><div class="k">Discipline</div><div class="v">Economic stewardship</div></div>
+        <div><div class="k">Safeguard</div><div class="v">Procedural fairness</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide" data-name="Clinical Proportionality">
+    <span class="eyebrow up">Clinical proportionality</span>
+    <h2 class="title up" style="transition-delay:.06s">Care should rise only to the level the patient requires.</h2>
+    <div class="cards">
+      <article class="card glass up" style="--ac:var(--cyan);transition-delay:.14s"><div class="num">PRINCIPLE 01</div><h3>Clinical necessity governs the setting</h3><p>The appropriate setting is the least intensive environment capable of delivering care safely. Convenience, custom, and reimbursement opportunity cannot substitute for documented need.</p></article>
+      <article class="card glass up" style="--ac:var(--blue);transition-delay:.22s"><div class="num">PRINCIPLE 02</div><h3>Care intensity must be distinguished</h3><p>Observation, monitoring, and admission carry materially different requirements for duration, staffing, infrastructure, and risk.</p></article>
+      <article class="card glass up" style="--ac:var(--emerald);transition-delay:.30s"><div class="num">PRINCIPLE 03</div><h3>The treatment is not the setting</h3><p>A medicine, procedure, or route may inform a decision; it cannot determine one. The setting follows patient risk and delivery complexity.</p></article>
+    </div>
+  </section>
+
+  <section class="slide statement" data-name="Governing Question" data-chromeless>
+    <span class="eyebrow scin">The governing question</span>
+    <div class="big up" style="transition-delay:.12s">Not what setting is <span class="mut">customary.</span><br>What setting is <span class="gl">clinically necessary?</span></div>
+    <p class="note up" style="transition-delay:.26s">Setting-of-care stewardship is the disciplined search for proportionality: sufficient clinical capability without avoidable intensity.</p>
+  </section>
+
+  <section class="slide" data-name="Behavioral Foundations">
+    <span class="eyebrow blue up">Provider behavior management</span>
+    <h2 class="title up" style="transition-delay:.06s">Behavior is shaped by information, incentives, and systems.</h2>
+    <div class="cards two">
+      <article class="card feature glass left" style="--ac:var(--blue);transition-delay:.14s"><div class="num">PRINCIPLE 04</div><h3>Insurance must manage information asymmetry</h3><p>Providers naturally possess more clinical information than payers. Sound insurance design answers this asymmetry not with suspicion, but with transparent evidence requirements, proportionate verification, and meaningful clinical dialogue.</p></article>
+      <article class="card glass up" style="--ac:var(--emerald);transition-delay:.24s"><div class="num">PRINCIPLE 05</div><h3>Provider behavior is shaped by systems</h3><p>Recurring patterns may reflect incentives, habits, administrative defaults, or operating models—not improper intent. Management begins by understanding what makes the behavior rational.</p></article>
+    </div>
+    <div class="quote glass up" style="transition-delay:.32s"><div class="mark">“</div><p>Durable behavior change begins with the architecture surrounding the decision, not merely the decision-maker.</p></div>
+  </section>
+
+  <section class="slide" data-name="Graduated Management">
+    <span class="eyebrow em up">Graduated intervention</span>
+    <h2 class="title up" style="transition-delay:.06s">Management should be proportionate, developmental, and fair.</h2>
+    <p class="lede up" style="transition-delay:.12s">Principle 06 · Escalation earns legitimacy when each stage is evidence-based and gives improvement a genuine opportunity.</p>
+    <div class="steps">
+      <article class="step glass up" style="transition-delay:.16s"><div class="top"><div class="n">01</div><h3>Inform</h3></div><p>Publish transparent clinical and administrative guidance.</p></article>
+      <article class="step glass up" style="transition-delay:.20s"><div class="top"><div class="n">02</div><h3>Compare</h3></div><p>Use credible, risk-adjusted peer benchmarking.</p></article>
+      <article class="step glass up" style="transition-delay:.24s"><div class="top"><div class="n">03</div><h3>Engage</h3></div><p>Create space for clinical dialogue and education.</p></article>
+      <article class="step glass up" style="transition-delay:.28s"><div class="top"><div class="n">04</div><h3>Correct</h3></div><p>Apply targeted controls to defined points of risk.</p></article>
+      <article class="step glass up" style="transition-delay:.32s"><div class="top"><div class="n">05</div><h3>Monitor</h3></div><p>Use time-bound plans with measurable improvement.</p></article>
+      <article class="step glass up" style="transition-delay:.36s"><div class="top"><div class="n">06</div><h3>Escalate</h3></div><p>Act only when material divergence remains unexplained.</p></article>
+    </div>
+  </section>
+
+  <section class="slide" data-name="Incentives & Signals">
+    <span class="eyebrow am up">Economics of utilization</span>
+    <h2 class="title up" style="transition-delay:.06s">Design incentives carefully; interpret signals humbly.</h2>
+    <div class="cards two">
+      <article class="card glass left" style="--ac:var(--amber);transition-delay:.14s"><div class="num">PRINCIPLE 07</div><h3>Payment must not reward avoidable intensity</h3><p>When reimbursement rises sharply with care intensity, rational behavior may drift toward more resource-intensive settings. Contracting should reward appropriate outcomes, not unnecessary infrastructure.</p></article>
+      <article class="card glass up" style="--ac:var(--cyan);transition-delay:.24s"><div class="num">PRINCIPLE 08</div><h3>A signal is an invitation to inquiry—not a verdict</h3><p>Statistical deviation identifies where attention is warranted. It does not establish error, abuse, or misconduct; clinical validation and procedural fairness must follow.</p></article>
+    </div>
+  </section>
+
+  <section class="slide" data-name="Variation & Benchmarking">
+    <span class="eyebrow blue up">Comparative intelligence</span>
+    <h2 class="title up" style="transition-delay:.06s">Difference is not dysfunction.</h2>
+    <p class="lede up" style="transition-delay:.12s">The work is to distinguish legitimate clinical variation from variation that remains unexplained after fair adjustment.</p>
+    <div class="cards two">
+      <article class="card glass left" style="--ac:var(--blue);transition-delay:.18s"><div class="num">PRINCIPLE 09</div><h3>Separate variation from unwarranted variation</h3><p>Patient complexity, specialist expertise, and defensible practice differences must be recognized. Only residual, clinically unexplained variation should become a management concern.</p></article>
+      <article class="card glass up" style="--ac:var(--emerald);transition-delay:.28s"><div class="num">PRINCIPLE 10</div><h3>Peer comparison must be credible and fair</h3><p>Compare like with like, account for case mix and sample size, disclose the method, and allow challenge. An opaque benchmark rarely changes behavior sustainably.</p></article>
+    </div>
+  </section>
+
+  <section class="slide" data-name="Insurance Lifecycle">
+    <span class="eyebrow up">Insurance control architecture</span>
+    <h2 class="title up" style="transition-delay:.06s">Appropriateness must remain coherent from request to payment.</h2>
+    <div class="chain up" style="transition-delay:.14s">
+      <div class="node glass"><div class="n">01</div><h3>Request</h3></div><div class="conn"></div>
+      <div class="node glass"><div class="n">02</div><h3>Authorization</h3></div><div class="conn"></div>
+      <div class="node glass"><div class="n">03</div><h3>Treatment</h3></div><div class="conn"></div>
+      <div class="node glass"><div class="n">04</div><h3>Documentation</h3></div><div class="conn"></div>
+      <div class="node glass"><div class="n">05</div><h3>Claim</h3></div><div class="conn"></div>
+      <div class="node glass"><div class="n">06</div><h3>Payment</h3></div>
+    </div>
+    <div class="cards two">
+      <article class="card glass up" style="--ac:var(--cyan);transition-delay:.22s;min-height:180px"><div class="num">PRINCIPLE 11</div><h3>Controls must span the lifecycle</h3><p>A control confined to one stage merely displaces leakage to another.</p></article>
+      <article class="card glass up" style="--ac:var(--blue);transition-delay:.30s;min-height:180px"><div class="num">PRINCIPLE 12</div><h3>Prospective stewardship is superior</h3><p>Prevention protects patients, providers, and payers from the friction and expense of retrospective recovery.</p></article>
+    </div>
+  </section>
+
+  <section class="slide" data-name="Intelligence & Proportionality">
+    <span class="eyebrow em up">Intelligent control</span>
+    <h2 class="title up" style="transition-delay:.06s">Technology should extend judgment—not replace it.</h2>
+    <div class="cards two">
+      <article class="card feature glass left" style="--ac:var(--emerald);transition-delay:.14s"><div class="num">PRINCIPLE 13</div><h3>Automation should identify; clinicians should judge</h3><p>Analytics can detect patterns, inconsistencies, and emerging risks at scale. Final decisions—especially adverse ones—must preserve clinical interpretation, exception handling, and accountable human oversight.</p></article>
+      <article class="card glass up" style="--ac:var(--cyan);transition-delay:.24s"><div class="num">PRINCIPLE 14</div><h3>The burden of control follows the burden of risk</h3><p>Consistently appropriate providers merit streamlined administration. Greater scrutiny belongs where variation is material, recurrent, and insufficiently explained.</p></article>
+    </div>
+  </section>
+
+  <section class="slide" data-name="Safety & Due Process">
+    <span class="eyebrow am up">Legitimacy safeguards</span>
+    <h2 class="title up" style="transition-delay:.06s">Stewardship is legitimate only when safety and fairness are indivisible.</h2>
+    <div class="cards two">
+      <article class="card glass left" style="--ac:var(--amber);transition-delay:.14s"><div class="num">PRINCIPLE 15</div><h3>Patient safety is the non-negotiable boundary</h3><p>Cost stewardship cannot justify under-treatment, unsafe transfer, or denial of necessary care. Financial discipline remains subordinate to patient welfare.</p></article>
+      <article class="card glass up" style="--ac:var(--blue);transition-delay:.24s"><div class="num">PRINCIPLE 16</div><h3>Due process is itself an insurance control</h3><p>Clear criteria, accessible evidence, meaningful explanation, and a credible appeal pathway improve both decision quality and institutional trust.</p></article>
+    </div>
+  </section>
+
+  <section class="slide" data-name="Measures of Success">
+    <span class="eyebrow em up">The mature outcome</span>
+    <h2 class="title up" style="transition-delay:.06s">Success is alignment—not denial volume.</h2>
+    <div class="cards two">
+      <article class="card glass left" style="--ac:var(--emerald);transition-delay:.14s"><div class="num">PRINCIPLE 17</div><h3>Measure behavioral improvement</h3><p>The mature control produces fewer unnecessary escalations, stronger documentation, lower unexplained variation, safer care, and less administrative conflict.</p></article>
+      <article class="card feature glass up" style="--ac:var(--cyan);transition-delay:.24s"><div class="num">PRINCIPLE 18</div><h3>The ultimate objective is alignment</h3><p>The patient seeks safety, the provider seeks clinical agency, and the insurer seeks sustainability. Enduring reform reconciles these interests rather than permitting one to defeat the others.</p></article>
+    </div>
+  </section>
+
+  <section class="slide final" data-name="Closing Principle" data-chromeless>
+    <span class="eyebrow em up">The governing idea</span>
+    <h1 class="up" style="transition-delay:.1s">Care should follow clinical purpose—not administrative habit or economic architecture.</h1>
+    <div class="pillars up" style="transition-delay:.24s">
+      <div class="pillar"><div class="k">Protect</div><div class="v">Patient welfare</div></div>
+      <div class="pillar"><div class="k">Respect</div><div class="v">Clinical agency</div></div>
+      <div class="pillar"><div class="k">Preserve</div><div class="v">System sustainability</div></div>
+    </div>
+  </section>
+
+  <div class="edge l" id="edgePrev" aria-hidden="true"></div><div class="edge r" id="edgeNext" aria-hidden="true"></div>
+  <nav class="nav" aria-label="Slide navigation">
+    <div class="bar"><i id="progress"></i></div>
+    <div class="counter"><b id="current">01</b> / <span id="total">12</span></div>
+    <div class="arrows">
+      <button id="prev" type="button" aria-label="Previous slide"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m15 18-6-6 6-6"/></svg></button>
+      <button id="next" type="button" aria-label="Next slide"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg></button>
+    </div>
+  </nav>
+</div>
+<script>
+(() => {
+  const deck = document.getElementById('deck');
+  const slides = [...document.querySelectorAll('.slide')];
+  const current = document.getElementById('current');
+  const total = document.getElementById('total');
+  const progress = document.getElementById('progress');
+  const slideName = document.getElementById('slideName');
+  let index = 0;
+  let wheelLock = false;
+  total.textContent = String(slides.length).padStart(2,'0');
+
+  function show(nextIndex) {
+    index = Math.max(0, Math.min(slides.length - 1, nextIndex));
+    slides.forEach((slide, i) => slide.classList.toggle('active', i === index));
+    const active = slides[index];
+    current.textContent = String(index + 1).padStart(2,'0');
+    progress.style.width = `${((index + 1) / slides.length) * 100}%`;
+    slideName.textContent = active.dataset.name || '';
+    deck.classList.toggle('chromeless', active.hasAttribute('data-chromeless'));
+    history.replaceState(null, '', `#${index + 1}`);
+  }
+
+  function next(){ show(index + 1); }
+  function prev(){ show(index - 1); }
+  document.getElementById('next').addEventListener('click', next);
+  document.getElementById('prev').addEventListener('click', prev);
+  document.getElementById('edgeNext').addEventListener('click', next);
+  document.getElementById('edgePrev').addEventListener('click', prev);
+  document.addEventListener('keydown', e => {
+    if (['ArrowRight','PageDown',' '].includes(e.key)) { e.preventDefault(); next(); }
+    if (['ArrowLeft','PageUp'].includes(e.key)) { e.preventDefault(); prev(); }
+    if (e.key === 'Home') show(0);
+    if (e.key === 'End') show(slides.length - 1);
+    if (e.key.toLowerCase() === 'f') document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen();
+  });
+  document.addEventListener('wheel', e => {
+    if (wheelLock || Math.abs(e.deltaY) < 18) return;
+    wheelLock = true;
+    e.deltaY > 0 ? next() : prev();
+    setTimeout(() => wheelLock = false, 650);
+  }, {passive:true});
+  let touchX = 0;
+  document.addEventListener('touchstart', e => touchX = e.changedTouches[0].screenX, {passive:true});
+  document.addEventListener('touchend', e => {
+    const delta = touchX - e.changedTouches[0].screenX;
+    if (Math.abs(delta) > 50) delta > 0 ? next() : prev();
+  }, {passive:true});
+  const hashIndex = Number(location.hash.slice(1)) - 1;
+  show(Number.isInteger(hashIndex) && hashIndex >= 0 ? hashIndex : 0);
+})();
+</script>
+<script src="audio.js" defer></script>
+</body>
+</html>

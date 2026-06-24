@@ -1,0 +1,1782 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Psychiatric Diseases Deeper Semantic Layer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=DM+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --bg:#070A11; --bg2:#0B1018; --panel:#0E141E; --panel2:#121B29; --stroke:#1E2A3A; --stroke2:#2B3B52;
+  --text:#E9ECF1; --dim:#9AA7BD; --faint:#5E6E86;
+  --gold:#C9A86A; --gold2:#E7C887; --teal:#2FE6C8; --cyan:#19D3F3; --silver:#C4CCDF; --blue:#56C6FF; --red:#FF6F6F;
+  --d:#0F1622;
+  --font-display:"Manrope",system-ui,sans-serif; --font-body:"Manrope",system-ui,sans-serif;
+  --font-mono:"DM Mono",ui-monospace,monospace; --font-eye:"DM Mono",ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:radial-gradient(1200px 700px at 80% -8%,rgba(25,211,243,.06),transparent 60%),linear-gradient(180deg,var(--bg),var(--bg2));
+  color:var(--text);font-family:var(--font-body);font-size:15px;line-height:1.6;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1120px;margin:0 auto;padding:0 28px}
+.mono{font-family:var(--font-mono)}
+a{color:var(--cyan);text-decoration:none} a:hover{text-decoration:underline}
+
+/* ---------- hero ---------- */
+header{padding:74px 0 30px;position:relative}
+.eye{font-family:var(--font-eye);font-weight:800;font-size:12px;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--cyan);display:inline-flex;align-items:center;gap:11px}
+.eye::before{content:"";width:26px;height:1px;background:linear-gradient(90deg,var(--cyan),transparent)}
+h1{font-family:var(--font-display);font-weight:900;font-size:clamp(34px,5.2vw,60px);line-height:1.02;letter-spacing:-.03em;margin:16px 0 0;
+  background:linear-gradient(100deg,#fff 10%,var(--silver) 55%,var(--gold2) 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+.sub{font-size:16px;color:var(--dim);max-width:760px;margin-top:18px;line-height:1.7}
+.sub b{color:var(--silver);font-weight:600}
+.deeper{display:inline-flex;align-items:center;gap:9px;margin-top:22px;font-family:var(--font-mono);font-size:11px;letter-spacing:.05em;
+  color:var(--dim);background:var(--panel);border:1px solid var(--stroke);border-radius:11px;padding:9px 15px}
+.deeper .ar{color:var(--cyan);font-weight:700}
+
+/* ---------- section scaffold ---------- */
+section{padding:30px 0;border-top:1px solid var(--stroke);margin-top:14px}
+.s-eye{font-family:var(--font-eye);font-weight:700;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--ac,var(--silver));
+  display:flex;align-items:center;gap:10px;margin-bottom:6px}
+.s-eye .n{font-family:var(--font-mono);color:var(--faint)}
+h2{font-family:var(--font-display);font-weight:800;font-size:clamp(22px,3vw,30px);letter-spacing:-.02em;margin:2px 0 14px}
+.lead{color:var(--dim);max-width:820px;margin:0 0 20px;line-height:1.7}
+
+/* ---------- legal / source guardrail ---------- */
+.guard{border:1px solid rgba(201,168,106,.34);border-left:4px solid var(--gold);border-radius:14px;background:linear-gradient(180deg,rgba(201,168,106,.07),rgba(201,168,106,.015));padding:22px 24px}
+.guard h3{font-family:var(--font-display);font-size:16px;font-weight:800;color:var(--gold2);margin:0 0 10px;letter-spacing:-.01em}
+.guard p{color:var(--dim);margin:9px 0;line-height:1.66} .guard p b{color:var(--text);font-weight:600}
+.guard .mono{color:var(--gold2)}
+.disc{margin-top:14px;padding:13px 15px;border:1px dashed rgba(201,168,106,.4);border-radius:10px;background:rgba(0,0,0,.22);
+  font-size:13.5px;color:var(--silver);font-style:italic}
+
+/* ---------- source / addendum highlight ---------- */
+.addbox{display:flex;gap:18px;align-items:flex-start;border:1px solid var(--stroke2);border-radius:14px;background:var(--panel2);padding:20px 22px}
+.addbox .seal{flex:none;width:50px;height:50px;border-radius:12px;border:1px solid rgba(47,230,200,.5);display:flex;align-items:center;justify-content:center;
+  color:var(--teal);font-family:var(--font-mono);font-weight:700;font-size:13px;background:rgba(47,230,200,.06)}
+.addbox h3{font-family:var(--font-display);font-size:17px;margin:0 0 6px;color:#fff;font-weight:800;letter-spacing:-.01em}
+.addbox p{margin:5px 0;color:var(--dim);font-size:14px} .addbox b{color:var(--teal)}
+.warnote{margin-top:10px;font-size:13px;color:var(--red)}
+
+/* ---------- reference grid ---------- */
+.refs{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:13px}
+.ref{border:1px solid var(--stroke);border-radius:12px;background:var(--panel);padding:15px 17px;position:relative}
+.ref .rk{font-family:var(--font-mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ac,var(--silver))}
+.ref h4{font-size:14.5px;margin:7px 0 5px;color:#fff;font-weight:700}
+.ref p{font-size:12.8px;color:var(--dim);margin:0;line-height:1.5}
+.ref .src{display:inline-flex;align-items:center;gap:6px;margin-top:9px;font-family:var(--font-mono);font-size:10.5px;color:var(--silver)}
+.ref .src .b{color:var(--silver)}
+
+/* ---------- lane constraints ---------- */
+.lanes{display:grid;grid-template-columns:1fr 1fr 1fr;gap:13px}
+.lane{border:1px solid var(--stroke);border-radius:12px;padding:16px 18px;background:var(--panel)}
+.lane.pub{border-top:3px solid var(--blue)} .lane.lic{border-top:3px solid var(--gold)} .lane.doh{border-top:3px solid var(--teal)}
+.lane h4{font-size:13px;margin:0 0 8px;color:#fff;font-weight:700}
+.lane .k{font-family:var(--font-mono);font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;display:block;margin-bottom:9px}
+.lane.pub .k{color:var(--blue)} .lane.lic .k{color:var(--gold2)} .lane.doh .k{color:var(--teal)}
+.lane p{font-size:12.7px;color:var(--dim);margin:0;line-height:1.55}
+
+/* ---------- lexicon ---------- */
+.lex-grid{display:grid;grid-template-columns:1fr 1fr;gap:13px}
+.lex{border:1px solid var(--stroke);border-left:3px solid var(--ax,var(--silver));border-radius:12px;background:var(--panel);padding:15px 17px}
+.lex-h{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:9px}
+.lex-h h4{font-family:var(--font-display);font-size:15.5px;margin:0;color:#fff;font-weight:700;letter-spacing:-.01em}
+.chip{font-size:11px;font-weight:700;color:#04121a;background:var(--ax,var(--silver));border-radius:6px;padding:3px 8px}
+.tag{margin-left:auto;font-family:var(--font-mono);font-size:9px;letter-spacing:.07em;text-transform:uppercase;padding:3px 8px;border-radius:999px;border:1px solid}
+.tag.grp{color:var(--gold2);border-color:rgba(201,168,106,.5);background:rgba(201,168,106,.08)}
+.tag.park{color:var(--silver);border-color:var(--stroke2);background:rgba(0,0,0,.25)}
+.tag.note{color:var(--blue);border-color:rgba(86,198,255,.4);background:rgba(86,198,255,.07)}
+.lex p{margin:7px 0 0;font-size:13px;color:var(--dim);line-height:1.55}
+.lex .lbl{font-family:var(--font-mono);font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--faint);display:block;margin-bottom:2px}
+.lex .icd .lbl{color:var(--teal)} .lex .dsm .lbl{color:var(--blue)}
+.note-strip{margin:0 0 16px;padding:11px 15px;border:1px solid rgba(255,111,111,.3);border-radius:10px;background:rgba(255,111,111,.05);font-size:13px;color:#ffd3d3}
+.note-strip b{color:#fff}
+
+/* ---------- corrected manifestations ---------- */
+.man{border:1px solid var(--stroke2);border-radius:14px;background:var(--panel2);padding:20px 22px;margin-bottom:14px}
+.man-h{display:flex;align-items:center;gap:10px;margin-bottom:10px;flex-wrap:wrap}
+.man-h .chip{background:var(--teal)} .man-h h4{font-family:var(--font-display);font-size:17px;margin:0;color:#fff;font-weight:800;letter-spacing:-.01em}
+.man-h .corr{margin-left:auto;font-family:var(--font-mono);font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--teal);border:1px solid rgba(47,230,200,.4);border-radius:999px;padding:3px 9px}
+.man p{color:var(--dim);margin:8px 0;line-height:1.68} .man p b{color:var(--text);font-weight:600}
+.man .crit{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px;margin-top:12px}
+.man .crit span{font-size:12px;color:var(--silver);background:var(--d);border:1px solid var(--stroke);border-radius:8px;padding:8px 10px;line-height:1.35}
+.man .crit span b{color:var(--cyan);font-family:var(--font-mono);font-size:10.5px}
+
+/* ---------- appendix table ---------- */
+.tbl-meta{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px}
+.pill{font-family:var(--font-mono);font-size:11px;color:var(--dim);background:var(--panel);border:1px solid var(--stroke);border-radius:8px;padding:6px 11px}
+.pill b{color:var(--teal)}
+.tscroll{overflow-x:auto;border:1px solid var(--stroke);border-radius:14px;background:var(--panel)}
+table.appx{width:100%;border-collapse:collapse;min-width:720px}
+table.appx thead th{position:sticky;top:0;background:#0C1320;font-family:var(--font-mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--silver);text-align:right;padding:12px 12px;border-bottom:1px solid var(--stroke2);white-space:nowrap}
+table.appx thead th:nth-child(2){text-align:left}
+table.appx td{padding:9px 12px;border-bottom:1px solid rgba(30,42,58,.6);font-size:13px;text-align:right}
+table.appx td.dx{text-align:left;color:var(--text)}
+table.appx td.code{text-align:left;color:var(--gold2);font-weight:600}
+table.appx td.num{color:var(--dim)} table.appx td.rw{color:#fff;font-weight:700}
+table.appx td.pd{color:var(--cyan)}
+.soi{display:inline-block;width:18px;height:18px;line-height:18px;text-align:center;border-radius:5px;font-size:10px;font-weight:700}
+.soi.s1{background:rgba(86,198,255,.16);color:var(--blue)} .soi.s2{background:rgba(201,168,106,.18);color:var(--gold2)} .soi.s3{background:rgba(255,111,111,.16);color:var(--red)}
+tr.r-base td{background:rgba(86,198,255,.025)} tr.r-mcc td{background:rgba(255,111,111,.022)}
+tr.r-base td.code{border-left:2px solid rgba(86,198,255,.3)}
+.formula{margin-top:16px;border:1px solid var(--stroke2);border-radius:12px;background:var(--d);padding:18px 20px}
+.formula h4{font-size:13px;color:#fff;margin:0 0 12px;font-weight:700}
+.formula .f{font-family:var(--font-mono);font-size:13px;color:var(--teal);background:rgba(47,230,200,.06);border:1px solid rgba(47,230,200,.25);border-radius:9px;padding:11px 14px;margin:8px 0;display:block;overflow-x:auto}
+.formula .rules{margin:12px 0 0;padding-left:0;list-style:none}
+.formula .rules li{font-size:12.8px;color:var(--dim);margin:7px 0;padding-left:18px;position:relative;line-height:1.5}
+.formula .rules li::before{content:"\2192";position:absolute;left:0;color:var(--cyan)}
+.formula .rules li b{color:var(--text)} .formula .rules code{font-family:var(--font-mono);font-size:11.5px;color:var(--gold2)}
+
+/* ---------- footer ---------- */
+footer{padding:34px 0 60px;border-top:1px solid var(--stroke);margin-top:18px;color:var(--faint);font-size:12.5px;line-height:1.7}
+footer b{color:var(--silver);font-weight:600}
+.byline{font-family:var(--font-mono);color:var(--dim);margin-top:8px}
+
+@media(max-width:820px){.lanes,.lex-grid{grid-template-columns:1fr} .addbox{flex-direction:column}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+
+<style id="figma-semantic-system">
+  :root {
+    --bg:#0f172b;
+    --bg2:#111d39;
+    --panel:rgba(15,28,55,.84);
+    --panel2:rgba(17,31,61,.72);
+    --stroke:rgba(125,151,196,.18);
+    --stroke2:rgba(125,151,196,.32);
+    --text:#d8e3ff;
+    --dim:#7f8ead;
+    --faint:#52617e;
+    --gold:#f6a64a;
+    --gold2:#f5bf75;
+    --teal:#00d5be;
+    --cyan:#00d5be;
+    --silver:#d8e3ff;
+    --blue:#5eead4;
+    --red:#f6a64a;
+    --d:rgba(7,14,29,.72);
+    --surface-0:rgba(9,17,33,.86);
+    --surface-1:rgba(17,31,61,.84);
+    --surface-2:rgba(7,14,29,.58);
+    --surface-3:rgba(125,151,196,.14);
+    --surface-line:rgba(125,151,196,.24);
+    --clinical-primary:#edf4ff;
+    --clinical-secondary:rgba(216,227,255,.72);
+    --clinical-tertiary:rgba(216,227,255,.48);
+    --semantic-red:#ff5d6c;
+    --font-display:"Manrope",system-ui,sans-serif;
+    --font-brand:"Manrope",system-ui,sans-serif;
+    --font-body:"Manrope",system-ui,sans-serif;
+    --font-mono:"DM Mono",ui-monospace,monospace;
+    --font-eye:"DM Mono",ui-monospace,monospace;
+  }
+
+  html, body {
+    background: var(--bg) !important;
+  }
+
+  body {
+    min-height: 100vh;
+    color: var(--text);
+    background:
+      radial-gradient(900px 520px at 54% 6%, rgba(0,213,190,.22), transparent 64%),
+      radial-gradient(980px 620px at 88% 24%, rgba(98,132,255,.22), transparent 64%),
+      linear-gradient(180deg, #0f172b 0%, #0b1325 62%, #08101f 100%) !important;
+    font-family: var(--font-body) !important;
+  }
+
+  body::before,
+  body::after {
+    content:"";
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+  }
+
+  body::before {
+    opacity:.34;
+    background-image:
+      linear-gradient(rgba(125,151,196,.055) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(125,151,196,.055) 1px, transparent 1px);
+    background-size:54px 54px;
+    -webkit-mask-image:radial-gradient(1200px 780px at 50% 18%,#000,transparent 78%);
+            mask-image:radial-gradient(1200px 780px at 50% 18%,#000,transparent 78%);
+  }
+
+  body::after {
+    opacity:.62;
+    mix-blend-mode:screen;
+    background:
+      linear-gradient(112deg, transparent 0 27%, rgba(255,255,255,.04) 39%, transparent 52%),
+      radial-gradient(ellipse at 54% 12%, rgba(0,213,190,.16), transparent 42%),
+      radial-gradient(ellipse at 76% 28%, rgba(246,166,74,.09), transparent 36%);
+  }
+
+  .wrap {
+    position:relative;
+    z-index:1;
+    max-width:1180px !important;
+    padding:26px 28px 0 !important;
+  }
+
+  .semantic-chrome {
+    height:48px;
+    display:grid;
+    grid-template-columns:330px 1fr 330px;
+    align-items:stretch;
+    border:1px solid var(--stroke);
+    border-radius:8px;
+    overflow:hidden;
+    background:
+      radial-gradient(ellipse at 52% 0%, rgba(0,213,190,.18), transparent 44%),
+      linear-gradient(180deg, rgba(17,31,61,.72), rgba(7,14,29,.54));
+    box-shadow:inset 0 1px rgba(255,255,255,.05), 0 18px 70px rgba(0,213,190,.07);
+    margin:0 0 26px;
+  }
+
+  .chrome-title,
+  .chrome-contact {
+    display:flex;
+    align-items:center;
+    color:var(--dim);
+    font:11px/1 var(--font-mono);
+    border-right:1px solid var(--stroke);
+    padding:0 20px;
+  }
+
+  .chrome-title { gap:12px; }
+  .chrome-contact { justify-content:flex-end; border-right:0; border-left:1px solid var(--stroke); }
+
+  .chrome-mark {
+    width:26px;
+    height:26px;
+    border-radius:8px;
+    border:1px solid rgba(125,151,196,.30);
+    background:rgba(5,18,29,.72);
+    display:grid;
+    place-items:center;
+    box-shadow:inset 0 1px rgba(255,255,255,.05);
+  }
+
+  .chrome-mark i {
+    width:9px;
+    height:9px;
+    border:2px solid var(--gold);
+    border-radius:3px;
+    transform:rotate(45deg);
+    display:block;
+    position:relative;
+  }
+
+  .chrome-mark i::after {
+    content:"";
+    position:absolute;
+    width:3px;
+    height:3px;
+    left:50%;
+    top:50%;
+    border-radius:1px;
+    background:var(--teal);
+    transform:translate(-50%,-50%);
+  }
+
+  .asset-tabs {
+    display:flex;
+    justify-content:center;
+    height:48px;
+    background:rgba(7,14,29,.16);
+  }
+
+  .asset-tab {
+    min-width:116px;
+    height:48px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border-right:1px solid rgba(125,151,196,.18);
+    border-left:1px solid rgba(125,151,196,.04);
+    color:var(--dim);
+    font:11px/1 var(--font-body);
+  }
+
+  .asset-tab.active {
+    color:var(--text);
+    background:rgba(15,28,55,.42);
+    box-shadow:inset 0 -2px 0 var(--gold);
+  }
+
+  header {
+    position:relative;
+    display:grid;
+    grid-template-columns:minmax(0,1fr) 388px;
+    grid-template-rows:auto auto auto auto auto;
+    gap:14px 38px;
+    align-items:center;
+    border:1px solid var(--stroke);
+    border-radius:8px;
+    padding:34px 30px !important;
+    margin-bottom:20px;
+    background:linear-gradient(180deg, rgba(18,32,63,.80), rgba(13,24,47,.72));
+    box-shadow:inset 0 1px rgba(255,255,255,.04), 0 22px 90px rgba(0,0,0,.18);
+  }
+
+  header::before {
+    content:"";
+    position:absolute;
+    inset:0;
+    border-radius:8px;
+    pointer-events:none;
+    opacity:.64;
+    mix-blend-mode:screen;
+    background:
+      linear-gradient(115deg, transparent 0 28%, rgba(255,255,255,.07) 40%, transparent 52%),
+      radial-gradient(ellipse at 70% 0%, rgba(255,255,255,.06), transparent 38%);
+  }
+
+  header > * {
+    position:relative;
+    z-index:1;
+  }
+
+  header .eye { grid-column:1; grid-row:1; }
+  header h1 { grid-column:1; grid-row:2; }
+  header .sub { grid-column:1; grid-row:3; }
+  header .source-rail { grid-column:1; grid-row:4; }
+  header .deeper { grid-column:1; grid-row:5; width:max-content; max-width:100%; }
+  header .semantic-asset { grid-column:2; grid-row:1 / span 5; align-self:stretch; }
+
+  .eye,
+  .s-eye,
+  .deeper,
+  .pill,
+  .ref .rk,
+  .lane .k,
+  .tag,
+  table.appx thead th,
+  .byline {
+    font-family:var(--font-mono) !important;
+  }
+
+  .eye {
+    color:var(--teal) !important;
+  }
+
+  h1 {
+    font-family:var(--font-brand) !important;
+    font-size:clamp(38px,4.2vw,58px) !important;
+    line-height:.98 !important;
+    letter-spacing:-.015em !important;
+    background:linear-gradient(92deg, #fff 4%, var(--text) 46%, var(--teal) 76%, var(--blue) 100%) !important;
+    -webkit-background-clip:text !important;
+    background-clip:text !important;
+  }
+
+  h2,
+  .guard h3,
+  .addbox h3,
+  .lex-h h4,
+  .man-h h4 {
+    font-family:var(--font-display) !important;
+  }
+
+  .sub {
+    color:var(--dim) !important;
+    max-width:720px !important;
+  }
+
+  .source-rail {
+    display:grid;
+    grid-template-columns:repeat(4,minmax(0,1fr));
+    gap:8px;
+    max-width:720px;
+    margin-top:4px;
+  }
+
+  .source-anchor {
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    min-height:42px;
+    padding:8px 10px;
+    border:1px solid var(--stroke);
+    border-radius:7px;
+    background:rgba(7,14,29,.46);
+    color:var(--dim);
+    text-decoration:none;
+    box-shadow:inset 0 1px rgba(255,255,255,.035);
+    transition:transform 160ms ease, border-color 160ms ease, background 160ms ease;
+  }
+
+  .source-anchor:hover {
+    transform:translateY(-1px);
+    border-color:rgba(0,213,190,.42);
+    background:rgba(0,213,190,.08);
+  }
+
+  .source-anchor span {
+    color:var(--teal);
+    font:800 10px/1 var(--font-mono);
+    letter-spacing:.08em;
+  }
+
+  .source-anchor b {
+    margin-top:5px;
+    color:var(--text);
+    font:700 12px/1.15 var(--font-body);
+  }
+
+  .deeper {
+    border-color:var(--stroke2) !important;
+    background:rgba(7,14,29,.58) !important;
+    border-radius:7px !important;
+    color:var(--dim) !important;
+  }
+
+  .semantic-asset {
+    min-height:292px;
+    border:1px solid rgba(125,151,196,.24);
+    border-radius:8px;
+    overflow:hidden;
+    position:relative;
+    background:
+      radial-gradient(ellipse at 36% 30%, rgba(0,213,190,.22), transparent 48%),
+      radial-gradient(ellipse at 80% 78%, rgba(98,132,255,.24), transparent 54%),
+      linear-gradient(180deg, rgba(17,31,61,.68), rgba(9,19,38,.76));
+    box-shadow:inset 0 1px rgba(255,255,255,.05), 0 22px 80px rgba(0,213,190,.08);
+  }
+
+  .semantic-asset::before {
+    content:"";
+    position:absolute;
+    inset:0;
+    pointer-events:none;
+    background:
+      linear-gradient(115deg, transparent 0 30%, rgba(255,255,255,.08) 42%, transparent 54%),
+      linear-gradient(rgba(125,151,196,.045) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(125,151,196,.045) 1px, transparent 1px);
+    background-size:auto, 28px 28px, 28px 28px;
+    mix-blend-mode:screen;
+  }
+
+  .asset-head {
+    position:absolute;
+    left:16px;
+    top:14px;
+    display:flex;
+    align-items:center;
+    gap:8px;
+    color:var(--dim);
+    font:9px/1 var(--font-mono);
+    text-transform:uppercase;
+    letter-spacing:.1em;
+  }
+
+  .pulse {
+    width:8px;
+    height:8px;
+    border-radius:50%;
+    background:var(--teal);
+    box-shadow:0 0 16px rgba(0,213,190,.82);
+  }
+
+  .kg-line {
+    position:absolute;
+    display:block;
+    height:2px;
+    background:var(--teal);
+    opacity:.62;
+    transform-origin:left center;
+    box-shadow:0 0 16px rgba(0,213,190,.62);
+  }
+
+  .kg-line.l1 { left:82px; top:106px; width:94px; transform:rotate(-20deg); }
+  .kg-line.l2 { left:162px; top:94px; width:96px; transform:rotate(21deg); }
+  .kg-line.l3 { left:88px; top:184px; width:94px; transform:rotate(25deg); background:var(--blue); }
+  .kg-line.l4 { left:166px; top:184px; width:94px; transform:rotate(-24deg); background:var(--gold); }
+
+  .kg-node {
+    position:absolute;
+    min-width:64px;
+    min-height:44px;
+    border:1px solid rgba(125,151,196,.24);
+    border-radius:8px;
+    background:rgba(7,14,29,.78);
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    font:9px/1.1 var(--font-mono);
+    color:var(--text);
+    box-shadow:inset 0 1px rgba(255,255,255,.05), 0 12px 32px rgba(0,0,0,.22);
+  }
+
+  .kg-node b { font-size:10px; letter-spacing:.04em; }
+  .kg-node span { color:var(--dim); font-size:7px; margin-top:3px; }
+
+  .kg-node.core {
+    left:142px;
+    top:100px;
+    width:86px;
+    height:60px;
+    border-color:rgba(0,213,190,.48);
+    background:radial-gradient(ellipse at 50% 0%, rgba(0,213,190,.22), transparent 70%), rgba(7,14,29,.86);
+  }
+
+  .kg-node.n1 { left:24px; top:114px; }
+  .kg-node.n2 { right:24px; top:114px; }
+  .kg-node.n3 { left:64px; bottom:34px; border-color:rgba(246,166,74,.34); }
+  .kg-node.n4 { right:64px; bottom:34px; border-color:rgba(0,213,190,.34); }
+
+  .asset-foot {
+    position:absolute;
+    left:16px;
+    bottom:16px;
+    border:1px solid rgba(246,166,74,.34);
+    border-radius:5px;
+    padding:7px 10px;
+    background:var(--gold);
+    color:#07121f;
+    font:700 9px/1 var(--font-mono);
+    text-transform:uppercase;
+    letter-spacing:.08em;
+  }
+
+  section {
+    border-top:1px solid var(--stroke) !important;
+    position:relative;
+  }
+
+  .semantic-edge-matrix {
+    margin-top:14px;
+  }
+
+  .edge-grid {
+    display:grid;
+    grid-template-columns:repeat(3,minmax(0,1fr));
+    gap:14px;
+  }
+
+  .edge-card {
+    position:relative;
+    overflow:hidden;
+    min-height:150px;
+    border:1px solid var(--stroke);
+    border-radius:8px;
+    padding:16px;
+    background:
+      radial-gradient(ellipse at 74% 0%, rgba(0,213,190,.12), transparent 42%),
+      linear-gradient(180deg, rgba(17,31,61,.74), rgba(9,19,38,.72));
+    box-shadow:inset 0 1px rgba(255,255,255,.035);
+  }
+
+  .edge-card::before {
+    content:"";
+    position:absolute;
+    inset:0;
+    pointer-events:none;
+    opacity:.5;
+    background:
+      linear-gradient(115deg, transparent 0 30%, rgba(255,255,255,.07) 42%, transparent 54%),
+      radial-gradient(ellipse at 60% 0%, rgba(255,255,255,.05), transparent 38%);
+  }
+
+  .edge-card > * {
+    position:relative;
+    z-index:1;
+  }
+
+  .edge-card.verify {
+    border-color:rgba(246,166,74,.34);
+  }
+
+  .edge-card.parked,
+  .edge-card.legacy {
+    border-color:rgba(167,176,194,.30);
+  }
+
+  .edge-code {
+    display:inline-flex;
+    margin-bottom:12px;
+    border:1px solid rgba(0,213,190,.34);
+    border-radius:999px;
+    padding:4px 8px;
+    color:var(--teal);
+    font:800 10px/1 var(--font-mono);
+    letter-spacing:.08em;
+  }
+
+  .edge-card.verify .edge-code {
+    border-color:rgba(246,166,74,.42);
+    color:var(--gold);
+  }
+
+  .edge-card h4 {
+    margin:0 0 8px;
+    color:var(--text);
+    font:700 16px/1.15 var(--font-display);
+  }
+
+  .edge-card p {
+    margin:0;
+    color:var(--dim);
+    font-size:13px;
+    line-height:1.55;
+  }
+
+  .edge-card b {
+    display:block;
+    margin-top:13px;
+    color:var(--silver);
+    font:800 10px/1 var(--font-mono);
+    letter-spacing:.08em;
+    text-transform:uppercase;
+  }
+
+  .guard,
+  .addbox,
+  .ref,
+  .lane,
+  .lex,
+  .man,
+  .tscroll,
+  .formula {
+    background:var(--panel) !important;
+    border-color:var(--stroke) !important;
+    border-radius:8px !important;
+    box-shadow:inset 0 1px rgba(255,255,255,.035);
+  }
+
+  .guard,
+  .addbox,
+  .man,
+  .formula {
+    background:linear-gradient(180deg, rgba(17,31,61,.74), rgba(9,19,38,.72)) !important;
+  }
+
+  .guard {
+    border-left:3px solid var(--gold) !important;
+  }
+
+  .refs,
+  .lanes,
+  .lex-grid {
+    gap:14px !important;
+  }
+
+  .ref::before,
+  .lane::before,
+  .lex::before {
+    content:"";
+    position:absolute;
+    left:14px;
+    right:14px;
+    top:0;
+    height:1px;
+    background:linear-gradient(90deg, transparent, var(--ac,var(--teal)), transparent);
+    opacity:.5;
+  }
+
+  .ref,
+  .lane,
+  .lex {
+    position:relative;
+    overflow:hidden;
+  }
+
+  .chip {
+    background:var(--ax,var(--teal)) !important;
+    color:#07121f !important;
+    border-radius:5px !important;
+  }
+
+  table.appx thead th {
+    background:#111d39 !important;
+    color:var(--text) !important;
+    border-bottom-color:var(--stroke2) !important;
+  }
+
+  table.appx td {
+    border-bottom-color:rgba(125,151,196,.14) !important;
+  }
+
+  /* Knowledge Nexus: dark scientific glass cards, semantic rails only. */
+  .guard,
+  .addbox,
+  .ref,
+  .lane,
+  .lex,
+  .man,
+  .formula,
+  .edge-card,
+  .tscroll {
+    background:
+      linear-gradient(180deg, rgba(255,255,255,.035), transparent 28%),
+      radial-gradient(ellipse at 72% 0%, color-mix(in srgb, var(--rail,var(--teal)) 12%, transparent), transparent 44%),
+      linear-gradient(180deg, var(--surface-1), var(--surface-0)) !important;
+    border-color:var(--surface-line) !important;
+    color:var(--clinical-primary) !important;
+    box-shadow:inset 0 1px rgba(255,255,255,.07), 0 16px 52px rgba(0,0,0,.26) !important;
+  }
+
+  .guard,
+  .addbox,
+  .ref,
+  .lane,
+  .lex,
+  .man,
+  .formula,
+  .edge-card {
+    --rail:var(--teal);
+    position:relative;
+    overflow:hidden;
+  }
+
+  .guard,
+  .addbox,
+  .man,
+  .formula {
+    --rail:var(--gold);
+  }
+
+  .ref {
+    --rail:#2563eb;
+  }
+
+  .lane {
+    --rail:var(--teal);
+  }
+
+  .lex,
+  .edge-card.legacy {
+    --rail:#64748b;
+  }
+
+  .edge-card.verify,
+  .edge-card.parked {
+    --rail:var(--semantic-red);
+  }
+
+  .guard::after,
+  .addbox::after,
+  .ref::after,
+  .lane::after,
+  .lex::after,
+  .man::after,
+  .formula::after,
+  .edge-card::after {
+    content:"";
+    position:absolute;
+    left:0;
+    top:12px;
+    bottom:12px;
+    width:3px;
+    border-radius:999px;
+    background:var(--rail);
+    box-shadow:0 0 14px color-mix(in srgb, var(--rail) 34%, transparent);
+    opacity:.78;
+    animation:semantic-rail-pulse 5.4s ease-in-out infinite;
+  }
+
+  .guard h3,
+  .addbox h3,
+  .lex-h h4,
+  .man-h h4,
+  .edge-card h4,
+  .ref b,
+  .lane b,
+  table.appx thead th {
+    color:var(--clinical-primary) !important;
+  }
+
+  .guard p,
+  .guard li,
+  .addbox p,
+  .addbox li,
+  .ref p,
+  .ref li,
+  .lane p,
+  .lane li,
+  .lex p,
+  .lex li,
+  .man p,
+  .man li,
+  .formula,
+  .edge-card p,
+  table.appx td {
+    color:var(--clinical-secondary) !important;
+  }
+
+  .edge-card b,
+  .byline,
+  .tag,
+  .pill,
+  .ref .rk,
+  .lane .k {
+    color:var(--clinical-tertiary) !important;
+  }
+
+  .edge-code,
+  .tag,
+  .pill,
+  .ref .rk,
+  .lane .k {
+    background:var(--surface-2) !important;
+    border:1px solid color-mix(in srgb, var(--rail,var(--teal)) 30%, transparent) !important;
+    color:var(--rail,var(--teal)) !important;
+  }
+
+  .edge-card.verify .edge-code,
+  .edge-card.parked .edge-code {
+    border-color:rgba(220,38,38,.40) !important;
+    color:var(--semantic-red) !important;
+  }
+
+  .edge-card.legacy .edge-code {
+    border-color:rgba(100,116,139,.38) !important;
+    color:#64748b !important;
+  }
+
+  .chip {
+    background:var(--surface-2) !important;
+    border:1px solid color-mix(in srgb, var(--ax,var(--teal)) 34%, transparent) !important;
+    color:var(--ax,var(--teal)) !important;
+  }
+
+  table.appx thead th {
+    background:var(--surface-2) !important;
+    border-bottom-color:var(--surface-line) !important;
+  }
+
+  table.appx td {
+    border-bottom-color:rgba(15,23,42,.12) !important;
+  }
+
+  .kg-node,
+  .pulse {
+    transition:transform 180ms ease, filter 180ms ease, opacity 180ms ease;
+  }
+
+  .kg-node:hover {
+    transform:translateX(1px);
+    filter:drop-shadow(0 0 6px rgba(0,213,190,.42));
+  }
+
+  .pulse {
+    animation:semantic-rail-pulse 4.8s ease-in-out infinite;
+  }
+
+  @keyframes semantic-rail-pulse {
+    0%, 100% { opacity:.62; }
+    50% { opacity:1; }
+  }
+
+  @media(prefers-reduced-motion:reduce) {
+    .guard::after,
+    .addbox::after,
+    .ref::after,
+    .lane::after,
+    .lex::after,
+    .man::after,
+    .formula::after,
+    .edge-card::after,
+    .pulse {
+      animation:none !important;
+    }
+
+    .kg-node,
+    .pulse {
+      transition:none !important;
+      transform:none !important;
+      filter:none !important;
+    }
+  }
+
+  footer {
+    border-top-color:var(--stroke) !important;
+  }
+
+  @media(max-width:900px) {
+    .semantic-chrome,
+    header {
+      display:block;
+    }
+
+    .asset-tabs {
+      justify-content:flex-start;
+      overflow-x:auto;
+    }
+
+    .chrome-title,
+    .chrome-contact {
+      height:44px;
+      border:0;
+      border-bottom:1px solid var(--stroke);
+    }
+
+    .semantic-asset {
+      margin-top:22px;
+    }
+
+    .source-rail,
+    .edge-grid {
+      grid-template-columns:1fr;
+    }
+  }
+</style>
+<style id="codex-card-visibility-guard">
+  .card, .edge-card, .knowledge-cardlet, .ref, .lane, .lex, .man {
+    isolation:isolate;
+  }
+  .card > *, .edge-card > *, .knowledge-cardlet > *, .ref > *, .lane > *, .lex > *, .man > * {
+    position:relative;
+    z-index:2;
+  }
+  .card .code, .card .dname, .card .slabel, .card .feat, .card .rw,
+  .edge-card h4, .edge-card p, .edge-card b, .edge-code {
+    opacity:1;
+    visibility:visible;
+  }
+</style>
+<style id="codex-layer-flow-system">
+  html {
+    scroll-padding-top: 96px;
+  }
+
+  .layer-flow {
+    margin: 28px 0 8px;
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 12px;
+  }
+
+  .layer-flow::before {
+    content: "";
+    position: absolute;
+    left: 24px;
+    right: 24px;
+    top: 50%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(0,213,190,.32), rgba(246,166,74,.28), transparent);
+    transform: translateY(-50%);
+    pointer-events: none;
+  }
+
+  .layer-card {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 10px;
+    align-items: center;
+    min-height: 82px;
+    padding: 14px 15px;
+    border: 1px solid var(--stroke);
+    border-radius: 12px;
+    background:
+      linear-gradient(180deg, rgba(17,31,61,.86), rgba(7,14,29,.66)),
+      var(--panel);
+    color: var(--text);
+    text-decoration: none;
+    overflow: hidden;
+    box-shadow: 0 12px 34px rgba(0,0,0,.22);
+    transform: translateY(0);
+    transition: transform .22s ease, border-color .22s ease, box-shadow .22s ease, background .22s ease;
+  }
+
+  .layer-card::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(120deg, transparent 0 36%, rgba(255,255,255,.055) 46%, transparent 58%),
+      radial-gradient(280px 90px at 20% 0%, rgba(0,213,190,.13), transparent 70%);
+    opacity: .42;
+    transition: opacity .22s ease;
+    pointer-events: none;
+  }
+
+  .layer-card:hover,
+  .layer-card.active {
+    transform: translateY(-4px);
+    border-color: rgba(0,213,190,.46);
+    box-shadow: 0 18px 46px rgba(0,0,0,.32), 0 0 0 1px rgba(0,213,190,.12);
+    text-decoration: none;
+  }
+
+  .layer-card:hover::after,
+  .layer-card.active::after {
+    opacity: .78;
+  }
+
+  .layer-card .idx {
+    position: relative;
+    z-index: 1;
+    width: 34px;
+    height: 34px;
+    border-radius: 10px;
+    display: grid;
+    place-items: center;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 700;
+    color: #06121a;
+    background: var(--teal);
+    box-shadow: 0 0 18px rgba(0,213,190,.26);
+  }
+
+  .layer-card:nth-child(3n) .idx,
+  .layer-card:nth-child(3n).active .idx {
+    background: var(--gold2);
+  }
+
+  .layer-card .copy {
+    position: relative;
+    z-index: 1;
+    min-width: 0;
+  }
+
+  .layer-card b {
+    display: block;
+    font-size: 13px;
+    line-height: 1.15;
+    color: #fff;
+    font-weight: 700;
+  }
+
+  .layer-card span:not(.idx) {
+    display: block;
+    margin-top: 5px;
+    font-family: var(--font-mono);
+    font-size: 9.5px;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--dim);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  section[data-layer] {
+    position: relative;
+    opacity: .25;
+    transform: translateY(26px);
+    transition: opacity .5s ease, transform .5s ease, border-color .35s ease;
+  }
+
+  section[data-layer].in-view {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  section[data-layer].layer-pulse {
+    animation: layerPulse .82s ease;
+  }
+
+  @keyframes layerPulse {
+    0% { filter: brightness(1); }
+    35% { filter: brightness(1.18); }
+    100% { filter: brightness(1); }
+  }
+
+  .layer-stepper {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    margin-top: 20px;
+    padding-top: 14px;
+    border-top: 1px solid var(--stroke);
+  }
+
+  .layer-stepper a {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    max-width: 48%;
+    border: 1px solid var(--stroke);
+    border-radius: 10px;
+    background: rgba(17,31,61,.58);
+    padding: 9px 12px;
+    color: var(--silver);
+    font-family: var(--font-mono);
+    font-size: 10.5px;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: transform .18s ease, border-color .18s ease, color .18s ease, background .18s ease;
+  }
+
+  .layer-stepper a:hover {
+    transform: translateY(-2px);
+    border-color: rgba(0,213,190,.42);
+    color: #fff;
+    background: rgba(0,213,190,.08);
+  }
+
+  @media (max-width: 980px) {
+    .layer-flow {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .layer-flow::before {
+      display: none;
+    }
+  }
+
+  @media (max-width: 620px) {
+    .layer-flow {
+      grid-template-columns: 1fr;
+    }
+    .layer-stepper {
+      flex-direction: column;
+    }
+    .layer-stepper a {
+      max-width: 100%;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .layer-card,
+    section[data-layer],
+    .layer-stepper a {
+      transition: none;
+    }
+  }
+</style>
+
+<link rel="icon" type="image/png" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 64 64%27%3E%3Crect width=%2764%27 height=%2764%27 rx=%2714%27 fill=%27%23070A11%27/%3E%3Cpath d=%27M18 38c8-17 20-17 28 0%27 fill=%27none%27 stroke=%27%2319D3F3%27 stroke-width=%274%27 stroke-linecap=%27round%27/%3E%3Ccircle cx=%2732%27 cy=%2727%27 r=%277%27 fill=%27%232FE6C8%27/%3E%3C/svg%3E">
+</head>
+<body>
+<div class="wrap">
+
+
+
+<div class="semantic-chrome" aria-label="Scientific knowledge system navigation">
+  <div class="chrome-title">
+    <span class="chrome-mark"><i></i></span>
+    <span>psychiatric-knowledge-system</span>
+  </div>
+  <div class="asset-tabs">
+    <a class="asset-tab" href="observatory.html" aria-label="Back to Knowledge Nexus">⌂ Nexus</a>
+    <a class="asset-tab" href="psychiatry-intro.html">introduction</a>
+    <a class="asset-tab" href="psychiatry-ir-drg-tree.html">taxonomy</a>
+    <a class="asset-tab active" href="#semantic-layer">semantic-layer</a>
+    <a class="asset-tab" href="#weights">weights</a>
+        <a class="asset-tab" href="setting-of-care.html">setting of care</a>
+  </div>
+  <div class="chrome-contact">.source-index</div>
+</div>
+<header id="semantic-layer">
+  <span class="eye">Deeper layer · drill-down reference</span>
+  <h1>Psychiatric Diseases<br>Deeper Semantic Layer</h1>
+  <p class="sub">The provenance, lexicon, legal basis, and DOH payment parameters that sit <b>beneath</b> the IR-DRG psychiatric classification map. Scoped to the cases met in routine inpatient adjudication — a working reference, not an exhaustive nosology.</p>
+
+  <div class="source-rail" aria-label="Current validation source anchors">
+    <a class="source-anchor" href="https://www.cdc.gov/nchs/icd/icd-10-cm/files.html"><span>ICD-10-CM</span><b>FY2026 &middot; Apr 1</b></a>
+    <a class="source-anchor" href="https://www.psychiatry.org/psychiatrists/practice/dsm/updates-to-dsm/dsm5tr-code-updates"><span>DSM-5-TR</span><b>Sep 2025 update</b></a>
+    <a class="source-anchor" href="https://www.solventum.com/en-ae/home/health-information-technology/solutions/ir-drg/"><span>IR-DRG</span><b>licensed grouper</b></a>
+    <a class="source-anchor" href="https://www.doh.gov.ae/-/media/Feature/shafifya/Prices/Adjudication-Rules/Addendum-05-to-DOH-claims-Adjudication-Rules_Inpatient-Mental-Health-Relative-Weights-Update.ashx"><span>DOH</span><b>Addendum 05</b></a>
+  </div>
+  <span class="deeper"><span class="ar">&#8627;</span> drill down from any node in the map to its definition, source, and constraint</span>
+
+  <div class="semantic-asset" aria-label="Scientific provenance graph">
+    <div class="asset-head">
+      <span class="pulse"></span>
+      <span>reference graph</span>
+    </div>
+    <span class="kg-line l1"></span>
+    <span class="kg-line l2"></span>
+    <span class="kg-line l3"></span>
+    <span class="kg-line l4"></span>
+    <div class="kg-node core"><b>MDC 19/20</b><span>semantic layer</span></div>
+    <div class="kg-node n1"><b>ICD</b><span>CDC/NCHS</span></div>
+    <div class="kg-node n2"><b>CMS</b><span>MDC proxy</span></div>
+    <div class="kg-node n3"><b>IR-DRG</b><span>licensed</span></div>
+    <div class="kg-node n4"><b>DOH</b><span>weights</span></div>
+    <div class="asset-foot">validated sources</div>
+  </div>
+
+  <nav class="layer-flow" aria-label="Semantic layer path">
+    <a class="layer-card" href="#layer-legal"><span class="idx">01</span><span class="copy"><b>Legal Logic</b><span>licensed boundary</span></span></a>
+    <a class="layer-card" href="#layer-source"><span class="idx">02</span><span class="copy"><b>DOH Source</b><span>published weights</span></span></a>
+    <a class="layer-card" href="#layer-references"><span class="idx">03</span><span class="copy"><b>Authorities</b><span>evidence corpus</span></span></a>
+    <a class="layer-card" href="#layer-constraints"><span class="idx">04</span><span class="copy"><b>Validation</b><span>three lanes</span></span></a>
+    <a class="layer-card" href="#layer-coding"><span class="idx">05</span><span class="copy"><b>Coding Frame</b><span>Abu Dhabi claims</span></span></a>
+    <a class="layer-card" href="#layer-edge"><span class="idx">06</span><span class="copy"><b>Edge Terms</b><span>clinical caution zones</span></span></a>
+    <a class="layer-card" href="#layer-lexicon"><span class="idx">07</span><span class="copy"><b>Lexicon</b><span>diagnosis definitions</span></span></a>
+    <a class="layer-card" href="#layer-manifestations"><span class="idx">08</span><span class="copy"><b>Manifestations</b><span>corrected distinctions</span></span></a>
+    <a class="layer-card" href="#weights"><span class="idx">09</span><span class="copy"><b>Weights</b><span>ALOS and trims</span></span></a>
+  </nav>
+</header>
+
+<!-- LEGAL -->
+<section id="layer-legal" data-layer="01" style="--ac:var(--gold2)">
+  <div class="s-eye"><span class="n">01</span> Legal &amp; licensing</div>
+  <h2>Licensed IR-DRG logic is proprietary</h2>
+  <div class="guard">
+    <h3>IR-DRG &mdash; Solventum (formerly 3M Health Information Systems)</h3>
+    <p><b>International Refined Diagnosis Related Groups (IR-DRG)</b> is a licensed, proprietary classification system owned by <span class="mono">Solventum</span> (formerly 3M Health Information Systems), historically derived from the AP-DRG logic family.</p>
+    <p>The grouper algorithm, diagnosis tables, MDC assignments, CC/MCC logic, PCAT tables, severity splits, DRG weights, and DRG definitions are <b>licensed intellectual property and are not reproduced here</b>. No legal open-source IR-DRG grouper exists.</p>
+    <p>The diagnosis &rarr; MDC &rarr; base-group architecture shown in the map is a <b>navigational and educational layer</b> built on public <span class="mono">ICD-10-CM</span> (CDC/NCHS) and <span class="mono">CMS&nbsp;MS-DRG</span> Appendix&nbsp;B mappings. It is DRG-inspired; it is <b>not</b> the licensed IR-DRG table and must not be represented as IR-DRG.</p>
+    <div class="disc">&ldquo;This model is DRG-inspired but not IR-DRG. It uses only publicly available ICD-10-CM and CMS MS-DRG data. Every operational diagnosis-to-MDC and base-group assignment must be verified against the licensed IR-DRG DX table or grouper.&rdquo; &mdash; &ldquo;IR-DRG&rdquo; and the Solventum name are trademarks of Solventum, used here for reference and attribution only.</div>
+  </div>
+</section>
+
+<!-- SOURCE / ADDENDUM -->
+<section id="layer-source" data-layer="02" style="--ac:var(--teal)">
+  <div class="s-eye"><span class="n">02</span> Source of the trees</div>
+  <h2>These weights come from a published DOH addendum</h2>
+  <div class="addbox">
+    <div class="seal">A&middot;A</div>
+    <div>
+      <h3>DOH Addendum&nbsp;05 to the Claims &amp; Adjudication Rules&nbsp;V2025.1 &mdash; Appendix&nbsp;A</h3>
+      <p><b>&ldquo;Inpatient Mental Health Relative Weights Update&rdquo;</b> &middot; updates Section&nbsp;4.4&nbsp;IR-DRG &middot; effective <b>01&nbsp;October&nbsp;2025</b>.</p>
+      <p>Appendix&nbsp;A is the authoritative, DOH-published source for the Mental Health Inpatient DRG relative weights, ALOS, and low/high day-outlier trim boundaries reproduced in &sect;06 below.</p>
+      <p class="warnote">&#9888; Provenance correction: the trees rest on Addendum <b style="color:#ffd3d3">05</b>, not Addendum&nbsp;06. Addendum&nbsp;06 is the separate <b style="color:#ffd3d3">Left Against Medical Advice (LAMA)</b> payment rule, effective 01&nbsp;November&nbsp;2025.</p>
+    </div>
+  </div>
+</section>
+
+<!-- REFERENCES -->
+<section id="layer-references" data-layer="03" style="--ac:var(--silver)">
+  <div class="s-eye"><span class="n">03</span> Reference corpus</div>
+  <h2>Authorities &amp; sources</h2>
+  <p class="lead">Each authority below carries a different evidential weight. The five working-source PDFs in the package are AI-assisted synthesis and sit at reference tier &mdash; every clinical and grouping claim drawn from them is verified against the primary sources here.</p>
+  <div class="refs">
+    <div class="ref" style="--ac:var(--teal)"><span class="rk">Official &middot; public</span><h4>ICD-10-CM &mdash; CDC / NCHS</h4><p>Diagnosis classification and FY2026 official coding guidelines for the F01&ndash;F99 mental, behavioural & neurodevelopmental block.</p><span class="src">&#8617; <span class="b">cdc.gov/nchs/icd/icd-10-cm</span></span></div>
+    <div class="ref" style="--ac:var(--blue)"><span class="rk">Official &middot; public proxy</span><h4>CMS MS-DRG Definitions Manual</h4><p>Appendix B Diagnosis Code / MDC Index is used as a public educational proxy for MDC navigation only. It is not IR-DRG and is not operationally equivalent to IR-DRG grouping logic.</p><span class="src">&#8617; <span class="b">cms.gov &middot; MS-DRG v43</span></span></div>
+    <div class="ref" style="--ac:var(--gold2)"><span class="rk">Source-owner &middot; licensed</span><h4>Solventum IR-DRG</h4><p>The proprietary grouper that performs the operational diagnosis-to-MDC-to-base-group assignment. Licensed; not reproduced.</p><span class="src">&#8617; <span class="b">solventum.com &middot; IR-DRG</span></span></div>
+    <div class="ref" style="--ac:var(--blue)"><span class="rk">Professional</span><h4>DSM-5-TR &mdash; APA</h4><p>Clinical terminology overlay. Maps modern nomenclature onto legacy ICD/DRG labels without altering code or grouping.</p><span class="src">&#8617; <span class="b">psychiatry.org &middot; DSM</span></span></div>
+    <div class="ref" style="--ac:var(--teal)"><span class="rk">Regulatory &middot; DOH-published</span><h4>DOH Addendum&nbsp;05 / Claims&nbsp;V2025.1</h4><p>Mental Health Inpatient relative weights, ALOS, trim boundaries, and the outlier / CAHMS adjudication rules.</p><span class="src">&#8617; <span class="b">doh.gov.ae &middot; Adjudication Rules</span></span></div>
+    <div class="ref" style="--ac:var(--silver)"><span class="rk">Working synthesis &middot; verify</span><h4>Five source PDFs (UP-01&ndash;05)</h4><p>AI-assisted lexicon/architecture notes. Reference tier &mdash; treated as drafts, cross-checked against the authorities above.</p><span class="src">&#8617; <span class="b">conversation package</span></span></div>
+  </div>
+</section>
+
+<!-- CONSTRAINTS -->
+<section id="layer-constraints" data-layer="04" style="--ac:var(--gold2)">
+  <div class="s-eye"><span class="n">04</span> Provenance constraints</div>
+  <h2>Three lanes, one validation rule</h2>
+  <div class="lanes">
+    <div class="lane pub"><span class="k">Public lane</span><h4>ICD-10-CM + CMS MS-DRG</h4><p>Open and citable. Supplies the block structure, the labels, and the navigational MDC proxy. Used for orientation, never as the payer's grouping authority.</p></div>
+    <div class="lane lic"><span class="k">Licensed lane</span><h4>IR-DRG DX table / grouper</h4><p>Solventum proprietary. The authority for operational diagnosis &rarr; MDC &rarr; base group &rarr; severity. Not reproduced; consulted via the licensed grouper or DRG browser.</p></div>
+    <div class="lane doh"><span class="k">DOH-published lane</span><h4>Addendum 05 &middot; Appendix A</h4><p>The relative weights, ALOS, and trim boundaries &mdash; public because DOH published them in the V2025.1 rules. The only IR-DRG-adjacent figures that are openly citable.</p></div>
+  </div>
+  <p class="lead" style="margin-top:18px"><b style="color:var(--text)">Validation rule.</b> No diagnosis is assigned to an MDC or base group in adjudication on the strength of this layer alone &mdash; each is confirmed against the licensed DX table. Every ICD-10-CM code printed in this reference has been checked against the ICD-10-CM tabular (FY2026).</p>
+</section>
+
+
+<section id="layer-coding" data-layer="05" style="--ac:var(--gold2)">
+  <div class="s-eye"><span class="n">04A</span> Coding governance notes</div>
+  <h2>Abu Dhabi coding frame and exclusions</h2>
+  <div class="lanes">
+    <div class="lane pub"><span class="k">Diagnosis coding</span><h4>ICD-10-CM, not </h4><p>Abu Dhabi claims use ICD-10-CM diagnosis guidance.  references are removed from this file because  is the Australian modification and is not the Abu Dhabi diagnosis-coding standard.</p></div>
+    <div class="lane lic"><span class="k">Procedure coding</span><h4>CPT-4 / HCPCS</h4><p>Level I HCPCS is CPT, maintained by the AMA. Level II HCPCS uses one letter followed by four numbers and is used for additional reporting codes where assigned in Abu Dhabi.</p></div>
+    <div class="lane doh"><span class="k">Claims frame</span><h4>DOH V2025.1 and addenda</h4><p>The operational frame is the DOH claims and adjudication rules, ICD-10-CM diagnosis guidance, CPT-4/HCPCS procedure reporting, and the Solventum/3M IR-DRG grouper version tailored for Abu Dhabi.</p></div>
+  </div>
+  <div class="guard" style="margin-top:18px">
+    <h3>Uncertain diagnosis and integral symptoms</h3>
+    <p><b>Uncertain diagnosis at discharge:</b> when documented as probable, suspected, likely, questionable, possible, to be ruled out, compatible with, consistent with, or similar terms of uncertainty, code the condition as if established where the applicable DOH coding manual instructs.</p>
+    <p><b>Integral symptoms - ICD-10-CM Official Guidelines I.B.7:</b> signs and symptoms routinely associated with a confirmed diagnosis are not coded separately unless the ICD-10-CM classification instructs otherwise. Avoid separate coding for expected manifestations that do not require additional management.</p>
+  </div>
+</section>
+
+<section id="layer-edge" data-layer="06" class="semantic-edge-matrix" style="--ac:var(--gold2)" aria-label="Clinical edge zones">
+  <div class="s-eye"><span class="n">05</span> Edge-zone surfacing</div>
+  <h2>Clinical terms that need visual handling, not just notes</h2>
+  <p class="lead">These are the same caution zones surfaced on the MDC map. They stay visible here so the deep-dive layer reads as a scientific reference set, not a hidden appendix.</p>
+  <div class="edge-grid">
+    <div class="edge-card legacy"><span class="edge-code">F40-F48</span><h4>&ldquo;Neuroses&rdquo;</h4><p>Legacy DRG wording. DSM-5-TR no longer uses neurosis as an organizing chapter; the conditions are distributed across anxiety, OCD-related, trauma/stressor-related, dissociative, and somatic symptom-related disorders.</p><b>terminology bridge</b></div>
+    <div class="edge-card verify"><span class="edge-code">F43.2x</span><h4>Adjustment disorders</h4><p>May group to 19415 or 19419 depending on the licensed IR-DRG diagnosis table. Keep as a grouping-safety note unless admission-relevant.</p><b>verify grouping</b></div>
+    <div class="edge-card verify"><span class="edge-code">F63</span><h4>Impulse-control disorders</h4><p>Operational grouping must be checked against the licensed IR-DRG DX table before adjudication or production use.</p><b>verify grouping</b></div>
+    <div class="edge-card parked"><span class="edge-code">F64-F66</span><h4>Gender / sexual / psychosexual</h4><p>Reference-only parked zone. Use identity-safe DSM-5-TR terminology and preserve code-level traceability.</p><b>reference only</b></div>
+  </div>
+</section>
+
+<!-- LEXICON -->
+<section id="layer-lexicon" data-layer="07" style="--ac:var(--cyan)">
+  <div class="s-eye"><span class="n">06</span> Term lexicon</div>
+  <h2>Definitions beneath the labels</h2>
+
+  <h3 style="font-family:var(--font-display);font-size:16px;color:var(--gold2);margin:6px 0 12px;letter-spacing:-.01em">Impulse-control disorders &middot; F63</h3>
+  <div class="note-strip">&#9888; <b>Grouping to verify.</b> Base group 19412 is named <b>&ldquo;Personality &amp; Impulse Control&rdquo;</b>, so F60&ndash;F63 maps there by label &mdash; but your UP-02 source lists F63 in the <b>19419</b> residual. Confirm against the licensed IR-DRG DX table before adjudication.</div>
+  <div class="lex-grid">
+  <div class="lex" style="--ax:var(--gold2)">
+        <div class="lex-h"><span class="mono chip">F63.1</span><h4>Pyromania</h4><span class="tag grp">19412 · verify</span></div>
+        <p class="icd"><span class="lbl">ICD-10-CM</span>Deliberate, purposeful fire-setting on more than one occasion; tension or affective arousal before the act; fascination with fire and its situational contexts; pleasure or relief when setting fires or witnessing them.</p>
+        <p class="dsm"><span class="lbl">DSM-5-TR / APA</span>Not done for monetary gain, ideology, to conceal crime, to express anger, or in response to delusion/impaired judgement. DSM-5-TR: impulse-control disorder.</p></div>
+<div class="lex" style="--ax:var(--gold2)">
+        <div class="lex-h"><span class="mono chip">F63.2</span><h4>Kleptomania</h4><span class="tag grp">19412 · verify</span></div>
+        <p class="icd"><span class="lbl">ICD-10-CM</span>Recurrent failure to resist impulses to steal objects not needed for personal use or for their monetary value; rising tension before the theft, pleasure or relief during it.</p>
+        <p class="dsm"><span class="lbl">DSM-5-TR / APA</span>Not committed to express anger or vengeance, and not in response to a delusion or hallucination. DSM-5-TR: impulse-control disorder.</p></div>
+<div class="lex" style="--ax:var(--gold2)">
+        <div class="lex-h"><span class="mono chip">F63.3</span><h4>Trichotillomania</h4><span class="tag grp">19412 · verify</span></div>
+        <p class="icd"><span class="lbl">ICD-10-CM</span>Recurrent pulling out of one's own hair resulting in hair loss, with repeated attempts to decrease or stop, causing clinically significant distress or impairment.</p>
+        <p class="dsm"><span class="lbl">DSM-5-TR / APA</span>DSM-5 reclassifies it under Obsessive-Compulsive & Related Disorders — ICD-10-CM still codes it F63.3 in the impulse block.</p></div>
+<div class="lex" style="--ax:var(--gold2)">
+        <div class="lex-h"><span class="mono chip">F63.81</span><h4>Intermittent explosive disorder</h4><span class="tag grp">19412 · verify</span></div>
+        <p class="icd"><span class="lbl">ICD-10-CM</span>Recurrent behavioural outbursts reflecting a failure to control aggressive impulses — verbal or physical aggression grossly out of proportion to any provocation or precipitating stressor.</p>
+        <p class="dsm"><span class="lbl">DSM-5-TR / APA</span>Outbursts are impulsive (not premeditated) and not committed for tangible gain. DSM-5-TR: Disruptive, Impulse-Control & Conduct Disorders.</p></div>
+<div class="lex" style="--ax:var(--gold2)">
+        <div class="lex-h"><span class="mono chip">F63.0</span><h4>Pathological gambling</h4><span class="tag grp">19412 · verify</span></div>
+        <p class="icd"><span class="lbl">ICD-10-CM</span>Persistent, recurrent maladaptive gambling that disrupts personal, family, or occupational functioning.</p>
+        <p class="dsm"><span class="lbl">DSM-5-TR / APA</span>DSM-5 reclassifies it as Gambling Disorder under Substance-Related & Addictive Disorders — the only behavioural addiction in that chapter.</p></div>
+  </div>
+
+  <h3 style="font-family:var(--font-display);font-size:16px;color:var(--silver);margin:24px 0 12px;letter-spacing:-.01em">Gender, sexual &amp; psychosexual &middot; parked &middot; reference only</h3>
+  <div class="lex-grid">
+  <div class="lex" style="--ax:var(--silver)">
+        <div class="lex-h"><span class="mono chip">F64.0</span><h4>Transsexualism</h4><span class="tag park">parked</span></div>
+        <p class="icd"><span class="lbl">ICD-10-CM</span>Persistent desire to live and be accepted as a member of the opposite sex, with discomfort about one's anatomical sex and often a wish for hormonal/surgical alignment.</p>
+        <p class="dsm"><span class="lbl">DSM-5-TR / APA</span>DSM-5-TR replaces it with Gender Dysphoria — the diagnosis rests on clinically significant distress about incongruence, not on identity itself. ICD-11 moves it out of mental disorders (Gender Incongruence).</p></div>
+<div class="lex" style="--ax:var(--silver)">
+        <div class="lex-h"><span class="mono chip">F64.1</span><h4>Dual-role transvestism</h4><span class="tag park">parked</span></div>
+        <p class="icd"><span class="lbl">ICD-10-CM</span>Cross-dressing to experience temporary membership in the opposite gender role, without sexual motivation and without desire for permanent transition.</p>
+        <p class="dsm"><span class="lbl">DSM-5-TR / APA</span>DSM-5-TR keeps no equivalent standalone diagnosis; cross-gender expression without distress is not a disorder.</p></div>
+<div class="lex" style="--ax:var(--silver)">
+        <div class="lex-h"><span class="mono chip">F65.1</span><h4>Transvestic fetishism</h4><span class="tag park">parked</span></div>
+        <p class="icd"><span class="lbl">ICD-10-CM</span>Cross-dressing primarily for sexual arousal.</p>
+        <p class="dsm"><span class="lbl">DSM-5-TR / APA</span>DSM-5-TR: Transvestic Disorder only where it causes distress/impairment or involves non-consenting others.</p></div>
+<div class="lex" style="--ax:var(--silver)">
+        <div class="lex-h"><span class="mono chip">F65</span><h4>Paraphilic disorders</h4><span class="tag park">parked</span></div>
+        <p class="icd"><span class="lbl">ICD-10-CM</span>Fetishism, exhibitionism, voyeurism, and related atypical-interest patterns. ICD-10-CM F65 = Paraphilias.</p>
+        <p class="dsm"><span class="lbl">DSM-5-TR / APA</span>DSM-5-TR distinguishes a paraphilia (atypical interest alone) from a paraphilic disorder (interest plus distress/impairment or harm/non-consent).</p></div>
+<div class="lex" style="--ax:var(--silver)">
+        <div class="lex-h"><span class="mono chip">F52</span><h4>Sexual dysfunctions</h4><span class="tag park">parked</span></div>
+        <p class="icd"><span class="lbl">ICD-10-CM</span>Psychogenic dysfunctions of desire, arousal, orgasm, or sexual pain not due to a substance or known condition.</p>
+        <p class="dsm"><span class="lbl">DSM-5-TR / APA</span>DSM-5-TR reorganizes these into more granular, gender-specific categories (e.g. Genito-Pelvic Pain/Penetration Disorder).</p></div>
+<div class="lex" style="--ax:var(--silver)">
+        <div class="lex-h"><span class="mono chip">F66</span><h4>Other sexual disorders</h4><span class="tag park">parked</span></div>
+        <p class="icd"><span class="lbl">ICD-10-CM</span>ICD-10-CM F66 = “Other sexual disorders” — a single code with no subdivisions.</p>
+        <p class="dsm"><span class="lbl">DSM-5-TR / APA</span>Label correction: the WHO title “…associated with sexual development and orientation” and codes F66.0/F66.1 do not exist in ICD-10-CM.</p></div>
+  </div>
+
+  <h3 style="font-family:var(--font-display);font-size:16px;color:var(--blue);margin:24px 0 12px;letter-spacing:-.01em">Terminology bridges</h3>
+  <div class="lex-grid">
+  <div class="lex" style="--ax:var(--blue)">
+        <div class="lex-h"><span class="mono chip">F40–F48</span><h4>“Neuroses”</h4><span class="tag note">terminology</span></div>
+        <p class="icd"><span class="lbl">ICD-10-CM</span>A legacy DRG umbrella label covering anxiety, phobic, obsessive-compulsive, stress-related, dissociative, and somatoform disorders.</p>
+        <p class="dsm"><span class="lbl">DSM-5-TR / APA</span>DSM-5-TR does not use “neurosis” entirely, using Anxiety, Obsessive-Compulsive & Related, Trauma- & Stressor-Related, Somatic Symptom, and Dissociative Disorders.</p></div>
+<div class="lex" style="--ax:var(--blue)">
+        <div class="lex-h"><span class="mono chip">F10–F19</span><h4>Substance use</h4><span class="tag note">terminology</span></div>
+        <p class="icd"><span class="lbl">ICD-10-CM</span>ICD-10-CM separates use, abuse, and dependence into distinct sub-codes per substance.</p>
+        <p class="dsm"><span class="lbl">DSM-5-TR / APA</span>DSM-5 collapses abuse/dependence into one Substance Use Disorder graded by severity (mild / moderate / severe).</p></div>
+  </div>
+</section>
+
+<!-- CORRECTED MANIFESTATIONS -->
+<section id="layer-manifestations" data-layer="08" style="--ac:var(--teal)">
+  <div class="s-eye"><span class="n">07</span> Corrected clinical manifestations</div>
+  <h2>Three distinctions the labels hide</h2>
+
+  <div class="guard" style="margin:0 0 20px">
+    <h3>Diagnostic safeguards &mdash; apply before any category is used as a DRG-navigation proxy</h3>
+    <p>For every psychiatric manifestation below, confirm <b>duration</b>, <b>clinically significant functional impairment</b>, <b>exclusion of substance / medication effects</b>, <b>exclusion of another medical condition</b>, <b>cultural and contextual appropriateness</b>, and the relevant <b>mood-disorder and psychotic-disorder differentials</b> before assigning a clinical category &mdash; and never assign an MDC or base group on the strength of a manifestation summary alone.</p>
+    <div class="disc">A manifestation list describes what a disorder can <i>look like</i>. It is not the diagnostic threshold, the ICD-10-CM coding instruction, or the licensed IR-DRG grouping rule &mdash; those are three separate layers, each verified on its own. This page surfaces the clinical layer; coding and grouping stay with their authorities.</div>
+  </div>
+
+  <div class="man">
+    <div class="man-h"><span class="chip">19410 &middot; F20</span><h4>Schizophrenia is not all psychosis</h4><span class="corr">corrected</span></div>
+    <p>Schizophrenia is one specific disorder within the broader DSM-5-TR chapter <b>Schizophrenia Spectrum and Other Psychotic Disorders</b>. Other psychotic disorders, including brief psychotic disorder, schizophreniform disorder, schizoaffective disorder, delusional disorder, substance/medication-induced psychotic disorder, and psychotic disorder due to another medical condition, should not automatically be assumed to group to 19410 without licensed IR-DRG diagnosis-table verification.</p>
+    <p>DSM-5-TR requires the <b>Criterion A symptom set</b>: at least two characteristic domains for a significant portion of a 1-month period, or less if successfully treated. At least one must be delusions, hallucinations, or disorganized speech.</p>
+    <div class="crit">
+      <span><b>A1</b> Delusions</span><span><b>A2</b> Hallucinations</span><span><b>A3</b> Disorganized speech</span>
+      <span><b>A4</b> Grossly disorganized or catatonic behavior</span><span><b>A5</b> Negative symptoms</span>
+    </div>
+    <p style="margin-top:12px">These sit alongside <b>Criterion B</b>: marked functional decline in work, interpersonal relations, or self-care below the prior level, and the total duration requirement of at least six months.</p>
+    <p style="margin-top:12px"><b>Differential exclusions &mdash; rule out before locking F20.</b> Because psychosis is a feature of many conditions, schizophrenia is a diagnosis of <i>positive criteria plus exclusion</i>, not the default landing point for any psychotic presentation:</p>
+    <div class="crit">
+      <span><b>RULE OUT</b> Schizoaffective disorder &mdash; mood episodes concurrent with psychosis</span>
+      <span><b>RULE OUT</b> Major depressive / bipolar disorder with psychotic features</span>
+      <span><b>RULE OUT</b> Substance- / medication-induced psychotic disorder</span>
+      <span><b>RULE OUT</b> Psychotic disorder due to another medical condition</span>
+      <span><b>RULE OUT</b> Delirium &mdash; acute, fluctuating, attention-impaired</span>
+      <span><b>RULE OUT</b> Culturally sanctioned belief or experience</span>
+    </div>
+  </div>
+
+  <div class="man">
+    <div class="man-h"><span class="chip">19411</span><h4>Major Depression is episodic and higher-threshold</h4><span class="corr">corrected</span></div>
+    <p>Major depressive disorder is distinguished by an episodic depressive syndrome with a higher symptom threshold. It requires at least <b>5 symptoms during the same 2-week period</b>, and at least one must be <b>depressed mood</b> or <b>markedly diminished interest or pleasure</b>.</p>
+  </div>
+
+  <div class="man">
+    <div class="man-h"><span class="chip">19414 &middot; F34.1</span><h4>Other Depressive Disorders emphasize chronicity or subthreshold presentation</h4><span class="corr">corrected</span></div>
+    <p>Persistent depressive disorder / dysthymia is chronic low-to-moderate depressive illness lasting at least <b>2 years in adults</b>, or <b>1 year in children and adolescents</b>. Depressed mood is present for most of the day, for more days than not, and the individual is never without Criteria A and B symptoms for more than 2 months at a time.</p>
+    <div class="crit">
+      <span>Poor appetite or overeating</span><span>Insomnia or hypersomnia</span><span>Low energy / fatigue</span>
+      <span>Low self-esteem</span><span>Poor concentration / indecision</span><span>Feelings of hopelessness</span>
+    </div>
+    <p style="margin-top:12px">Other specified or unspecified depressive disorders capture clinically significant depressive presentations that do not meet full criteria for major depressive disorder or persistent depressive disorder. PMDD should be included only when supported by the licensed IR-DRG diagnosis table.</p>
+  </div>
+</section>
+
+<!-- BOUNDARY CRITERIA & SPECTRUM SPLITS -->
+<section id="layer-boundaries" data-layer="08A" style="--ac:var(--teal)">
+  <div class="s-eye"><span class="n">07A</span> Boundary criteria &amp; spectrum splits</div>
+  <h2>Where an elegant summary needs a sharper edge</h2>
+  <p class="lead">The cards above correct three specific confusions. These add the diagnostic boundaries an adjudication-grade reference needs &mdash; the episode distinctions, severity anchors, and umbrella categories that a single label quietly compresses.</p>
+
+  <div class="man">
+    <div class="man-h"><span class="chip">19413 &middot; F31</span><h4>Bipolar separates into mania, hypomania, and bipolar depression</h4><span class="corr">expanded</span></div>
+    <p>A bipolar label is not one clinical state. The pole and its severity drive presentation, monitoring need, and admission logic, so the three episode types must be distinguished rather than merged into &ldquo;elevated mood&rdquo;:</p>
+    <div class="crit">
+      <span><b>MANIA</b> Abnormally elevated, expansive, or irritable mood with increased activity/energy, &ge;1 week (or any duration if hospitalised), causing marked impairment, hospitalisation, or psychosis</span>
+      <span><b>HYPOMANIA</b> Same symptom picture, &ge;4 days, observable change in functioning but <i>without</i> marked impairment, hospitalisation, or psychosis</span>
+      <span><b>BIPOLAR DEPRESSION</b> A major depressive episode occurring in a patient with a bipolar diagnosis &mdash; the depressive pole, not unipolar MDD</span>
+    </div>
+    <p style="margin-top:12px">Bipolar I requires at least one manic episode; bipolar II requires at least one hypomanic episode and at least one major depressive episode, with no history of mania. For recognition, assessment, and treatment of mania, hypomania, and bipolar depression, defer to the current NICE bipolar guidance as the clinical anchor; grouping remains with the licensed IR-DRG table.</p>
+  </div>
+
+  <div class="man">
+    <div class="man-h"><span class="chip">19416 &middot; F50</span><h4>&ldquo;Eating disorders&rdquo; is an umbrella &mdash; the criterion layer is per-disorder</h4><span class="corr">expanded</span></div>
+    <p>As an umbrella the section is clinically sound, but each disorder carries its own anchor. The presence or absence of body-image disturbance and of compensatory behaviour is what separates them &mdash; and what a reviewer must see documented:</p>
+    <div class="crit">
+      <span><b>Anorexia nervosa</b> Energy restriction &rarr; significantly low weight, intense fear of weight gain, body-image disturbance</span>
+      <span><b>Bulimia nervosa</b> Recurrent binge eating <i>plus</i> recurrent compensatory behaviour; weight often normal</span>
+      <span><b>Binge-eating disorder</b> Recurrent binge eating <i>without</i> regular compensatory behaviour</span>
+      <span><b>ARFID</b> Avoidance/restriction <i>without</i> body-image disturbance or fear of weight gain</span>
+      <span><b>OSFED / UFED</b> Clinically significant but not meeting full criteria for the above</span>
+    </div>
+    <p style="margin-top:12px">Medical compromise (electrolyte derangement, bradycardia, hypotension, refeeding risk) is what moves several of these from ambulatory to inpatient logic &mdash; a severity anchor, not a diagnostic one. Confirm the specific disorder against the licensed IR-DRG diagnosis table before grouping; defer to current NICE eating-disorders guidance for identification, monitoring, and care-setting.</p>
+  </div>
+
+  <div class="man">
+    <div class="man-h"><span class="chip">multiple</span><h4>Other compressed umbrellas that must be unpacked before adjudication</h4><span class="corr">note</span></div>
+    <p>Two further groupings read cleanly as labels but hide heterogeneous diagnoses with different thresholds and grouping behaviour. They are flagged here so a summary is never adjudicated as if it were a single diagnosis:</p>
+    <div class="crit">
+      <span><b>Childhood-onset disorders</b> Neurodevelopmental (ASD, ADHD, intellectual disability, communication, specific learning, tic) vs disruptive/conduct vs emotional disorders of childhood &mdash; distinct chapters, distinct criteria</span>
+      <span><b>Personality &amp; impulse-control</b> Personality disorders (enduring, pervasive, trait-based) are a different construct from the F63 impulse-control disorders detailed in the lexicon above &mdash; do not merge</span>
+    </div>
+    <p style="margin-top:12px">For each, the operative grouping must be confirmed against the licensed IR-DRG DX table; the manifestation summary orients, it does not adjudicate.</p>
+  </div>
+
+  <div class="note-strip" style="border-color:rgba(86,198,255,.32);background:rgba(86,198,255,.06);color:#cfe6ff">
+    <b>DSM-5-TR currency &mdash; read precisely.</b> The clinical overlay is the <b>DSM-5-TR base edition, with APA-posted approved updates through September 2025 where applicable</b>. The September 2025 supplement is a targeted set of disorder- and code-level changes (for example, the expansion to <i>Moral, Religious, or Spiritual Problem</i> at Z65.8, cyclothymic-disorder wording, and provider-assessment phrasing in the substance-use criteria) &mdash; it is <i>not</i> a global rewrite of psychiatric criteria. Any criteria change must be checked at <b>disorder level</b> against the APA-posted update before a diagnostic or coding revision is made. For recognition and assessment of depression, bipolar disorder, and the eating disorders, anchor to the current published NICE guidance for each.
+  </div>
+</section>
+
+<!-- APPENDIX A -->
+<section id="weights" data-layer="09" style="--ac:var(--teal)">
+  <div class="s-eye"><span class="n">08</span> DOH Addendum 05 &middot; Appendix A</div>
+  <h2>Relative weights, ALOS &amp; day-outlier trims</h2>
+  <div class="tbl-meta">
+    <span class="pill">Severity: <b>1</b> base &middot; <b>2</b> w/CC &middot; <b>3</b> w/MCC</span>
+    <span class="pill">Code: <b>19&middot;4&middot;base&middot;S</b></span>
+    <span class="pill">Per-diem RW = <b>RW &divide; ALOS</b> &mdash; the DOH outlier per-day coefficient</span>
+    <span class="pill">Three values reconciled to this table: <b>Schiz-MCC 4.6857 &middot; Bipolar-MCC 6.6878 &middot; Organic-base 1.0174</b></span>
+  </div>
+  <div class="tscroll">
+    <table class="appx">
+      <thead><tr>
+        <th>IR-DRG</th><th>Description</th><th>SOI</th><th>Rel. weight</th><th>ALOS</th><th>L-trim</th><th>H-trim</th><th>Per-diem</th>
+      </tr></thead>
+      <tbody>
+      <tr class="r-base">
+        <td class="mono code">194101</td><td class="dx">Schizophrenia</td>
+        <td class="mono soi s1">1</td>
+        <td class="mono num rw">1.7420</td><td class="mono num">15.30</td>
+        <td class="mono num">1</td><td class="mono num">29</td>
+        <td class="mono num pd">0.1139</td></tr>
+<tr class="r-cc">
+        <td class="mono code">194102</td><td class="dx">Schizophrenia · w/CC</td>
+        <td class="mono soi s2">2</td>
+        <td class="mono num rw">3.4364</td><td class="mono num">18.40</td>
+        <td class="mono num">5</td><td class="mono num">32</td>
+        <td class="mono num pd">0.1868</td></tr>
+<tr class="r-mcc">
+        <td class="mono code">194103</td><td class="dx">Schizophrenia · w/MCC</td>
+        <td class="mono soi s3">3</td>
+        <td class="mono num rw">4.6857</td><td class="mono num">21.60</td>
+        <td class="mono num">4</td><td class="mono num">39</td>
+        <td class="mono num pd">0.2169</td></tr>
+<tr class="r-base">
+        <td class="mono code">194111</td><td class="dx">Major Depression</td>
+        <td class="mono soi s1">1</td>
+        <td class="mono num rw">1.6353</td><td class="mono num">12.40</td>
+        <td class="mono num">1</td><td class="mono num">28</td>
+        <td class="mono num pd">0.1319</td></tr>
+<tr class="r-cc">
+        <td class="mono code">194112</td><td class="dx">Major Depression · w/CC</td>
+        <td class="mono soi s2">2</td>
+        <td class="mono num rw">3.2259</td><td class="mono num">16.20</td>
+        <td class="mono num">1</td><td class="mono num">34</td>
+        <td class="mono num pd">0.1991</td></tr>
+<tr class="r-mcc">
+        <td class="mono code">194113</td><td class="dx">Major Depression · w/MCC</td>
+        <td class="mono soi s3">3</td>
+        <td class="mono num rw">4.6656</td><td class="mono num">21.80</td>
+        <td class="mono num">4</td><td class="mono num">40</td>
+        <td class="mono num pd">0.2140</td></tr>
+<tr class="r-base">
+        <td class="mono code">194121</td><td class="dx">Personality & Impulse Control</td>
+        <td class="mono soi s1">1</td>
+        <td class="mono num rw">0.9545</td><td class="mono num">5.20</td>
+        <td class="mono num">1</td><td class="mono num">10</td>
+        <td class="mono num pd">0.1836</td></tr>
+<tr class="r-cc">
+        <td class="mono code">194122</td><td class="dx">Personality & Impulse Control · w/CC</td>
+        <td class="mono soi s2">2</td>
+        <td class="mono num rw">1.7243</td><td class="mono num">7.40</td>
+        <td class="mono num">3</td><td class="mono num">12</td>
+        <td class="mono num pd">0.2330</td></tr>
+<tr class="r-mcc">
+        <td class="mono code">194123</td><td class="dx">Personality & Impulse Control · w/MCC</td>
+        <td class="mono soi s3">3</td>
+        <td class="mono num rw">4.3943</td><td class="mono num">17.20</td>
+        <td class="mono num">1</td><td class="mono num">35</td>
+        <td class="mono num pd">0.2555</td></tr>
+<tr class="r-base">
+        <td class="mono code">194131</td><td class="dx">Bipolar Disorders</td>
+        <td class="mono soi s1">1</td>
+        <td class="mono num rw">2.4299</td><td class="mono num">17.40</td>
+        <td class="mono num">1</td><td class="mono num">35</td>
+        <td class="mono num pd">0.1396</td></tr>
+<tr class="r-cc">
+        <td class="mono code">194132</td><td class="dx">Bipolar Disorders · w/CC</td>
+        <td class="mono soi s2">2</td>
+        <td class="mono num rw">4.7934</td><td class="mono num">21.40</td>
+        <td class="mono num">3</td><td class="mono num">40</td>
+        <td class="mono num pd">0.2240</td></tr>
+<tr class="r-mcc">
+        <td class="mono code">194133</td><td class="dx">Bipolar Disorders · w/MCC</td>
+        <td class="mono soi s3">3</td>
+        <td class="mono num rw">6.6878</td><td class="mono num">28.00</td>
+        <td class="mono num">1</td><td class="mono num">60</td>
+        <td class="mono num pd">0.2389</td></tr>
+<tr class="r-base">
+        <td class="mono code">194141</td><td class="dx">Other Depressive Disorders</td>
+        <td class="mono soi s1">1</td>
+        <td class="mono num rw">1.3341</td><td class="mono num">11.30</td>
+        <td class="mono num">3</td><td class="mono num">20</td>
+        <td class="mono num pd">0.1181</td></tr>
+<tr class="r-cc">
+        <td class="mono code">194142</td><td class="dx">Other Depressive Disorders · w/CC</td>
+        <td class="mono soi s2">2</td>
+        <td class="mono num rw">2.6317</td><td class="mono num">21.50</td>
+        <td class="mono num">15</td><td class="mono num">28</td>
+        <td class="mono num pd">0.1224</td></tr>
+<tr class="r-mcc">
+        <td class="mono code">194143</td><td class="dx">Other Depressive Disorders · w/MCC</td>
+        <td class="mono soi s3">3</td>
+        <td class="mono num rw">3.9588</td><td class="mono num">31.80</td>
+        <td class="mono num">26</td><td class="mono num">38</td>
+        <td class="mono num pd">0.1245</td></tr>
+<tr class="r-base">
+        <td class="mono code">194151</td><td class="dx">Neuroses Except Depression</td>
+        <td class="mono soi s1">1</td>
+        <td class="mono num rw">1.0195</td><td class="mono num">5.50</td>
+        <td class="mono num">1</td><td class="mono num">10</td>
+        <td class="mono num pd">0.1854</td></tr>
+<tr class="r-cc">
+        <td class="mono code">194152</td><td class="dx">Neuroses Except Depression · w/CC</td>
+        <td class="mono soi s2">2</td>
+        <td class="mono num rw">1.2475</td><td class="mono num">6.00</td>
+        <td class="mono num">2</td><td class="mono num">10</td>
+        <td class="mono num pd">0.2079</td></tr>
+<tr class="r-mcc">
+        <td class="mono code">194153</td><td class="dx">Neuroses Except Depression · w/MCC</td>
+        <td class="mono soi s3">3</td>
+        <td class="mono num rw">2.2512</td><td class="mono num">9.40</td>
+        <td class="mono num">1</td><td class="mono num">21</td>
+        <td class="mono num pd">0.2395</td></tr>
+<tr class="r-base">
+        <td class="mono code">194161</td><td class="dx">Organic Disturbances & Intellectual Disability</td>
+        <td class="mono soi s1">1</td>
+        <td class="mono num rw">1.0174</td><td class="mono num">3.60</td>
+        <td class="mono num">1</td><td class="mono num">6</td>
+        <td class="mono num pd">0.2826</td></tr>
+<tr class="r-cc">
+        <td class="mono code">194162</td><td class="dx">Organic Disturbances & Intellectual Disability · w/CC</td>
+        <td class="mono soi s2">2</td>
+        <td class="mono num rw">1.8864</td><td class="mono num">6.80</td>
+        <td class="mono num">2</td><td class="mono num">12</td>
+        <td class="mono num pd">0.2774</td></tr>
+<tr class="r-mcc">
+        <td class="mono code">194163</td><td class="dx">Organic Disturbances & Intellectual Disability · w/MCC</td>
+        <td class="mono soi s3">3</td>
+        <td class="mono num rw">2.9408</td><td class="mono num">10.10</td>
+        <td class="mono num">5</td><td class="mono num">15</td>
+        <td class="mono num pd">0.2912</td></tr>
+<tr class="r-base">
+        <td class="mono code">194171</td><td class="dx">Childhood Onset Mental Disorders</td>
+        <td class="mono soi s1">1</td>
+        <td class="mono num rw">1.0678</td><td class="mono num">6.40</td>
+        <td class="mono num">2</td><td class="mono num">11</td>
+        <td class="mono num pd">0.1668</td></tr>
+<tr class="r-cc">
+        <td class="mono code">194172</td><td class="dx">Childhood Onset Mental Disorders · w/CC</td>
+        <td class="mono soi s2">2</td>
+        <td class="mono num rw">2.1065</td><td class="mono num">8.90</td>
+        <td class="mono num">5</td><td class="mono num">13</td>
+        <td class="mono num pd">0.2367</td></tr>
+<tr class="r-mcc">
+        <td class="mono code">194173</td><td class="dx">Childhood Onset Mental Disorders · w/MCC</td>
+        <td class="mono soi s3">3</td>
+        <td class="mono num rw">3.0010</td><td class="mono num">9.80</td>
+        <td class="mono num">1</td><td class="mono num">23</td>
+        <td class="mono num pd">0.3062</td></tr>
+<tr class="r-base">
+        <td class="mono code">194181</td><td class="dx">Compulsive Nutrition Disorders</td>
+        <td class="mono soi s1">1</td>
+        <td class="mono num rw">1.1223</td><td class="mono num">9.20</td>
+        <td class="mono num">2</td><td class="mono num">16</td>
+        <td class="mono num pd">0.1220</td></tr>
+<tr class="r-cc">
+        <td class="mono code">194182</td><td class="dx">Compulsive Nutrition Disorders · w/CC</td>
+        <td class="mono soi s2">2</td>
+        <td class="mono num rw">2.2138</td><td class="mono num">11.00</td>
+        <td class="mono num">4</td><td class="mono num">18</td>
+        <td class="mono num pd">0.2013</td></tr>
+<tr class="r-mcc">
+        <td class="mono code">194183</td><td class="dx">Compulsive Nutrition Disorders · w/MCC</td>
+        <td class="mono soi s3">3</td>
+        <td class="mono num rw">3.3680</td><td class="mono num">11.70</td>
+        <td class="mono num">1</td><td class="mono num">23</td>
+        <td class="mono num pd">0.2879</td></tr>
+<tr class="r-base">
+        <td class="mono code">194191</td><td class="dx">Other Mental Disorders</td>
+        <td class="mono soi s1">1</td>
+        <td class="mono num rw">1.1254</td><td class="mono num">14.20</td>
+        <td class="mono num">1</td><td class="mono num">33</td>
+        <td class="mono num pd">0.0793</td></tr>
+<tr class="r-cc">
+        <td class="mono code">194192</td><td class="dx">Other Mental Disorders · w/CC</td>
+        <td class="mono soi s2">2</td>
+        <td class="mono num rw">2.2200</td><td class="mono num">20.50</td>
+        <td class="mono num">1</td><td class="mono num">46</td>
+        <td class="mono num pd">0.1083</td></tr>
+<tr class="r-mcc">
+        <td class="mono code">194193</td><td class="dx">Other Mental Disorders · w/MCC</td>
+        <td class="mono soi s3">3</td>
+        <td class="mono num rw">3.0452</td><td class="mono num">21.00</td>
+        <td class="mono num">1</td><td class="mono num">46</td>
+        <td class="mono num pd">0.1450</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="formula">
+    <h4>Mental Health Inpatient payment rules (Addendum 05 &sect;4.4.2)</h4>
+    <span class="f">Base payment = Base Rate &times; Relative Weight + HCPCS add-on</span>
+    <span class="f">Outlier (LOS &gt; H-trim) = (Actual LOS &minus; High Trim) &times; (RW &divide; ALOS) &times; Base Rate</span>
+    <ul class="rules">
+      <li><b>Basic product</b> &mdash; Base Rate <code>AED 8,500</code> &middot; Gap <code>AED 25,000</code> &middot; Marginal <code>60%</code>. Other products negotiated.</li>
+      <li><b>Outlier</b> applies only when actual LOS exceeds the High Trim; separate authorisation within <code>24h</code> of passing HTLOS; reported under <code>SRVC 99-02</code>. Actual LOS rounded to 2 decimals.</li>
+      <li><b>CAHMS adjustor</b> &mdash; patients under 18 receive <code>+50%</code> of the total claim; reported under <code>SRVC 99-03</code>.</li>
+      <li><b>Per-diem read:</b> RW&divide;ALOS spans <code>0.108</code> (Other Mental) to <code>0.277</code> (Organic) &mdash; the bundle&rsquo;s &ldquo;value of a day&rdquo; varies ~2.6&times; across these clusters.</li>
+    </ul>
+  </div>
+</section>
+
+<footer>
+  <b>Psychiatric Diseases Deeper Semantic Layer &mdash; MDC 19/20.</b> Companion drill-down to the IR-DRG psychiatric map. Classification and navigation use public ICD-10-CM plus CMS MS-DRG only as an educational MDC proxy; operational grouping remains the licensed Solventum IR-DRG authority. Weights, ALOS, and trims are reproduced from DOH Addendum 05 / Claims &amp; Adjudication Rules V2025.1, Appendix A. ICD-10-CM references are aligned to the FY2026 files.
+  <div class="byline">Prepared by Dr. Sherif Alattar &middot; 2026-06-17 &middot; reference tier &mdash; not a substitute for the licensed grouper or member benefit schedule.</div>
+</footer>
+
+</div>
+<script id="codex-layer-flow-script">
+(function(){
+  var cards = Array.prototype.slice.call(document.querySelectorAll(".layer-card"));
+  var sections = cards.map(function(card){
+    var id = (card.getAttribute("href") || "").replace("#", "");
+    return document.getElementById(id);
+  }).filter(Boolean);
+
+  function labelFor(card) {
+    var title = card.querySelector("b");
+    return title ? title.textContent : "Layer";
+  }
+
+  function setActive(id) {
+    cards.forEach(function(card){
+      card.classList.toggle("active", card.getAttribute("href") === "#" + id);
+    });
+  }
+
+  function goTo(id, push) {
+    var target = document.getElementById(id);
+    if (!target) return;
+    if (push !== false && history.pushState) history.pushState(null, "", "#" + id);
+    target.scrollIntoView({ behavior: "smooth", block: "start" });
+    target.classList.remove("layer-pulse");
+    window.setTimeout(function(){ target.classList.add("layer-pulse"); }, 120);
+    setActive(id);
+  }
+
+  cards.forEach(function(card){
+    card.addEventListener("click", function(e){
+      var id = (card.getAttribute("href") || "").replace("#", "");
+      if (!id || !document.getElementById(id)) return;
+      e.preventDefault();
+      goTo(id, true);
+    });
+  });
+
+  sections.forEach(function(section, index){
+    if (section.querySelector(".layer-stepper")) return;
+    var stepper = document.createElement("nav");
+    stepper.className = "layer-stepper";
+    stepper.setAttribute("aria-label", "Layer navigation");
+
+    var prevCard = cards[index - 1];
+    var nextCard = cards[index + 1];
+
+    if (prevCard) {
+      var prev = document.createElement("a");
+      prev.href = prevCard.getAttribute("href");
+      prev.innerHTML = "<span>&larr;</span><span>" + labelFor(prevCard) + "</span>";
+      stepper.appendChild(prev);
+    } else {
+      var empty = document.createElement("span");
+      stepper.appendChild(empty);
+    }
+
+    if (nextCard) {
+      var next = document.createElement("a");
+      next.href = nextCard.getAttribute("href");
+      next.innerHTML = "<span>" + labelFor(nextCard) + "</span><span>&rarr;</span>";
+      stepper.appendChild(next);
+    }
+
+    stepper.addEventListener("click", function(e){
+      var link = e.target.closest ? e.target.closest("a[href^='#']") : null;
+      if (!link) return;
+      var id = link.getAttribute("href").replace("#", "");
+      if (!document.getElementById(id)) return;
+      e.preventDefault();
+      goTo(id, true);
+    });
+
+    section.appendChild(stepper);
+  });
+
+  if ("IntersectionObserver" in window) {
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if (entry.isIntersecting) {
+          entry.target.classList.add("in-view");
+          setActive(entry.target.id);
+        }
+      });
+    }, { threshold: 0.28, rootMargin: "-10% 0px -55% 0px" });
+    sections.forEach(function(section){ io.observe(section); });
+  } else {
+    sections.forEach(function(section){ section.classList.add("in-view"); });
+  }
+
+  window.addEventListener("hashchange", function(){
+    var id = location.hash.replace("#", "");
+    if (id && document.getElementById(id)) goTo(id, false);
+  });
+
+  if (location.hash && document.getElementById(location.hash.slice(1))) {
+    window.setTimeout(function(){ goTo(location.hash.slice(1), false); }, 80);
+  } else if (cards[0]) {
+    setActive(cards[0].getAttribute("href").replace("#", ""));
+  }
+})();
+</script>
+
+<script src="audio.js"></script>
+
+</body></html>
