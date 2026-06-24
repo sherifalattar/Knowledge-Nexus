@@ -239,8 +239,15 @@
     .blob{display:none;}
   }
   </style>
+  <style id="kn-back-style">
+  .kn-back{position:fixed;top:18px;left:20px;z-index:9999;display:inline-flex;align-items:center;gap:8px;padding:9px 15px;border-radius:999px;text-decoration:none;background:rgba(14,20,30,.72);border:1px solid rgba(125,151,196,.24);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);color:#91a3bb;font-family:"JetBrains Mono",ui-monospace,monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;transition:color .3s,border-color .3s,transform .35s;box-shadow:0 12px 30px -16px rgba(0,0,0,.8);-webkit-tap-highlight-color:transparent}
+  .kn-back:hover{color:#22e8ff;border-color:#2dd6e3;transform:translateY(-1px)}
+  .kn-back .kn-home{font-size:13px;line-height:1}
+  @media(max-width:600px){.kn-back{top:12px;left:12px;padding:8px 12px}}
+  </style>
 </head>
 <body>
+  <a class="kn-back" href="observatory.html" aria-label="Back to Knowledge Nexus"><span class="kn-home">⌂</span> Nexus</a>
   <div class="bg"><span class="blob a"></span><span class="blob b"></span><span class="blob c"></span></div>
   <div class="grain"></div>
 
@@ -473,41 +480,6 @@
     });
   })();
   </script>
-
-  <!-- Knowledge Nexus | ambient sound (site-wide, shared track) -->
-  <style>
-  .kn-snd{position:fixed;right:20px;bottom:20px;z-index:9999;display:inline-flex;align-items:center;gap:10px;padding:10px 15px;border-radius:999px;cursor:pointer;background:rgba(14,20,30,.72);border:1px solid rgba(125,151,196,.24);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);color:#9AA7BD;font-family:"JetBrains Mono",ui-monospace,monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;transition:color .3s,border-color .3s,transform .35s;box-shadow:0 12px 30px -16px rgba(0,0,0,.8);-webkit-tap-highlight-color:transparent}
-  .kn-snd:hover{color:#22E8FF;border-color:#2DD6E3;transform:translateY(-2px)}
-  .kn-snd .kn-bars{display:flex;align-items:center;gap:2.5px;height:14px;color:inherit}
-  .kn-snd .kn-bars i{width:2.5px;height:4px;border-radius:1px;background:currentColor;opacity:.85}
-  .kn-snd.kn-on{color:#22E8FF;border-color:rgba(45,214,227,.6)}
-  .kn-snd.kn-on .kn-bars i{animation:knEq 1s ease-in-out infinite}
-  .kn-snd.kn-on .kn-bars i:nth-child(2){animation-delay:.15s}
-  .kn-snd.kn-on .kn-bars i:nth-child(3){animation-delay:.3s}
-  .kn-snd.kn-on .kn-bars i:nth-child(4){animation-delay:.45s}
-  @keyframes knEq{0%,100%{height:4px}50%{height:13px}}
-  .kn-snd .kn-lbl b{font-weight:600;color:inherit}
-  @media(prefers-reduced-motion:reduce){.kn-snd.kn-on .kn-bars i{animation:none;height:9px}}
-  @media(max-width:600px){.kn-snd .kn-lbl{display:none}.kn-snd{padding:11px;right:14px;bottom:14px}}
-  </style>
-  <audio id="knAudio" preload="auto" loop src="ambient.mp3"></audio>
-  <button id="knSnd" class="kn-snd" type="button" aria-pressed="false" aria-label="Toggle ambient sound">
-  <span class="kn-bars" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
-  <span class="kn-lbl">Sound <b id="knState">off</b></span>
-  </button>
-  <script>
-  (function(){var b=document.getElementById('knSnd'),a=document.getElementById('knAudio'),s=document.getElementById('knState');
-  if(!b||!a)return;a.loop=true;a.volume=0;var on=false,ft,armed=false;var K='kn-sound',T='kn-sound-t';
-  function fade(to,cb){clearInterval(ft);ft=setInterval(function(){var d=to-a.volume;if(Math.abs(d)<.02){a.volume=Math.max(0,Math.min(1,to));clearInterval(ft);if(cb)cb();return;}a.volume+=d*.1;},40);}
-  function vis(st){on=st;b.classList.toggle('kn-on',st);b.setAttribute('aria-pressed',st);s.textContent=st?'on':'off';}
-  function save(){try{if(on)localStorage.setItem(T,a.currentTime||0);}catch(e){}}
-  function arm(){if(armed)return;armed=true;var h=function(){a.play().then(function(){fade(.45);}).catch(function(){});document.removeEventListener('pointerdown',h);document.removeEventListener('keydown',h);armed=false;};document.addEventListener('pointerdown',h);document.addEventListener('keydown',h);}
-  function go(){try{var t=parseFloat(localStorage.getItem(T)||'0');if(t>0&&isFinite(t)){if(a.readyState>0){if(t<a.duration)a.currentTime=t;}else{a.addEventListener('loadedmetadata',function(){if(t<a.duration)a.currentTime=t;},{once:true});}}}catch(e){}
-  var p=a.play();if(p&&p.then){p.then(function(){vis(true);fade(.45);}).catch(function(){vis(true);arm();});}else{vis(true);fade(.45);}}
-  b.addEventListener('click',function(){if(!on){try{localStorage.setItem(K,'on');}catch(e){}go();}else{vis(false);try{localStorage.setItem(K,'off');}catch(e){}fade(0,function(){a.pause();save();});}});
-  a.addEventListener('timeupdate',save);addEventListener('pagehide',save);addEventListener('beforeunload',save);
-  try{if(localStorage.getItem(K)==='on'){go();}}catch(e){}
-  })();
-  </script>
+  <script src="audio.js"></script>
 </body>
 </html>
