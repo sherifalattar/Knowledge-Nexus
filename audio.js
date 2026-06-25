@@ -4,6 +4,8 @@
 (function () {
   if (window.__knAudio) return;
   window.__knAudio = true;
+  // Enforce a single toggle even if a page ever hardcodes its own button.
+  if (document.querySelector('[data-kn-audio]')) return;
   var KEY = 'kn-audio';
 
   var audio = document.createElement('audio');
@@ -16,6 +18,7 @@
 
   var btn = document.createElement('button');
   btn.type = 'button';
+  btn.setAttribute('data-kn-audio', '');
   btn.setAttribute('aria-label', 'Toggle ambient sound');
   btn.style.cssText = [
     'position:fixed', 'right:22px', 'bottom:22px', 'z-index:2147483000',

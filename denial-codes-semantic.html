@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Denial Navigator</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=Hanken+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet" />
+<style>
+  /* ============ TOKENS ============ */
+  :root{
+    --bg-0:#02040a;
+    --bg-1:#040711;
+    --bg-2:#09101d;
+
+    --panel: rgba(220,233,247,.045);
+    --panel-2: rgba(220,233,247,.075);
+    --stroke: rgba(220,233,247,.12);
+    --stroke-2: rgba(220,233,247,.22);
+
+    --text:#eef6ff;
+    --dim:#91a3bb;
+    --faint:#5e7189;
+
+    --teal:#2dd6e3;
+    --cyan:#22e8ff;
+    --ice:#8fbdff;
+    --silver:#dce9f7;
+
+    --radius:18px;
+    --radius-sm:12px;
+    --shadow: 0 24px 70px -28px rgba(0,0,0,.85);
+    --maxw:1140px;
+
+    color-scheme: dark;
+  }
+
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    font-family:"Hanken Grotesk", sans-serif;
+    color:var(--text);
+    background:var(--bg-0);
+    -webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;
+    min-height:100vh;
+    overflow-x:hidden;
+  }
+
+  /* ============ ATMOSPHERE ============ */
+  .bg{position:fixed; inset:0; z-index:-2; overflow:hidden; background:
+      radial-gradient(120% 90% at 12% -8%, #0b3150 0%, rgba(11,49,80,0) 42%),
+      radial-gradient(110% 100% at 92% 8%, #092b46 0%, rgba(9,43,70,0) 46%),
+      radial-gradient(130% 120% at 70% 110%, #073536 0%, rgba(7,53,54,0) 50%),
+      linear-gradient(180deg, var(--bg-1) 0%, var(--bg-0) 60%);
+  }
+  .blob{position:absolute; border-radius:50%; filter:blur(70px); opacity:.5; mix-blend-mode:screen;}
+  .blob.a{width:520px;height:520px;left:-120px;top:-160px;background:radial-gradient(circle,#2dd6e3,transparent 65%);animation:drift1 22s ease-in-out infinite;}
+  .blob.b{width:460px;height:460px;right:-120px;top:-60px;background:radial-gradient(circle,#22e8ff,transparent 65%);animation:drift2 26s ease-in-out infinite;}
+  .blob.c{width:560px;height:560px;left:40%;bottom:-260px;background:radial-gradient(circle,#3b82f6,transparent 68%);opacity:.32;animation:drift1 30s ease-in-out infinite reverse;}
+  @keyframes drift1{0%,100%{transform:translate(0,0)}50%{transform:translate(40px,30px)}}
+  @keyframes drift2{0%,100%{transform:translate(0,0)}50%{transform:translate(-36px,26px)}}
+  .grain{position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.05;mix-blend-mode:soft-light;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");}
+
+  /* ============ LAYOUT ============ */
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 28px 80px;}
+  .hero{padding:68px 0 30px;max-width:760px;}
+  .eyebrow{
+    font-family:"JetBrains Mono",monospace;font-size:12px;font-weight:500;
+    letter-spacing:.32em;text-transform:uppercase;color:var(--cyan);
+    display:inline-flex;align-items:center;gap:11px;margin-bottom:22px;
+    opacity:0;animation:rise .7s .05s cubic-bezier(.2,.7,.2,1) forwards;
+  }
+  .eyebrow::before{content:"";width:30px;height:1px;background:linear-gradient(90deg,var(--cyan),transparent);}
+  h1{
+    font-family:"Fraunces",serif;font-weight:600;font-optical-sizing:auto;
+    font-size:clamp(44px,7vw,78px);line-height:.96;letter-spacing:-.02em;margin:0;
+    background:linear-gradient(105deg,#ffffff 8%,var(--teal) 48%,var(--cyan) 72%,var(--silver) 100%);
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+    opacity:0;animation:rise .8s .12s cubic-bezier(.2,.7,.2,1) forwards;
+  }
+  h1 em{font-style:italic;font-weight:400;}
+  .sub{
+    margin:20px 0 0;font-size:clamp(15px,2vw,18px);line-height:1.55;color:var(--dim);max-width:560px;
+    opacity:0;animation:rise .8s .2s cubic-bezier(.2,.7,.2,1) forwards;
+  }
+  .sub b{color:var(--silver);font-weight:600;}
+
+  /* ============ STICKY TOOLBAR ============ */
+  .bar{
+    position:sticky;top:0;z-index:20;padding:16px 0 14px;margin-top:8px;
+    background:linear-gradient(180deg, rgba(8,11,22,.92) 70%, rgba(8,11,22,0));
+    backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+    opacity:0;animation:rise .8s .28s cubic-bezier(.2,.7,.2,1) forwards;
+  }
+  .search{
+    display:flex;align-items:center;gap:14px;
+    background:linear-gradient(180deg, var(--panel-2), var(--panel));
+    border:1px solid var(--stroke-2);border-radius:16px;padding:0 16px;height:62px;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.04), var(--shadow);
+    transition:border-color .25s, box-shadow .25s;
+  }
+  .search:focus-within{
+    border-color:rgba(45,214,227,.55);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.05), 0 0 0 1px rgba(45,214,227,.35), 0 0 38px -8px rgba(45,214,227,.5);
+  }
+  .search svg{width:22px;height:22px;color:var(--teal);flex:none;}
+  .search input{
+    flex:1;background:none;border:0;outline:0;color:var(--text);
+    font-family:"Hanken Grotesk",sans-serif;font-size:18px;font-weight:500;letter-spacing:-.01em;
+    height:100%;
+  }
+  .search input::placeholder{color:var(--faint);font-weight:400;}
+  .kbd{
+    font-family:"JetBrains Mono",monospace;font-size:11px;color:var(--dim);
+    border:1px solid var(--stroke-2);border-radius:7px;padding:5px 8px;background:rgba(0,0,0,.25);flex:none;
+  }
+  .clear{
+    flex:none;background:none;border:0;color:var(--faint);cursor:pointer;width:30px;height:30px;
+    border-radius:8px;display:none;align-items:center;justify-content:center;transition:.2s;
+  }
+  .clear:hover{color:var(--text);background:rgba(255,255,255,.06);}
+  .clear.show{display:flex;}
+  .clear svg{width:18px;height:18px;}
+
+  .meta{display:flex;align-items:center;justify-content:space-between;gap:16px;margin:16px 0 14px;flex-wrap:wrap;}
+  .count{font-size:13.5px;color:var(--dim);font-weight:500;letter-spacing:.01em;}
+  .count b{color:var(--teal);font-weight:700;font-variant-numeric:tabular-nums;}
+  .hints{font-family:"JetBrains Mono",monospace;font-size:11px;color:var(--faint);letter-spacing:.02em;}
+  .hints span{color:var(--silver);}
+
+  .toggle{display:inline-flex;border:1px solid var(--stroke-2);border-radius:11px;padding:3px;background:rgba(0,0,0,.25);}
+  .toggle button{
+    font-family:inherit;font-size:12.5px;font-weight:600;letter-spacing:.02em;color:var(--dim);
+    background:none;border:0;cursor:pointer;padding:7px 14px;border-radius:8px;transition:.22s;
+  }
+  .toggle button.on{color:var(--bg-0);background:linear-gradient(135deg,var(--teal),var(--cyan));box-shadow:0 6px 18px -8px rgba(45,214,227,.7);}
+
+  /* ============ CHIPS ============ */
+  .chips{display:flex;gap:9px;overflow-x:auto;padding:2px 2px 14px;scrollbar-width:none;-webkit-overflow-scrolling:touch;}
+  .chips::-webkit-scrollbar{display:none;}
+  .chip{
+    flex:none;cursor:pointer;font-family:inherit;font-size:13px;font-weight:600;letter-spacing:.01em;
+    color:var(--dim);background:var(--panel);border:1px solid var(--stroke);border-radius:999px;
+    padding:9px 15px;display:inline-flex;align-items:center;gap:9px;transition:.22s;white-space:nowrap;
+  }
+  .chip:hover{border-color:var(--stroke-2);color:var(--text);transform:translateY(-1px);}
+  .chip .dot{width:7px;height:7px;border-radius:50%;background:var(--c,var(--teal));box-shadow:0 0 9px var(--c,var(--teal));}
+  .chip .n{font-family:"JetBrains Mono",monospace;font-size:11px;color:var(--faint);font-variant-numeric:tabular-nums;}
+  .chip.active{
+    color:var(--text);border-color:color-mix(in srgb, var(--c,var(--teal)) 60%, transparent);
+    background:color-mix(in srgb, var(--c,var(--teal)) 12%, var(--panel));
+    box-shadow:0 0 0 1px color-mix(in srgb,var(--c,var(--teal)) 30%,transparent), 0 0 26px -10px var(--c,var(--teal));
+  }
+  .chip.active .n{color:var(--c,var(--teal));}
+
+  /* ============ GRID / CARDS ============ */
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:16px;}
+  .card{
+    --accent:var(--teal);position:relative;cursor:pointer;text-align:left;
+    background:linear-gradient(180deg, var(--panel-2), var(--panel));
+    border:1px solid var(--stroke);border-radius:var(--radius);
+    padding:20px 20px 18px;overflow:hidden;
+    transition:transform .22s cubic-bezier(.2,.7,.2,1), border-color .22s, box-shadow .22s, background .22s;
+    animation:pop .5s cubic-bezier(.2,.7,.2,1) both;
+  }
+  .card::before{content:"";position:absolute;left:0;top:18px;bottom:18px;width:3px;border-radius:3px;
+    background:linear-gradient(var(--accent), color-mix(in srgb,var(--accent) 30%, transparent));
+    box-shadow:0 0 14px color-mix(in srgb,var(--accent) 70%, transparent);opacity:.9;}
+  .card:hover{transform:translateY(-3px);border-color:color-mix(in srgb,var(--accent) 45%,transparent);
+    background:linear-gradient(180deg, color-mix(in srgb,var(--accent) 7%, var(--panel-2)), var(--panel));
+    box-shadow:0 22px 50px -26px var(--accent), 0 0 0 1px color-mix(in srgb,var(--accent) 18%,transparent);}
+  .card.is-active{border-color:color-mix(in srgb,var(--accent) 65%,transparent);
+    box-shadow:0 0 0 1px color-mix(in srgb,var(--accent) 45%,transparent), 0 0 34px -10px var(--accent);}
+  .card:focus-visible{outline:none;border-color:var(--accent);box-shadow:0 0 0 2px color-mix(in srgb,var(--accent) 55%,transparent);}
+
+  .ctop{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:13px;}
+  .code{font-family:"JetBrains Mono",monospace;font-weight:700;font-size:21px;letter-spacing:.01em;
+    color:var(--accent);line-height:1;text-shadow:0 0 22px color-mix(in srgb,var(--accent) 45%,transparent);}
+  .copyic{flex:none;width:30px;height:30px;border-radius:9px;display:flex;align-items:center;justify-content:center;
+    color:var(--faint);background:rgba(255,255,255,.03);border:1px solid var(--stroke);transition:.2s;}
+  .card:hover .copyic{color:var(--accent);border-color:color-mix(in srgb,var(--accent) 40%,transparent);}
+  .copyic svg{width:15px;height:15px;}
+  .clabel{font-family:"JetBrains Mono",monospace;font-size:10.5px;font-weight:500;letter-spacing:.18em;
+    text-transform:uppercase;color:color-mix(in srgb,var(--accent) 80%, var(--silver));margin-bottom:9px;
+    display:inline-flex;align-items:center;gap:7px;}
+  .clabel::before{content:"";width:5px;height:5px;border-radius:50%;background:var(--accent);box-shadow:0 0 7px var(--accent);}
+  .desc{font-size:14.5px;line-height:1.5;color:var(--silver);font-weight:400;}
+  .ref{margin-top:13px;display:inline-flex;align-items:center;gap:7px;font-family:"JetBrains Mono",monospace;
+    font-size:11px;color:var(--dim);border:1px dashed var(--stroke-2);border-radius:8px;padding:5px 9px;}
+  .ref b{color:var(--ice);font-weight:700;}
+  mark{background:color-mix(in srgb,var(--accent) 22%, transparent);
+    color:var(--text);border-radius:4px;padding:0 3px;box-shadow:0 0 0 1px color-mix(in srgb,var(--accent) 30%,transparent);}
+
+  /* compact view */
+  .grid.compact{grid-template-columns:1fr;gap:7px;}
+  .grid.compact .card{padding:13px 18px;display:grid;grid-template-columns:128px 1fr auto;align-items:center;gap:18px;animation-duration:.35s;}
+  .grid.compact .card::before{top:11px;bottom:11px;}
+  .grid.compact .ctop{display:contents;}
+  .grid.compact .code{font-size:16px;}
+  .grid.compact .clabel{margin:0;}
+  .grid.compact .desc{font-size:14px;color:var(--silver);}
+  .grid.compact .ref{margin:0;}
+  .grid.compact .copyic{justify-self:end;}
+  @media(max-width:620px){
+    .grid.compact .card{grid-template-columns:104px 1fr;}
+    .grid.compact .clabel{display:none;}
+    .grid.compact .copyic{display:none;}
+  }
+
+  /* empty */
+  .empty{text-align:center;padding:80px 20px;color:var(--faint);}
+  .empty .big{font-family:"Fraunces",serif;font-size:30px;color:var(--silver);margin-bottom:10px;font-weight:600;}
+  .empty button{margin-top:20px;font-family:inherit;font-size:14px;font-weight:600;color:var(--bg-0);cursor:pointer;
+    background:linear-gradient(135deg,var(--teal),var(--cyan));border:0;border-radius:11px;padding:11px 20px;}
+
+  /* toast */
+  .toast{position:fixed;left:50%;bottom:34px;transform:translate(-50%,140%);z-index:60;
+    display:flex;align-items:center;gap:11px;padding:13px 20px;border-radius:13px;
+    background:rgba(8,12,22,.92);border:1px solid rgba(45,214,227,.4);backdrop-filter:blur(14px);
+    box-shadow:0 18px 50px -16px rgba(0,0,0,.9), 0 0 30px -10px rgba(45,214,227,.6);
+    font-size:14px;font-weight:600;color:var(--text);transition:transform .4s cubic-bezier(.2,.8,.2,1);}
+  .toast.show{transform:translate(-50%,0);}
+  .toast svg{width:18px;height:18px;color:var(--teal);}
+  .toast code{font-family:"JetBrains Mono",monospace;color:var(--teal);font-size:13px;}
+
+  footer{margin-top:46px;padding-top:22px;border-top:1px solid var(--stroke);
+    display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;
+    font-size:12px;color:var(--faint);letter-spacing:.02em;}
+  footer .pal{display:flex;gap:6px;align-items:center;}
+  footer .sw{width:11px;height:11px;border-radius:3px;}
+
+  @keyframes rise{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+  @keyframes pop{from{opacity:0;transform:translateY(10px) scale(.99)}to{opacity:1;transform:none}}
+  @media (prefers-reduced-motion: reduce){
+    *{animation:none!important;transition:none!important;}
+    .blob{display:none;}
+  }
+</style>
+<style>
+  .kn-back{position:fixed;top:18px;left:20px;z-index:9999;display:inline-flex;align-items:center;gap:8px;padding:9px 15px;border-radius:999px;text-decoration:none;background:rgba(14,20,30,.72);border:1px solid rgba(125,151,196,.24);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);color:#91a3bb;font-family:"JetBrains Mono",ui-monospace,monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;transition:color .3s,border-color .3s,transform .35s;box-shadow:0 12px 30px -16px rgba(0,0,0,.8);-webkit-tap-highlight-color:transparent}
+  .kn-back:hover{color:#eef6ff;border-color:rgba(45,214,227,.5);transform:translateY(-1px)}
+  .kn-back .kn-home{font-size:13px;line-height:1}
+  @media (prefers-reduced-motion: reduce){.kn-back{transition:none}}
+  </style>
+</head>
+<body>
+  <a class="kn-back" href="observatory.html" aria-label="Back to Knowledge Nexus"><span class="kn-home">⌂</span> Nexus</a>
+  <div class="bg"><span class="blob a"></span><span class="blob b"></span><span class="blob c"></span></div>
+  <div class="grain"></div>
+
+  <div class="wrap">
+    <header class="hero">
+      <span class="eyebrow">Denial Code Intelligence</span>
+      <h1>Denial<br><em>Navigator</em></h1>
+      <p class="sub">Type a code or a keyword and <b>copy the exact denial reason in seconds</b>. Built by Dr. Sherif Alattar — fast, audit‑grade, and entirely offline.</p>
+    </header>
+
+    <div class="bar">
+      <label class="search">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+        <input id="q" type="text" autocomplete="off" autofocus placeholder="Search code or keyword — try “formulary”, “modifier”, AUTH…" enterkeyhint="search" spellcheck="false" />
+        <button class="clear" id="clear" aria-label="Clear">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+        </button>
+        <span class="kbd">/</span>
+      </label>
+
+      <div class="meta">
+        <div class="count" id="count"></div>
+        <div style="display:flex;align-items:center;gap:16px;">
+          <span class="hints">↑↓ move · <span>Enter</span> copy · <span>Esc</span> clear</span>
+          <div class="toggle">
+            <button id="vCards" class="on">Cards</button>
+            <button id="vCompact">Compact</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="chips" id="chips"></div>
+    </div>
+
+    <div class="grid" id="grid"></div>
+
+    <footer>
+      <span>© 2026 Dr. Sherif Alattar · Denial Codes Navigator. 57 denial codes · 13 families · zero‑latency lookup</span>
+      <span class="pal" title="Quantum Cyan palette">
+        <i class="sw" style="background:#040711"></i>
+        <i class="sw" style="background:#2dd6e3"></i>
+        <i class="sw" style="background:#22e8ff"></i>
+        <i class="sw" style="background:#dce9f7"></i>
+      </span>
+    </footer>
+  </div>
+
+  <div class="toast" id="toast">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+    <span>Copied&nbsp;<code id="toastCode"></code></span>
+  </div>
+
+<script>
+/* ---------- DATA ---------- */
+const CAT = {
+  AUTH:{label:"Authorization", c:"#2dd6e3"},
+  ELIG:{label:"Eligibility",   c:"#6ee7a8"},
+  BENX:{label:"Benefits",      c:"#8fbdff"},
+  NCOV:{label:"Not Covered",   c:"#ff9d7a"},
+  MNEC:{label:"Medical Necessity", c:"#74b9ff"},
+  CODE:{label:"Coding",        c:"#4fa8ff"},
+  CLAI:{label:"Claim",         c:"#22e8ff"},
+  PRCE:{label:"Pricing",       c:"#52e3d2"},
+  COPY:{label:"Cost Share",    c:"#ff8fae"},
+  DUPL:{label:"Duplicate",     c:"#ffb35c"},
+  TIME:{label:"Timely Filing", c:"#78c8ff"},
+  WRNG:{label:"Routing",       c:"#ff7a8a"},
+  MISC:{label:"Other Edits",   c:"#aab4cc"},
+};
+
+const RAW = [
+  ["AUTH-001","Prior approval is required and was not obtained"],
+  ["AUTH-003","Prior authorization number is invalid"],
+  ["AUTH-004","Service performed outside authorization validity date"],
+  ["AUTH-005","Claim inconsistent with authorized services"],
+  ["AUTH-006","High-alert drug–drug interaction / contraindicated"],
+  ["AUTH-007","Drug duplicate therapy"],
+  ["AUTH-008","Inappropriate drug dose"],
+  ["AUTH-010","Authorization overlaps another paid claim"],
+  ["AUTH-011","Waiting period on pre-existing/specific conditions"],
+  ["BENX-002","Benefit maximum reached"],
+  ["BENX-005","Annual limit/sublimit exceeded"],
+  ["CLAI-007","Work-related injury/illness"],
+  ["CLAI-008","Claim overlaps inpatient stay"],
+  ["CLAI-009","DOB follows date of service"],
+  ["CLAI-010","Date of death precedes date of service"],
+  ["CLAI-011","Admission spans multiple rate periods"],
+  ["CLAI-012","Not compliant with contract"],
+  ["CLAI-014","Incorrect resubmission type"],
+  ["CLAI-016","Incorrect billing regime"],
+  ["CLAI-017","Services not available on direct billing"],
+  ["CODE-010","Activity/diagnosis inconsistent with clinician specialty"],
+  ["CODE-011","Incorrect DRG calculated"],
+  ["CODE-012","Encounter type inconsistent with service/diagnosis"],
+  ["CODE-013","Invalid principal diagnosis"],
+  ["CODE-014","Diagnosis inconsistent with age/gender"],
+  ["CODE-015","Diagnosis inconsistent with provider type"],
+  ["COPY-001","Deductible/co-pay not collected"],
+  ["DDG01","Service not clinically indicated","MISC","MNEC-003"],
+  ["DUPL-001","Duplicate claim"],
+  ["DUPL-002","Payment already made"],
+  ["ELIG-001","Patient not covered"],
+  ["ELIG-005","Service after last coverage date"],
+  ["ELIG-006","Service before coverage start date"],
+  ["ELIG-007","Non-network provider"],
+  ["MAQ06","Modifier 50","MISC"],
+  ["MNEC-003","Not clinically indicated"],
+  ["MNEC-004","Not clinically indicated; missing supporting diagnoses"],
+  ["MNEC-005","Service may be appropriate but too frequent"],
+  ["MNEC-006","Alternative service should have been used"],
+  ["NCOV-001","Diagnosis not covered"],
+  ["NCOV-002","Pre-existing condition not covered"],
+  ["NCOV-003","Service not covered"],
+  ["NCOV-025","Service not performed (post-audit)"],
+  ["NCOV-026","Drug not listed in formulary"],
+  ["PRCE-001","Calculation discrepancy"],
+  ["PRCE-002","Payment included in another service"],
+  ["PRCE-003","Recovery of payment"],
+  ["PRCE-006","Consultation within free follow-up period"],
+  ["PRCE-007","No contracted price"],
+  ["PRCE-008","Multiple procedure rules misapplied"],
+  ["PRCE-009","Charges inconsistent with clinician specialty"],
+  ["PRCE-010","Use bundled code"],
+  ["TIME-001","Time limit for submission expired"],
+  ["TIME-002","Additional info not received"],
+  ["TIME-003","Appeal procedures/time limits not met"],
+  ["WRNG-001","Wrong submission; receiver not responsible"],
+];
+
+const CAT_ORDER = Object.keys(CAT);
+const DATA = RAW.map(r=>{
+  const cat = r[2] || r[0].split("-")[0];
+  const m = CAT[cat] || CAT.MISC;
+  return {
+    code:r[0],
+    codeNorm:r[0].toLowerCase().replace(/[\s‐-]/g,""),
+    desc:r[1],
+    cat,
+    label:m.label,
+    color:m.c,
+    ref:r[3] || null
+  };
+});
+
+/* ---------- STATE ---------- */
+let activeCat = "ALL";
+let activeIndex = 0;
+let currentList = [];
+let compact = false;
+
+/* ---------- ELEMENTS ---------- */
+const $q = document.getElementById("q");
+const $grid = document.getElementById("grid");
+const $chips = document.getElementById("chips");
+const $count = document.getElementById("count");
+const $clear = document.getElementById("clear");
+const $toast = document.getElementById("toast");
+const $toastCode = document.getElementById("toastCode");
+
+/* ---------- HELPERS ---------- */
+const esc = s => s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+function hlDesc(t,q){
+  const safe = esc(t), qd = q.trim();
+  if(!qd) return safe;
+  try{
+    const re = new RegExp("("+qd.replace(/[.*+?^${}()|[\]\\]/g,"\\$&")+")","ig");
+    return safe.replace(re,"<mark>$1</mark>");
+  }catch(e){ return safe; }
+}
+function hlCode(code,q){
+  const chars = q.replace(/[\s‐-]/g,"").split("").map(c=>c.replace(/[.*+?^${}()|[\]\\]/g,"\\$&"));
+  if(!chars.length) return esc(code);
+  try{
+    const re = new RegExp("("+chars.join("[\\s‐-]?")+")","i");
+    return esc(code).replace(re,"<mark>$1</mark>");
+  }catch(e){ return esc(code); }
+}
+function score(it,q){
+  const qn = q.replace(/[\s‐-]/g,"").toLowerCase();
+  const qd = q.trim().toLowerCase();
+  if(!qn && !qd) return 0;
+  let s = -1;
+  if(qn){
+    if(it.codeNorm.startsWith(qn)) s = Math.max(s, 220 - it.codeNorm.length);
+    else if(it.codeNorm.includes(qn)) s = Math.max(s, 150);
+    if(it.ref && it.ref.toLowerCase().replace(/[\s‐-]/g,"").includes(qn)) s = Math.max(s,140);
+  }
+  if(qd){
+    const desc = it.desc.toLowerCase(), label = it.label.toLowerCase();
+    const words = desc.split(/[^a-z0-9]+/).filter(Boolean);
+    if(label.startsWith(qd)) s = Math.max(s,130);
+    else if(label.includes(qd)) s = Math.max(s,80);
+    if(words.some(w=>w.startsWith(qd))) s = Math.max(s,125);
+    else if(desc.includes(qd)) s = Math.max(s,95);
+  }
+  return s;
+}
+
+/* ---------- RENDER ---------- */
+function buildChips(){
+  const counts = {};
+  DATA.forEach(d=>counts[d.cat]=(counts[d.cat]||0)+1);
+  let html = `<button class="chip ${activeCat==='ALL'?'active':''}" data-cat="ALL" style="--c:var(--teal)">
+      <span class="dot"></span>All <span class="n">${DATA.length}</span></button>`;
+  CAT_ORDER.forEach(k=>{
+    if(!counts[k]) return;
+    html += `<button class="chip ${activeCat===k?'active':''}" data-cat="${k}" style="--c:${CAT[k].c}">
+      <span class="dot"></span>${CAT[k].label} <span class="n">${counts[k]}</span></button>`;
+  });
+  $chips.innerHTML = html;
+  $chips.querySelectorAll(".chip").forEach(b=>b.onclick=()=>{
+    activeCat = b.dataset.cat; buildChips(); render();
+  });
+}
+
+function render(){
+  const q = $q.value;
+  $clear.classList.toggle("show", q.length>0);
+
+  let list = DATA.filter(d=> activeCat==="ALL" || d.cat===activeCat);
+  if(q.trim()){
+    list = list.map(d=>({d,s:score(d,q)})).filter(x=>x.s>-1)
+               .sort((a,b)=> b.s-a.s || a.d.code.localeCompare(b.d.code))
+               .map(x=>x.d);
+  }else{
+    list = list.sort((a,b)=> (CAT_ORDER.indexOf(a.cat)-CAT_ORDER.indexOf(b.cat)) || a.code.localeCompare(b.code));
+  }
+  currentList = list;
+  activeIndex = 0;
+
+  $count.innerHTML = `<b>${list.length}</b> of ${DATA.length} codes`;
+
+  if(!list.length){
+    $grid.className = "grid";
+    $grid.innerHTML = `<div class="empty"><div class="big">No matching code</div>
+      <div>Try a shorter term, a code family, or a keyword from the reason.</div>
+      <button onclick="resetAll()">Reset search</button></div>`;
+    return;
+  }
+
+  $grid.className = "grid" + (compact? " compact":"");
+  $grid.innerHTML = list.map((d,i)=>`
+    <div class="card${i===0&&q.trim()?' is-active':''}" role="button" tabindex="0"
+         data-code="${d.code}" data-i="${i}" style="--accent:${d.color};animation-delay:${Math.min(i*16,320)}ms">
+      <div class="ctop">
+        <span class="code">${hlCode(d.code,q)}</span>
+        <span class="copyic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2.5"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg></span>
+      </div>
+      <span class="clabel">${d.label}</span>
+      <div class="desc">${hlDesc(d.desc,q)}</div>
+      ${d.ref?`<span class="ref">maps to <b>${d.ref}</b></span>`:""}
+    </div>`).join("");
+
+  $grid.querySelectorAll(".card").forEach(c=>{
+    c.addEventListener("click",()=>copyCode(c.dataset.code));
+    c.addEventListener("keydown",e=>{
+      if(e.key==="Enter"||e.key===" "){ e.preventDefault(); copyCode(c.dataset.code); }
+    });
+  });
+}
+
+function setActive(i){
+  if(!currentList.length) return;
+  activeIndex = Math.max(0, Math.min(currentList.length-1, i));
+  const cards = $grid.querySelectorAll(".card");
+  cards.forEach((c,idx)=>c.classList.toggle("is-active", idx===activeIndex));
+  cards[activeIndex]?.scrollIntoView({block:"nearest"});
+}
+
+/* ---------- COPY + TOAST ---------- */
+let toastTimer;
+function copyCode(code){
+  const done = ()=>flash(code);
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(code).then(done).catch(()=>fallback(code,done));
+  } else fallback(code,done);
+}
+function fallback(code,done){
+  const t=document.createElement("textarea"); t.value=code;
+  t.style.position="fixed"; t.style.opacity="0"; document.body.appendChild(t);
+  t.select(); try{document.execCommand("copy");}catch(e){} document.body.removeChild(t); done();
+}
+function flash(code){
+  $toastCode.textContent = code;
+  $toast.classList.add("show");
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(()=>$toast.classList.remove("show"),1700);
+}
+
+function resetAll(){ $q.value=""; activeCat="ALL"; buildChips(); render(); $q.focus(); }
+
+/* ---------- EVENTS ---------- */
+$q.addEventListener("input", render);
+$clear.addEventListener("click", ()=>{ $q.value=""; render(); $q.focus(); });
+document.getElementById("vCards").onclick = function(){ compact=false; this.classList.add("on"); document.getElementById("vCompact").classList.remove("on"); render(); };
+document.getElementById("vCompact").onclick = function(){ compact=true; this.classList.add("on"); document.getElementById("vCards").classList.remove("on"); render(); };
+
+document.addEventListener("keydown", e=>{
+  if(e.key==="/" && document.activeElement!==$q){ e.preventDefault(); $q.focus(); $q.select(); }
+  else if(e.key==="Escape"){ if($q.value){ $q.value=""; render(); } }
+  else if(e.key==="ArrowDown"){ if(currentList.length){ e.preventDefault(); setActive(activeIndex+1); } }
+  else if(e.key==="ArrowUp"){ if(currentList.length){ e.preventDefault(); setActive(activeIndex-1); } }
+  else if(e.key==="Enter" && document.activeElement===$q){
+    if(currentList[activeIndex]){ e.preventDefault(); copyCode(currentList[activeIndex].code); }
+  }
+});
+
+/* ---------- INIT ---------- */
+buildChips();
+render();
+</script>
+
+<script src="audio.js"></script>
+
+</body>
+</html>
