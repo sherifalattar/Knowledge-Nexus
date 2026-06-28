@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Denial Navigator</title>
+<title>Denial Navigator · Knowledge Nexus</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=Hanken+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet" />
@@ -261,7 +261,7 @@
     <div class="bar">
       <label class="search">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
-        <input id="q" type="text" autocomplete="off" autofocus placeholder="Search code or keyword — try “formulary”, “modifier”, AUTH…" enterkeyhint="search" spellcheck="false" />
+        <input id="q" type="text" autocomplete="off" autofocus placeholder="Search code or keyword — try “formulary”, “DRG”, AUTH…" enterkeyhint="search" spellcheck="false" />
         <button class="clear" id="clear" aria-label="Clear">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
         </button>
@@ -285,7 +285,7 @@
     <div class="grid" id="grid"></div>
 
     <footer>
-      <span>© 2026 Dr. Sherif Alattar · Denial Codes Navigator. 57 denial codes · 13 families · zero‑latency lookup</span>
+      <span>© 2026 Dr. Sherif Alattar · Denial Codes Navigator · 78 codes · 8 families · source: UAE denial-code cheat sheet, Shafafiya framework</span>
       <span class="pal" title="Quantum Cyan palette">
         <i class="sw" style="background:#040711"></i>
         <i class="sw" style="background:#2dd6e3"></i>
@@ -303,84 +303,101 @@
 <script>
 /* ---------- DATA ---------- */
 const CAT = {
-  AUTH:{label:"Authorization", c:"#2dd6e3"},
-  ELIG:{label:"Eligibility",   c:"#6ee7a8"},
-  BENX:{label:"Benefits",      c:"#8fbdff"},
-  NCOV:{label:"Not Covered",   c:"#ff9d7a"},
+  ELIG:{label:"Eligibility",       c:"#6ee7a8"},
+  AUTH:{label:"Authorization",     c:"#2dd6e3"},
+  CODE:{label:"Clinical / Coding", c:"#4fa8ff"},
+  DUPL:{label:"Duplicate",         c:"#ffb35c"},
   MNEC:{label:"Medical Necessity", c:"#74b9ff"},
-  CODE:{label:"Coding",        c:"#4fa8ff"},
-  CLAI:{label:"Claim",         c:"#22e8ff"},
-  PRCE:{label:"Pricing",       c:"#52e3d2"},
-  COPY:{label:"Cost Share",    c:"#ff8fae"},
-  DUPL:{label:"Duplicate",     c:"#ffb35c"},
-  TIME:{label:"Timely Filing", c:"#78c8ff"},
-  WRNG:{label:"Routing",       c:"#ff7a8a"},
-  MISC:{label:"Other Edits",   c:"#aab4cc"},
+  NCOV:{label:"Non-Coverage",      c:"#ff9d7a"},
+  PRCE:{label:"Pricing",           c:"#52e3d2"},
+  TIME:{label:"Timely Filing",     c:"#78c8ff"},
 };
 
 const RAW = [
-  ["AUTH-001","Prior approval is required and was not obtained"],
+  ["ELIG-001","Patient is not a covered member"],
+  ["ELIG-002","Services performed after the last date of coverage"],
+  ["ELIG-003","Services performed prior to the effective date of coverage"],
+  ["ELIG-004","Services performed by a non-network provider are not covered"],
+  ["ELIG-005","Lifetime benefit maximum has been reached for this service / benefit category"],
+  ["ELIG-006","Lifetime benefit maximum has been reached"],
+  ["ELIG-007","Outpatient MRI claim requires pre-approval; not eligible if pre-approval was not obtained or was denied"],
+  ["AUTH-001","Authorization number is missing or was not obtained"],
+  ["AUTH-002","Service is not authorized"],
   ["AUTH-003","Prior authorization number is invalid"],
-  ["AUTH-004","Service performed outside authorization validity date"],
-  ["AUTH-005","Claim inconsistent with authorized services"],
-  ["AUTH-006","High-alert drug–drug interaction / contraindicated"],
-  ["AUTH-007","Drug duplicate therapy"],
-  ["AUTH-008","Inappropriate drug dose"],
-  ["AUTH-010","Authorization overlaps another paid claim"],
-  ["AUTH-011","Waiting period on pre-existing/specific conditions"],
-  ["BENX-002","Benefit maximum reached"],
-  ["BENX-005","Annual limit/sublimit exceeded"],
-  ["CLAI-007","Work-related injury/illness"],
-  ["CLAI-008","Claim overlaps inpatient stay"],
-  ["CLAI-009","DOB follows date of service"],
-  ["CLAI-010","Date of death precedes date of service"],
-  ["CLAI-011","Admission spans multiple rate periods"],
-  ["CLAI-012","Not compliant with contract"],
-  ["CLAI-014","Incorrect resubmission type"],
-  ["CLAI-016","Incorrect billing regime"],
-  ["CLAI-017","Services not available on direct billing"],
-  ["CODE-010","Activity/diagnosis inconsistent with clinician specialty"],
+  ["AUTH-004","Service(s) performed outside authorization validity date"],
+  ["AUTH-005","Claim information is inconsistent with pre-certified / authorized services"],
+  ["AUTH-006","Authorization request overlaps or is within the period of another paid claim / approved authorization"],
+  ["AUTH-007","Waiting period on pre-existing / specific conditions"],
+  ["AUTH-008","Inappropriate drug dose — prescription exceeds maximum / minimum dosage per day"],
+  ["AUTH-009","Prescription out of date (non-controlled: 60-day validity; controlled: 3-day validity)"],
+  ["CODE-001","Missing, incomplete or invalid principal diagnosis"],
+  ["CODE-002","Missing, incomplete or invalid service code"],
+  ["CODE-003","Missing, incomplete or invalid data element"],
+  ["CODE-004","Diagnosis is inconsistent with the patient's age"],
+  ["CODE-005","Diagnosis is inconsistent with the patient's gender"],
+  ["CODE-006","Diagnosis is inconsistent with the procedure"],
+  ["CODE-007","Diagnosis is inconsistent with the provider type"],
+  ["CODE-008","Service code is inconsistent with the patient's age"],
+  ["CODE-009","Service code is inconsistent with the patient's gender"],
+  ["CODE-010","Activity / diagnosis inconsistent with clinician specialty"],
   ["CODE-011","Incorrect DRG calculated"],
-  ["CODE-012","Encounter type inconsistent with service/diagnosis"],
-  ["CODE-013","Invalid principal diagnosis"],
-  ["CODE-014","Diagnosis inconsistent with age/gender"],
-  ["CODE-015","Diagnosis inconsistent with provider type"],
-  ["COPY-001","Deductible/co-pay not collected"],
-  ["DDG01","Service not clinically indicated","MISC","MNEC-003"],
-  ["DUPL-001","Duplicate claim"],
-  ["DUPL-002","Payment already made"],
-  ["ELIG-001","Patient not covered"],
-  ["ELIG-005","Service after last coverage date"],
-  ["ELIG-006","Service before coverage start date"],
-  ["ELIG-007","Non-network provider"],
-  ["MAQ06","Modifier 50","MISC"],
-  ["MNEC-003","Not clinically indicated"],
-  ["MNEC-004","Not clinically indicated; missing supporting diagnoses"],
-  ["MNEC-005","Service may be appropriate but too frequent"],
-  ["MNEC-006","Alternative service should have been used"],
-  ["NCOV-001","Diagnosis not covered"],
-  ["NCOV-002","Pre-existing condition not covered"],
-  ["NCOV-003","Service not covered"],
-  ["NCOV-025","Service not performed (post-audit)"],
+  ["CODE-012","Encounter type inconsistent with service(s) / diagnosis"],
+  ["CODE-013","Invalid principal diagnosis (e.g. E-codes used as principal diagnosis)"],
+  ["CODE-014","Activity / diagnosis is inconsistent with the patient's age / gender"],
+  ["CODE-015","Activity / diagnosis is inconsistent with the provider type"],
+  ["DUPL-001","Duplicate claim — exact same claim submitted more than once"],
+  ["DUPL-002","Payment already made for same / similar service within set time frame"],
+  ["MNEC-001","Tests or treatments were not ordered by a Medical Doctor"],
+  ["MNEC-002","Services performed were not medically necessary"],
+  ["MNEC-003","Service is not clinically indicated based on good clinical practice"],
+  ["MNEC-004","Service not clinically indicated based on good clinical practice, without additional supporting diagnoses / activities"],
+  ["MNEC-005","Service / supply may be appropriate, but is too frequent"],
+  ["MNEC-006","LASIK not covered — member eligible for optical benefits excluding LASIK"],
+  ["NCOV-001","Diagnosis(es) is (are) not covered"],
+  ["NCOV-002","Pre-existing conditions are not covered"],
+  ["NCOV-003","Service(s) is (are) not covered"],
+  ["NCOV-004","Elective procedure is not covered"],
+  ["NCOV-005","Dental treatments are not covered"],
+  ["NCOV-006","Hearing services are not covered"],
+  ["NCOV-007","Eye exams and treatments are not covered"],
+  ["NCOV-008","Behavioral and mental health services, treatments and medications are not covered"],
+  ["NCOV-009","Gender manipulation services and associated expenses are not covered"],
+  ["NCOV-010","Experimental or investigational services, treatments, devices and medications are not covered"],
+  ["NCOV-011","Preventative care is not covered"],
+  ["NCOV-012","Vaccinations are not covered"],
+  ["NCOV-013","Immunizations are not covered"],
+  ["NCOV-014","Allergy services and treatments are not covered"],
+  ["NCOV-015","Acupuncture, acupressure, hypnotism and other forms of alternative treatment are not covered"],
+  ["NCOV-016","Ambulance transportation for non-emergency situations is not covered"],
+  ["NCOV-017","Home Health services are not covered"],
+  ["NCOV-018","Home Health (Respite) services are not covered"],
+  ["NCOV-019","Home Health (Private Nurse) services are not covered"],
+  ["NCOV-020","Services resulting from attempted suicide or self-infliction are not covered"],
+  ["NCOV-021","Claim overlaps inpatient stay — resubmit only services rendered outside the inpatient stay"],
+  ["NCOV-022","Service(s) is (are) not performed"],
+  ["NCOV-023","Service(s) performed outside period of hospitalization / admission"],
+  ["NCOV-024","Chronic condition service(s) is (are) not covered"],
+  ["NCOV-025","Service(s) not performed (used after audit)"],
   ["NCOV-026","Drug not listed in formulary"],
   ["PRCE-001","Calculation discrepancy"],
-  ["PRCE-002","Payment included in another service"],
-  ["PRCE-003","Recovery of payment"],
+  ["PRCE-002","Payment is included in the allowance for another service"],
+  ["PRCE-003","Recovery of payment — initial payment made to incorrect provider"],
+  ["PRCE-004","Denial reversed because of medical review"],
+  ["PRCE-005","Service has no contract price"],
   ["PRCE-006","Consultation within free follow-up period"],
-  ["PRCE-007","No contracted price"],
-  ["PRCE-008","Multiple procedure rules misapplied"],
-  ["PRCE-009","Charges inconsistent with clinician specialty"],
-  ["PRCE-010","Use bundled code"],
-  ["TIME-001","Time limit for submission expired"],
-  ["TIME-002","Additional info not received"],
-  ["TIME-003","Appeal procedures/time limits not met"],
-  ["WRNG-001","Wrong submission; receiver not responsible"],
+  ["PRCE-007","Service has no contract price — to be negotiated"],
+  ["PRCE-008","Multiple procedure payment rules incorrectly applied"],
+  ["PRCE-009","Bundled code should be used instead of separate codes"],
+  ["PRCE-010","Co-payment / deductible not collected at point of service"],
+  ["TIME-001","Timely filing limit exceeded — claim not submitted within contractual timeframe"],
+  ["TIME-002","Requested additional information was not received, or not received within time limit"],
+  ["TIME-003","Appeal procedures not followed or time limits not met"],
 ];
 
 const CAT_ORDER = Object.keys(CAT);
 const DATA = RAW.map(r=>{
   const cat = r[2] || r[0].split("-")[0];
-  const m = CAT[cat] || CAT.MISC;
+  const m = CAT[cat] || CAT[Object.keys(CAT)[0]];
   return {
     code:r[0],
     codeNorm:r[0].toLowerCase().replace(/[\s‐-]/g,""),
