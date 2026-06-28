@@ -2,6 +2,72 @@
 <html>
 <head>
   <meta charset="utf-8">
+  <script>
+  /* Knowledge Nexus — film-strip overlay.
+     index.html self-unpacks and calls documentElement.replaceWith(), which
+     wipes any static DOM. So we schedule a persistent timer here (the timer
+     closure survives the replace) and inject a fixed film-strip overlay once
+     the unpacked app has rendered. */
+  (function(){
+    var FRAMES=['media/strip/frame-01.jpg','media/strip/frame-02.jpg','media/strip/frame-03.jpg','media/strip/frame-04.jpg','media/strip/frame-05.jpg','media/strip/frame-06.jpg'];
+    var POSTER='knowledge-nexus-intro-poster.jpg';
+    var VIDEO='knowledge-nexus-intro.mp4';
+    var CSS=[
+      '#kn-filmstrip{position:fixed;top:0;left:0;right:0;z-index:2147483600;',
+      'background:linear-gradient(180deg,#02040a,#04060e);border-bottom:1px solid rgba(34,232,255,.14);',
+      'box-shadow:0 18px 60px -30px rgba(0,0,0,.95);font-family:"JetBrains Mono","SFMono-Regular",Consolas,monospace;',
+      '-webkit-user-select:none;user-select:none;animation:knDrop .9s cubic-bezier(.16,.84,.34,1) both}',
+      '@keyframes knDrop{from{transform:translateY(-100%)}to{transform:translateY(0)}}',
+      '#kn-filmstrip .kn-perf{height:15px;background:#06090f;position:relative;overflow:hidden}',
+      '#kn-filmstrip .kn-perf::before{content:"";position:absolute;left:0;right:0;top:50%;transform:translateY(-50%);height:7px;',
+      'background:repeating-linear-gradient(to right,rgba(220,233,247,.5) 0 11px,transparent 11px 27px)}',
+      '#kn-filmstrip .kn-window{overflow:hidden;background:#02040a}',
+      '#kn-filmstrip .kn-reel{display:flex;gap:6px;width:max-content;padding:6px;align-items:center;animation:knRoll 52s linear infinite;will-change:transform}',
+      '#kn-filmstrip:hover .kn-reel{animation-play-state:paused}',
+      '@keyframes knRoll{from{transform:translateX(0)}to{transform:translateX(-50%)}}',
+      '#kn-filmstrip .kn-cell{position:relative;flex:0 0 auto;width:clamp(150px,17vw,250px);aspect-ratio:16/9;',
+      'border:1px solid rgba(220,233,247,.1);border-radius:3px;overflow:hidden;background:#02040a}',
+      '#kn-filmstrip .kn-cell img,#kn-filmstrip .kn-cell video{width:100%;height:100%;object-fit:cover;display:block}',
+      '#kn-filmstrip .kn-cell.kn-live{box-shadow:inset 0 0 0 1px rgba(34,232,255,.55),0 0 34px -6px rgba(34,232,255,.5)}',
+      '#kn-filmstrip .kn-tag{position:absolute;left:8px;top:6px;font-size:9px;letter-spacing:.16em;color:rgba(220,233,247,.62)}',
+      '#kn-filmstrip .kn-live .kn-tag{color:#22e8ff}',
+      '#kn-filmstrip .kn-edge{position:absolute;top:0;bottom:0;width:88px;pointer-events:none;z-index:4}',
+      '#kn-filmstrip .kn-edge.l{left:0;background:linear-gradient(90deg,#02040a,transparent)}',
+      '#kn-filmstrip .kn-edge.r{right:0;background:linear-gradient(270deg,#02040a,transparent)}',
+      '#kn-filmstrip .kn-cap{position:absolute;left:14px;bottom:8px;z-index:5;font-size:10px;letter-spacing:.26em;text-transform:uppercase;color:rgba(34,232,255,.9);pointer-events:none;text-shadow:0 2px 10px rgba(0,0,0,.9)}',
+      '#kn-filmstrip .kn-close{position:absolute;right:9px;bottom:7px;z-index:6;width:22px;height:22px;border-radius:50%;border:1px solid rgba(220,233,247,.28);background:rgba(2,4,10,.65);color:#dce9f7;cursor:pointer;font:12px/1 monospace;display:flex;align-items:center;justify-content:center}',
+      '#kn-filmstrip .kn-close:hover{border-color:rgba(34,232,255,.6);color:#22e8ff}',
+      '@media(prefers-reduced-motion:reduce){#kn-filmstrip .kn-reel{animation:none}#kn-filmstrip{animation:none}}'
+    ].join('');
+    function cell(inner,cls){return '<div class="kn-cell '+(cls||'')+'">'+inner+'</div>';}
+    function frameCell(src,tag){return cell('<img src="'+src+'" alt="">'+(tag?'<span class="kn-tag">'+tag+'</span>':''));}
+    function reelHTML(live){
+      var s=frameCell(FRAMES[0],'01')+frameCell(FRAMES[1],'02');
+      s+= live
+        ? cell('<video src="'+VIDEO+'" poster="'+POSTER+'" muted loop autoplay playsinline preload="metadata"></video><span class="kn-tag">NOW PLAYING</span>','kn-live')
+        : cell('<img src="'+POSTER+'" alt=""><span class="kn-tag">NOW PLAYING</span>','kn-live');
+      s+=frameCell(FRAMES[2],'04')+frameCell(FRAMES[3],'05')+frameCell(FRAMES[4],'06')+frameCell(FRAMES[5],'07');
+      return s;
+    }
+    function dismissed(){try{return sessionStorage.getItem('kn-filmstrip-dismissed')==='1';}catch(e){return false;}}
+    function inject(){
+      if(!document.body||!document.head) return false;
+      if(document.getElementById('kn-filmstrip')) return true;
+      if(document.getElementById('__bundler_thumbnail')) return false; /* app not rendered yet */
+      if(dismissed()) return true;
+      var st=document.createElement('style'); st.id='kn-filmstrip-css'; st.textContent=CSS; document.head.appendChild(st);
+      var wrap=document.createElement('div'); wrap.id='kn-filmstrip';
+      wrap.setAttribute('aria-label','Knowledge Nexus intro film');
+      wrap.innerHTML='<div class="kn-perf"></div><div class="kn-window"><div class="kn-reel">'+reelHTML(true)+reelHTML(false)+'</div><div class="kn-edge l"></div><div class="kn-edge r"></div><span class="kn-cap">Knowledge Nexus · the film</span></div><div class="kn-perf"></div><button class="kn-close" type="button" aria-label="Hide film strip">✕</button>';
+      document.body.appendChild(wrap);
+      var v=wrap.querySelector('video'); if(v){var p=v.play(); if(p&&p.catch)p.catch(function(){});}
+      wrap.querySelector('.kn-close').addEventListener('click',function(){try{sessionStorage.setItem('kn-filmstrip-dismissed','1');}catch(e){} wrap.remove(); var c=document.getElementById('kn-filmstrip-css'); if(c)c.remove();});
+      return true;
+    }
+    var tries=0, iv=setInterval(function(){ tries++; inject(); if(tries>150){clearInterval(iv);} },200);
+    if(document.readyState!=='loading'){ inject(); }
+  })();
+  </script>
   <title>Knowledge Nexus — Dr. Sherif Alattar</title>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
