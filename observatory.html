@@ -520,6 +520,134 @@ h1{margin:0;font-family:var(--display);font-size:clamp(58px,8.2vw,112px);line-he
 <canvas id="field"></canvas>
 <div class="page-shell">
   <main>
+    <!-- ── Intro film — horizontal panel-track hero ───────────────── -->
+    <style>
+      .film-hero{position:relative;margin:0 0 10px}
+      .film-track{
+        display:flex;overflow-x:auto;overflow-y:hidden;
+        scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;
+        scrollbar-width:none;border-radius:var(--radius-xl,28px);
+        border:1px solid rgba(220,233,247,.07);
+        box-shadow:0 30px 90px -50px rgba(0,0,0,.9);
+        background:#02040a;
+      }
+      .film-track::-webkit-scrollbar{display:none}
+      .film-panel{
+        position:relative;flex:0 0 100%;width:100%;box-sizing:border-box;
+        min-height:clamp(360px,68vh,720px);scroll-snap-align:start;
+        display:grid;place-items:center;text-align:center;
+        padding:clamp(28px,5vw,64px);
+      }
+      .film-panel--intro{
+        background:
+          radial-gradient(120% 90% at 50% 38%,rgba(34,232,255,.10),transparent 60%),
+          radial-gradient(120% 120% at 80% 110%,rgba(156,124,255,.10),transparent 55%),
+          #040711;
+      }
+      .film-intro-kicker{
+        font-family:var(--mono,monospace);letter-spacing:.42em;
+        text-transform:uppercase;font-size:13px;color:#22e8ff;margin:0 0 22px}
+      .film-intro-title{
+        font-family:var(--display,sans-serif);font-weight:500;
+        font-size:clamp(40px,7vw,84px);line-height:.98;color:#eef6ff;margin:0}
+      .film-intro-sub{
+        font-family:var(--sans,sans-serif);font-weight:300;
+        color:#aebccd;max-width:46ch;margin:22px auto 0;line-height:1.7;
+        font-size:clamp(15px,1.5vw,18px)}
+      .film-hint{
+        display:inline-flex;align-items:center;gap:10px;margin-top:38px;
+        font-family:var(--mono,monospace);font-size:12px;letter-spacing:.28em;
+        text-transform:uppercase;color:#8fbdff}
+      .film-hint .film-arrow{display:inline-block;animation:filmNudge 1.8s ease-in-out infinite}
+      @keyframes filmNudge{0%,100%{transform:translateX(0);opacity:.6}50%{transform:translateX(8px);opacity:1}}
+      .film-panel--film{padding:0;overflow:hidden;background:#02040a}
+      .film-video{position:absolute;inset:0;width:100%;height:100%;
+        object-fit:cover;display:block;background:#02040a}
+      .film-cap{
+        position:absolute;left:clamp(18px,3vw,34px);bottom:clamp(16px,3vw,28px);
+        z-index:2;font-family:var(--mono,monospace);font-size:11px;
+        letter-spacing:.24em;text-transform:uppercase;color:rgba(220,233,247,.78);
+        pointer-events:none;text-shadow:0 2px 14px rgba(0,0,0,.85)}
+      .film-panel--film::after{content:"";position:absolute;inset:0;z-index:1;
+        pointer-events:none;background:radial-gradient(130% 100% at 50% 50%,transparent 55%,rgba(2,4,10,.55))}
+      .film-panel--enter{
+        background:radial-gradient(120% 100% at 50% 50%,rgba(34,232,255,.08),transparent 60%),#040711}
+      .film-enter-title{
+        font-family:var(--display,sans-serif);font-weight:500;
+        font-size:clamp(34px,5.4vw,62px);color:#eef6ff;margin:0 0 26px;line-height:1.04}
+      .film-enter-btn{
+        display:inline-flex;align-items:center;gap:12px;text-decoration:none;
+        font-family:var(--mono,monospace);font-size:13px;letter-spacing:.16em;
+        text-transform:uppercase;color:#02040a;background:#22e8ff;
+        padding:15px 28px;border-radius:999px;font-weight:600;
+        box-shadow:0 18px 50px -22px rgba(34,232,255,.8);transition:transform .25s ease,box-shadow .25s ease}
+      .film-enter-btn:hover{transform:translateY(-2px);box-shadow:0 24px 60px -22px rgba(34,232,255,.95)}
+      .film-enter-btn svg{width:18px;height:18px}
+      .film-dots{display:flex;justify-content:center;gap:9px;margin-top:16px}
+      .film-dots button{
+        width:8px;height:8px;border-radius:50%;border:0;padding:0;cursor:pointer;
+        background:rgba(220,233,247,.22);transition:background .25s ease,transform .25s ease}
+      .film-dots button[aria-current="true"]{background:#22e8ff;transform:scale(1.25)}
+      @media(prefers-reduced-motion:reduce){.film-hint .film-arrow{animation:none}}
+    </style>
+    <section class="film-hero" aria-label="Knowledge Nexus — intro film">
+      <div class="wrap">
+        <div class="film-track" id="filmTrack">
+          <div class="film-panel film-panel--intro">
+            <div>
+              <p class="film-intro-kicker">The Film</p>
+              <h2 class="film-intro-title">Knowledge&nbsp;Nexus</h2>
+              <p class="film-intro-sub">A thirty-four second passage through the observatory — the constellation forms, and every module finds its orbit.</p>
+              <span class="film-hint">Scroll sideways <span class="film-arrow">&rarr;</span></span>
+            </div>
+          </div>
+          <div class="film-panel film-panel--film">
+            <video class="film-video" id="filmVideo" muted loop autoplay playsinline preload="metadata"
+                   poster="knowledge-nexus-intro-poster.jpg">
+              <source src="knowledge-nexus-intro.mp4" type="video/mp4">
+            </video>
+            <span class="film-cap">Knowledge Nexus &middot; intro film</span>
+          </div>
+          <div class="film-panel film-panel--enter">
+            <div>
+              <h2 class="film-enter-title">Enter the observatory</h2>
+              <a class="film-enter-btn" href="#top" aria-label="Enter the Nexus">
+                Begin
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="film-dots" id="filmDots" role="tablist" aria-label="Film panels">
+          <button type="button" aria-current="true" aria-label="Intro"></button>
+          <button type="button" aria-label="Film"></button>
+          <button type="button" aria-label="Enter"></button>
+        </div>
+      </div>
+    </section>
+    <script>
+      (function(){
+        var track=document.getElementById('filmTrack');
+        var dots=document.getElementById('filmDots');
+        var video=document.getElementById('filmVideo');
+        if(!track) return;
+        var panels=track.querySelectorAll('.film-panel');
+        var btns=dots?dots.querySelectorAll('button'):[];
+        btns.forEach(function(b,i){b.addEventListener('click',function(){
+          track.scrollTo({left:panels[i].offsetLeft-track.offsetLeft,behavior:'smooth'});});});
+        if('IntersectionObserver' in window){
+          var io=new IntersectionObserver(function(entries){
+            entries.forEach(function(e){
+              if(e.intersectionRatio<0.55) return;
+              var idx=Array.prototype.indexOf.call(panels,e.target);
+              btns.forEach(function(b,i){b.setAttribute('aria-current',i===idx?'true':'false');});
+              if(video){ if(e.target.classList.contains('film-panel--film')){var p=video.play();if(p&&p.catch)p.catch(function(){});} else { video.pause(); } }
+            });
+          },{root:track,threshold:[0.55]});
+          panels.forEach(function(p){io.observe(p);});
+        }
+      })();
+    </script>
     <section class="hero" id="top">
       <div class="wrap">
         <div class="hero-card">
