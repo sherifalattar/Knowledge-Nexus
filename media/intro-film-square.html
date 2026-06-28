@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Knowledge Nexus — Film (Square)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  html,body{margin:0;padding:0;background:#02040a;overflow:hidden;}
+  #stage{display:block;width:1080px;height:1080px;background:#02040a;}
+</style>
+</head>
+<body>
+<canvas id="stage" width="1080" height="1080"></canvas>
+<script>
+//=================== Knowledge Nexus — square (1:1) cut ===================
+const W = 1080, H = 1080, CX = W/2, CY = H/2;
+const cv = document.getElementById('stage');
+const g  = cv.getContext('2d');
+
+const VOID0='#02040a', VOID1='#040711';
+const SIGNAL='34,232,255', TEAL='45,214,227', ICE='143,189,255',
+      VIOLET='156,124,255', SILVER='220,233,247', LIGHT='238,246,255';
+const DISPLAY="'Fraunces', Georgia, 'Times New Roman', serif";
+const SANS="'Inter', 'Hanken Grotesk', system-ui, sans-serif";
+const MONO="'JetBrains Mono', 'SFMono-Regular', Consolas, monospace";
+
+const TAU=Math.PI*2;
+const clamp=(x,a,b)=>x<a?a:(x>b?b:x);
+const lerp=(a,b,t)=>a+(b-a)*t;
+function smooth(t){t=clamp(t,0,1);return t*t*(3-2*t);}
+function easeOut(t){t=clamp(t,0,1);return 1-Math.pow(1-t,3);}
+function easeInOut(t){t=clamp(t,0,1);return t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2;}
+function win(t,a,b,fi,fo){if(t<a||t>b)return 0;const up=fi>0?smooth((t-a)/fi):1;const dn=fo>0?smooth((b-t)/fo):1;return Math.min(up,dn);}
+function rgba(c,a){return 'rgba('+c+','+a.toFixed(4)+')';}
+function mulberry32(seed){return function(){seed|=0;seed=seed+0x6D2B79F5|0;let t=Math.imul(seed^seed>>>15,1|seed);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296;};}
+
+const STARS=(()=>{const r=mulberry32(20260628);const a=[];for(let i=0;i<200;i++){a.push({x:r()*W,y:r()*H,z:r(),tw:r()*TAU,sp:.6+r()*1.6,r:.4+r()*1.7});}return a;})();
+const NODES=(()=>{const r=mulberry32(77);const pts=[];const N=9,R=255;
+  for(let i=0;i<N;i++){const ang=-Math.PI/2+i/N*TAU+(r()-.5)*0.18;const rad=R*(0.82+r()*0.3);pts.push({x:CX+Math.cos(ang)*rad,y:CY+Math.sin(ang)*rad,ang});}
+  const edges=[];for(let i=0;i<N;i++){edges.push([i,(i+1)%N]);if(i%2===0)edges.push([i,'c']);}return {pts,edges};})();
+const MODULES=['DRGs Compendium','Denial Codes','Denial Navigator','Psychiatry','Semantic Layer','DSM-5 × IR-DRG','Setting-of-Care','Source Corpus'];
+
+function tracked(text,x,y,ls){const chars=[...text];let total=0;for(const ch of chars){total+=g.measureText(ch).width+ls;}total-=ls;let cx=x-total/2;for(const ch of chars){const w=g.measureText(ch).width;g.fillText(ch,cx+w/2,y);cx+=w+ls;}}
+
+function drawBackground(t){
+  const bg=g.createRadialGradient(CX,CY*0.95,60,CX,CY,820);
+  bg.addColorStop(0,'#070d1c');bg.addColorStop(0.45,VOID1);bg.addColorStop(1,VOID0);
+  g.fillStyle=bg;g.fillRect(0,0,W,H);
+  const d1=Math.sin(t*0.12)*44,d2=Math.cos(t*0.09)*50;
+  let neb=g.createRadialGradient(CX-230+d1,CY-90,0,CX-230+d1,CY-90,420);
+  neb.addColorStop(0,rgba(SIGNAL,0.05));neb.addColorStop(1,rgba(SIGNAL,0));g.fillStyle=neb;g.fillRect(0,0,W,H);
+  neb=g.createRadialGradient(CX+250+d2,CY+150,0,CX+250+d2,CY+150,460);
+  neb.addColorStop(0,rgba(VIOLET,0.045));neb.addColorStop(1,rgba(VIOLET,0));g.fillStyle=neb;g.fillRect(0,0,W,H);
+}
+function drawStars(t,intensity){g.save();for(const s of STARS){const tw=0.55+0.45*Math.sin(t*s.sp+s.tw);const a=intensity*(0.25+0.75*s.z)*tw;if(a<=0.003)continue;g.beginPath();g.fillStyle=rgba(s.z>0.86?ICE:SILVER,a);g.arc(s.x,s.y,s.r*(0.7+0.5*s.z),0,TAU);g.fill();}g.restore();}
+function drawCore(t,scale,glow){g.save();const pulse=0.5+0.5*Math.sin(t*1.6);
+  let halo=g.createRadialGradient(CX,CY,0,CX,CY,240*scale);halo.addColorStop(0,rgba(SIGNAL,0.55*glow));halo.addColorStop(0.25,rgba(SIGNAL,0.22*glow));halo.addColorStop(1,rgba(SIGNAL,0));g.fillStyle=halo;g.beginPath();g.arc(CX,CY,240*scale,0,TAU);g.fill();
+  let bloom=g.createRadialGradient(CX,CY,0,CX,CY,(32+9*pulse)*scale);bloom.addColorStop(0,rgba(LIGHT,0.95*glow));bloom.addColorStop(0.4,rgba(SIGNAL,0.85*glow));bloom.addColorStop(1,rgba(SIGNAL,0));g.fillStyle=bloom;g.beginPath();g.arc(CX,CY,(32+9*pulse)*scale,0,TAU);g.fill();g.restore();}
+function drawConstellation(t,p,alpha){if(alpha<=0.003)return;g.save();g.lineWidth=1.1;const breathe=0.5+0.5*Math.sin(t*0.7);const E=NODES.edges.length;
+  NODES.edges.forEach((e,i)=>{const ep=clamp(p*E-i,0,1);if(ep<=0)return;const A=NODES.pts[e[0]];const B=e[1]==='c'?{x:CX,y:CY}:NODES.pts[e[1]];const mx=lerp(A.x,B.x,easeOut(ep)),my=lerp(A.y,B.y,easeOut(ep));g.strokeStyle=rgba(SIGNAL,(0.16+0.10*breathe)*alpha);g.beginPath();g.moveTo(A.x,A.y);g.lineTo(mx,my);g.stroke();});
+  NODES.pts.forEach((pt,i)=>{const np=clamp(p*NODES.pts.length-i*0.6,0,1);if(np<=0)return;const r=2.4+1.6*Math.sin(t*1.3+i);g.fillStyle=rgba(ICE,0.9*alpha*np);g.beginPath();g.arc(pt.x,pt.y,r,0,TAU);g.fill();g.fillStyle=rgba(SIGNAL,0.18*alpha*np);g.beginPath();g.arc(pt.x,pt.y,r*3.2,0,TAU);g.fill();});g.restore();}
+function drawObservatory(t,alpha,build){if(alpha<=0.003)return;g.save();const rings=[140,235,330,420];
+  rings.forEach((R,i)=>{const rp=smooth(build*1.4-i*0.12);if(rp<=0)return;g.strokeStyle=rgba(SIGNAL,(0.10-0.013*i)*alpha*rp);g.lineWidth=1;g.beginPath();g.arc(CX,CY,R*rp,0,TAU);g.stroke();});
+  const orbitR=[210,300,380,210,300,380,250,340];g.textBaseline='middle';
+  MODULES.forEach((m,i)=>{const np=smooth(build*1.2-0.25-i*0.07);if(np<=0)return;const dir=i%2?-1:1;const speed=0.10+(i%3)*0.018;const ang=(i/MODULES.length)*TAU+t*speed*dir;const R=orbitR[i];
+    const x=CX+Math.cos(ang)*R*0.80,y=CY+Math.sin(ang)*R*0.80;
+    g.fillStyle=rgba(LIGHT,0.92*alpha*np);g.beginPath();g.arc(x,y,3.0,0,TAU);g.fill();g.fillStyle=rgba(SIGNAL,0.16*alpha*np);g.beginPath();g.arc(x,y,9,0,TAU);g.fill();
+    g.strokeStyle=rgba(SIGNAL,0.05*alpha*np);g.lineWidth=1;g.beginPath();g.moveTo(CX,CY);g.lineTo(x,y);g.stroke();
+    g.font='400 17px '+MONO;const onRight=x>=CX;g.textAlign=onRight?'left':'right';g.fillStyle=rgba(SILVER,0.80*alpha*np);g.fillText(m,x+(onRight?13:-13),y);});
+  g.restore();}
+
+const T_END=34;
+function render(t){
+  g.clearRect(0,0,W,H);
+  drawBackground(t);
+  const starI=smooth(t/2.4)*(1-0.35*win(t,11,18,1.6,1.6))*(t>T_END-1.2?smooth((T_END-t)/1.2):1);
+  drawStars(t,clamp(starI,0,1));
+  const coreGlow=smooth((t-1.0)/1.8)*(t>T_END-1.0?smooth((T_END-t)/1.0):1);
+  const coreScale=lerp(0.55,1.0,easeOut((t-1.0)/3.0));
+  drawCore(t,coreScale,clamp(coreGlow,0,1));
+  const conA=win(t,4.6,18,1.4,2.2);const conP=easeInOut((t-5.0)/3.4);drawConstellation(t,conP,conA);
+  const obsA=win(t,17.5,30.5,1.8,2.0);const obsBuild=easeOut((t-17.5)/4.5);drawObservatory(t,obsA,obsBuild);
+
+  g.textAlign='center';g.textBaseline='middle';
+  // S2 kicker
+  let a=win(t,8.0,12.8,1.1,1.0);
+  if(a>0){g.font='400 19px '+MONO;g.fillStyle=rgba(SIGNAL,0.92*a);tracked('AN OBSERVATORY FOR THE LOGIC OF',CX,CY+330,4);g.fillStyle=rgba(SILVER,0.80*a);tracked('UAE HEALTH INSURANCE',CX,CY+360,5);}
+  // S3 TITLE (stacked for square)
+  a=win(t,11.8,18.6,1.4,1.4);
+  if(a>0){const rise=lerp(24,0,easeOut((t-11.8)/1.6));
+    g.strokeStyle=rgba(SIGNAL,0.5*a);g.lineWidth=1;g.beginPath();g.moveTo(CX-120,CY-168+rise);g.lineTo(CX+120,CY-168+rise);g.stroke();
+    g.font='500 20px '+MONO;g.fillStyle=rgba(SIGNAL,0.85*a);tracked('KNOWLEDGE NEXUS',CX,CY-143+rise,9);
+    g.font='500 116px '+DISPLAY;g.fillStyle=rgba(LIGHT,0.98*a);
+    g.fillText('Knowledge',CX,CY-30+rise);g.fillText('Nexus',CX,CY+82+rise);
+    g.font='300 24px '+SANS;g.fillStyle=rgba(SILVER,0.78*a);tracked('Dr. Sherif Alattar · MD',CX,CY+162+rise*0.6,3);}
+  // S4 caption
+  a=win(t,19.5,30.0,1.4,1.6);
+  if(a>0){g.font='400 18px '+MONO;g.fillStyle=rgba(SIGNAL,0.85*a);tracked('THE OBSERVATORY',CX,84,6);g.font='300 22px '+SANS;g.fillStyle=rgba(SILVER,0.74*a);tracked('every module orbits a single point',CX,120,1.2);}
+  // S6 close
+  a=win(t,30.2,T_END,1.3,1.1);
+  if(a>0){g.font='500 54px '+DISPLAY;g.fillStyle=rgba(LIGHT,0.97*a);g.fillText('Enter the observatory',CX,CY-16);g.font='400 18px '+MONO;g.fillStyle=rgba(SIGNAL,0.85*a);tracked('SHERIFALATTAR.GITHUB.IO / KNOWLEDGE-NEXUS',CX,CY+44,3);}
+
+  const vg=g.createRadialGradient(CX,CY,330,CX,CY,820);vg.addColorStop(0,'rgba(0,0,0,0)');vg.addColorStop(1,'rgba(0,0,0,0.55)');g.fillStyle=vg;g.fillRect(0,0,W,H);
+  const fade=Math.max(t<0.8?(1-t/0.8):0,t>T_END-0.8?(1-(T_END-t)/0.8):0);if(fade>0){g.fillStyle=rgba('0,0,0',clamp(fade,0,1));g.fillRect(0,0,W,H);}
+}
+window.__seek=(t)=>{render(t);return true;};
+window.__duration=T_END;window.__ready=false;
+(async()=>{try{await document.fonts.ready;}catch(e){}render(0);window.__ready=true;})();
+</script>
+</body>
+</html>
