@@ -657,12 +657,6 @@ h1{margin:0;font-family:var(--display);font-size:clamp(58px,8.2vw,112px);line-he
   }
   resize();draw();addEventListener('resize',resize,{passive:true});
   const stage=document.getElementById('stage');
-  const identityAssets={
-    nexus:'nexus-assets/knowledge-nexus-drgs.png',
-    psychiatry:'nexus-assets/psychiatry.png'
-  };
-  document.querySelectorAll('.core-logo,.node.n1 img,.work[href*="DRGs"] .work-visual').forEach(img=>{img.src=identityAssets.nexus;});
-  document.querySelectorAll('.node.n2 img,.work[href*="Psychiatric"] .work-visual').forEach(img=>{img.src=identityAssets.psychiatry;});
   const orbitLabels={n1:'DRGs',n2:'Psychiatry',n3:'Codes',n4:'Care',n5:'Gallery',n6:'About'};
   Object.entries(orbitLabels).forEach(([node,label])=>{
     const target=document.querySelector(`.node.${node} strong`);
