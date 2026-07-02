@@ -102,7 +102,7 @@ Knowledge Nexus reads, organizes, and connects **publicly available** material. 
 | ICD‑10‑CM | U.S. CDC / NCHS | [cdc.gov](https://www.cdc.gov/nchs/icd/icd-10-cm/files.html) |
 | DSM‑5‑TR | American Psychiatric Association (© 2022) | [psychiatry.org](https://www.psychiatry.org/psychiatrists/practice/dsm) |
 | IR‑DRG | Solventum | [solventum.com](https://www.solventum.com/en-ae/home/health-information-technology/solutions/ir-drg/) |
-| Adjudication rules · denial & remittance codes · pricing | Abu Dhabi Department of Health — *Shafafiya* | [doh.gov.ae](https://www.doh.gov.ae/en/Shafafiya) |
+| Adjudication rules · denial & remittance codes · pricing | Abu Dhabi Department of Health — *Shafafiya* | [[doh.gov.ae](https://www.doh.gov.ae/en/Shafafiya](https://www.doh.gov.ae/-/media/Feature/shafifya/dictionary/Codes.ashx))
 
 The original design, writing, and synthesis are the author's; the standards are not. Nothing here is an official source for coding or adjudication decisions.
 
