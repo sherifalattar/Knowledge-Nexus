@@ -28,13 +28,13 @@
     if(!(/observatory\.html$/.test(h) && /enter/i.test(a.textContent||''))) return;
     ev.preventDefault();
     if(window.__knEntering) return; window.__knEntering=1;
-    try{ if(window.knAudioArm) window.knAudioArm(); }catch(_){}      /* begin ambient music within this click */
+    try{ if(window.knAudioArm) window.knAudioArm(); }catch(_){}      /* begin background music within this click */
     try{ sessionStorage.setItem('kn-entering','1'); }catch(_){}      /* tell the Observatory to fade in from black */
     var c=document.createElement('div');
     c.style.cssText='position:fixed;inset:0;z-index:2147483600;background:#000;opacity:0;transition:opacity 1.2s ease';
     document.documentElement.appendChild(c);
     requestAnimationFrame(function(){ c.style.opacity='1'; });
-    setTimeout(function(){ window.location.href='observatory.html'; }, 1200);   /* 10s black pause */
+    setTimeout(function(){ window.location.href='pyramids.html'; }, 1200);   /* 10s black pause */
   }, true);
 })();
 </script>
@@ -220,7 +220,7 @@ document.addEventListener('DOMContentLoaded', async function() {
 <script>
 (function(){
   if (window.__knEnterFix) return; window.__knEnterFix = 1;
-  var TARGET = 'observatory.html';
+  var TARGET = 'pyramids.html';
 
   function go(e){
     if (e){ e.preventDefault(); e.stopPropagation(); }
