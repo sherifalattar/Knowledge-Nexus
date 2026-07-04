@@ -25,6 +25,38 @@
     }, true);
   })();
   </script>
+  <script>
+  /* Wire the six chamber cards (their Enter arrows were exported empty) to their pages */
+  (function(){
+    if(window.__knCardsWired) return; window.__knCardsWired=1;
+    var MAP = {
+      'DRGs Compendium':'drgs-compendium.html',
+      'Walk Through Psychiatry':'psychiatry-intro.html',
+      'Denial Codes Development':'denial-codes.html',
+      'Visual Archive':'gallery.html',
+      'Setting of Care':'setting-of-care.html',
+      'About Me':'executive-summary.html'
+    };
+    document.addEventListener('click', function(ev){
+      var a = ev.target.closest && ev.target.closest('a');
+      if(a && /observatory\.html/.test(a.getAttribute('href')||'')) return; /* leave the exit link alone */
+      var el = ev.target;
+      for(var i=0; i<8 && el && el.textContent!==undefined; i++, el=el.parentElement){
+        var txt = el.textContent || '';
+        if(!/ENTER/i.test(txt)) continue;
+        var found=null, count=0;
+        for(var t in MAP){ if(txt.indexOf(t)!==-1){ count++; found=t; } }
+        if(count>1) return;                 /* gone too high / ambiguous — bail */
+        if(count===1){
+          ev.preventDefault(); ev.stopPropagation();
+          try{ if(window.knAudioArm) window.knAudioArm(); }catch(_){}
+          window.location.href = MAP[found];
+          return;
+        }
+      }
+    }, true);
+  })();
+  </script>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body { background: #faf9f5; display: flex; align-items: center; justify-content: center; min-height: 100vh; font-family: -apple-system, BlinkMacSystemFont, sans-serif; }
