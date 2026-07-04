@@ -6,6 +6,32 @@
   <title>Dr. Sherif Alattar — Executive Dossier</title>
   <script src="audio.js" defer></script>
   <style>#tweak-toggle,#tweak-panel{display:none!important}</style>
+  <script>
+  /* This page has no internal navigation — add a link back to the rest of the site */
+  (function(){
+    if(window.__knBackLink) return; window.__knBackLink=1;
+    function mk(){
+      if(document.querySelector('[data-kn-back]')) return;
+      var a=document.createElement('a');
+      a.setAttribute('data-kn-back','');
+      a.href='observatory.html';
+      a.innerHTML='← Knowledge Nexus';
+      a.style.cssText=[
+        'position:fixed','left:22px','bottom:22px','z-index:2147483000',
+        'height:38px','padding:0 16px','display:inline-flex','align-items:center',
+        'border-radius:999px','cursor:pointer','text-decoration:none',
+        'font:600 11px/1 ui-sans-serif,system-ui,-apple-system,sans-serif',
+        'letter-spacing:.14em','text-transform:uppercase','white-space:nowrap',
+        'color:#E7C887','background:rgba(12,16,24,.60)',
+        '-webkit-backdrop-filter:blur(10px)','backdrop-filter:blur(10px)',
+        'border:1px solid rgba(201,168,106,.40)','box-shadow:0 10px 34px -14px rgba(0,0,0,.85)'
+      ].join(';');
+      document.documentElement.appendChild(a);
+    }
+    if(document.readyState!=='loading') mk(); else document.addEventListener('DOMContentLoaded',mk);
+    var n=0,gi=setInterval(function(){ mk(); if(++n>12) clearInterval(gi); },600);
+  })();
+  </script>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body { background: #080B11; display: flex; align-items: center; justify-content: center; min-height: 100vh; font-family: -apple-system, BlinkMacSystemFont, sans-serif; }
