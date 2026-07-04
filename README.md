@@ -29,7 +29,7 @@ The site is built as a short journey rather than a page.
 2. **The Observatory** — a hub where every module orbits a single point.
 3. **The modules** — each a self‑contained study of one part of the domain.
 
-A continuous ambient score follows you from page to page and never restarts as you move. The whole site is meant to be *entered*, not merely browsed.
+A continuous background music follows you from page to page and never restarts as you move. The whole site is meant to be *entered*, not merely browsed.
 
 ## Inside the Nexus
 
@@ -69,7 +69,7 @@ Knowledge Nexus is a static site with **no build step, no framework runtime, and
 
 - Every surface is hand‑authored HTML, CSS, and inline SVG.
 - Imagery is **inlined** — gradients, vector glyphs, and base64 data‑URIs — so the crest and dashboards travel *inside* the documents themselves. The repository carries almost no loose image files; the observatory is, very nearly, made of text.
-- A single shared script, `audio.js`, carries the ambient score across every page and remembers its state between them, so the music never restarts. `ambient.mp3` lives at the repository root.
+- A single shared script, `audio.js`, carries the background music across every page and remembers its state between them, so the music never restarts. `background-music.mp3` lives at the repository root.
 - Nothing is fetched from a data file at runtime — every module is self‑contained.
 - Typefaces, the icon set, and the films load over HTTPS, so the canonical experience is the live address. Opening the files directly from disk will not load those embeds.
 
@@ -87,8 +87,8 @@ Knowledge-Nexus/
 ├─ source-corpus.html
 ├─ gallery.html
 ├─ about-me-sherif-alattar.html
-├─ audio.js                        shared ambient score
-└─ ambient.mp3                     (root — required here)
+├─ audio.js                        shared background music
+└─ background-music.mp3            (root — required here)
 ```
 
 **To preview locally**, serve the folder over HTTP (any static server) rather than opening files from disk — the embeds need a real origin.
