@@ -26,16 +26,18 @@ It is offered in the open, as a study aid and a record of practice. It is **not*
 The site is built as a short journey rather than a page.
 
 1. **A cinematic opening** — a constellation you step through.
-2. **The Observatory** — a hub where every module orbits a single point.
-3. **The modules** — each a self‑contained study of one part of the domain.
+2. **The Pyramids** — a metaphoric threshold: a doctrine set in stone, and the chambers that lie ahead.
+3. **The Observatory** — a hub where every module orbits a single point.
+4. **The modules** — each a self‑contained study of one part of the domain.
 
-A continuous ambient score follows you from page to page and never restarts as you move. The whole site is meant to be *entered*, not merely browsed.
+A continuous background music follows you from page to page and never restarts as you move. The whole site is meant to be *entered*, not merely browsed.
 
 ## Inside the Nexus
 
 | Module | What lives there |
 |---|---|
 | **Cinematic Opening** | The constellation you pass through to arrive. |
+| **The Pyramids** | The metaphoric landing between the opening and the hub — a doctrine in stone, and the chambers it previews. |
 | **The Observatory** | The hub; every module orbits here. |
 | **DRGs Compendium** | The IR‑DRG system — how inpatient encounters group, and the logic beneath it. |
 | **Denial Codes** | The consolidated study — what denial codes are as shared infrastructure, how one is built (group code → CARC → RARC → the DoH·Shafafiya layer), and a claim's journey through them. |
@@ -46,7 +48,7 @@ A continuous ambient score follows you from page to page and never restarts as y
 | **Setting‑of‑Care Principles** | When care belongs where — and why it matters to a claim. |
 | **Source Corpus** | The reference foundation: every source the work stands on. |
 | **Gallery** | The visual archive — dashboards and short films. |
-| **About the Author** | The path that led here. |
+| **About the Author** | The executive dossier — the path, the record, and the case behind the work. |
 
 ## Design language
 
@@ -69,13 +71,14 @@ Knowledge Nexus is a static site with **no build step, no framework runtime, and
 
 - Every surface is hand‑authored HTML, CSS, and inline SVG.
 - Imagery is **inlined** — gradients, vector glyphs, and base64 data‑URIs — so the crest and dashboards travel *inside* the documents themselves. The repository carries almost no loose image files; the observatory is, very nearly, made of text.
-- A single shared script, `audio.js`, carries the ambient score across every page and remembers its state between them, so the music never restarts. `ambient.mp3` lives at the repository root.
+- A single shared script, `audio.js`, carries the background music across every page and remembers its state between them, so the music never restarts. `background-music.mp3` lives at the repository root.
 - Nothing is fetched from a data file at runtime — every module is self‑contained.
 - Typefaces, the icon set, and the films load over HTTPS, so the canonical experience is the live address. Opening the files directly from disk will not load those embeds.
 
 ```
 Knowledge-Nexus/
 ├─ index.html                      cinematic opening
+├─ pyramids.html                   the metaphoric landing
 ├─ observatory.html                the hub
 ├─ drgs-compendium.html
 ├─ denial-codes.html               denial codes as infrastructure
@@ -86,9 +89,9 @@ Knowledge-Nexus/
 ├─ setting-of-care.html
 ├─ source-corpus.html
 ├─ gallery.html
-├─ about-me-sherif-alattar.html
-├─ audio.js                        shared ambient score
-└─ ambient.mp3                     (root — required here)
+├─ about-me-sherif-alattar.html    the executive dossier
+├─ audio.js                        shared background music
+└─ background-music.mp3            (root — required here)
 ```
 
 **To preview locally**, serve the folder over HTTP (any static server) rather than opening files from disk — the embeds need a real origin.
@@ -102,7 +105,7 @@ Knowledge Nexus reads, organizes, and connects **publicly available** material. 
 | ICD‑10‑CM | U.S. CDC / NCHS | [cdc.gov](https://www.cdc.gov/nchs/icd/icd-10-cm/files.html) |
 | DSM‑5‑TR | American Psychiatric Association (© 2022) | [psychiatry.org](https://www.psychiatry.org/psychiatrists/practice/dsm) |
 | IR‑DRG | Solventum | [solventum.com](https://www.solventum.com/en-ae/home/health-information-technology/solutions/ir-drg/) |
-| Adjudication rules · denial & remittance codes · pricing | Abu Dhabi Department of Health — *Shafafiya* | [doh.gov.ae](https://www.doh.gov.ae/en/Shafafiya) |
+| Adjudication rules · denial & remittance codes · pricing | Abu Dhabi Department of Health — *Shafafiya* | [doh.gov.ae](https://www.doh.gov.ae/-/media/Feature/shafifya/dictionary/Codes.ashx) |
 
 The original design, writing, and synthesis are the author's; the standards are not. Nothing here is an official source for coding or adjudication decisions.
 

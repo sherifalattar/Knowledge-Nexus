@@ -1,4 +1,4 @@
-/* Knowledge Nexus — shared ambient sound toggle.
+/* Knowledge Nexus — shared background music toggle.
    Off by default (browsers block autoplay-with-sound until a gesture).
    Once enabled, persists across pages within the session and resumes. */
 (function () {
@@ -9,7 +9,7 @@
   var KEY = 'kn-audio';
 
   var audio = document.createElement('audio');
-  audio.src = 'ambient.mp3';
+  audio.src = 'background-music.mp3';
   audio.loop = true;
   audio.preload = 'auto';
   audio.setAttribute('playsinline', '');
@@ -19,7 +19,7 @@
   var btn = document.createElement('button');
   btn.type = 'button';
   btn.setAttribute('data-kn-audio', '');
-  btn.setAttribute('aria-label', 'Toggle ambient sound');
+  btn.setAttribute('aria-label', 'Toggle background music');
   btn.style.cssText = [
     'position:fixed', 'right:22px', 'bottom:22px', 'z-index:2147483000',
     'height:38px', 'padding:0 15px 0 12px', 'display:inline-flex', 'align-items:center', 'gap:8px',
