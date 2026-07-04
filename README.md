@@ -89,7 +89,7 @@ Knowledge-Nexus/
 ├─ setting-of-care.html
 ├─ source-corpus.html
 ├─ gallery.html
-├─ about-me-sherif-alattar.html    the executive dossier
+├─ executive-summary.html    the executive dossier
 ├─ audio.js                        shared background music
 └─ background-music.mp3            (root — required here)
 ```
