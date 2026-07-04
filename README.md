@@ -127,8 +127,6 @@ You are welcome to read, learn from, and link to this work. Reuse or redistribut
 
 > *Knowledge Nexus remains an evolving body of work — a record of an ongoing pursuit of understanding, curiosity, and lifelong learning.*
 
-**Knowledge Nexus** · Abu Dhabi · UAE · MMXXVI
-
-2026
+**Knowledge Nexus** · Abu Dhabi · UAE · 2026
 
 </div>
