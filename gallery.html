@@ -535,6 +535,37 @@ const figIO = new IntersectionObserver((ents)=>{
 const figEl = document.querySelector('.figures'); if (figEl) figIO.observe(figEl);
 </script>
 
+<!-- Social signature cards — shareable plates -->
+<section class="sc-wrap" aria-label="Shareable signature cards">
+  <div class="sc-inner">
+    <div class="sc-head">
+      <div class="sc-kicker">SHAREABLE SIGNATURES</div>
+      <h2 class="sc-title">The Cards</h2>
+      <p class="sc-sub">The social plates that carry Knowledge Nexus into the world.</p>
+    </div>
+    <div class="sc-grid">
+      <figure class="sc-card"><img src="Knowledge-Nexus.png" alt="Knowledge Nexus — a doctrine architecture" loading="lazy"><figcaption>Knowledge Nexus</figcaption></figure>
+      <figure class="sc-card"><img src="Knowledge-Nexus-Constellation.png" alt="Knowledge Nexus — the constellation opening" loading="lazy"><figcaption>The Constellation</figcaption></figure>
+      <figure class="sc-card"><img src="Knowledge-Nexus-Six-Chambers.png" alt="The Six Chambers" loading="lazy"><figcaption>The Six Chambers</figcaption></figure>
+      <figure class="sc-card"><img src="Knowledge-Nexus-Sherif-Alattar.png" alt="Dr. Sherif Alattar — Executive Dossier" loading="lazy"><figcaption>Executive Dossier</figcaption></figure>
+    </div>
+  </div>
+</section>
+<style>
+.sc-wrap{background:#070A11;padding:96px 24px;border-top:1px solid rgba(198,168,110,.18)}
+.sc-inner{max-width:1200px;margin:0 auto}
+.sc-head{text-align:center;margin-bottom:48px}
+.sc-kicker{font:600 12px/1.4 'JetBrains Mono',ui-monospace,monospace;letter-spacing:.35em;color:#C6A86E;text-transform:uppercase;margin:0 0 14px}
+.sc-title{font:800 clamp(32px,5vw,52px)/1 'Archivo',system-ui,sans-serif;color:#F3F0E9;margin:0 0 12px}
+.sc-sub{font:400 16px/1.6 'Inter',system-ui,sans-serif;color:#9AA3B2;margin:0}
+.sc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px}
+.sc-card{margin:0;background:#0A0F1A;border:1px solid rgba(198,168,110,.22);border-radius:14px;overflow:hidden;transition:transform .3s ease,border-color .3s ease}
+.sc-card:hover{transform:translateY(-4px);border-color:rgba(198,168,110,.5)}
+.sc-card img{display:block;width:100%;height:auto;background:#05070c}
+.sc-card figcaption{font:500 14px/1.4 'Inter',system-ui,sans-serif;color:#C6A86E;padding:14px 18px;letter-spacing:.02em}
+@media(max-width:560px){.sc-wrap{padding:64px 16px}}
+</style>
+
 <!-- shared background music — same player on every page, carries across navigation -->
 <script src="audio.js" defer></script>
 <script data-goatcounter="https://sherifalattar.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
