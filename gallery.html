@@ -302,6 +302,29 @@ img{display:block; max-width:100%}
   <div class="cue"><span>Enter</span><span class="rail"></span></div>
 </section>
 
+<!-- ============ THE CURATOR ============ -->
+<section class="curator" aria-label="The curator">
+  <span class="cur-eyebrow">The Curator</span>
+  <figure class="cur-frame">
+    <span class="cur-corner tl"></span><span class="cur-corner tr"></span><span class="cur-corner bl"></span><span class="cur-corner br"></span>
+    <img src="Knowledge-Nexus-Sherif-Alattar.png" alt="Dr. Sherif Alattar — curator of the Visual Archive" loading="lazy">
+  </figure>
+  <p class="cur-line">Sole author, designer, and builder of every work held in this archive — he receives you at the threshold.</p>
+</section>
+<style>
+.curator{position:relative; z-index:2; max-width:var(--maxw); margin:0 auto; padding:30px 24px 70px; text-align:center}
+.cur-eyebrow{display:inline-block; font-family:'Syne',sans-serif; font-weight:700; font-size:11px; letter-spacing:.42em; text-transform:uppercase; color:var(--gold)}
+.cur-frame{position:relative; margin:24px auto 0; max-width:920px; padding:14px; background:var(--panel); border:1px solid var(--stroke); border-radius:6px}
+.cur-frame img{display:block; width:100%; height:auto; border-radius:3px}
+.cur-corner{position:absolute; width:14px; height:14px; border:1px solid var(--gold); opacity:.65}
+.cur-corner.tl{top:6px; left:6px; border-right:0; border-bottom:0}
+.cur-corner.tr{top:6px; right:6px; border-left:0; border-bottom:0}
+.cur-corner.bl{bottom:6px; left:6px; border-right:0; border-top:0}
+.cur-corner.br{bottom:6px; right:6px; border-left:0; border-top:0}
+.cur-line{max-width:560px; margin:22px auto 0; font-size:clamp(14px,1.5vw,16px); line-height:1.65; color:var(--t3)}
+@media(max-width:540px){.curator{padding:16px 16px 52px}}
+</style>
+
 <!-- ============ HALL I — MOTION ============ -->
 <section class="hall" aria-labelledby="h-motion">
   <div class="hall-head rv">
@@ -534,6 +557,37 @@ const figIO = new IntersectionObserver((ents)=>{
 }, {threshold:.4});
 const figEl = document.querySelector('.figures'); if (figEl) figIO.observe(figEl);
 </script>
+
+<!-- Social signature cards — shareable plates -->
+<section class="sc-wrap" aria-label="Shareable signature cards">
+  <div class="sc-inner">
+    <div class="sc-head">
+      <div class="sc-kicker">SHAREABLE SIGNATURES</div>
+      <h2 class="sc-title">The Cards</h2>
+      <p class="sc-sub">The social plates that carry Knowledge Nexus into the world.</p>
+    </div>
+    <div class="sc-grid">
+      <figure class="sc-card"><img src="Knowledge-Nexus.png" alt="Knowledge Nexus — a doctrine architecture" loading="lazy"><figcaption>Knowledge Nexus</figcaption></figure>
+      <figure class="sc-card"><img src="Knowledge-Nexus-Constellation.png" alt="Knowledge Nexus — the constellation opening" loading="lazy"><figcaption>The Constellation</figcaption></figure>
+      <figure class="sc-card"><img src="Knowledge-Nexus-Six-Chambers.png" alt="The Six Chambers" loading="lazy"><figcaption>The Six Chambers</figcaption></figure>
+      <figure class="sc-card"><img src="Knowledge-Nexus-Sherif-Alattar.png" alt="Dr. Sherif Alattar — Executive Dossier" loading="lazy"><figcaption>Executive Dossier</figcaption></figure>
+    </div>
+  </div>
+</section>
+<style>
+.sc-wrap{background:#070A11;padding:96px 24px;border-top:1px solid rgba(198,168,110,.18)}
+.sc-inner{max-width:1200px;margin:0 auto}
+.sc-head{text-align:center;margin-bottom:48px}
+.sc-kicker{font:600 12px/1.4 'JetBrains Mono',ui-monospace,monospace;letter-spacing:.35em;color:#C6A86E;text-transform:uppercase;margin:0 0 14px}
+.sc-title{font:800 clamp(32px,5vw,52px)/1 'Archivo',system-ui,sans-serif;color:#F3F0E9;margin:0 0 12px}
+.sc-sub{font:400 16px/1.6 'Inter',system-ui,sans-serif;color:#9AA3B2;margin:0}
+.sc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px}
+.sc-card{margin:0;background:#0A0F1A;border:1px solid rgba(198,168,110,.22);border-radius:14px;overflow:hidden;transition:transform .3s ease,border-color .3s ease}
+.sc-card:hover{transform:translateY(-4px);border-color:rgba(198,168,110,.5)}
+.sc-card img{display:block;width:100%;height:auto;background:#05070c}
+.sc-card figcaption{font:500 14px/1.4 'Inter',system-ui,sans-serif;color:#C6A86E;padding:14px 18px;letter-spacing:.02em}
+@media(max-width:560px){.sc-wrap{padding:64px 16px}}
+</style>
 
 <!-- shared background music — same player on every page, carries across navigation -->
 <script src="audio.js" defer></script>
