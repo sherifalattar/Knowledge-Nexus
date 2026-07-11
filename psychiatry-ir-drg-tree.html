@@ -3128,66 +3128,13 @@ window.addEventListener('keydown',e=>{
     if (explicit === "weights") return "weights";
     if (explicit === "semantic-layer") return "semantic-layer";
     var href = trigger.getAttribute("href") || "";
-    if (href === "#weights" || href.indexOf("#weights") !== -1) return "weights";
-    if (href === "#semantic-layer" || /Semantic-Reference-Layer-MDC19-20-Scientific\\.html/.test(href)) return "semantic-layer";
-    return "";
-  }
-
-  function setHash(target) {
-    var next = "#" + target;
-    if (location.hash === next) return;
-    try { history.pushState(null, "", next); }
-    catch (_) { location.hash = target; }
-  }
-
-  function bindSemanticLinks() {
-    var links = document.querySelectorAll('[data-open-semantic], a[href="#semantic-layer"], a[href="#weights"], a[href*="psychiatry-semantic-layer.html"]');
-    for (var i = 0; i < links.length; i++) {
-      links[i].onclick = function(e) {
-        if (e) e.preventDefault();
-        var target = targetFor(this) || "semantic-layer";
-        setHash(target);
-        openSemantic(target);
-        return false;
-      };
-    }
-  }
-
-  document.addEventListener("click", function(e){
-    var trigger = e.target.closest ? e.target.closest("[data-open-semantic], a[href]") : null;
-    var target = targetFor(trigger);
-    if (target) {
-      e.preventDefault();
-      e.stopPropagation();
-      setHash(target);
-      openSemantic(target);
-    } else if (trigger && trigger.getAttribute("href") === "#taxonomy") {
-      closeSemantic();
-    }
-  }, true);
-
-  document.addEventListener("keydown", function(e){
-    if (e.key === "Escape" && byId("semanticPanel") && byId("semanticPanel").classList.contains("show")) closeSemantic();
-  });
-
-  function init() {
-    var close = byId("semanticPanelClose");
-    if (close) close.addEventListener("click", closeSemantic);
-    bindSemanticLinks();
-    routeHash(location.hash);
-    window.setTimeout(bindSemanticLinks, 60);
-  }
-
-  window.addEventListener("hashchange", function(){ routeHash(location.hash); });
-  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init);
-  else init();
-  window.__openSemanticLayer = openSemantic;
-  window.__closeSemanticLayer = closeSemantic;
-  window.openSemanticLayer = openSemantic;
-})();
-</script>
-
-<script src="audio.js"></script>
-
-<script data-goatcounter="https://sherifalattar.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
-</body></html>
+    if (href ==
+<!-- sa-orcid-badge -->
+<div id="sa-orcid-badge" style="position:fixed;right:0;bottom:0;z-index:9999;display:flex;justify-content:flex-end;padding:0 16px 14px;pointer-events:none;">
+  <a href="https://orcid.org/0009-0000-8799-9395" target="_blank" rel="me noopener noreferrer"
+     style="pointer-events:auto;display:inline-flex;align-items:center;gap:8px;padding:7px 14px;border-radius:999px;background:rgba(10,14,22,.72);border:1px solid rgba(201,162,75,.35);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);font-family:'Inter','Segoe UI',Arial,sans-serif;font-size:12px;font-weight:600;line-height:1;letter-spacing:.02em;color:#C9A24B;text-decoration:none;white-space:nowrap;box-shadow:0 6px 20px rgba(0,0,0,.5);">
+    <img src="https://orcid.org/sites/default/files/images/orcid_16x16.png" alt="ORCID iD" style="width:14px;height:14px;display:block;flex:none;"/>
+    <span style="display:block;line-height:1;">Dr. Sherif Alattar &middot; ORCID 0009-0000-8799-9395</span>
+  </a>
+</div>
+<!-- /sa-orcid-badge -->
