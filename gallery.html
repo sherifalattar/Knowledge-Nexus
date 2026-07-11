@@ -297,7 +297,8 @@ img{display:block; max-width:100%}
   <div class="t-index">
     <span><b>I</b>&nbsp; Motion</span><span class="bar"></span>
     <span><b>II</b>&nbsp; Static Designs</span><span class="bar"></span>
-    <span><b>III</b>&nbsp; Data Visualization</span>
+    <span><b>III</b>&nbsp; Data Visualization</span><span class="bar"></span>
+    <span><b>IV</b>&nbsp; Service Heroes</span>
   </div>
   <div class="cue"><span>Enter</span><span class="rail"></span></div>
 </section>
@@ -469,6 +470,57 @@ img{display:block; max-width:100%}
     <div class="fig-foot">Roving Doctors Department — savings dashboard.</div>
   </div>
 </section>
+
+<!-- ============ HALL IV — SERVICE HEROES ============ -->
+<section class="hall" aria-labelledby="h-recognition">
+  <div class="hall-head">
+    <span class="hall-num">HALL IV</span>
+    <h2 class="hall-name" id="h-recognition">Service Heroes</h2>
+    <p class="hall-note">Recognition, in the words of those who gave it.</p>
+  </div>
+
+  <div class="hero-exhibit">
+    <div class="hero-frame" style="--accent:var(--gold)">
+      <span class="lamp"></span>
+      <div class="hero-mat">
+        <iframe src="https://www.linkedin.com/embed/feed/update/urn:li:share:6841772162337042433" width="504" height="627" frameborder="0" allowfullscreen title="Bupa Arabia Service Heroes — appreciation post" loading="lazy"></iframe>
+      </div>
+      <span class="hero-floor"></span>
+    </div>
+
+    <div class="label">
+      <div class="kicker">Recognition</div>
+      <h3>Bupa Arabia — &ldquo;Service Heroes&rdquo;</h3>
+      <p class="hero-story">Formally recognised for resolving a critical case involving a 7-year-old leukaemia patient — identifying preauthorization and annual-limit errors that, once corrected, secured continuity of life-saving chemotherapy.</p>
+      <div class="spec">
+        <div class="row"><span class="k">Awarded by</span><span class="v">Bupa Arabia</span></div>
+        <div class="row"><span class="k">Period</span><span class="v">Q2 2021 · Manager, Clinical Excellence</span></div>
+        <div class="row"><span class="k">Nominated by</span><span class="v">Manager of Clinical Excellence, Eastern Region</span></div>
+        <div class="row"><span class="k">His words</span><span class="v">&ldquo;Thanks Bupa Arabia for the appreciation.&rdquo;</span></div>
+      </div>
+      <a class="open" href="https://www.linkedin.com/feed/update/urn:li:share:6841772162337042433" target="_blank" rel="noopener">
+        Read on LinkedIn
+        <svg width="16" height="10" viewBox="0 0 16 10" fill="none"><path d="M1 5h13M10 1l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+<style>
+.hero-exhibit{display:grid; grid-template-columns:minmax(0,504px) minmax(240px,1fr); gap:52px; align-items:center}
+.hero-frame{position:relative}
+.hero-mat{position:relative; padding:14px; background:linear-gradient(180deg,var(--panel),var(--bg-2));
+  border:1px solid var(--stroke); border-radius:5px; box-shadow:0 40px 80px -44px rgba(0,0,0,.95)}
+.hero-mat iframe{display:block; width:100%; height:627px; border:0; border-radius:3px; background:#fff}
+.hero-frame .lamp{position:absolute; top:-2px; left:50%; transform:translateX(-50%); width:60%; height:2px;
+  background:linear-gradient(90deg,transparent,var(--gold),transparent); opacity:.55}
+.hero-floor{position:absolute; left:8%; right:8%; bottom:-30px; height:46px; pointer-events:none;
+  background:radial-gradient(60% 100% at 50% 0%, rgba(201,168,106,.12), transparent 75%); filter:blur(6px); opacity:.7}
+.hero-story{margin:16px 0 0; font-size:14.5px; line-height:1.7; color:var(--t2); text-wrap:pretty}
+@media(max-width:860px){
+  .hero-exhibit{grid-template-columns:1fr; gap:32px; justify-items:center}
+  .hero-exhibit .label{max-width:504px}
+}
+</style>
 
 <footer class="foot">
   <span class="sig">Knowledge Nexus — Visual Archive</span>
