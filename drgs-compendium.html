@@ -2270,7 +2270,35 @@ function applyFilter(){
   const tocSec=document.getElementById("sec-toc");
   if(tocSec)tocSec.classList.toggle("hidden",!((activeSection==="all"||activeSection==="toc")&&!term));
   document.querySelectorAll(".ch-hdr").forEach(hd=>hd.style.display=(activeSection==="all"&&!term)?"":"none");
-  if(activeSection==="toc"){ noresults.style.display="none"; ret
+  if(activeSection==="toc"){ noresults.style.display="none"; return; }
+  document.querySelectorAll("#sections .section").forEach(sec=>{
+    if(sec.id==="sec-toc") return;
+    let secVisible=0;
+    sec.querySelectorAll(".card").forEach(card=>{
+      const okSec=(activeSection==="all"||card.dataset.section===activeSection);
+      const okTerm=(!term||(card.dataset.hay||"").indexOf(term)>=0);
+      const shown=okSec&&okTerm;
+      card.style.display=shown?"":"none";
+      if(shown){ secVisible++; visible++; }
+    });
+    sec.style.display=secVisible>0?"":"none";
+  });
+  noresults.style.display=visible>0?"none":"";
+}
+document.querySelectorAll("#chips .chip").forEach(chip=>{
+  chip.addEventListener("click",()=>{
+    activeSection=chip.dataset.id||"all";
+    document.querySelectorAll("#chips .chip").forEach(c=>c.classList.toggle("active",c===chip));
+    applyFilter();
+  });
+});
+if(q){
+  q.addEventListener("input",applyFilter);
+  document.addEventListener("keydown",e=>{ if(e.key==="/"&&document.activeElement!==q){ e.preventDefault(); q.focus(); } });
+}
+applyFilter();
+</script>
+
 <!-- sa-orcid-badge -->
 <div id="sa-orcid-badge" style="position:fixed;right:0;bottom:0;z-index:9999;display:flex;justify-content:flex-end;padding:0 16px 14px;pointer-events:none;">
   <a href="https://orcid.org/0009-0000-8799-9395" target="_blank" rel="me noopener noreferrer"
@@ -2280,3 +2308,5 @@ function applyFilter(){
   </a>
 </div>
 <!-- /sa-orcid-badge -->
+</body>
+</html>
