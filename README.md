@@ -1,7 +1,8 @@
 <div align="center">
 
 # Knowledge Nexus
-
+<div class="badge-base LI-profile-badge" data-locale="en_US" data-size="medium" data-theme="dark" data-type="VERTICAL" data-vanity="sherifalattar" data-version="v1"><a class="badge-base__link LI-simple-link" href="https://ae.linkedin.com/in/sherifalattar?trk=profile-badge">Dr. Sherif Alattar</a></div>
+              
 ### An observatory for the logic of UAE health insurance
 clinical coding · reimbursement · clinical reasoning · the connections between them
 
