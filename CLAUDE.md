@@ -65,20 +65,24 @@ own sake.
 
 ## The LinkedIn badge (README.md)
 
-`README.md` embeds LinkedIn's official **Profile Badge** for Dr. Sherif Alattar.
-Its configured appearance:
+`README.md` uses a **shields.io image badge** linking to the author's LinkedIn
+profile:
 
-- `data-size="medium"` — medium card
-- `data-theme="dark"` — dark colour scheme (matches the observatory palette)
-- `data-type="VERTICAL"` — tall/portrait card layout
-- `data-vanity="sherifalattar"` → `https://ae.linkedin.com/in/sherifalattar`
+```markdown
+[![LinkedIn — Dr. Sherif Alattar](https://img.shields.io/badge/LinkedIn-Dr.%20Sherif%20Alattar-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://ae.linkedin.com/in/sherifalattar)
+```
 
-**Note on rendering:** the styled interactive card (photo, name, headline, "View
-profile" button) only appears where LinkedIn's badge script
-(`platform.linkedin.com/badges/js/profile.js`) can run. GitHub strips the
-`<div>`/script when rendering the README, so on GitHub the badge falls back to a
-plain-text hyperlink reading "Dr. Sherif Alattar". The full dark vertical card
-renders only where the script loads (a normal web page / the live site).
+It renders as a static, LinkedIn-blue badge with the LinkedIn logo and the
+author's name, and the whole badge is a clickable link to
+`https://ae.linkedin.com/in/sherifalattar`.
+
+**Why an image badge (not the official widget):** LinkedIn's official Profile
+Badge is a JavaScript widget (`platform.linkedin.com/badges/js/profile.js`) that
+only builds its card when that script runs. GitHub sanitizes README HTML and
+never executes scripts, so the widget collapsed to a bare text link on GitHub.
+The image badge renders everywhere — including on GitHub — because it is a plain
+image wrapped in a link. Trade-off: it shows a static badge (name + logo), not
+the live card with photo and headline.
 
 ## Working conventions
 
