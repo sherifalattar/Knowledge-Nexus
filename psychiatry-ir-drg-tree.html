@@ -3133,7 +3133,68 @@ window.addEventListener('keydown',e=>{
     if (explicit === "weights") return "weights";
     if (explicit === "semantic-layer") return "semantic-layer";
     var href = trigger.getAttribute("href") || "";
-    if (href ==
+    if (href === "#weights" || href.indexOf("#weights") !== -1) return "weights";
+    if (href === "#semantic-layer" || /Semantic-Reference-Layer-MDC19-20-Scientific\\.html/.test(href)) return "semantic-layer";
+    return "";
+  }
+
+  function setHash(target) {
+    var next = "#" + target;
+    if (location.hash === next) return;
+    try { history.pushState(null, "", next); }
+    catch (_) { location.hash = target; }
+  }
+
+  function bindSemanticLinks() {
+    var links = document.querySelectorAll('[data-open-semantic], a[href="#semantic-layer"], a[href="#weights"], a[href*="psychiatry-semantic-layer.html"]');
+    for (var i = 0; i < links.length; i++) {
+      links[i].onclick = function(e) {
+        if (e) e.preventDefault();
+        var target = targetFor(this) || "semantic-layer";
+        setHash(target);
+        openSemantic(target);
+        return false;
+      };
+    }
+  }
+
+  document.addEventListener("click", function(e){
+    var trigger = e.target.closest ? e.target.closest("[data-open-semantic], a[href]") : null;
+    var target = targetFor(trigger);
+    if (target) {
+      e.preventDefault();
+      e.stopPropagation();
+      setHash(target);
+      openSemantic(target);
+    } else if (trigger && trigger.getAttribute("href") === "#taxonomy") {
+      closeSemantic();
+    }
+  }, true);
+
+  document.addEventListener("keydown", function(e){
+    if (e.key === "Escape" && byId("semanticPanel") && byId("semanticPanel").classList.contains("show")) closeSemantic();
+  });
+
+  function init() {
+    var close = byId("semanticPanelClose");
+    if (close) close.addEventListener("click", closeSemantic);
+    bindSemanticLinks();
+    routeHash(location.hash);
+    window.setTimeout(bindSemanticLinks, 60);
+  }
+
+  window.addEventListener("hashchange", function(){ routeHash(location.hash); });
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init);
+  else init();
+  window.__openSemanticLayer = openSemantic;
+  window.__closeSemanticLayer = closeSemantic;
+  window.openSemanticLayer = openSemantic;
+})();
+</script>
+
+<script src="audio.js"></script>
+
+<script data-goatcounter="https://sherifalattar.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 <!-- sa-linkedin-badge -->
 <div id="sa-linkedin-badge" style="position:fixed;left:0;bottom:0;z-index:9999;display:flex;justify-content:flex-start;padding:0 16px 14px;pointer-events:none;">
   <a href="https://www.linkedin.com/in/sherifalattar" target="_blank" rel="me noopener noreferrer"
@@ -3152,3 +3213,4 @@ window.addEventListener('keydown',e=>{
   </a>
 </div>
 <!-- /sa-orcid-badge -->
+</body></html>

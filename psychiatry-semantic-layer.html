@@ -1792,7 +1792,31 @@ footer b{color:var(--silver);font-weight:600}
       entries.forEach(function(entry){
         if (entry.isIntersecting) {
           entry.target.classList.add("in-view");
-   
+          setActive(entry.target.id);
+        }
+      });
+    }, { threshold: 0.28, rootMargin: "-10% 0px -55% 0px" });
+    sections.forEach(function(section){ io.observe(section); });
+  } else {
+    sections.forEach(function(section){ section.classList.add("in-view"); });
+  }
+
+  window.addEventListener("hashchange", function(){
+    var id = location.hash.replace("#", "");
+    if (id && document.getElementById(id)) goTo(id, false);
+  });
+
+  if (location.hash && document.getElementById(location.hash.slice(1))) {
+    window.setTimeout(function(){ goTo(location.hash.slice(1), false); }, 80);
+  } else if (cards[0]) {
+    setActive(cards[0].getAttribute("href").replace("#", ""));
+  }
+})();
+</script>
+
+<script src="audio.js"></script>
+
+<script data-goatcounter="https://sherifalattar.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 <!-- sa-linkedin-badge -->
 <div id="sa-linkedin-badge" style="position:fixed;left:0;bottom:0;z-index:9999;display:flex;justify-content:flex-start;padding:0 16px 14px;pointer-events:none;">
   <a href="https://www.linkedin.com/in/sherifalattar" target="_blank" rel="me noopener noreferrer"
@@ -1811,3 +1835,4 @@ footer b{color:var(--silver);font-weight:600}
   </a>
 </div>
 <!-- /sa-orcid-badge -->
+</body></html>
