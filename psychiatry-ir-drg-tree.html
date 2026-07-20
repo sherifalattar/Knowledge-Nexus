@@ -2903,9 +2903,14 @@ flow.forEach(([ic,st,ss],i)=>{
 lucide.createIcons();
 
 /* ---------- zoom / pan engine ---------- */
-const PW=1900, PH=1440;
+const PW=1900;
+let PH=1440;
 const stage=document.getElementById('stage');
 const poster=document.getElementById('poster');
+/* Fit the poster to its real content height so tall columns are never clipped
+   (a later theme rule pins overflow:hidden at a fixed 1440px). scrollHeight
+   reports the full content extent even under overflow:hidden. */
+try{ const _contentH=Math.ceil(poster.scrollHeight); if(_contentH>PH){ PH=_contentH; poster.style.height=PH+'px'; } }catch(_){}
 let baseScale=1, zoom=1, tx=0, ty=0;
 const MINZ=1, MAXZ=4.5;
 
