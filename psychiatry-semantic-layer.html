@@ -1099,13 +1099,23 @@ footer b{color:var(--silver);font-weight:600}
   }
 
   section[data-layer].layer-pulse {
-    animation: layerPulse .82s ease;
+    animation: layerPulse 1.5s cubic-bezier(.22,.61,.36,1);
+    border-radius: 14px;
   }
 
   @keyframes layerPulse {
-    0% { filter: brightness(1); }
-    35% { filter: brightness(1.18); }
-    100% { filter: brightness(1); }
+    0% {
+      filter: brightness(1);
+      box-shadow: 0 0 0 0 rgba(45,214,227,0), 0 0 0 0 rgba(45,214,227,0);
+    }
+    18% {
+      filter: brightness(1.32);
+      box-shadow: 0 0 0 2px rgba(45,214,227,.85), 0 0 42px 6px rgba(45,214,227,.38);
+    }
+    100% {
+      filter: brightness(1);
+      box-shadow: 0 0 0 0 rgba(45,214,227,0), 0 0 0 0 rgba(45,214,227,0);
+    }
   }
 
   .layer-stepper {
