@@ -2903,9 +2903,14 @@ flow.forEach(([ic,st,ss],i)=>{
 lucide.createIcons();
 
 /* ---------- zoom / pan engine ---------- */
-const PW=1900, PH=1440;
+const PW=1900;
+let PH=1440;
 const stage=document.getElementById('stage');
 const poster=document.getElementById('poster');
+/* Fit the poster to its real content height so tall columns are never clipped
+   (a later theme rule pins overflow:hidden at a fixed 1440px). scrollHeight
+   reports the full content extent even under overflow:hidden. */
+try{ const _contentH=Math.ceil(poster.scrollHeight); if(_contentH>PH){ PH=_contentH; poster.style.height=PH+'px'; } }catch(_){}
 let baseScale=1, zoom=1, tx=0, ty=0;
 const MINZ=1, MAXZ=4.5;
 
@@ -3128,7 +3133,68 @@ window.addEventListener('keydown',e=>{
     if (explicit === "weights") return "weights";
     if (explicit === "semantic-layer") return "semantic-layer";
     var href = trigger.getAttribute("href") || "";
-    if (href ==
+    if (href === "#weights" || href.indexOf("#weights") !== -1) return "weights";
+    if (href === "#semantic-layer" || /Semantic-Reference-Layer-MDC19-20-Scientific\\.html/.test(href)) return "semantic-layer";
+    return "";
+  }
+
+  function setHash(target) {
+    var next = "#" + target;
+    if (location.hash === next) return;
+    try { history.pushState(null, "", next); }
+    catch (_) { location.hash = target; }
+  }
+
+  function bindSemanticLinks() {
+    var links = document.querySelectorAll('[data-open-semantic], a[href="#semantic-layer"], a[href="#weights"], a[href*="psychiatry-semantic-layer.html"]');
+    for (var i = 0; i < links.length; i++) {
+      links[i].onclick = function(e) {
+        if (e) e.preventDefault();
+        var target = targetFor(this) || "semantic-layer";
+        setHash(target);
+        openSemantic(target);
+        return false;
+      };
+    }
+  }
+
+  document.addEventListener("click", function(e){
+    var trigger = e.target.closest ? e.target.closest("[data-open-semantic], a[href]") : null;
+    var target = targetFor(trigger);
+    if (target) {
+      e.preventDefault();
+      e.stopPropagation();
+      setHash(target);
+      openSemantic(target);
+    } else if (trigger && trigger.getAttribute("href") === "#taxonomy") {
+      closeSemantic();
+    }
+  }, true);
+
+  document.addEventListener("keydown", function(e){
+    if (e.key === "Escape" && byId("semanticPanel") && byId("semanticPanel").classList.contains("show")) closeSemantic();
+  });
+
+  function init() {
+    var close = byId("semanticPanelClose");
+    if (close) close.addEventListener("click", closeSemantic);
+    bindSemanticLinks();
+    routeHash(location.hash);
+    window.setTimeout(bindSemanticLinks, 60);
+  }
+
+  window.addEventListener("hashchange", function(){ routeHash(location.hash); });
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init);
+  else init();
+  window.__openSemanticLayer = openSemantic;
+  window.__closeSemanticLayer = closeSemantic;
+  window.openSemanticLayer = openSemantic;
+})();
+</script>
+
+<script src="audio.js"></script>
+
+<script data-goatcounter="https://sherifalattar.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 <!-- sa-linkedin-badge -->
 <div id="sa-linkedin-badge" style="position:fixed;left:0;bottom:0;z-index:9999;display:flex;justify-content:flex-start;padding:0 16px 14px;pointer-events:none;">
   <a href="https://www.linkedin.com/in/sherifalattar" target="_blank" rel="me noopener noreferrer"
@@ -3139,7 +3205,7 @@ window.addEventListener('keydown',e=>{
 </div>
 <!-- /sa-linkedin-badge -->
 <!-- sa-orcid-badge -->
-<div id="sa-orcid-badge" style="position:fixed;right:0;bottom:0;z-index:9999;display:flex;justify-content:flex-end;padding:0 16px 14px;pointer-events:none;">
+<div id="sa-orcid-badge" style="position:fixed;right:0;bottom:0;z-index:9999;display:flex;justify-content:flex-end;padding:0 150px 14px;pointer-events:none;">
   <a href="https://orcid.org/0009-0000-8799-9395" target="_blank" rel="me noopener noreferrer"
      style="pointer-events:auto;display:inline-flex;align-items:center;gap:8px;padding:7px 14px;border-radius:999px;background:rgba(10,14,22,.72);border:1px solid rgba(201,162,75,.35);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);font-family:'Inter','Segoe UI',Arial,sans-serif;font-size:12px;font-weight:600;line-height:1;letter-spacing:.02em;color:#C9A24B;text-decoration:none;white-space:nowrap;box-shadow:0 6px 20px rgba(0,0,0,.5);">
     <svg width="14" height="14" viewBox="0 0 256 256" role="img" aria-label="ORCID iD" style="display:block;flex:none;"><path fill="#A6CE39" d="M256 128c0 70.7-57.3 128-128 128S0 198.7 0 128 57.3 0 128 0s128 57.3 128 128z"/><g fill="#fff"><path d="M86.3 186.2H70.9V79.1h15.4v107.1z"/><path d="M108.9 79.1h41.6c39.6 0 57 28.3 57 53.6 0 27.5-21.5 53.6-56.8 53.6h-41.8V79.1zm15.4 93.3h24.5c34.9 0 42.9-26.5 42.9-39.7 0-21.5-13.7-39.7-43.7-39.7h-23.7v79.4z"/><circle cx="78.6" cy="56.8" r="10.1"/></g></svg>
@@ -3147,3 +3213,4 @@ window.addEventListener('keydown',e=>{
   </a>
 </div>
 <!-- /sa-orcid-badge -->
+</body></html>
