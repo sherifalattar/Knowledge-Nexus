@@ -76,9 +76,16 @@ it. It was found **eleven days later**, by chance, during unrelated work.
 proper `</html>`; both psychiatry pages close cleanly. *(The one file without `</html>` is
 `google7f5a774d4427ac0c.html`, a one-line Search Console stub — correct as it is.)*
 
-**But the exposure is unchanged.** Verified today: there is **no `.github/` directory** — no
-CI, no workflow, no check of any kind. The repository has no build step by design (D-13),
-so a corrupted file ships the moment it is pushed. `executive-summary.html` is 4.9 MB,
+**But the exposure is unchanged.** Verified today: there is **no `.github/` directory**, and
+none has ever existed on any ref — so no CI is defined in the repository. **One check does
+run**: GitHub **CodeQL code scanning**, enabled via repository *default setup* rather than a
+workflow file (which is why it leaves no trace in the tree). It reports as `CodeQL` and
+`Analyze (javascript-typescript)` and passed on this export's own branch.
+
+**CodeQL does not close this gap.** It scans JavaScript/TypeScript for security
+vulnerabilities; it does not parse or validate HTML, so it would not have flagged either
+truncated psychiatry page. The repository has no build step by design (D-13), so a corrupted
+file still ships the moment it is pushed. `executive-summary.html` is 4.9 MB,
 `gallery.html` 1.9 MB, `index.html` 564 KB. None can be eyeballed.
 
 **What remains.** A single GitHub Action, perhaps ten lines, asserting that every `*.html`

@@ -257,7 +257,8 @@ playing. Neither is in the documented palette. See `open-items.md`, OI-07.
 **Why this binds absolutely.** On 9 July 2026, commit `00ae74b` — a site-wide badge sweep —
 **silently truncated `psychiatry-semantic-layer.html` and `psychiatry-ir-drg-tree.html`**,
 and the damage was not discovered for eleven days (PR #38, 20 July). There is no build
-step and no CI, so nothing catches a truncated file. `executive-summary.html` is 4.9 MB;
+step, and the only check that runs (CodeQL, on JavaScript/TypeScript) does not look at
+HTML — so nothing catches a truncated file. `executive-summary.html` is 4.9 MB;
 `drgs-compendium.html` is 310 KB; `gallery.html` is 1.9 MB. A blind regex write against
 any of them is a live hazard.
 
@@ -368,8 +369,13 @@ written down anywhere in the repository.
 
 1. **Host:** GitHub Pages, serving `main` from the repository root.
    Live at `https://sherifalattar.github.io/Knowledge-Nexus/`.
-2. **No CI, no build, no `.github/` directory at all** — verified 2 September 2026. Nothing
-   tests, lints, or validates anything. A push to `main` is a deploy.
+2. **No build step, and no CI defined in the repository** — verified 2 September 2026:
+   there is no `.github/` directory, and there never has been on any ref. **One check does
+   run**: GitHub **CodeQL code scanning**, enabled through repository *default setup* rather
+   than a workflow file, which is why it leaves no trace in the tree. It reports as
+   `CodeQL` and `Analyze (javascript-typescript)`. It scans JavaScript/TypeScript for
+   security issues — **it does not validate HTML**, so it would not have caught the
+   truncation described in D-14. A push to `main` is a deploy.
 3. **Branch-and-PR is the normal path.** 44 PRs against 89 commits.
 4. **Direct-to-`main` commits happen** — and the worst regression in the project's history
    (`00ae74b`, D-14) came in through exactly that route.
@@ -382,7 +388,8 @@ written down anywhere in the repository.
 
 **The gap this leaves.** The single most valuable process improvement available — given
 that a silent truncation went unnoticed for eleven days — would be a trivial CI check that
-every HTML file ends with a closing `</html>` tag. There is currently nothing.
+every HTML file ends with a closing `</html>` tag. CodeQL does not do this, and nothing
+else in the repository does either.
 
 ---
 
