@@ -517,6 +517,29 @@ that embeds a page inside a script tag and re-parses it. Hand-editing that loade
   earlier from the PDF text. The earlier number was derived from a flattened text extract;
   the new one from the live `DATA` array in a browser.
 
+## 9 September 2026, second round — the map rebuilt
+
+Your five points, and what each became.
+
+| You said | Outcome |
+|---|---|
+| كل كارت يظهر تحته البنود الخاصه بالموضوع | Cards carry their page's sections, numbered, 7 then "+ N more" |
+| الترقيم بيحمل عناوين فقط not pearls | 412 entries now carry the source passage, not just the label |
+| مفيش نجوم فى الكروت خالص | Constellation painter deleted — canvas, painter, repaint loop |
+| اسود او رمادى باضاءه خلفيه · بلاش الكحلى | Graphite slab, backlit; navy removed from the whole page |
+| المحاذاه مش مزبوطه فى الترقيم | Three fixed columns; one title x per width, 390 → 1440 |
+
+**Still owed to you — and blocked on you, not on me:**
+
+- **The descent over real photographs** (*"صور حقيقيه كانك بتنزل على مكان زى القطب
+  الجنوبى"*). Not built. It needs your images. An unlicensed photograph will not go on
+  this site: on a portfolio whose first principle is provenance it would be the single
+  indefensible object in it. Send the frames and the descent gets built.
+- **The music.** You said the 30 MB file will not upload; nothing has reached the
+  session. Three ways forward: commit it to the repo yourself and I wire it up; split
+  it; or send a web-encoded version and keep the master outside git. The rights position
+  on each track still has to be settled before anything is published.
+
 ## Still open
 
 
