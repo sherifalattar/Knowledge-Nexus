@@ -1719,6 +1719,11 @@ footer b{color:var(--silver);font-weight:600}
     return document.getElementById(id);
   }).filter(Boolean);
 
+  /* Every layer must be revealed, including any section the stepper index does not
+     list — #layer-boundaries (08A) has no card, so keying the reveal off the cards
+     alone left it dimmed. The stepper itself still tracks only the carded layers. */
+  var revealTargets = Array.prototype.slice.call(document.querySelectorAll("section[data-layer]"));
+
   function labelFor(card) {
     var title = card.querySelector("b");
     return title ? title.textContent : "Layer";
@@ -1787,18 +1792,30 @@ footer b{color:var(--silver);font-weight:600}
     section.appendChild(stepper);
   });
 
+  /* Revealing a layer and tracking which layer is being read are two different jobs,
+     and they need two different observers. A single narrow band — 28% of a section
+     inside a window only 35% of the viewport tall — is unsatisfiable for any section
+     taller than about 1100px, so the long layers in the lower half of the page never
+     received .in-view and stayed at opacity .25 permanently. Reveal now fires on first
+     contact and then stops watching; the stepper keeps a thin mid-viewport band. */
   if ("IntersectionObserver" in window) {
-    var io = new IntersectionObserver(function(entries){
+    var reveal = new IntersectionObserver(function(entries){
       entries.forEach(function(entry){
-        if (entry.isIntersecting) {
-          entry.target.classList.add("in-view");
-          setActive(entry.target.id);
-        }
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add("in-view");
+        reveal.unobserve(entry.target);
       });
-    }, { threshold: 0.28, rootMargin: "-10% 0px -55% 0px" });
-    sections.forEach(function(section){ io.observe(section); });
+    }, { threshold: 0, rootMargin: "0px 0px -6% 0px" });
+    revealTargets.forEach(function(section){ reveal.observe(section); });
+
+    var spy = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if (entry.isIntersecting) setActive(entry.target.id);
+      });
+    }, { threshold: 0, rootMargin: "-45% 0px -45% 0px" });
+    sections.forEach(function(section){ spy.observe(section); });
   } else {
-    sections.forEach(function(section){ section.classList.add("in-view"); });
+    revealTargets.forEach(function(section){ section.classList.add("in-view"); });
   }
 
   window.addEventListener("hashchange", function(){
