@@ -42,6 +42,10 @@
   --steel-ext:0 -1px 0 rgba(255,255,255,.45),0 1px 0 #2b323d,0 2px 0 #272e38,0 3px 0 #232933,0 4px 0 #1f242e,0 5px 0 #1b2029,0 6px 0 #171c24,0 7px 0 #13171f,0 8px 0 #0f131a,0 10px 16px rgba(0,0,0,.85),0 22px 42px rgba(0,0,0,.6);
 }
 *{margin:0;padding:0;box-sizing:border-box}
+/* the ground is painted on the root, not only on body: with overflow-x:clip and a
+   fixed-attachment gradient, body's background stopped covering the canvas above
+   the scroll origin and left a white band there */
+html{background:#070B12}
 html{scroll-behavior:smooth;scroll-padding-top:104px}
 body{
   background:
@@ -50,7 +54,7 @@ body{
     radial-gradient(140% 120% at 50% 0%, #0E1626 0%, #0A1018 46%, #070B12 100%);
   background-attachment:fixed;
   color:var(--ink-2); font-family:var(--font-sans); font-size:15px; line-height:1.6;
-  -webkit-font-smoothing:antialiased; overflow-x:hidden;
+  -webkit-font-smoothing:antialiased; overflow-x:clip;
 }
 .grain{position:fixed;inset:0;pointer-events:none;z-index:1;opacity:.045;mix-blend-mode:overlay;
   background-image:repeating-linear-gradient(0deg, rgba(255,255,255,.5) 0 1px, transparent 1px 3px)}
@@ -177,10 +181,29 @@ body{
    ============================================================ */
 main{position:relative;z-index:2;padding:56px 0 90px}
 /* a reading ground over the field, inside main only, so the hero stays lit */
-main::before{content:"";position:absolute;top:-40px;bottom:0;left:50%;width:100vw;
+main::before{content:"";position:absolute;top:-40px;bottom:0;left:50%;width:100vw;pointer-events:none;
   transform:translateX(-50%);z-index:-1;pointer-events:none;
   background:linear-gradient(180deg, transparent, rgba(7,11,18,.80) 120px, rgba(7,11,18,.88))}
-.page-block{margin:0 0 64px;scroll-margin-top:118px}
+/* The fourteen pages are dealt as a deck: each is a panel that sticks under the
+   console while the next slides up over it, so the pages open one behind another
+   and the ones already read stay visible as a thickening edge at the top. */
+.page-block{
+  position:sticky; top:calc(104px + var(--i, 0) * 10px);
+  margin:0 0 30px; scroll-margin-top:126px;
+  padding:24px clamp(16px,2.6vw,32px) 30px;
+  border:1px solid var(--line); border-radius:18px;
+  background:linear-gradient(180deg, rgba(16,28,49,.94), rgba(9,17,31,.97));
+  -webkit-backdrop-filter:blur(14px); backdrop-filter:blur(14px);
+  box-shadow:0 -14px 40px -28px rgba(0,0,0,.95), 0 44px 90px -58px #000;
+  transform-origin:top center;
+  transition:transform .35s var(--ease-out), opacity .35s var(--ease-out), border-color .35s;
+}
+.page-block::before{content:"";position:absolute;top:0;left:22px;right:22px;height:1px;
+  background:var(--hairline-gold);opacity:.5}
+/* a card that has been overtaken sinks back rather than simply vanishing */
+.page-block.behind{transform:scale(.976);opacity:.55;border-color:rgba(27,43,67,.6)}
+.page-block.behind .entries{opacity:.5}
+.page-block:last-of-type{margin-bottom:70px}
 .page-block.hidden{display:none}
 .ph{display:flex;align-items:flex-start;gap:18px;padding-bottom:16px;border-bottom:1px solid var(--line);margin-bottom:22px}
 .ph .pn{font-family:var(--font-mono);font-size:12px;color:var(--gold);padding-top:6px;flex:none;letter-spacing:.08em}
@@ -1374,6 +1397,26 @@ main::before{content:"";position:absolute;top:-40px;bottom:0;left:50%;width:100v
   });
 
   apply();
+
+  /* the deck: index each panel so its resting height differs, and mark the ones
+     the reader has already passed so they sink behind rather than disappear */
+  (function deck(){
+    function reindex(){
+      var vis = blocks.filter(function(b){ return !b.classList.contains('hidden'); });
+      vis.forEach(function(b, i){ b.style.setProperty('--i', Math.min(i, 8)); });
+    }
+    function depth(){
+      blocks.forEach(function(b){
+        var r = b.getBoundingClientRect();
+        b.classList.toggle('behind', r.bottom < 260 || (r.top <= 112 && r.bottom < innerHeight * .62));
+      });
+    }
+    reindex(); depth();
+    addEventListener('scroll', depth, { passive: true });
+    addEventListener('resize', depth);
+    var mo = new MutationObserver(function(){ reindex(); depth(); });
+    blocks.forEach(function(b){ mo.observe(b, { attributes: true, attributeFilter: ['class'] }); });
+  })();
 })();
 </script>
 <!-- sa-linkedin-badge -->
