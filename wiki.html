@@ -66,6 +66,9 @@ body{
   -webkit-mask-image:radial-gradient(58% 46% at 50% 46%, transparent 42%, #000 88%);
   mask-image:radial-gradient(58% 46% at 50% 46%, transparent 42%, #000 88%)}
 #neural.recede{opacity:.16}
+/* when a query is running, the field comes back up: it is showing the answer */
+#neural.lit-query{opacity:.62}
+#neural.recede.lit-query{opacity:.42}
 /* the constellation names the page you point at — the field is an index,
    so it should answer when questioned rather than merely decorate */
 #field-label{position:fixed;z-index:3;transform:translate(-50%,0);pointer-events:none;
@@ -1115,6 +1118,7 @@ main::before{content:"";position:absolute;top:-40px;bottom:0;left:50%;width:100v
   })();
 
   var w, h, dpr, cx, cy, FOV = 900, mx = 0, my = 0, tx = 0, ty = 0, t0 = 0, raf = 0, near = null;
+  var matches = null, focus = null;
 
   function resize(){
     dpr = Math.min(window.devicePixelRatio || 1, 2);
@@ -1149,6 +1153,13 @@ main::before{content:"";position:absolute;top:-40px;bottom:0;left:50%;width:100v
       s.sy = cy + (Y2 * scale + ty * 40) * k;
       s.sr = Math.max(.35, s.r * k * 2.1);
       s.a = Math.max(0, Math.min(1, (2600 - zz) / 2100)) * (0.12 + 0.88 * arrive);
+      s.hit = 0;
+      if (matches) {
+        /* six stars out of 717 cannot answer a question at their normal size:
+           a match is enlarged and pulsed, the rest fall back to a whisper */
+        if (matches.has(i)) { s.hit = 1; s.sr *= 2.6; }
+        else s.a *= 0.05;
+      } else if (focus !== null) s.a *= (s.ci === focus) ? 1 : 0.24;
     }
     for (i = 0; i < clusters.length; i++){
       var C = clusters[i], f = stars[C.first];
@@ -1167,12 +1178,13 @@ main::before{content:"";position:absolute;top:-40px;bottom:0;left:50%;width:100v
     ctx.globalCompositeOperation = 'lighter';
     for (i = 0; i < stars.length; i++){
       s = stars[i]; if (!s.a) continue;
+      var pulse = s.hit ? (0.75 + 0.25 * Math.sin((now || 0) * 0.005)) : 1;
       var g = ctx.createRadialGradient(s.sx, s.sy, 0, s.sx, s.sy, s.sr * 4);
-      g.addColorStop(0, 'rgba(' + s.c + ',' + (s.a * .40).toFixed(3) + ')');
+      g.addColorStop(0, 'rgba(' + s.c + ',' + (s.a * (s.hit ? .72 : .40) * pulse).toFixed(3) + ')');
       g.addColorStop(1, 'rgba(' + s.c + ',0)');
       ctx.fillStyle = g;
       ctx.beginPath(); ctx.arc(s.sx, s.sy, s.sr * 4, 0, 6.2832); ctx.fill();
-      ctx.fillStyle = 'rgba(' + s.c + ',' + Math.min(1, s.a * 1.2).toFixed(3) + ')';
+      ctx.fillStyle = 'rgba(' + s.c + ',' + Math.min(1, s.a * 1.2 * pulse).toFixed(3) + ')';
       ctx.beginPath(); ctx.arc(s.sx, s.sy, s.sr * .9, 0, 6.2832); ctx.fill();
     }
     ctx.globalCompositeOperation = 'source-over';
@@ -1194,12 +1206,16 @@ main::before{content:"";position:absolute;top:-40px;bottom:0;left:50%;width:100v
     LABEL.innerHTML = '<b>' + (best.page < 10 ? '0' : '') + best.page + '</b>' +
       best.title.replace(/&/g, '&amp;').replace(/</g, '&lt;') +
       '<i>' + best.count + ' entries</i>';
-    LABEL.style.left = Math.round(best.sx) + 'px';
-    LABEL.style.top = Math.round(best.sy + 22) + 'px';
+    /* clamp inside the viewport — a cluster near the edge would push it off-screen */
+    LABEL.style.left = Math.round(Math.max(150, Math.min(window.innerWidth - 150, best.sx))) + 'px';
+    LABEL.style.top = Math.round(Math.min(window.innerHeight - 60, best.sy + 22)) + 'px';
     LABEL.classList.add('on');
   }
 
   window.addEventListener('resize', resize);
+  window.addEventListener('scroll', function(){
+    if (LABEL && window.scrollY > window.innerHeight * .8) { LABEL.classList.remove('on'); near = null; }
+  }, { passive: true });
   window.addEventListener('pointermove', function(e){
     mx = (e.clientX / window.innerWidth - .5) * 2;
     my = (e.clientY / window.innerHeight - .5) * 2;
@@ -1214,6 +1230,17 @@ main::before{content:"";position:absolute;top:-40px;bottom:0;left:50%;width:100v
     if (document.hidden){ cancelAnimationFrame(raf); raf = 0; }
     else if (!raf){ raf = requestAnimationFrame(frame); }
   });
+  /* the field answers the page: a search lights only the stars that match,
+     and reading a section brings its own constellation forward */
+  window.__knField = {
+    stars: stars.length,
+    match: function(set){ matches = set; },
+    focus: function(pageNo){
+      focus = null;
+      for (var i = 0; i < clusters.length; i++) if (clusters[i].page === pageNo) focus = i;
+    }
+  };
+
   resize();
   raf = requestAnimationFrame(frame);
 })();
@@ -1249,6 +1276,15 @@ main::before{content:"";position:absolute;top:-40px;bottom:0;left:50%;width:100v
     if (bar) bar.style.width = (max > 0 ? (scrollY / max) * 100 : 0) + '%';
     /* a live field behind 717 lines of reference text is noise, not atmosphere */
     if (field) field.classList.toggle('recede', scrollY > innerHeight * 0.55);
+    /* and it tracks where you are reading: the page in view holds the light */
+    if (window.__knField) {
+      var best = null, bd = 1e9;
+      document.querySelectorAll('.page-block:not(.hidden)').forEach(function(b){
+        var d = Math.abs(b.getBoundingClientRect().top - 140);
+        if (d < bd) { bd = d; best = b; }
+      });
+      window.__knField.focus(scrollY > innerHeight * 0.5 && best ? +best.dataset.page : -1);
+    }
   }, { passive: true });
 })();
 
@@ -1265,7 +1301,7 @@ main::before{content:"";position:absolute;top:-40px;bottom:0;left:50%;width:100v
   var all    = Array.prototype.slice.call(document.querySelectorAll('.e'));
   var active = null;
 
-  all.forEach(function(e){ e._hay = (e.dataset.n + ' ' + e.textContent).toLowerCase(); });
+  all.forEach(function(e, i){ e._hay = (e.dataset.n + ' ' + e.textContent).toLowerCase(); e._i = i; });
 
   function apply(){
     var term = (q.value || '').trim().toLowerCase();
@@ -1283,14 +1319,36 @@ main::before{content:"";position:absolute;top:-40px;bottom:0;left:50%;width:100v
     });
     count.textContent = shown + (shown === 1 ? ' entry' : ' entries');
     empty.classList.toggle('on', shown === 0);
+
+    /* the constellation is the same 717 entries, so it can answer the same
+       question: light only the stars that survived the filter */
+    var field = document.getElementById('neural');
+    if (window.__knField) {
+      if (!term && !active) { window.__knField.match(null); if (field) field.classList.remove('lit-query'); }
+      else {
+        var set = new Set();
+        all.forEach(function(e){ if (!e.classList.contains('hidden')) set.add(e._i); });
+        window.__knField.match(set);
+        if (field) field.classList.add('lit-query');
+      }
+    }
   }
 
-  q.addEventListener('input', apply);
+  /* filtering can shrink 717 entries to six; without this the reader is left
+     stranded wherever the old, longer page had put them */
+  function toResults(){
+    var top = document.querySelector('.console');
+    if (!top) return;
+    var y = top.getBoundingClientRect().top + scrollY;
+    if (scrollY > y) scrollTo({ top: y, behavior: 'smooth' });
+  }
+
+  q.addEventListener('input', function(){ apply(); toResults(); });
   kinds.forEach(function(k){
     k.addEventListener('click', function(){
       active = (active === k.dataset.kind) ? null : k.dataset.kind;
       kinds.forEach(function(o){ o.setAttribute('aria-pressed', String(o.dataset.kind === active)); });
-      apply();
+      apply(); toResults();
     });
   });
   navs.forEach(function(n){
