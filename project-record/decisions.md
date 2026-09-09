@@ -465,3 +465,70 @@ is trusted because it shows what it cannot support, not because it claims everyt
 **Correction on the record.** An earlier figure of *41 of 188* was quoted in this project
 from the PDF text. It was wrong. Reading the live `DATA` array in the browser gives
 **73 of 192**. The register carries the measured number.
+
+---
+
+## D-21 · 9 September 2026 · The record carries its passages, not only its labels
+
+**Source:** this session. **[RECORDED]** — your words: *"الترقيم بيحمل عناوين فقط not
+pearls"* and *"كل كارت يظهر تحته البنود الخاصه بالموضوع"*.
+
+The Content Map was an index of **headings**. It reproduced the label of every section
+and point and nothing beneath it, so the knowledge itself — what you call the pearls —
+stayed in the source pages and never reached the record.
+
+The substance was harvested back, from the source rather than written fresh:
+
+| Harvested from | Rows |
+|---|---|
+| All 192 Compendium blocks, driven chapter by chapter through `openChapter()` | 192 |
+| Compendium section and topic summaries, read off the live `DATA` array | 60 |
+| Denial Navigator code descriptions | 78 |
+| Prose under every heading on the other eleven pages | ~230 |
+
+441 entries received a passage; 29 were dropped because the harvested text only echoed
+its own heading, and 98 were cleaned of a repeated title or a swept-up kind label.
+**412 entries now carry real content.** Page 10 carries none by design — its entries
+already state their IR-DRG and relative weights inline.
+
+**Consequence for the hero's claim.** The page used to say each entry *"reproduces the
+label as it appears in the source"*. That sentence was true of an index and would have
+become a false description of a record, so it was rewritten rather than left standing.
+
+---
+
+## D-22 · 9 September 2026 · No starfield, no navy — a graphite slab lit from behind
+
+**Source:** this session. **[RECORDED]** — your words: *"الكارت لما يظهر يبقى لونه اسود
+او رمادى ورا اضاءه مفيش نجوم فى الكروت خالص"*, then, when the ground was still blue:
+*"بلاش الكحلى ده قلتلك اسود او رمادى باضاءه خلفيه"*.
+
+The per-card constellation painter is deleted — canvas, painter and repaint loop. A card
+is a graphite slab, `#20252C` to `#080A0E`, and the only light is thrown from behind it.
+
+**The mechanism, because it is not obvious.** The backlight is an outward `box-shadow`
+on the slab itself. A child element cannot do it: `.gcard` clips its children so the item
+list stays inside the rounded corners, and a glow `div` was therefore trapped on the face,
+reading as a stain rather than a light behind an object. An element's own shadow is not
+clipped by its own `overflow`.
+
+The second instruction was broader than the first: the navy left the whole page, not only
+the card. Every blue-black token was remapped to neutral graphite at matched luminance,
+and the two blue radials in the body ground became one warm backlight.
+
+---
+
+## D-23 · 9 September 2026 · The record is set in three columns
+
+**Source:** this session. **[RECORDED]** — your words: *"المحاذاه مش مزبوطه فى الترقيم
+خالص"*.
+
+Two faults, not one. The address column was `auto`, so a row numbered `5.6.2.17` pushed
+its title further right than one numbered `5.1`. And the kind chips sat inline *inside*
+the title, so `CODING` and `ADJUDICATION` ragged the text edge again within a single level.
+
+The record is now set in three fixed columns — **address · kind · text**. The chips were
+lifted out of `.t` to become direct grid children so they could hold a column of their own.
+Depth is carried by an indent *inside* the address column, which leaves every title on one
+vertical line, the way a set index reads. Measured: one title x per width, 390 → 1440.
+
