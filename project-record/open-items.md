@@ -195,33 +195,60 @@ editing `CLAUDE.md`, which quotes the badge markup verbatim.
 
 ---
 
-## OI-09 · The vCard download link on the live About page points at a file that does not exist — **[HIGH]**
+## OI-09 · The vCard is not missing — it is exposed in public history — **[HIGH]**
 
-**Origin:** PR #36, 20 July 2026.
+**Origin:** PR #36, 20 July 2026. **Rewritten 9 September 2026 — my earlier finding was
+wrong, and wrong in the direction that matters.**
 
-PR #36 delivered, verbatim: *"**vCard** — new `dr-sherif-alattar.vcf` at the repo root, wired
-to a **"Save contact (.vcf)"** link in the contact list (name, title, phone, email,
-LinkedIn, ORCID, site, location)."*
+### What I wrote on 2 September, and why it was wrong
 
-**Verified 2 September 2026 — the file is not in the repository.**
+I recorded that `dr-sherif-alattar.vcf` was **absent** and concluded it had been *lost* in a
+merge. The evidence I leaned on was `git log --all -- dr-sherif-alattar.vcf` returning
+nothing. **That command does not do what I took it to do.** A pathspec-limited `git log`
+walks only commits whose *tree* still differs at that path along the simplified history; it
+is silent about a file's contents, which live independently as a blob addressed by its SHA.
+Absence from that output is not absence from the repository.
 
-- `dr-sherif-alattar.vcf` is **absent** from `main` HEAD.
-- `git log --all -- dr-sherif-alattar.vcf` returns **nothing at all**.
-- Yet commits `14e42b9` and `a5cbc8b`, which the PR says added it, **are** ancestors of
-  `main`.
-- `git ls-tree` confirms it is absent from `a5cbc8b`, from the merge `bca32ab`, and from
-  `main`.
+### What is actually true — verified 9 September 2026
 
-So the HTML edit survived into `main` and the file did not. **Anyone clicking "Save contact
-(.vcf)" on the live dossier gets a 404** — on the page that exists specifically to be
-handed to recruiters and employers. Given that your stated focus since 22/07/2026 includes
-*"Job search"*, this is the item with the most immediate practical cost.
+The file is **retrievable from any clone of the public repository**:
 
-**[UNCERTAIN]** How the file was lost is not recorded. The pattern fits a merge that carried
-the HTML change but dropped the newly-added file.
+```
+git cat-file -t e4328f529ad519ba71f26219e3b0fcab01bfec78    ->  blob
+git cat-file -p e4328f529ad519ba71f26219e3b0fcab01bfec78    ->  the full vCard
+git log --all --oneline --find-object=e4328f...             ->  a5cbc8b, 14e42b9
+```
 
-**What remains.** Recreate `dr-sherif-alattar.vcf` at the repository root with the eight
-fields the PR lists, or remove the link. Then confirm by loading the live page.
+It contains, in plain text: full name, title, **mobile telephone number**, **personal email
+address**, LinkedIn URL, ORCID, site URL, and city/country. The third command matters most:
+the blob is not merely retrievable *if you already know the SHA* — it is **discoverable**,
+because git will name the commits that introduced it.
+
+`codes-global-atlas.xlsx` (191 KB) is likewise still in history, blob
+`f087848da3016cd535ac2a46613d27dac1016a62`.
+
+**Both readings, newest first, per the export's own rule:**
+
+| Date | Finding | Status |
+|---|---|---|
+| 9 Sep 2026 | The vCard survives in public git history, phone and email readable | **Correct** |
+| 2 Sep 2026 | The vCard was lost in a merge and the download link 404s | **Wrong on the first half; the 404 still holds** |
+
+The 404 is real and unchanged: the file is not in the working tree, so *"Save contact
+(.vcf)"* on the live dossier still fails. But that is now the lesser of the two problems.
+
+### What remains — and the honest limits of the remedy
+
+Removing it requires rewriting history and force-pushing to a public repository. **This has
+not been done and must not be done without explicit instruction**, because:
+
+- A force-push invalidates every existing clone and fork.
+- GitHub may retain the blob in its own caches, and any fork keeps its copy regardless.
+  A rewrite therefore **reduces exposure; it does not guarantee erasure**.
+- A published telephone number cannot be rotated the way a credential can.
+
+Treat it as harm reduction, decided deliberately and executed while someone is watching —
+not as a routine cleanup.
 
 ---
 
@@ -371,3 +398,54 @@ first, and the two time-sensitive ones before anything else:
 6. **OI-07** — update `CLAUDE.md`, so the bundled-page editing rule stops living only in a
    pull-request body.
 7. The rest: OI-04, OI-05, OI-06, OI-08, OI-12.
+
+---
+
+# Status update — 9 September 2026
+
+Work done this day, with the commit that carries it. Every claim below was verified in the
+repository or in a real browser (Chromium, Playwright) before being written here.
+
+## Resolved
+
+| Was | Now | Commit |
+|---|---|---|
+| **OI-02** — `drgs-compendium.html` and `source-corpus.html` had no analytics since 4 July | GoatCounter added to both; all 14 content pages now carry it | `fdb9078` |
+| **OI-05** — sitemap pre-staged a deleted page | Removed. **Correction:** the block was already inside an XML comment, so it was inert, not a live entry. Cosmetic, not a defect | `fdb9078` |
+| **OI-06** — three unused assets at the root | `3d-process.png`, `service-hero.jpg`, `social-image.jpg` deleted (669 KB). Referenced by no page, stylesheet, script or sitemap — the only mentions anywhere were the entries in this record. Kept as its own commit so it can be reverted alone | `4db3faa` |
+
+## New findings, all fixed the same day
+
+| Finding | Detail | Commit |
+|---|---|---|
+| **The semantic layer's lower half was permanently dimmed** | One `IntersectionObserver` served both the reveal and the scroll-spy under a band tuned for the spy: 28% of a section inside a window 35% of the viewport tall — unsatisfiable for any section taller than ~1100px. The four longest layers (lexicon 1931px, manifestations 1550px, boundaries 1606px, weights 1861px) never received `.in-view` and sat at `opacity: .25` forever. Split into two observers | `9c44106` |
+| **`#layer-boundaries` (08A) was never observed at all** | The reveal was keyed off the stepper's cards, and that section has no card in the index. Reveal now targets every `section[data-layer]`. **Open editorial question:** should 08A appear in the stepper? | `9c44106` |
+| **The Knowledge Nexus image in Technical Signature was stretched** | `height:100%` + `object-fit:cover` inside a stretched flex column: rendered 450×423 from a 1200×630 source, cropping the epigraph at both edges. Now 450×236, ratio 1.905, no crop; the chip beside it takes the leftover height so the columns finish level | `9c44106` |
+| **`executive-summary.html` and `pyramids.html` had no canonical and no Open Graph** | Both are bundler pages: the loader calls `document.documentElement.replaceWith(...)`, so the **entire `<html>` element, head included**, is swapped for the template's. Tags in the static head alone would serve link-preview crawlers (which do not run JavaScript) and then be destroyed for Googlebot (which does). Added to **both** heads | `fdb9078` |
+| **`pyramids.html`'s template head was bare** | No `lang`, no `<title>`, no description — the rendered document had an empty title. All three added | `fdb9078` |
+| **`psychiatry-ir-drg-tree.html` loaded `unpkg.com/lucide@latest`** | Unpinned major version on an external CDN, the only page using it. Pinned to `1.43.0`, exactly what `@latest` resolves to today, so behaviourally neutral. Verified: 60 icons still render | `fdb9078` |
+
+## Two audit claims that did not survive checking
+
+- **The "duplicated `<title>`" in `executive-summary.html`** is one static tag plus one in the
+  bundler template that *supersedes* it — not two titles in a served head. No defect.
+- **Analytics on the two bundler pages** does fire. `count.js` loads and issues its request
+  **before** the document is replaced; confirmed by watching network requests to `gc.zgo.at`
+  on `pyramids.html`, `executive-summary.html` and `observatory.html`.
+
+## Still open, and blocking
+
+- **OI-09** — the vCard blob in public history. Rewritten above. **Not acted on.** Requires
+  explicit instruction and restored write access.
+- **The push.** Three commits — `9c44106`, `fdb9078`, `4db3faa` — exist only in the session
+  container. GitHub authorisation lapsed on or before 7 September, following an account
+  change. Delivered to the author as files plus a git bundle so nothing depends on my access.
+- **The account question.** Whether the GitHub account was *renamed* or *replaced* is
+  unanswered, and it governs everything: **83 references to `sherifalattar.github.io`** across
+  13 files (every canonical tag, every `og:url`, all 14 sitemap entries) plus **20 references
+  to `linkedin.com/in/sherifalattar`** break if the username changed. GitHub's rename redirect
+  holds only until someone else registers the old username.
+- **A pre-existing horizontal overflow** on `executive-summary.html` at 390px width
+  (`scrollWidth` 453 against a 390px viewport). Measured against the committed version first:
+  **not introduced by this day's changes.** Not fixed — out of scope, and no offending element
+  could be isolated.
