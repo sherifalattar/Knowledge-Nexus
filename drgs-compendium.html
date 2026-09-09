@@ -11,7 +11,7 @@
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="Knowledge Nexus">
 <meta property="og:title" content="DRGs Compendium — Knowledge Nexus">
-<meta property="og:description" content="The DRG methodology examined from its root logic down to its finest branches — the trunk of the Knowledge Nexus hierarchy.">
+<meta property="og:description" content="The DRG methodology examined from its root logic down to its finest branches — the trunk of Knowledge Nexus hierarchy.">
 <meta property="og:url" content="https://sherifalattar.github.io/Knowledge-Nexus/drgs-compendium.html">
 <meta property="og:image" content="https://sherifalattar.github.io/Knowledge-Nexus/Knowledge-Nexus.png">
 <meta property="og:image:width" content="1200">
@@ -2038,6 +2038,28 @@ const tocChip=document.createElement("button"); tocChip.className="chip chip-anc
 tocChip.innerHTML=`${svg("book-open",C.cyan)}<span>Contents</span>`; anchorWrap.appendChild(tocChip);
 chipsEl.appendChild(anchorWrap);
 
+/* ============================================================
+   PRECISE NUMBERING — chapter.section.topic(.block)
+   Every topic and every block gets a stable address, rendered on
+   the page and usable as a link: I.1.3 is a topic, I.1.3.2 a block
+   inside it. Nothing is renumbered by editing prose; the number
+   follows position in DATA, which is where the order actually lives.
+   ============================================================ */
+const NUM=(function(){ const seen={}, map={};
+  DATA.forEach((s,si)=>{ if(!s.ch) return; seen[s.ch]=(seen[s.ch]||0)+1; map[si]=s.ch+"."+seen[s.ch]; });
+  return map; })();
+function topicNo(si,ti){ return NUM[si] ? NUM[si]+"."+(ti+1) : ""; }
+function findByNo(no){
+  for(let si=0; si<DATA.length; si++){
+    const base=NUM[si]; if(!base) continue;
+    for(let ti=0; ti<DATA[si].topics.length; ti++){
+      const t=base+"."+(ti+1);
+      if(no===t || no.indexOf(t+".")===0) return {si:si, ti:ti, block:(no===t?null:no)};
+    }
+  }
+  return null;
+}
+
 // chapter-grouped section navigation
 const chs={},chOrd=[];
 DATA.forEach(s=>{ if(!s.ch)return; if(!chs[s.ch]){chs[s.ch]={name:s.chName||"",secs:[]};chOrd.push(s.ch);} chs[s.ch].secs.push(s); });
@@ -2074,7 +2096,7 @@ DATA.forEach((sec,si)=>{
     let hay=(tp.t+" "+tp.tag+" "+tp.code+" "+tp.sum+" "+sec.name).toLowerCase();
     tp.b.forEach(bl=>{ hay+=" "+(Array.isArray(bl[1])?bl[1].join(" "):bl[1])+" "+(Array.isArray(bl[2])?JSON.stringify(bl[2]):bl[2]); });
     card.dataset.hay=hay.toLowerCase();
-    card.innerHTML=`<div class="ico" style="background:linear-gradient(145deg, ${sec.acc}22, ${sec.acc}0c)">${svg(sec.icon,sec.acc)}</div><h3>${tp.t}</h3><p>${tp.sum}</p><span class="tag" style="color:${sec.acc};border-color:${sec.acc}44">${tp.tag}</span><span class="godeeper">${svg('corner-down-right',sec.acc)}</span>`;
+    card.innerHTML=`<div class="ico" style="background:linear-gradient(145deg, ${sec.acc}22, ${sec.acc}0c)">${svg(sec.icon,sec.acc)}</div><span class="card-no">${topicNo(si,ti)}</span><h3>${tp.t}</h3><p>${tp.sum}</p><span class="tag" style="color:${sec.acc};border-color:${sec.acc}44">${tp.tag}</span><span class="godeeper">${svg('corner-down-right',sec.acc)}</span>`;
     card.addEventListener("pointermove",e=>{ const r=card.getBoundingClientRect(); card.style.setProperty("--mx",((e.clientX-r.left)/r.width*100)+"%"); card.style.setProperty("--my",((e.clientY-r.top)/r.height*100)+"%"); });
     card.addEventListener("click",()=>openChapter(si,ti));
     grid.appendChild(card);
@@ -2137,7 +2159,7 @@ function buildTOC(){
       const si=DATA.indexOf(s);
       const num=String(sj+1).padStart(2,"0");
       h+=`<div class="toc-sec" style="--sec-acc:${s.acc}"><div class="toc-sec-glyph">${svg(s.icon,s.acc)}</div><div class="toc-sec-id"><span class="toc-sec-nm">${s.name}</span><span class="toc-sec-tag">CH ${ch} &middot; ${num}</span></div><div class="toc-tps">`;
-      s.topics.forEach((tp,ti)=>{h+=`<button type="button" class="toc-tp" style="--tp-acc:${s.acc}" onclick="openChapter(${si},${ti})">${tp.t}</button>`;});
+      s.topics.forEach((tp,ti)=>{h+=`<button type="button" class="toc-tp" style="--tp-acc:${s.acc}" onclick="openChapter(${si},${ti})"><span class="tp-no">${topicNo(si,ti)}</span>${tp.t}</button>`;});
       h+=`</div><div class="toc-sec-n">${s.topics.length}<small>topics</small></div></div>`;
     });
     h+=`</div>`;
@@ -2168,6 +2190,38 @@ function buildTOC(){
   }
 }
 buildTOC();
+
+/* An address in the bar opens what it names — a topic, or a block inside it. */
+(function(){
+  function go(){
+    const raw=decodeURIComponent(location.hash.replace(/^#/,"")).trim();
+    if(!raw) return;
+    const hit=findByNo(raw);
+    if(!hit) return;
+    openChapter(hit.si,hit.ti);
+    if(hit.block){
+      const el=document.getElementById(hit.block);
+      if(el){ el.scrollIntoView({behavior:"smooth",block:"start"}); el.classList.add("blk-lit"); }
+    }
+  }
+  addEventListener("hashchange",go);
+  /* deferred: on a direct load with an address in the bar, the elements this
+     opens are declared further down the script and are not ready yet */
+  setTimeout(go,0);
+})();
+
+/* Clicking a number copies its permanent address rather than only jumping. */
+document.addEventListener("click",function(ev){
+  const a=ev.target.closest && ev.target.closest(".blk-no, .ch-no");
+  if(!a || !navigator.clipboard) return;
+  ev.preventDefault();
+  const url=location.origin+location.pathname+a.getAttribute("href");
+  navigator.clipboard.writeText(url).then(function(){
+    const was=a.textContent; a.textContent="copied";
+    setTimeout(function(){ a.textContent=was; },900);
+    try{ history.replaceState(null,"",a.getAttribute("href")); }catch(e){}
+  }).catch(function(){});
+});
 
 
 // section-aware footer: update credit line with whichever section is in view
@@ -2228,10 +2282,15 @@ function renderBlock(bl){
 }
 function openChapter(si,ti){
   const sec=DATA[si], tp=sec.topics[ti];
-  const blocks=tp.b.map(renderBlock).join("");
+  const no=topicNo(si,ti);
+  const blocks=tp.b.map(function(bl,bi){
+    const bn = no ? no+"."+(bi+1) : "";
+    return `<section class="blk"${bn?` id="${bn}"`:""}>${bn?`<a class="blk-no" href="#${bn}" title="Copy the address of ${bn}">${bn}</a>`:""}${renderBlock(bl)}</section>`;
+  }).join("");
   chapterEl.innerHTML=`<div class="chapter">
     <button class="back" id="back">${svg('corner-up-left',C.silver)}<span>All chapters</span></button>
     <div class="ch-eyebrow" style="color:${sec.acc}"><span class="d"></span>${sec.name} · ${tp.tag}</div>
+    ${no?`<a class="ch-no" href="#${no}" title="Copy the address of ${no}">${no}</a>`:""}
     <h1 class="ch-title">${tp.t}</h1>
     ${tp.code?`<div class="ch-code">${tp.code}</div>`:""}
     <p class="ch-lead">${tp.sum}</p>
@@ -2243,6 +2302,7 @@ function openChapter(si,ti){
   // back arrow uses the corner-up-left trace-back icon
   lastScroll=window.scrollY;
   indexEl.style.display="none"; chapterEl.style.display="block";
+  if(no){ try{ history.replaceState(null,"","#"+no); }catch(e){} }
   window.scrollTo(0,0);
 }
 function closeChapter(){ chapterEl.style.display="none"; indexEl.style.display="block"; window.scrollTo(0,lastScroll); }
@@ -2309,16 +2369,31 @@ applyFilter();
 </div>
 <!-- /sa-linkedin-badge -->
 <!-- sa-orcid-badge -->
-<style>@media(max-width:560px){#sa-orcid-badge .sa-orcid-name{display:none}}@media(max-width:430px){#sa-linkedin-badge .sa-li-name{display:none!important}}</style>
-<div id="sa-orcid-badge" style="position:fixed;right:0;bottom:0;z-index:9999;display:flex;justify-content:flex-end;padding:0 16px 14px;pointer-events:none;">
-  <a href="https://orcid.org/0009-0000-8799-9395" target="_blank" rel="me noopener noreferrer"
-     style="pointer-events:auto;display:inline-flex;align-items:center;gap:8px;padding:7px 14px;border-radius:999px;background:rgba(10,14,22,.72);border:1px solid rgba(201,162,75,.35);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);font-family:'Inter','Segoe UI',Arial,sans-serif;font-size:12px;font-weight:600;line-height:1;letter-spacing:.02em;color:#C9A24B;text-decoration:none;white-space:nowrap;box-shadow:0 6px 20px rgba(0,0,0,.5);">
-    <svg width="14" height="14" viewBox="0 0 256 256" role="img" aria-label="ORCID iD" style="display:block;flex:none;"><path fill="#A6CE39" d="M256 128c0 70.7-57.3 128-128 128S0 198.7 0 128 57.3 0 128 0s128 57.3 128 128z"/><g fill="#fff"><path d="M86.3 186.2H70.9V79.1h15.4v107.1z"/><path d="M108.9 79.1h41.6c39.6 0 57 28.3 57 53.6 0 27.5-21.5 53.6-56.8 53.6h-41.8V79.1zm15.4 93.3h24.5c34.9 0 42.9-26.5 42.9-39.7 0-21.5-13.7-39.7-43.7-39.7h-23.7v79.4z"/><circle cx="78.6" cy="56.8" r="10.1"/></g></svg>
-    <span style="display:block;line-height:1;"><span class="sa-orcid-name">Dr. Sherif Alattar &middot; </span>ORCID 0009-0000-8799-9395</span>
-  </a>
-</div>
-<!-- /sa-orcid-badge -->
-<script src="audio.js" defer></script>
-<script data-goatcounter="https://sherifalattar.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
-</body>
-</html>
+<style>@media(max-width:560px){#sa-orcid-badge .sa-orcid-name{display:none}}@media(max-width:430px){#sa-linkedin-badge .sa-li-name{display:none!important}}
+/* ============================================================
+   THE ADDRESS — a number that can be read, clicked and cited
+   ============================================================ */
+.blk{position:relative}
+.blk-no,.card-no,.tp-no,.ch-no{font-family:var(--mono,'JetBrains Mono',monospace);
+  font-variant-numeric:tabular-nums;letter-spacing:.09em}
+/* the number lives in the margin, as a textbook's does — never over the text */
+.blk{margin-top:26px}
+.blk-no{position:absolute;left:-72px;top:6px;font-size:10px;color:#f3cb7d;opacity:.55;
+  text-decoration:none;padding:2px 7px;border-radius:5px;border:1px solid rgba(243,203,125,.22);
+  background:rgba(10,16,24,.5);transition:opacity .2s,border-color .2s,color .2s;z-index:2;
+  white-space:nowrap}
+.blk-no:hover{opacity:1;border-color:rgba(243,203,125,.6)}
+/* no margin to speak of — the number sits above its block instead of beside it */
+@media(max-width:1180px){
+  .blk-no{position:static;display:inline-block;margin:0 0 8px;opacity:.7}
+}
+.blk-lit{animation:blkLit 1.6s ease}
+@keyframes blkLit{0%{box-shadow:0 0 0 2px rgba(243,203,125,.55)}100%{box-shadow:0 0 0 0 rgba(243,203,125,0)}}
+.ch-no{display:inline-block;margin:0 0 10px;font-size:11.5px;color:#f3cb7d;text-decoration:none;
+  padding:3px 10px;border-radius:999px;border:1px solid rgba(243,203,125,.3);background:rgba(243,203,125,.07)}
+.ch-no:hover{border-color:rgba(243,203,125,.7)}
+.card-no{position:absolute;top:14px;right:16px;font-size:10px;color:var(--card-acc,#f3cb7d);opacity:.72}
+.card{position:relative}
+.toc-tp .tp-no{display:inline-block;margin-right:8px;font-size:9.5px;opacity:.6}
+@media print{ .blk-no,.ch-no,.card-no,.tp-no{opacity:1;color:#000} }
+</style>

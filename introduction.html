@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Introduction | Knowledge Nexus</title>
 <meta name="author" content="Dr. Sherif Alattar">
-<meta name="description" content="An introduction to the Knowledge Nexus — a multidimensional reference that turns dense clinical and regulatory data into a structured landscape of thought, built around the UAE / DoH IR-DRG prospective-payment framework.">
+<meta name="description" content="An introduction to Knowledge Nexus — a multidimensional reference that turns dense clinical and regulatory data into a structured landscape of thought, built around the UAE / DoH IR-DRG prospective-payment framework.">
 <meta name="theme-color" content="#0A1018">
 <link rel="canonical" href="https://sherifalattar.github.io/Knowledge-Nexus/introduction.html">
 <meta property="og:type" content="article">
@@ -21,7 +21,7 @@
 {
   "@context": "https://schema.org",
   "@type": "Article",
-  "headline": "Introduction to the Knowledge Nexus",
+  "headline": "Introduction to Knowledge Nexus",
   "isPartOf": { "@type": "WebSite", "name": "Knowledge Nexus", "url": "https://sherifalattar.github.io/Knowledge-Nexus/" },
   "url": "https://sherifalattar.github.io/Knowledge-Nexus/introduction.html",
   "author": { "@type": "Person", "name": "Dr. Sherif Alattar", "sameAs": ["https://orcid.org/0009-0000-8799-9395"] }
@@ -29,27 +29,32 @@
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=DM+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,75..125,100..900;1,75..125,100..900&family=Cormorant+Garamond:ital,wght@0,400..700;1,400..700&family=JetBrains+Mono:wght@300..700&display=swap">
 <style>
 :root{
-  --bg:#0f172b; --bg2:#111d39; --panel:rgba(15,28,55,.84); --panel2:rgba(17,31,61,.72);
-  --stroke:rgba(125,151,196,.18); --stroke2:rgba(125,151,196,.32);
-  --text:#d8e3ff; --dim:#7f8ead; --faint:#52617e;
-  --gold:#f6a64a; --gold2:#f5bf75; --teal:#00d5be; --cyan:#00d5be; --silver:#d8e3ff; --blue:#5eead4;
-  --surface-0:rgba(9,17,33,.86); --surface-1:rgba(17,31,61,.84); --surface-2:rgba(7,14,29,.58); --surface-3:rgba(125,151,196,.14);
-  --font-display:"Manrope",system-ui,sans-serif; --font-brand:"Manrope",system-ui,sans-serif; --font-body:"Manrope",system-ui,sans-serif;
-  --font-mono:"DM Mono",ui-monospace,monospace; --font-eye:"DM Mono",ui-monospace,monospace;
+  /* Alattar Executive design system — the 3D-steel register */
+  --bg:#0A1018; --bg2:#0E1A2E; --panel:rgba(14,26,46,.86); --panel2:rgba(11,21,38,.74);
+  --stroke:#1b2b43; --stroke2:rgba(198,163,90,.26);
+  --text:#E9ECF1; --dim:#9AA7BD; --faint:#6B7688;
+  --gold:#C6A35A; --gold2:#E6CD92; --gold-soft:rgba(198,163,90,.55);
+  --teal:#0FA6C2; --cyan:#0FA6C2; --silver:#C4CCDF; --blue:#3FD3EC;
+  --surface-0:rgba(10,16,24,.88); --surface-1:rgba(14,26,46,.86); --surface-2:rgba(7,11,18,.6); --surface-3:rgba(198,163,90,.12);
+  --font-display:"Archivo",system-ui,sans-serif; --font-brand:"Archivo",system-ui,sans-serif;
+  --font-body:"Archivo",system-ui,sans-serif; --font-serif:"Cormorant Garamond",Georgia,serif;
+  --font-mono:"JetBrains Mono",ui-monospace,monospace; --font-eye:"JetBrains Mono",ui-monospace,monospace;
+  --steel-face:linear-gradient(180deg,#DCE3EE 0%,#B4BECC 24%,#8793A4 48%,#5A6473 72%,#2E3541 100%);
+  --steel-ext:0 -1px 0 rgba(255,255,255,.45),0 1px 0 #2b323d,0 2px 0 #272e38,0 3px 0 #232933,0 4px 0 #1f242e,0 5px 0 #1b2029,0 6px 0 #171c24,0 7px 0 #13171f,0 8px 0 #0f131a,0 10px 16px rgba(0,0,0,.85),0 22px 42px rgba(0,0,0,.6);
+  --hairline-gold:linear-gradient(90deg,transparent,var(--gold-soft),transparent);
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth;background:var(--bg)}
 body{
   margin:0;min-height:100vh;color:var(--text);font-family:var(--font-body);font-size:15px;line-height:1.6;
   background:
-    radial-gradient(900px 520px at 54% 6%, rgba(0,213,190,.22), transparent 64%),
-    radial-gradient(980px 620px at 88% 24%, rgba(98,132,255,.22), transparent 64%),
-    radial-gradient(920px 560px at 12% 92%, rgba(246,166,74,.10), transparent 58%),
-    linear-gradient(180deg, #0f172b 0%, #0b1325 62%, #08101f 100%);
-  -webkit-font-smoothing:antialiased;
+    radial-gradient(1100px 720px at 78% -8%, rgba(198,163,90,.09), transparent 60%),
+    radial-gradient(1000px 700px at 8% 4%, rgba(15,166,194,.07), transparent 58%),
+    radial-gradient(140% 120% at 50% 0%, #0E1626 0%, #0A1018 46%, #070B12 100%);
+  background-attachment:fixed;
 }
 body::before,body::after{content:"";position:fixed;inset:0;pointer-events:none}
 body::before{
@@ -78,8 +83,8 @@ a{color:var(--cyan);text-decoration:none}a:hover{text-decoration:none}
 }
 .chrome-title{border-right:1px solid var(--stroke)}
 .chrome-contact{border-left:1px solid var(--stroke)}
-.chrome-mark{width:17px;height:17px;border:1px solid rgba(0,213,190,.48);border-radius:5px;display:grid;place-items:center}
-.chrome-mark i{width:5px;height:5px;background:var(--teal);border-radius:2px;box-shadow:0 0 12px var(--teal)}
+.chrome-mark{width:17px;height:17px;border:1px solid rgba(198,163,90,.44);border-radius:5px;display:grid;place-items:center}
+.chrome-mark i{width:5px;height:5px;background:var(--gold);border-radius:2px;box-shadow:0 0 12px var(--gold-soft)}
 .asset-tabs{display:flex;justify-content:center;gap:5px;padding:5px;min-width:0;flex-wrap:wrap}
 .asset-tab{
   height:34px;display:flex;align-items:center;justify-content:center;border:1px solid transparent;border-radius:9px;
@@ -87,7 +92,7 @@ a{color:var(--cyan);text-decoration:none}a:hover{text-decoration:none}
   background:transparent;transition:.16s
 }
 .asset-tab:hover{color:var(--text);background:var(--surface-3);border-color:var(--stroke)}
-.asset-tab.active{color:#04121a;background:var(--teal);border-color:rgba(0,213,190,.7);font-weight:700}
+.asset-tab.active{color:#0A1018;background:linear-gradient(180deg,var(--gold2),var(--gold));border-color:rgba(198,163,90,.7);font-weight:700;box-shadow:0 6px 18px -8px rgba(198,163,90,.7),inset 0 1px 0 rgba(255,255,255,.35)}
 header{padding:74px 0 26px;position:relative}
 .eye{font-family:var(--font-eye);font-weight:700;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--teal);display:flex;align-items:center;gap:10px}
 .eye::before{content:"";width:28px;height:1px;background:linear-gradient(90deg,var(--teal),transparent)}
@@ -144,6 +149,32 @@ footer{padding:28px 0 56px;border-top:1px solid var(--stroke);color:var(--faint)
   .pillars{grid-template-columns:1fr}.modules{grid-template-columns:1fr}.origin{padding:24px 20px}
   .signature{justify-content:flex-start}.sigbox{text-align:left;min-width:0}.sigline{margin-left:0}
 }
+
+/* ============================================================
+   THE FORGED PLATE — the wordmark as milled steel on a slab
+   ============================================================ */
+.plate{position:relative;overflow:hidden;border-radius:8px;display:inline-block;
+  padding:clamp(22px,3.4vw,40px) clamp(26px,5vw,62px);margin:6px 0 4px;
+  background:linear-gradient(180deg,#242B36 0%,#171D27 46%,#0D121A 100%);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.17),inset 0 -1px 0 rgba(0,0,0,.72),
+             inset 0 70px 90px -66px rgba(255,255,255,.11),0 46px 90px -40px rgba(0,0,0,.9)}
+.plate::before{content:"";position:absolute;inset:0;opacity:.5;
+  background-image:repeating-linear-gradient(90deg, rgba(255,255,255,.055) 0 1px, transparent 1px 3px)}
+.plate-edge{position:absolute;top:0;left:0;right:0;height:1px;background:var(--hairline-gold)}
+.steel{position:relative;display:inline-block;font-family:var(--font-display);font-weight:800;
+  font-stretch:125%;font-size:clamp(24px,6.1vw,64px);line-height:1;letter-spacing:1px;white-space:nowrap;
+  color:transparent;-webkit-text-fill-color:transparent;background:var(--steel-face);
+  -webkit-background-clip:text;background-clip:text;-webkit-text-stroke:.4px rgba(9,13,20,.5);
+  text-shadow:var(--steel-ext)}
+.plate .sheen{position:absolute;top:-40%;bottom:-40%;width:38%;left:-60%;pointer-events:none;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.5),transparent);
+  transform:skewX(-18deg);mix-blend-mode:overlay;filter:blur(2px)}
+@media(max-width:560px){.plate{padding:18px 18px}.steel{white-space:normal;font-size:clamp(22px,9.4vw,40px);line-height:1.06}}
+h1.sr-sub{font-family:var(--font-serif);font-style:italic;font-weight:400;
+  font-size:clamp(19px,2.4vw,28px);line-height:1.3;color:var(--dim);letter-spacing:0;margin:16px 0 0}
+header .sub{font-family:var(--font-serif);font-style:italic;font-size:clamp(16px,1.7vw,20px);line-height:1.55}
+header .sub b{font-style:normal;color:var(--gold2);font-weight:600}
+.eye{color:var(--gold)}
 </style>
 <link rel="icon" type="image/png" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 64 64%27%3E%3Crect width=%2764%27 height=%2764%27 rx=%2714%27 fill=%27%23070A11%27/%3E%3Cpath d=%27M18 38c8-17 20-17 28 0%27 fill=%27none%27 stroke=%27%2319D3F3%27 stroke-width=%274%27 stroke-linecap=%27round%27/%3E%3Ccircle cx=%2732%27 cy=%2727%27 r=%277%27 fill=%27%232FE6C8%27/%3E%3C/svg%3E">
 </head>
@@ -166,8 +197,13 @@ footer{padding:28px 0 56px;border-top:1px solid var(--stroke);color:var(--faint)
   </div>
 
   <header>
-    <span class="eye">Opening layer · orientation</span>
-    <h1>Introduction to the<br>Knowledge Nexus</h1>
+    <span class="eye">Opening layer &middot; orientation</span>
+    <div class="plate">
+      <div class="plate-edge"></div>
+      <div class="steel">KNOWLEDGE NEXUS</div>
+      <div class="sheen"></div>
+    </div>
+    <h1 class="sr-sub">Introduction</h1>
     <p class="sub">A multidimensional sanctuary that transforms dense, complex clinical and regulatory data into a structured <b>landscape of pure thought</b> — not merely a database, but an evolving repository built around the UAE / DoH IR-DRG prospective-payment framework.</p>
   </header>
 
@@ -181,7 +217,7 @@ footer{padding:28px 0 56px;border-top:1px solid var(--stroke);color:var(--faint)
     </div>
     <section class="intro-body foreword">
       <div class="foreword-rule"></div>
-      <p>The Knowledge Nexus began as a personal effort to understand the UAE healthcare-insurance system — and how it differs, conceptually, from the Saudi market I had come to know. What started as personal notes evolved, through research, comparison of references, and discussion with colleagues, into a connected body of work: a structured reference for professionals navigating the clinical and financial complexities of the UAE healthcare landscape.</p>
+      <p>Knowledge Nexus began as a personal effort to understand the UAE healthcare-insurance system — and how it differs, conceptually, from the Saudi market I had come to know. What started as personal notes evolved, through research, comparison of references, and discussion with colleagues, into a connected body of work: a structured reference for professionals navigating the clinical and financial complexities of the UAE healthcare landscape.</p>
       <p>It is not merely a database. It is an evolving repository, organised so that heavy, complex material becomes navigable — a landscape of pure thought, built around the UAE / DoH IR-DRG prospective-payment framework, and continuously refined as regulations and clinical evidence evolve.</p>
       <p>What follows is an orientation. It explains how these disparate references connect, and the thinking that links them together — the entry point to a body of work that is meant to be read as one.</p>
     </section>
@@ -269,7 +305,7 @@ footer{padding:28px 0 56px;border-top:1px solid var(--stroke);color:var(--faint)
     <h2 class="section-h">How It Came to Be</h2>
     <div class="origin">
       <p>The project grew from personal notes into a structured repository through <b>continuous validation</b> — research, comparison of references, and discussion with colleagues.</p>
-      <p>It embraces modern technology, including <b>artificial intelligence</b>, as a tool for organisation, visualisation, and knowledge synthesis. Ultimately, the Knowledge Nexus is an ongoing pursuit of curiosity and lifelong learning — a structured reference for professionals navigating the clinical and financial complexities of the UAE healthcare landscape.</p>
+      <p>It embraces modern technology, including <b>artificial intelligence</b>, as a tool for organisation, visualisation, and knowledge synthesis. Ultimately, Knowledge Nexus is an ongoing pursuit of curiosity and lifelong learning — a structured reference for professionals navigating the clinical and financial complexities of the UAE healthcare landscape.</p>
     </div>
   </section>
 
@@ -297,6 +333,15 @@ footer{padding:28px 0 56px;border-top:1px solid var(--stroke);color:var(--faint)
   </footer>
 </div>
 
+<script>
+/* the sheen sweeps the plate, as it does on the content map */
+(function(){
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  var sh = document.querySelector('.plate .sheen'); if (!sh) return;
+  function sweep(){ sh.animate([{left:'-60%'},{left:'140%'}],{duration:2600,easing:'cubic-bezier(.4,0,.2,1)'}); }
+  setTimeout(function(){ sweep(); setInterval(sweep, 6000); }, 900);
+})();
+</script>
 <script src="audio.js"></script>
 <script data-goatcounter="https://sherifalattar.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 <!-- sa-linkedin-badge -->
@@ -309,7 +354,33 @@ footer{padding:28px 0 56px;border-top:1px solid var(--stroke);color:var(--faint)
 </div>
 <!-- /sa-linkedin-badge -->
 <!-- sa-orcid-badge -->
-<style>@media(max-width:560px){#sa-orcid-badge .sa-orcid-name{display:none}}@media(max-width:430px){#sa-linkedin-badge .sa-li-name{display:none!important}}</style>
+<style>@media(max-width:560px){#sa-orcid-badge .sa-orcid-name{display:none}}@media(max-width:430px){#sa-linkedin-badge .sa-li-name{display:none!important}}
+/* ============================================================
+   THE FORGED PLATE — the wordmark as milled steel on a slab
+   ============================================================ */
+.plate{position:relative;overflow:hidden;border-radius:8px;display:inline-block;
+  padding:clamp(22px,3.4vw,40px) clamp(26px,5vw,62px);margin:6px 0 4px;
+  background:linear-gradient(180deg,#242B36 0%,#171D27 46%,#0D121A 100%);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.17),inset 0 -1px 0 rgba(0,0,0,.72),
+             inset 0 70px 90px -66px rgba(255,255,255,.11),0 46px 90px -40px rgba(0,0,0,.9)}
+.plate::before{content:"";position:absolute;inset:0;opacity:.5;
+  background-image:repeating-linear-gradient(90deg, rgba(255,255,255,.055) 0 1px, transparent 1px 3px)}
+.plate-edge{position:absolute;top:0;left:0;right:0;height:1px;background:var(--hairline-gold)}
+.steel{position:relative;display:inline-block;font-family:var(--font-display);font-weight:800;
+  font-stretch:125%;font-size:clamp(24px,6.1vw,64px);line-height:1;letter-spacing:1px;white-space:nowrap;
+  color:transparent;-webkit-text-fill-color:transparent;background:var(--steel-face);
+  -webkit-background-clip:text;background-clip:text;-webkit-text-stroke:.4px rgba(9,13,20,.5);
+  text-shadow:var(--steel-ext)}
+.plate .sheen{position:absolute;top:-40%;bottom:-40%;width:38%;left:-60%;pointer-events:none;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.5),transparent);
+  transform:skewX(-18deg);mix-blend-mode:overlay;filter:blur(2px)}
+@media(max-width:560px){.plate{padding:18px 18px}.steel{white-space:normal;font-size:clamp(22px,9.4vw,40px);line-height:1.06}}
+h1.sr-sub{font-family:var(--font-serif);font-style:italic;font-weight:400;
+  font-size:clamp(19px,2.4vw,28px);line-height:1.3;color:var(--dim);letter-spacing:0;margin:16px 0 0}
+header .sub{font-family:var(--font-serif);font-style:italic;font-size:clamp(16px,1.7vw,20px);line-height:1.55}
+header .sub b{font-style:normal;color:var(--gold2);font-weight:600}
+.eye{color:var(--gold)}
+</style>
 <div id="sa-orcid-badge" style="position:fixed;right:0;bottom:0;z-index:9999;display:flex;justify-content:flex-end;padding:0 16px 14px;pointer-events:none;">
   <a href="https://orcid.org/0009-0000-8799-9395" target="_blank" rel="me noopener noreferrer"
      style="pointer-events:auto;display:inline-flex;align-items:center;gap:8px;padding:7px 14px;border-radius:999px;background:rgba(10,14,22,.72);border:1px solid rgba(201,162,75,.35);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);font-family:'Inter','Segoe UI',Arial,sans-serif;font-size:12px;font-weight:600;line-height:1;letter-spacing:.02em;color:#C9A24B;text-decoration:none;white-space:nowrap;box-shadow:0 6px 20px rgba(0,0,0,.5);">

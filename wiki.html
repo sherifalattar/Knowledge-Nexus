@@ -271,13 +271,80 @@ main::before{content:"";position:absolute;top:-40px;bottom:0;left:50%;width:100v
   html{scroll-behavior:auto}
   .cue i{animation:none}
 }
+
+/* ============================================================
+   THE DECK — fourteen pages as cards standing in depth
+   One card faces you; the rest recede left and right, tilted
+   away, each carrying its own page's constellation as its face.
+   ============================================================ */
+.gallery{position:relative;z-index:2;padding:34px 0 70px}
+.gal-head{display:flex;align-items:baseline;justify-content:space-between;gap:20px;
+  flex-wrap:wrap;margin:0 0 26px}
+.gal-head .eyebrow{margin:0}
+.gal-nav{display:flex;align-items:center;gap:10px}
+.gal-nav button{width:38px;height:38px;border-radius:999px;border:1px solid var(--line);
+  background:rgba(11,21,38,.7);color:var(--ink-2);cursor:pointer;display:grid;place-items:center;
+  transition:border-color .25s,color .25s,background .25s,transform .25s}
+.gal-nav button:hover{border-color:var(--gold-soft);color:var(--gold-bright);background:rgba(23,36,60,.85)}
+.gal-nav button:active{transform:scale(.93)}
+.gal-nav .pos{font-family:var(--font-mono);font-size:11px;letter-spacing:.16em;color:var(--ink-4);
+  min-width:92px;text-align:center;font-variant-numeric:tabular-nums}
+
+/* the outer cards sit two viewport-widths out; the stage clips them rather than
+   letting them push the page sideways. clip, not hidden: hidden would make the
+   stage a scroll container. */
+.stage{position:relative;height:clamp(330px,46vw,470px);perspective:1500px;
+  perspective-origin:50% 46%;touch-action:pan-y;overflow:clip;overflow-clip-margin:0}
+.stage::after{content:"";position:absolute;inset:auto 0 -6px 0;height:90px;pointer-events:none;
+  background:linear-gradient(180deg,transparent,rgba(7,11,18,.85))}
+
+.gcard{position:absolute;left:50%;top:50%;width:clamp(250px,30vw,404px);
+  margin:0;transform-style:preserve-3d;cursor:pointer;
+  border-radius:14px;overflow:hidden;border:1px solid var(--line);
+  background:linear-gradient(180deg,#141C2B 0%,#0C1421 58%,#080D16 100%);
+  box-shadow:0 40px 80px -44px #000, inset 0 1px 0 rgba(255,255,255,.09);
+  transition:transform .78s var(--ease-out), opacity .78s var(--ease-out),
+             border-color .4s, box-shadow .4s;
+  will-change:transform,opacity}
+.gcard canvas{display:block;width:100%;height:auto;aspect-ratio:16/10;background:transparent}
+.gcard .face{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;
+  transition:opacity .5s var(--ease-out);
+  padding:18px 20px;gap:7px;
+  background:linear-gradient(180deg,rgba(8,13,22,0) 34%,rgba(8,13,22,.78) 70%,rgba(6,10,17,.95))}
+.gcard .no{position:absolute;top:15px;left:19px;font-family:var(--font-mono);font-size:10px;
+  letter-spacing:.2em;color:var(--gold)}
+.gcard .ct{position:absolute;top:15px;right:19px;font-family:var(--font-mono);font-size:9.5px;
+  letter-spacing:.1em;color:var(--ink-4)}
+.gcard h3{font-family:var(--font-display);font-weight:650;font-stretch:110%;
+  font-size:clamp(15px,1.6vw,20px);line-height:1.16;color:var(--ink-1);letter-spacing:-.005em}
+.gcard p{font-size:11.5px;line-height:1.45;color:var(--ink-3);
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.gcard .edge{position:absolute;top:0;left:0;right:0;height:1px;background:var(--hairline-gold);opacity:.55}
+.gcard:not(.is-active) .face{opacity:.18}
+.gcard:not(.is-active) .no,
+.gcard:not(.is-active) .ct{opacity:.35}
+.gcard.is-active{border-color:rgba(198,163,90,.44);
+  box-shadow:0 54px 100px -46px #000, 0 0 0 1px rgba(198,163,90,.13), inset 0 1px 0 rgba(255,255,255,.14)}
+.gcard.is-active:hover{border-color:var(--gold-soft)}
+.gcard .enter{font-family:var(--font-mono);font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--gold);opacity:0;transition:opacity .3s;margin-top:2px}
+.gcard.is-active .enter{opacity:1}
+
+@media(max-width:600px){
+  .stage{height:clamp(280px,68vw,360px)}
+  .gcard{width:min(74vw,300px)}
+  .gcard p{display:none}
+}
+@media (prefers-reduced-motion: reduce){
+  .gcard{transition:none}
+}
 </style>
 </head>
 <body>
 
 <canvas id="neural"></canvas>
 <div id="field-label" aria-hidden="true"></div>
-<script id="kn-map" type="application/json">[{"n":1,"t":"Cinematic Opening","f":"index.html","s":""},{"n":2,"t":"The Pyramids","f":"pyramids.html","s":"000"},{"n":3,"t":"The Observatory","f":"observatory.html","s":"00666006666666"},{"n":4,"t":"Introduction","f":"introduction.html","s":"00666066660"},{"n":5,"t":"DRGs Compendium","f":"drgs-compendium.html","s":"066deef6de6def6def6gde066def06de6f6d6d6df6f6f06d6de6dd6ee6deef6e06ddggdf6edfg06dddde6cdehcdecdecdehcde6de066de06ef66de6de06dehd06eg06def6def06g6d6g6dg6g6g6gg06hf66ddh6ddh06heeee066cccc6ccc"},{"n":6,"t":"Denial Codes — as Knowledge Infrastructure","f":"denial-codes.html","s":"00060666060000660666600006666606666666"},{"n":7,"t":"Denial Navigator","f":"denial-codes-semantic.html","s":"06666666066666666606666666666666660660666666066666666666666666666666666066666666660666"},{"n":8,"t":"Psychiatry — A Triangulated Lens","f":"psychiatry-intro.html","s":"000"},{"n":9,"t":"Psychiatry — Semantic Layer","f":"psychiatry-semantic-layer.html","s":"006060666666066606666066660666666666666666606666066606006666660666666666666666666666666666666"},{"n":10,"t":"Psychiatry across DSM-5-TR & IR-DRG","f":"psychiatry-ir-drg-tree.html","s":"06cccccc6cccccc06cccccc6ccccc6c06cccccc6ccccc06ccccc6cccccc6c06ccccc6ccccc6c06ccccc6ccccc6c06ccccc6ccccc06ccccc6ccccc06cccccc6ccccc06ccccc6ccc6c"},{"n":11,"t":"Setting-of-Care Principles","f":"setting-of-care.html","s":"0066606606666660660660666666660660660660"},{"n":12,"t":"Source Corpus","f":"source-corpus.html","s":"006066666606660666066666666606"},{"n":13,"t":"Visual Archive (Gallery)","f":"gallery.html","s":"0066606060606"},{"n":14,"t":"About the Author — Executive Dossier","f":"executive-summary.html","s":"006606666660066666666666666600666666066066666666666666"}]</script>
+<script id="kn-map" type="application/json">[{"n":1,"t":"Cinematic Opening","f":"index.html","s":"","l":"Visual threshold. No structured text content."},{"n":2,"t":"The Pyramids","f":"pyramids.html","s":"000","l":"3 sections, 3 entries."},{"n":3,"t":"The Observatory","f":"observatory.html","s":"00666006666666","l":"Hub page — module cards."},{"n":4,"t":"Introduction","f":"introduction.html","s":"00666066660","l":"4 sections, 11 entries."},{"n":5,"t":"DRGs Compendium","f":"drgs-compendium.html","s":"066deef6de6def6def6gde066def06de6f6d6d6df6f6f06d6de6dd6ee6deef6e06ddggdf6edfg06dddde6cdehcdecdecdehcde6de066de06ef66de6de06dehd06eg06def6def06g6d6g6dg6g6g6gg06hf66ddh6ddh06heeee066cccc6ccc","l":"15 sections, 188 entries."},{"n":6,"t":"Denial Codes — as Knowledge Infrastructure","f":"denial-codes.html","s":"00060666060000660666600006666606666666","l":"15 sections, 38 entries."},{"n":7,"t":"Denial Navigator","f":"denial-codes-semantic.html","s":"06666666066666666606666666666666660660666666066666666666666666666666666066666666660666","l":"Offline searchable taxonomy — 78 codes across 8 families."},{"n":8,"t":"Psychiatry — A Triangulated Lens","f":"psychiatry-intro.html","s":"000","l":"3 sections, 3 entries."},{"n":9,"t":"Psychiatry — Semantic Layer","f":"psychiatry-semantic-layer.html","s":"006060666666066606666066660666666666666666606666066606006666660666666666666666666666666666666","l":"14 sections, 93 entries."},{"n":10,"t":"Psychiatry across DSM-5-TR & IR-DRG","f":"psychiatry-ir-drg-tree.html","s":"06cccccc6cccccc06cccccc6ccccc6c06cccccc6ccccc06ccccc6cccccc6c06ccccc6ccccc6c06ccccc6ccccc6c06ccccc6ccccc06ccccc6ccccc06cccccc6ccccc06ccccc6ccc6c","l":"10 psychiatric categories, each an IR-DRG with three severity weights. # Category IR-DRG RW base / w-CC / w- MCC 10.1 Bipolar…"},{"n":11,"t":"Setting-of-Care Principles","f":"setting-of-care.html","s":"0066606606666660660660666666660660660660","l":"11 sections, 40 entries."},{"n":12,"t":"Source Corpus","f":"source-corpus.html","s":"006066666606660666066666666606","l":"23 authorities across six groups."},{"n":13,"t":"Visual Archive (Gallery)","f":"gallery.html","s":"0066606060606","l":"Dashboards and short films — evidence of data-management practice."},{"n":14,"t":"About the Author — Executive Dossier","f":"executive-summary.html","s":"006606666660066666666666666600666666066066666666666666","l":"9 sections, 54 entries."}]</script>
 <div class="vignette"></div>
 <div class="grain"></div>
 <div id="progress"></div>
@@ -298,6 +365,18 @@ main::before{content:"";position:absolute;top:-40px;bottom:0;left:50%;width:100v
     <div class="fig"><b>717</b><span>Citable entries</span></div>
   </div>
   <div class="cue">SCROLL<span class="arrow"></span></div>
+</section>
+
+<section class="gallery wrap" id="deck" tabindex="0" aria-label="The fourteen pages">
+  <div class="gal-head">
+    <div class="eyebrow">Fourteen pages &middot; each a story of its own</div>
+    <div class="gal-nav">
+      <button class="prev" type="button" aria-label="Previous page"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>
+      <span class="pos">1 / 14</span>
+      <button class="next" type="button" aria-label="Next page"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></button>
+    </div>
+  </div>
+  <div class="stage"></div>
 </section>
 
 <div class="console">
@@ -353,7 +432,7 @@ main::before{content:"";position:absolute;top:-40px;bottom:0;left:50%;width:100v
 <div class="e topic" id="3.4.5" data-n="3.4.5"><a class="n" href="#3.4.5" title="Copy link to 3.4.5">3.4.5</a><div class="t">Gallery</div></div>
 <div class="e topic" id="3.4.6" data-n="3.4.6"><a class="n" href="#3.4.6" title="Copy link to 3.4.6">3.4.6</a><div class="t">About the Author</div></div>
 <div class="e topic" id="3.4.7" data-n="3.4.7"><a class="n" href="#3.4.7" title="Copy link to 3.4.7">3.4.7</a><div class="t">Source Corpus</div></div></div></section>
-<section class="page-block" id="page-4" data-page="4"><header class="ph"><span class="pn">04</span><div><h2>Introduction</h2><a class="pf" href="introduction.html">introduction.html</a></div><span class="pc">11 entries</span></header><div class="entries"><div class="e sec" id="4.1" data-n="4.1"><a class="n" href="#4.1" title="Copy link to 4.1">4.1</a><div class="t">Introduction to the Knowledge Nexus</div></div>
+<section class="page-block" id="page-4" data-page="4"><header class="ph"><span class="pn">04</span><div><h2>Introduction</h2><a class="pf" href="introduction.html">introduction.html</a></div><span class="pc">11 entries</span></header><div class="entries"><div class="e sec" id="4.1" data-n="4.1"><a class="n" href="#4.1" title="Copy link to 4.1">4.1</a><div class="t">Introduction to Knowledge Nexus</div></div>
 <div class="e sec" id="4.2" data-n="4.2"><a class="n" href="#4.2" title="Copy link to 4.2">4.2</a><div class="t">The Three Foundational Pillars</div></div>
 <div class="e topic" id="4.2.1" data-n="4.2.1"><a class="n" href="#4.2.1" title="Copy link to 4.2.1">4.2.1</a><div class="t">Provenance over Assertion</div></div>
 <div class="e topic" id="4.2.2" data-n="4.2.2"><a class="n" href="#4.2.2" title="Copy link to 4.2.2">4.2.2</a><div class="t">Synthesis over Collection</div></div>
@@ -1052,7 +1131,7 @@ main::before{content:"";position:absolute;top:-40px;bottom:0;left:50%;width:100v
 <div class="e topic" id="14.9.11" data-n="14.9.11"><a class="n" href="#14.9.11" title="Copy link to 14.9.11">14.9.11</a><div class="t">Reports &amp; Roving Visits</div></div>
 <div class="e topic" id="14.9.12" data-n="14.9.12"><a class="n" href="#14.9.12" title="Copy link to 14.9.12">14.9.12</a><div class="t">Engagement Figures</div></div>
 <div class="e topic" id="14.9.13" data-n="14.9.13"><a class="n" href="#14.9.13" title="Copy link to 14.9.13">14.9.13</a><div class="t">Classification of Savings</div></div>
-<div class="e topic" id="14.9.14" data-n="14.9.14"><a class="n" href="#14.9.14" title="Copy link to 14.9.14">14.9.14</a><div class="t">Payer and Provider Healthcare Operations and Optimization Systems. Colophon Compiled from the Knowledge Nexus source repository on 30 August 2026. Fourteen pages were parsed: eleven as static markup, three at dataset level. The inventory records 105 sections and 567 points. Knowledge Nexus is authored, curated and designed by Dr. Sherif Alattar, MD. The original design, writing and synthesis are the author’s; the referenced standards are not. © 2026 Dr. Sherif Alattar. All rights reserved.</div></div></div></section>
+<div class="e topic" id="14.9.14" data-n="14.9.14"><a class="n" href="#14.9.14" title="Copy link to 14.9.14">14.9.14</a><div class="t">Payer and Provider Healthcare Operations and Optimization Systems. Colophon Compiled from Knowledge Nexus source repository on 30 August 2026. Fourteen pages were parsed: eleven as static markup, three at dataset level. The inventory records 105 sections and 567 points. Knowledge Nexus is authored, curated and designed by Dr. Sherif Alattar, MD. The original design, writing and synthesis are the author’s; the referenced standards are not. © 2026 Dr. Sherif Alattar. All rights reserved.</div></div></div></section>
   <p class="empty" id="empty">Nothing in the map answers to that.</p>
 </main>
 
@@ -1226,9 +1305,16 @@ main::before{content:"";position:absolute;top:-40px;bottom:0;left:50%;width:100v
     }
     near = best;
     if (!best){ LABEL.classList.remove('on'); return; }
-    LABEL.innerHTML = '<b>' + (best.page < 10 ? '0' : '') + best.page + '</b>' +
-      best.title.replace(/&/g, '&amp;').replace(/</g, '&lt;') +
-      '<i>' + best.count + ' entries</i>';
+    /* built as nodes rather than markup: text that came out of the DOM must never
+       go back in as HTML, whatever its provenance */
+    LABEL.textContent = '';
+    var lb = document.createElement('b');
+    lb.textContent = (best.page < 10 ? '0' : '') + best.page;
+    var li = document.createElement('i');
+    li.textContent = best.count + ' entries';
+    LABEL.appendChild(lb);
+    LABEL.appendChild(document.createTextNode(best.title));
+    LABEL.appendChild(li);
     /* clamp inside the viewport — a cluster near the edge would push it off-screen */
     LABEL.style.left = Math.round(Math.max(150, Math.min(window.innerWidth - 150, best.sx))) + 'px';
     LABEL.style.top = Math.round(Math.min(window.innerHeight - 60, best.sy + 22)) + 'px';
@@ -1417,6 +1503,142 @@ main::before{content:"";position:absolute;top:-40px;bottom:0;left:50%;width:100v
     var mo = new MutationObserver(function(){ reindex(); depth(); });
     blocks.forEach(function(b){ mo.observe(b, { attributes: true, attributeFilter: ['class'] }); });
   })();
+})();
+
+/* ============================================================
+   5 · THE DECK — fourteen pages standing in depth
+   Each card carries its own page's constellation as its face,
+   drawn from the same 717 entries the index below lists. One
+   card faces the reader; the rest recede left and right.
+   ============================================================ */
+(function(){
+  var host = document.getElementById('deck');
+  var src  = document.getElementById('kn-map');
+  if (!host || !src) return;
+  var PAGES; try { PAGES = JSON.parse(src.textContent); } catch (e) { return; }
+
+  var KIND = ['', '47,230,200', '86,198,255', '243,203,125', '156,124,255', '196,204,223'];
+  var DEPTH = ['198,163,90', '143,189,255', '122,140,166'];
+  var stage = host.querySelector('.stage');
+  var pos   = host.querySelector('.pos');
+  var cards = [], active = 0;
+
+  function rng(seed){ return function(){
+    seed |= 0; seed = seed + 0x6D2B79F5 | 0;
+    var t = Math.imul(seed ^ seed >>> 15, 1 | seed);
+    t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t;
+    return ((t ^ t >>> 14) >>> 0) / 4294967296;
+  };}
+
+  /* a page's face is its own constellation, not a stock image */
+  function paint(cv, pg){
+    var dpr = Math.min(window.devicePixelRatio || 1, 2);
+    var W = cv.clientWidth || 400, H = Math.round(W * 0.625);
+    cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr);
+    var x = cv.getContext('2d'); x.setTransform(dpr, 0, 0, dpr, 0, 0);
+    x.clearRect(0, 0, W, H);
+
+    var r = rng(9000 + pg.n * 137), n = pg.s.length, pts = [];
+    var rad = Math.min(W, H) * (0.26 + Math.min(0.22, n / 800));
+    for (var i = 0; i < n; i++){
+      var code = parseInt(pg.s[i], 36), depth = (code / 6) | 0, kind = code % 6;
+      var u = r() * 2 - 1, ph = r() * Math.PI * 2, sr = rad * Math.cbrt(r());
+      var pr = Math.sqrt(1 - u * u);
+      pts.push({ x: W / 2 + Math.cos(ph) * pr * sr * 1.55, y: H / 2 - H * 0.06 + u * sr,
+                 c: kind ? KIND[kind] : DEPTH[Math.min(2, depth)],
+                 r: depth === 0 ? 2.0 : (depth === 1 ? 1.35 : 0.95) });
+    }
+    x.lineWidth = 1;
+    for (i = 0; i < pts.length; i++){
+      var best = -1, bd = 1e9;
+      for (var j = 0; j < pts.length; j++){
+        if (j === i) continue;
+        var dx = pts[i].x - pts[j].x, dy = pts[i].y - pts[j].y, d = dx*dx + dy*dy;
+        if (d < bd){ bd = d; best = j; }
+      }
+      if (best < 0) continue;
+      x.strokeStyle = 'rgba(120,168,196,.20)';
+      x.beginPath(); x.moveTo(pts[i].x, pts[i].y); x.lineTo(pts[best].x, pts[best].y); x.stroke();
+    }
+    x.globalCompositeOperation = 'lighter';
+    for (i = 0; i < pts.length; i++){
+      var p = pts[i];
+      var g = x.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.r * 6);
+      g.addColorStop(0, 'rgba(' + p.c + ',.40)'); g.addColorStop(1, 'rgba(' + p.c + ',0)');
+      x.fillStyle = g; x.beginPath(); x.arc(p.x, p.y, p.r * 6, 0, 6.2832); x.fill();
+      x.fillStyle = 'rgba(' + p.c + ',.92)';
+      x.beginPath(); x.arc(p.x, p.y, p.r * .85, 0, 6.2832); x.fill();
+    }
+    x.globalCompositeOperation = 'source-over';
+  }
+
+  PAGES.forEach(function(pg, i){
+    var el = document.createElement('article');
+    el.className = 'gcard';
+    function mk(tag, cls, text){
+      var e = document.createElement(tag);
+      if (cls) e.className = cls;
+      if (text != null) e.textContent = text;
+      return e;
+    }
+    el.appendChild(mk('div', 'edge'));
+    el.appendChild(document.createElement('canvas'));
+    el.appendChild(mk('span', 'no', (pg.n < 10 ? '0' : '') + pg.n));
+    el.appendChild(mk('span', 'ct', pg.s.length + ' entries'));
+    var face = mk('div', 'face');
+    face.appendChild(mk('h3', null, pg.t));
+    face.appendChild(mk('p', null, pg.l));
+    face.appendChild(mk('span', 'enter', 'Enter this page \u2192'));
+    el.appendChild(face);
+    el.addEventListener('click', function(){
+      if (i !== active) { active = i; layout(); return; }
+      var t = document.getElementById('page-' + pg.n);
+      if (t) t.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+    stage.appendChild(el);
+    cards.push(el);
+  });
+
+  function layout(){
+    cards.forEach(function(el, i){
+      var d = i - active, ad = Math.abs(d);
+      var vis = ad <= 4;
+      el.style.display = vis ? '' : 'none';
+      if (!vis) return;
+      el.style.zIndex = String(50 - ad);
+      el.style.opacity = ad === 0 ? '1' : String(Math.max(0, 0.5 - ad * 0.11));
+      /* pushed further apart and turned harder away, so the centre card is
+         never crowded by the shoulders of its neighbours */
+      el.style.transform =
+        'translate(-50%,-50%) translateX(' + (d * 58) + '%) translateZ(' + (-ad * 250) + 'px)' +
+        ' rotateY(' + (d * -27) + 'deg) scale(' + (1 - ad * 0.03) + ')';
+      el.classList.toggle('is-active', ad === 0);
+      el.setAttribute('aria-hidden', ad === 0 ? 'false' : 'true');
+    });
+    if (pos) pos.textContent = (active + 1) + ' / ' + cards.length;
+  }
+
+  function step(n){ active = Math.max(0, Math.min(cards.length - 1, active + n)); layout(); }
+  host.querySelector('.prev').addEventListener('click', function(){ step(-1); });
+  host.querySelector('.next').addEventListener('click', function(){ step(1); });
+  host.addEventListener('keydown', function(e){
+    if (e.key === 'ArrowLeft') { step(-1); e.preventDefault(); }
+    if (e.key === 'ArrowRight') { step(1); e.preventDefault(); }
+  });
+
+  /* drag and swipe, because a deck asks to be pushed */
+  var x0 = null;
+  stage.addEventListener('pointerdown', function(e){ x0 = e.clientX; });
+  window.addEventListener('pointerup', function(e){
+    if (x0 === null) return;
+    var dx = e.clientX - x0; x0 = null;
+    if (Math.abs(dx) > 42) step(dx < 0 ? 1 : -1);
+  });
+
+  function repaint(){ cards.forEach(function(el, i){ paint(el.querySelector('canvas'), PAGES[i]); }); }
+  window.addEventListener('resize', function(){ clearTimeout(repaint._t); repaint._t = setTimeout(repaint, 180); });
+  layout();
+  requestAnimationFrame(repaint);
 })();
 </script>
 <!-- sa-linkedin-badge -->
