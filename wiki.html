@@ -1,0 +1,1259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Content Map — Knowledge Nexus</title>
+<meta name="author" content="Dr. Sherif Alattar">
+<meta name="description" content="The structural record of Knowledge Nexus — every page, every section and every discrete point beneath them, each number stable and citable.">
+<meta name="theme-color" content="#0A1018">
+<link rel="canonical" href="https://sherifalattar.github.io/Knowledge-Nexus/wiki.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Knowledge Nexus">
+<meta property="og:title" content="The Content Map — Knowledge Nexus">
+<meta property="og:description" content="Every page, section and point of Knowledge Nexus — 717 entries, each number stable and citable.">
+<meta property="og:url" content="https://sherifalattar.github.io/Knowledge-Nexus/wiki.html">
+<meta property="og:image" content="https://sherifalattar.github.io/Knowledge-Nexus/Knowledge-Nexus.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,75..125,100..900;1,75..125,100..900&family=Cormorant+Garamond:ital,wght@0,400..700;1,400..700&family=JetBrains+Mono:wght@300..700&display=swap" rel="stylesheet">
+<link rel="icon" type="image/png" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 64 64%27%3E%3Crect width=%2764%27 height=%2764%27 rx=%2714%27 fill=%27%230A1018%27/%3E%3Cpath d=%27M14 44 L32 18 L50 44%27 fill=%27none%27 stroke=%27%23C6A35A%27 stroke-width=%273%27 stroke-linejoin=%27round%27/%3E%3Ccircle cx=%2732%27 cy=%2714%27 r=%273%27 fill=%27%230FA6C2%27/%3E%3C/svg%3E">
+<style>
+/* ============================================================
+   TOKENS — Alattar Executive Design System
+   ============================================================ */
+:root{
+  --ground:#0A1018; --surface-1:#0B1526; --surface-2:#0E1A2E; --navy-lift:#17243C;
+  --ink-1:#E9ECF1; --ink-2:#C4CCDF; --ink-3:#9AA7BD; --ink-4:#6B7688;
+  --gold:#C6A35A; --gold-bright:#E6CD92; --gold-dim:rgba(198,163,90,.16); --gold-soft:rgba(198,163,90,.55);
+  --cyan:#0FA6C2; --cyan-bright:#3FD3EC; --cyan-dim:rgba(15,166,194,.14);
+  --line:#1b2b43; --line-soft:rgba(255,255,255,.07);
+  --font-display:"Archivo",system-ui,sans-serif;
+  --font-serif:"Cormorant Garamond",Georgia,serif;
+  --font-sans:"Archivo",system-ui,sans-serif;
+  --font-mono:"JetBrains Mono",ui-monospace,"SFMono-Regular",monospace;
+  --track-eyebrow:.32em; --track-label:.2em;
+  --hairline-gold:linear-gradient(90deg,transparent,var(--gold-soft),transparent);
+  --ease-out:cubic-bezier(.2,.7,.2,1);
+  --steel-face:linear-gradient(180deg,#DCE3EE 0%,#B4BECC 24%,#8793A4 48%,#5A6473 72%,#2E3541 100%);
+  --steel-ext:0 -1px 0 rgba(255,255,255,.45),0 1px 0 #2b323d,0 2px 0 #272e38,0 3px 0 #232933,0 4px 0 #1f242e,0 5px 0 #1b2029,0 6px 0 #171c24,0 7px 0 #13171f,0 8px 0 #0f131a,0 10px 16px rgba(0,0,0,.85),0 22px 42px rgba(0,0,0,.6);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:104px}
+body{
+  background:
+    radial-gradient(1100px 720px at 78% -8%, rgba(198,163,90,.07), transparent 60%),
+    radial-gradient(1000px 700px at 8% 4%, rgba(15,166,194,.06), transparent 58%),
+    radial-gradient(140% 120% at 50% 0%, #0E1626 0%, #0A1018 46%, #070B12 100%);
+  background-attachment:fixed;
+  color:var(--ink-2); font-family:var(--font-sans); font-size:15px; line-height:1.6;
+  -webkit-font-smoothing:antialiased; overflow-x:hidden;
+}
+.grain{position:fixed;inset:0;pointer-events:none;z-index:1;opacity:.045;mix-blend-mode:overlay;
+  background-image:repeating-linear-gradient(0deg, rgba(255,255,255,.5) 0 1px, transparent 1px 3px)}
+.wrap{width:min(100% - 48px, 1180px);margin-inline:auto}
+
+/* ============================================================
+   OVERTURE — neural field, steel plate, staged entrance
+   ============================================================ */
+#neural{position:fixed;inset:0;z-index:-1;display:block;width:100%;height:100%;
+  opacity:1;transition:opacity .7s var(--ease-out)}
+#neural.recede{opacity:.16}
+.vignette{position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:radial-gradient(120% 90% at 50% 44%, transparent 52%, rgba(5,7,11,.58) 100%)}
+#progress{position:fixed;top:0;left:0;height:2px;width:0;z-index:60;
+  background:linear-gradient(90deg,var(--gold),var(--gold-bright));box-shadow:0 0 12px rgba(198,163,90,.6)}
+
+.hero{position:relative;z-index:2;min-height:100svh;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;text-align:center;padding:104px 24px 150px}
+.kicker{display:inline-flex;align-items:center;gap:14px;font-family:var(--font-mono);font-size:11.5px;
+  letter-spacing:.34em;color:var(--gold);margin-bottom:30px;opacity:0;transform:translateY(14px)}
+.kicker .r{width:44px;height:1px;background:linear-gradient(90deg,transparent,var(--gold-soft))}
+.kicker .r.rr{background:linear-gradient(90deg,var(--gold-soft),transparent)}
+
+.plate{position:relative;overflow:hidden;border-radius:8px;
+  padding:clamp(28px,4vw,50px) clamp(30px,6vw,74px);
+  background:linear-gradient(180deg,#242B36 0%,#171D27 46%,#0D121A 100%);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.17),inset 0 -1px 0 rgba(0,0,0,.72),
+             inset 0 70px 90px -66px rgba(255,255,255,.11),0 46px 90px -40px rgba(0,0,0,.9);
+  opacity:0;transform:translateY(40px)}
+.plate::before{content:"";position:absolute;inset:0;opacity:.5;
+  background-image:repeating-linear-gradient(90deg, rgba(255,255,255,.055) 0 1px, transparent 1px 3px)}
+.plate .edge{position:absolute;top:0;left:0;right:0;height:1px;background:var(--hairline-gold)}
+.steel{position:relative;display:inline-block;font-family:var(--font-display);font-weight:800;font-stretch:125%;
+  font-size:clamp(26px,7.1vw,86px);line-height:1;letter-spacing:1px;white-space:nowrap;color:transparent;
+  -webkit-text-fill-color:transparent;background:var(--steel-face);
+  -webkit-background-clip:text;background-clip:text;
+  -webkit-text-stroke:.4px rgba(9,13,20,.5);text-shadow:var(--steel-ext)}
+.plate .sheen{position:absolute;top:-40%;bottom:-40%;width:38%;left:-60%;pointer-events:none;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.5),transparent);
+  transform:skewX(-18deg);mix-blend-mode:overlay;filter:blur(2px)}
+
+.hero .lead{max-width:730px;margin:34px auto 0;font-family:var(--font-serif);font-style:italic;
+  font-size:clamp(17px,1.9vw,23px);line-height:1.55;color:var(--ink-2);text-wrap:pretty;
+  opacity:0;transform:translateY(20px)}
+.hero .byline{margin-top:26px;font-family:var(--font-mono);font-size:12px;letter-spacing:.26em;
+  text-transform:uppercase;color:var(--gold);opacity:0}
+
+.figures{display:flex;flex-wrap:nowrap;justify-content:center;margin:40px auto 0;max-width:780px;width:100%;
+  border-top:1px solid var(--line);border-bottom:1px solid var(--line);opacity:0;transform:translateY(16px)}
+.fig{flex:1 1 0;min-width:0;padding:17px 8px;position:relative}
+.fig+.fig::before{content:"";position:absolute;left:0;top:22%;bottom:22%;width:1px;background:var(--line)}
+.fig b{display:block;font-family:var(--font-mono);font-weight:500;font-size:clamp(20px,3vw,29px);
+  color:var(--ink-1);line-height:1;font-variant-numeric:tabular-nums}
+.fig span{display:block;margin-top:9px;font-family:var(--font-mono);font-size:9.5px;
+  letter-spacing:var(--track-label);text-transform:uppercase;color:var(--ink-4)}
+
+.cue{position:absolute;bottom:34px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;
+  align-items:center;gap:9px;color:var(--ink-4);font-family:var(--font-mono);font-size:10px;
+  letter-spacing:.3em;opacity:0}
+.cue .arrow{width:1px;height:40px;background:linear-gradient(180deg,var(--gold),transparent);
+  position:relative;overflow:hidden}
+.cue .arrow::after{content:"";position:absolute;top:-40px;left:0;width:1px;height:40px;
+  background:linear-gradient(180deg,transparent,var(--gold-bright));animation:drop 1.8s var(--ease-out) infinite}
+@keyframes drop{to{top:40px}}
+
+.lit{animation:lift .9s var(--ease-out) both}
+@keyframes lift{to{opacity:1;transform:none;filter:none}}
+
+/* ============================================================
+   CONSOLE — search, filters, page index
+   ============================================================ */
+.console{position:sticky;top:0;z-index:40;background:rgba(10,16,24,.86);
+  -webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);border-bottom:1px solid var(--line)}
+.console-in{display:flex;align-items:center;gap:14px;padding:13px 0;flex-wrap:wrap}
+.brandlink{font-family:var(--font-mono);font-size:10.5px;letter-spacing:var(--track-label);
+  text-transform:uppercase;color:var(--gold);text-decoration:none;white-space:nowrap;flex:none}
+.brandlink:hover{color:var(--gold-bright)}
+.search{flex:1 1 260px;min-width:180px;position:relative}
+.search input{width:100%;padding:10px 14px 10px 36px;border-radius:8px;border:1px solid var(--line);
+  background:rgba(11,21,38,.8);color:var(--ink-1);font-family:var(--font-sans);font-size:13.5px;outline:none;
+  transition:border-color .2s,box-shadow .2s}
+.search input::placeholder{color:var(--ink-4)}
+.search input:focus{border-color:var(--gold-soft);box-shadow:0 0 0 3px var(--gold-dim)}
+.search svg{position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--ink-4);pointer-events:none}
+.kinds{display:flex;gap:6px;flex-wrap:wrap}
+.kind{font-family:var(--font-mono);font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;
+  padding:6px 10px;border-radius:999px;border:1px solid var(--line);background:transparent;
+  color:var(--ink-3);cursor:pointer;transition:all .2s;white-space:nowrap}
+.kind:hover{border-color:var(--c,var(--gold-soft));color:var(--ink-1)}
+.kind[aria-pressed="true"]{border-color:var(--c,var(--gold));color:#0A1018;background:var(--c,var(--gold));font-weight:600}
+.count{font-family:var(--font-mono);font-size:10.5px;color:var(--ink-4);white-space:nowrap;
+  font-variant-numeric:tabular-nums;flex:none}
+.pagenav{display:flex;gap:7px;overflow-x:auto;padding:0 0 13px;scrollbar-width:thin}
+.pagenav::-webkit-scrollbar{height:3px}
+.pagenav::-webkit-scrollbar-thumb{background:var(--line);border-radius:3px}
+.chipnav{flex:none;display:inline-flex;align-items:center;gap:8px;padding:7px 12px;border-radius:999px;
+  border:1px solid var(--line);background:rgba(11,21,38,.6);color:var(--ink-3);cursor:pointer;
+  font-family:var(--font-sans);font-size:12px;white-space:nowrap;transition:all .2s}
+.chipnav b{font-family:var(--font-mono);font-size:9.5px;color:var(--gold);font-weight:500}
+.chipnav:hover,.chipnav.on{border-color:var(--gold-soft);color:var(--ink-1);background:rgba(23,36,60,.8)}
+
+/* ============================================================
+   THE MAP
+   ============================================================ */
+main{position:relative;z-index:2;padding:56px 0 90px}
+/* a reading ground over the field, inside main only, so the hero stays lit */
+main::before{content:"";position:absolute;top:-40px;bottom:0;left:50%;width:100vw;
+  transform:translateX(-50%);z-index:-1;pointer-events:none;
+  background:linear-gradient(180deg, transparent, rgba(7,11,18,.80) 120px, rgba(7,11,18,.88))}
+.page-block{margin:0 0 64px;scroll-margin-top:118px}
+.page-block.hidden{display:none}
+.ph{display:flex;align-items:flex-start;gap:18px;padding-bottom:16px;border-bottom:1px solid var(--line);margin-bottom:22px}
+.ph .pn{font-family:var(--font-mono);font-size:12px;color:var(--gold);padding-top:6px;flex:none;letter-spacing:.08em}
+.ph div{flex:1 1 auto;min-width:0}
+.ph h2{font-family:var(--font-display);font-weight:600;font-stretch:112%;
+  font-size:clamp(19px,2.5vw,27px);line-height:1.18;color:var(--ink-1);letter-spacing:-.01em}
+.ph .pf{font-family:var(--font-mono);font-size:10.5px;color:var(--ink-4);text-decoration:none;
+  border-bottom:1px dotted rgba(15,166,194,.5);transition:color .2s}
+.ph .pf:hover{color:var(--cyan-bright)}
+.ph .pc{font-family:var(--font-mono);font-size:10px;color:var(--ink-4);white-space:nowrap;padding-top:7px;flex:none}
+.lead{font-family:var(--font-serif);font-style:italic;font-size:17px;line-height:1.55;
+  color:var(--ink-3);margin:0 0 20px;max-width:820px}
+.entries{display:grid;gap:1px}
+.e{display:grid;grid-template-columns:auto 1fr;gap:14px;align-items:baseline;
+  padding:9px 14px;border-radius:7px;transition:background .18s}
+.e:hover{background:rgba(23,36,60,.45)}
+.e.hidden{display:none}
+.e .n{font-family:var(--font-mono);font-size:10.5px;color:var(--ink-4);text-decoration:none;
+  white-space:nowrap;padding-top:2px;font-variant-numeric:tabular-nums;transition:color .18s}
+.e .n:hover{color:var(--gold-bright)}
+.e:target{background:rgba(198,163,90,.10);box-shadow:inset 2px 0 0 var(--gold)}
+.e .t{min-width:0;text-wrap:pretty}
+.e.sec{margin-top:20px;padding-top:14px;border-top:1px solid var(--line-soft)}
+.e.sec:first-child{margin-top:0;border-top:none}
+.e.sec .t{font-family:var(--font-display);font-weight:600;font-size:16.5px;color:var(--ink-1);line-height:1.3}
+.e.sec .n{color:var(--gold)}
+.e.topic .t{font-weight:600;font-size:14.5px;color:var(--ink-1)}
+.e.topic{padding-left:26px}
+.e.point{padding-left:44px}
+.e.point .t{font-size:13.8px;color:var(--ink-2);line-height:1.62}
+.chip{display:inline-block;margin-right:9px;padding:2px 8px;border-radius:4px;vertical-align:1px;
+  font-family:var(--font-mono);font-size:9px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--c);border:1px solid color-mix(in srgb, var(--c) 34%, transparent);
+  background:color-mix(in srgb, var(--c) 11%, transparent);white-space:nowrap}
+.empty{display:none;padding:60px 0;text-align:center;font-family:var(--font-serif);
+  font-style:italic;font-size:19px;color:var(--ink-4)}
+.empty.on{display:block}
+
+/* ============================================================
+   COLOPHON
+   ============================================================ */
+.colophon{border-top:1px solid var(--line);padding:40px 0 96px;position:relative;z-index:2}
+.colophon p{font-size:13px;color:var(--ink-4);max-width:760px}
+.colophon b{color:var(--ink-2);font-weight:600}
+.colophon a{color:var(--cyan);text-decoration:none;border-bottom:1px dotted rgba(15,166,194,.45)}
+.colophon a:hover{color:var(--cyan-bright)}
+.hair{height:1px;background:var(--hairline-gold);margin:0 0 30px}
+
+/* KNOWLEDGE NEXUS on one nowrap line is 417px wide — wider than a phone.
+   Below 560px the wordmark breaks in two rather than pushing the page sideways. */
+@media(max-width:600px){
+  .plate{padding:22px 20px}
+  .steel{white-space:normal;font-size:clamp(26px,10.4vw,46px);line-height:1.05}
+}
+@media(max-width:720px){
+  .wrap{width:min(100% - 32px,1180px)}
+  .figures{flex-wrap:wrap}
+  .fig{flex:1 1 42%}
+  .e{grid-template-columns:1fr;gap:5px}
+  .e.topic{padding-left:14px}
+  .e.point{padding-left:24px}
+  .ph .pc{display:none}
+}
+@media (prefers-reduced-motion: reduce){
+  html{scroll-behavior:auto}
+  .cue i{animation:none}
+}
+</style>
+</head>
+<body>
+
+<canvas id="neural"></canvas>
+<div class="vignette"></div>
+<div class="grain"></div>
+<div id="progress"></div>
+
+<section class="hero" id="top">
+  <div class="kicker"><span class="r"></span> THE CONTENT MAP &middot; EDITION 1 <span class="r rr"></span></div>
+  <div class="plate">
+    <div class="edge"></div>
+    <div class="steel">KNOWLEDGE NEXUS</div>
+    <div class="sheen"></div>
+  </div>
+  <p class="lead">The structural record of the work &mdash; every page, every section, and every discrete point beneath them. Nothing here is summarised, paraphrased, or inferred: each entry reproduces the label as it appears in the source, and every number is stable and may be cited.</p>
+  <div class="byline">Dr. Sherif Alattar &middot; MD</div>
+  <div class="figures">
+    <div class="fig"><b>14</b><span>Pages</span></div>
+    <div class="fig"><b>109</b><span>Sections</span></div>
+    <div class="fig"><b>608</b><span>Points</span></div>
+    <div class="fig"><b>717</b><span>Citable entries</span></div>
+  </div>
+  <div class="cue">SCROLL<span class="arrow"></span></div>
+</section>
+
+<div class="console">
+  <div class="wrap">
+    <div class="console-in">
+      <a class="brandlink" href="observatory.html">&larr;&nbsp;Knowledge Nexus</a>
+      <div class="search">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+        <input id="q" type="search" placeholder="Search 717 entries &mdash; a number, a code, a phrase&hellip;" aria-label="Search the content map" autocomplete="off">
+      </div>
+      <div class="kinds"><button class="kind" data-kind="clinical" style="--c:#2FE6C8" aria-pressed="false">Clinical</button>
+<button class="kind" data-kind="coding" style="--c:#56C6FF" aria-pressed="false">Coding</button>
+<button class="kind" data-kind="adjudication" style="--c:#F3CB7D" aria-pressed="false">Adjudication</button>
+<button class="kind" data-kind="coverage" style="--c:#9C7CFF" aria-pressed="false">Coverage</button>
+<button class="kind" data-kind="pearl" style="--c:#C4CCDF" aria-pressed="false">Pearl</button></div>
+      <span class="count" id="count">717 entries</span>
+    </div>
+    <nav class="pagenav" aria-label="Jump to a page">
+<button class="chipnav" data-target="1"><b>01</b>Cinematic Opening</button>
+<button class="chipnav" data-target="2"><b>02</b>The Pyramids</button>
+<button class="chipnav" data-target="3"><b>03</b>The Observatory</button>
+<button class="chipnav" data-target="4"><b>04</b>Introduction</button>
+<button class="chipnav" data-target="5"><b>05</b>DRGs Compendium</button>
+<button class="chipnav" data-target="6"><b>06</b>Denial Codes</button>
+<button class="chipnav" data-target="7"><b>07</b>Denial Navigator</button>
+<button class="chipnav" data-target="8"><b>08</b>Psychiatry</button>
+<button class="chipnav" data-target="9"><b>09</b>Psychiatry</button>
+<button class="chipnav" data-target="10"><b>10</b>Psychiatry across DSM-5-TR &amp; IR-DRG</button>
+<button class="chipnav" data-target="11"><b>11</b>Setting-of-Care Principles</button>
+<button class="chipnav" data-target="12"><b>12</b>Source Corpus</button>
+<button class="chipnav" data-target="13"><b>13</b>Visual Archive (Gallery)</button>
+<button class="chipnav" data-target="14"><b>14</b>About the Author</button>
+    </nav>
+  </div>
+</div>
+
+<main class="wrap">
+<section class="page-block" id="page-1" data-page="1"><header class="ph"><span class="pn">01</span><div><h2>Cinematic Opening</h2><a class="pf" href="index.html">index.html</a></div><span class="pc">0 entries</span></header><p class="lead">Visual threshold. No structured text content.</p></section>
+<section class="page-block" id="page-2" data-page="2"><header class="ph"><span class="pn">02</span><div><h2>The Pyramids</h2><a class="pf" href="pyramids.html">pyramids.html</a></div><span class="pc">3 entries</span></header><div class="entries"><div class="e sec" id="2.1" data-n="2.1"><a class="n" href="#2.1" title="Copy link to 2.1">2.1</a><div class="t">I came from those who built the pyramids.</div></div>
+<div class="e sec" id="2.2" data-n="2.2"><a class="n" href="#2.2" title="Copy link to 2.2">2.2</a><div class="t">A doctrine that is structured outlives him.</div></div>
+<div class="e sec" id="2.3" data-n="2.3"><a class="n" href="#2.3" title="Copy link to 2.3">2.3</a><div class="t">The Six Chambers</div></div></div></section>
+<section class="page-block" id="page-3" data-page="3"><header class="ph"><span class="pn">03</span><div><h2>The Observatory</h2><a class="pf" href="observatory.html">observatory.html</a></div><span class="pc">14 entries</span></header><p class="lead">Hub page — module cards.</p><div class="entries"><div class="e sec" id="3.1" data-n="3.1"><a class="n" href="#3.1" title="Copy link to 3.1">3.1</a><div class="t">Knowledge Nexus</div></div>
+<div class="e sec" id="3.2" data-n="3.2"><a class="n" href="#3.2" title="Copy link to 3.2">3.2</a><div class="t">Not a folder of files. A system of thinking.</div></div>
+<div class="e topic" id="3.2.1" data-n="3.2.1"><a class="n" href="#3.2.1" title="Copy link to 3.2.1">3.2.1</a><div class="t">Provenance over assertion</div></div>
+<div class="e topic" id="3.2.2" data-n="3.2.2"><a class="n" href="#3.2.2" title="Copy link to 3.2.2">3.2.2</a><div class="t">Synthesis over collection</div></div>
+<div class="e topic" id="3.2.3" data-n="3.2.3"><a class="n" href="#3.2.3" title="Copy link to 3.2.3">3.2.3</a><div class="t">Refinement over completion</div></div>
+<div class="e sec" id="3.3" data-n="3.3"><a class="n" href="#3.3" title="Copy link to 3.3">3.3</a><div class="t">The route from clinical fact to operational decision.</div></div>
+<div class="e sec" id="3.4" data-n="3.4"><a class="n" href="#3.4" title="Copy link to 3.4">3.4</a><div class="t">Choose an orbit. Enter a working reference.</div></div>
+<div class="e topic" id="3.4.1" data-n="3.4.1"><a class="n" href="#3.4.1" title="Copy link to 3.4.1">3.4.1</a><div class="t">Flagship DRGs Compendium</div></div>
+<div class="e topic" id="3.4.2" data-n="3.4.2"><a class="n" href="#3.4.2" title="Copy link to 3.4.2">3.4.2</a><div class="t">Psychiatric Knowledge System</div></div>
+<div class="e topic" id="3.4.3" data-n="3.4.3"><a class="n" href="#3.4.3" title="Copy link to 3.4.3">3.4.3</a><div class="t">Codes · Global Atlas</div></div>
+<div class="e topic" id="3.4.4" data-n="3.4.4"><a class="n" href="#3.4.4" title="Copy link to 3.4.4">3.4.4</a><div class="t">Setting of Care</div></div>
+<div class="e topic" id="3.4.5" data-n="3.4.5"><a class="n" href="#3.4.5" title="Copy link to 3.4.5">3.4.5</a><div class="t">Gallery</div></div>
+<div class="e topic" id="3.4.6" data-n="3.4.6"><a class="n" href="#3.4.6" title="Copy link to 3.4.6">3.4.6</a><div class="t">About the Author</div></div>
+<div class="e topic" id="3.4.7" data-n="3.4.7"><a class="n" href="#3.4.7" title="Copy link to 3.4.7">3.4.7</a><div class="t">Source Corpus</div></div></div></section>
+<section class="page-block" id="page-4" data-page="4"><header class="ph"><span class="pn">04</span><div><h2>Introduction</h2><a class="pf" href="introduction.html">introduction.html</a></div><span class="pc">11 entries</span></header><div class="entries"><div class="e sec" id="4.1" data-n="4.1"><a class="n" href="#4.1" title="Copy link to 4.1">4.1</a><div class="t">Introduction to the Knowledge Nexus</div></div>
+<div class="e sec" id="4.2" data-n="4.2"><a class="n" href="#4.2" title="Copy link to 4.2">4.2</a><div class="t">The Three Foundational Pillars</div></div>
+<div class="e topic" id="4.2.1" data-n="4.2.1"><a class="n" href="#4.2.1" title="Copy link to 4.2.1">4.2.1</a><div class="t">Provenance over Assertion</div></div>
+<div class="e topic" id="4.2.2" data-n="4.2.2"><a class="n" href="#4.2.2" title="Copy link to 4.2.2">4.2.2</a><div class="t">Synthesis over Collection</div></div>
+<div class="e topic" id="4.2.3" data-n="4.2.3"><a class="n" href="#4.2.3" title="Copy link to 4.2.3">4.2.3</a><div class="t">Refinement over Completion</div></div>
+<div class="e sec" id="4.3" data-n="4.3"><a class="n" href="#4.3" title="Copy link to 4.3">4.3</a><div class="t">Specialized Functional Modules</div></div>
+<div class="e topic" id="4.3.1" data-n="4.3.1"><a class="n" href="#4.3.1" title="Copy link to 4.3.1">4.3.1</a><div class="t">DRGs Compendium</div></div>
+<div class="e topic" id="4.3.2" data-n="4.3.2"><a class="n" href="#4.3.2" title="Copy link to 4.3.2">4.3.2</a><div class="t">Psychiatric Knowledge System</div></div>
+<div class="e topic" id="4.3.3" data-n="4.3.3"><a class="n" href="#4.3.3" title="Copy link to 4.3.3">4.3.3</a><div class="t">Denial Navigator</div></div>
+<div class="e topic" id="4.3.4" data-n="4.3.4"><a class="n" href="#4.3.4" title="Copy link to 4.3.4">4.3.4</a><div class="t">Setting of Care Briefing</div></div>
+<div class="e sec" id="4.4" data-n="4.4"><a class="n" href="#4.4" title="Copy link to 4.4">4.4</a><div class="t">How It Came to Be</div></div></div></section>
+<section class="page-block" id="page-5" data-page="5"><header class="ph"><span class="pn">05</span><div><h2>DRGs Compendium</h2><a class="pf" href="drgs-compendium.html">drgs-compendium.html</a></div><span class="pc">188 entries</span></header><div class="entries"><div class="e sec" id="5.1" data-n="5.1"><a class="n" href="#5.1" title="Copy link to 5.1">5.1</a><div class="t">Abu Dhabi Regulatory Codebook</div></div>
+<div class="e topic" id="5.1.1" data-n="5.1.1"><a class="n" href="#5.1.1" title="Copy link to 5.1.1">5.1.1</a><div class="t">DOH Governance Hierarchy</div></div>
+<div class="e topic" id="5.1.2" data-n="5.1.2"><a class="n" href="#5.1.2" title="Copy link to 5.1.2">5.1.2</a><div class="t">DOH Claims &amp; Adjudication Rules V2025</div></div>
+<div class="e point" id="5.1.2.1" data-n="5.1.2.1"><a class="n" href="#5.1.2.1" title="Copy link to 5.1.2.1">5.1.2.1</a><div class="t"><span class="chip" data-kind="clinical" style="--c:#2FE6C8">Clinical</span>Encounter definitions (§4.1)</div></div>
+<div class="e point" id="5.1.2.2" data-n="5.1.2.2"><a class="n" href="#5.1.2.2" title="Copy link to 5.1.2.2">5.1.2.2</a><div class="t"><span class="chip" data-kind="coding" style="--c:#56C6FF">Coding</span>Claiming methodologies (§4)</div></div>
+<div class="e point" id="5.1.2.3" data-n="5.1.2.3"><a class="n" href="#5.1.2.3" title="Copy link to 5.1.2.3">5.1.2.3</a><div class="t"><span class="chip" data-kind="coding" style="--c:#56C6FF">Coding</span>Adjudication layer (§5)</div></div>
+<div class="e point" id="5.1.2.4" data-n="5.1.2.4"><a class="n" href="#5.1.2.4" title="Copy link to 5.1.2.4">5.1.2.4</a><div class="t"><span class="chip" data-kind="adjudication" style="--c:#F3CB7D">Adjudication</span>Pre-anesthesia check-up for an inpatient surgery is NOT separately billable — it is included in the inpatient DRG. Unlisted services: use the closest code with an 'UnlistedCodes' observation tag in the eClaim per Routine Reporting Requirements on Shafafiya.</div></div>
+<div class="e topic" id="5.1.3" data-n="5.1.3"><a class="n" href="#5.1.3" title="Copy link to 5.1.3">5.1.3</a><div class="t">DOH Coding Manual CS v2021 — Authorised Codesets</div></div>
+<div class="e point" id="5.1.3.1" data-n="5.1.3.1"><a class="n" href="#5.1.3.1" title="Copy link to 5.1.3.1">5.1.3.1</a><div class="t"><span class="chip" data-kind="clinical" style="--c:#2FE6C8">Clinical</span>Standard codes — §3.1</div></div>
+<div class="e point" id="5.1.3.2" data-n="5.1.3.2"><a class="n" href="#5.1.3.2" title="Copy link to 5.1.3.2">5.1.3.2</a><div class="t"><span class="chip" data-kind="coding" style="--c:#56C6FF">Coding</span>Key DOH principles</div></div>
+<div class="e topic" id="5.1.4" data-n="5.1.4"><a class="n" href="#5.1.4" title="Copy link to 5.1.4">5.1.4</a><div class="t">Addendum 05 — Inpatient Mental Health Relative Weights</div></div>
+<div class="e point" id="5.1.4.1" data-n="5.1.4.1"><a class="n" href="#5.1.4.1" title="Copy link to 5.1.4.1">5.1.4.1</a><div class="t"><span class="chip" data-kind="clinical" style="--c:#2FE6C8">Clinical</span>Scope</div></div>
+<div class="e point" id="5.1.4.2" data-n="5.1.4.2"><a class="n" href="#5.1.4.2" title="Copy link to 5.1.4.2">5.1.4.2</a><div class="t"><span class="chip" data-kind="coding" style="--c:#56C6FF">Coding</span>Application</div></div>
+<div class="e point" id="5.1.4.3" data-n="5.1.4.3"><a class="n" href="#5.1.4.3" title="Copy link to 5.1.4.3">5.1.4.3</a><div class="t"><span class="chip" data-kind="adjudication" style="--c:#F3CB7D">Adjudication</span>SOI anomaly on record: Bipolar DRG 19413 shows SOI 2 relative weight (4.7934) exceeding SOI 3 (4.6878) — atypical progression for a severity scale. Flagged for verification against the live Addendum 05 before adjudicating.</div></div>
+<div class="e topic" id="5.1.5" data-n="5.1.5"><a class="n" href="#5.1.5" title="Copy link to 5.1.5">5.1.5</a><div class="t">Addendum 06 — LAMA Payment Framework</div></div>
+<div class="e point" id="5.1.5.1" data-n="5.1.5.1"><a class="n" href="#5.1.5.1" title="Copy link to 5.1.5.1">5.1.5.1</a><div class="t"><span class="chip" data-kind="clinical" style="--c:#2FE6C8">Clinical</span>LAMA definition</div></div>
+<div class="e point" id="5.1.5.2" data-n="5.1.5.2"><a class="n" href="#5.1.5.2" title="Copy link to 5.1.5.2">5.1.5.2</a><div class="t"><span class="chip" data-kind="coding" style="--c:#56C6FF">Coding</span>Payment framework (Addendum 06)</div></div>
+<div class="e point" id="5.1.5.3" data-n="5.1.5.3"><a class="n" href="#5.1.5.3" title="Copy link to 5.1.5.3">5.1.5.3</a><div class="t"><span class="chip" data-kind="adjudication" style="--c:#F3CB7D">Adjudication</span>For claims submitted as full IR-DRG where the discharge record documents LAMA, apply the Addendum 06 calculation and adjust accordingly. The documentation burden rests with the provider — absent a LAMA notation, the standard DRG applies.</div></div>
+<div class="e topic" id="5.1.6" data-n="5.1.6"><a class="n" href="#5.1.6" title="Copy link to 5.1.6">5.1.6</a><div class="t">DOH Circular 2025-18 — Congenital &amp; Hereditary Coverage</div></div>
+<div class="e point" id="5.1.6.1" data-n="5.1.6.1"><a class="n" href="#5.1.6.1" title="Copy link to 5.1.6.1">5.1.6.1</a><div class="t"><span class="chip" data-kind="coverage" style="--c:#9C7CFF">Coverage</span>The coverage rule</div></div>
+<div class="e point" id="5.1.6.2" data-n="5.1.6.2"><a class="n" href="#5.1.6.2" title="Copy link to 5.1.6.2">5.1.6.2</a><div class="t"><span class="chip" data-kind="clinical" style="--c:#2FE6C8">Clinical</span>Cosmetic vs therapeutic test</div></div>
+<div class="e point" id="5.1.6.3" data-n="5.1.6.3"><a class="n" href="#5.1.6.3" title="Copy link to 5.1.6.3">5.1.6.3</a><div class="t"><span class="chip" data-kind="coding" style="--c:#56C6FF">Coding</span>Plan-tier overlay</div></div>
+<div class="e sec" id="5.2" data-n="5.2"><a class="n" href="#5.2" title="Copy link to 5.2">5.2</a><div class="t">DRGs Roadmap</div></div>
+<div class="e topic" id="5.2.1" data-n="5.2.1"><a class="n" href="#5.2.1" title="Copy link to 5.2.1">5.2.1</a><div class="t">Common DRGs — Abu Dhabi IR-DRG Dashboard</div></div>
+<div class="e topic" id="5.2.2" data-n="5.2.2"><a class="n" href="#5.2.2" title="Copy link to 5.2.2">5.2.2</a><div class="t">IR-DRG Grouper — Solventum Framework</div></div>
+<div class="e point" id="5.2.2.1" data-n="5.2.2.1"><a class="n" href="#5.2.2.1" title="Copy link to 5.2.2.1">5.2.2.1</a><div class="t"><span class="chip" data-kind="clinical" style="--c:#2FE6C8">Clinical</span>Grouper logic</div></div>
+<div class="e point" id="5.2.2.2" data-n="5.2.2.2"><a class="n" href="#5.2.2.2" title="Copy link to 5.2.2.2">5.2.2.2</a><div class="t"><span class="chip" data-kind="coding" style="--c:#56C6FF">Coding</span>Payment formula (§4.4.2)</div></div>
+<div class="e point" id="5.2.2.3" data-n="5.2.2.3"><a class="n" href="#5.2.2.3" title="Copy link to 5.2.2.3">5.2.2.3</a><div class="t"><span class="chip" data-kind="adjudication" style="--c:#F3CB7D">Adjudication</span>SOI is driven by CC/MCC assignment among secondary diagnoses — every substantiated reportable secondary diagnosis that qualifies as a CC or MCC raises or sustains the SOI. This is why secondary diagnosis validation is the highest-yield adjudication activity in a DRG market: one unsupported secondary</div></div>
+<div class="e sec" id="5.3" data-n="5.3"><a class="n" href="#5.3" title="Copy link to 5.3">5.3</a><div class="t">Diagnoses Coding Validation</div></div>
+<div class="e topic" id="5.3.1" data-n="5.3.1"><a class="n" href="#5.3.1" title="Copy link to 5.3.1">5.3.1</a><div class="t">ICD-10-CM Architecture &amp; Conventions (Section I.A)</div></div>
+<div class="e point" id="5.3.1.1" data-n="5.3.1.1"><a class="n" href="#5.3.1.1" title="Copy link to 5.3.1.1">5.3.1.1</a><div class="t"><span class="chip" data-kind="clinical" style="--c:#2FE6C8">Clinical</span>Code structure and edition cycle</div></div>
+<div class="e point" id="5.3.1.2" data-n="5.3.1.2"><a class="n" href="#5.3.1.2" title="Copy link to 5.3.1.2">5.3.1.2</a><div class="t"><span class="chip" data-kind="coding" style="--c:#56C6FF">Coding</span>Key conventions</div></div>
+<div class="e topic" id="5.3.2" data-n="5.3.2"><a class="n" href="#5.3.2" title="Copy link to 5.3.2">5.3.2</a><div class="t">Section I.B — General Coding Guidelines Reference</div></div>
+<div class="e point" id="5.3.2.1" data-n="5.3.2.1"><a class="n" href="#5.3.2.1" title="Copy link to 5.3.2.1">5.3.2.1</a><div class="t"><span class="chip" data-kind="adjudication" style="--c:#F3CB7D">Adjudication</span>I.B.2 (specificity) and I.B.19 (no assuming) are the two highest-yield adjudication leverage points — most challengeable claims fail at least one. A claim surviving both is significantly more defensible.</div></div>
+<div class="e topic" id="5.3.3" data-n="5.3.3"><a class="n" href="#5.3.3" title="Copy link to 5.3.3">5.3.3</a><div class="t">Integral Signs &amp; Symptoms in Detail (I.B.5)</div></div>
+<div class="e point" id="5.3.3.1" data-n="5.3.3.1"><a class="n" href="#5.3.3.1" title="Copy link to 5.3.3.1">5.3.3.1</a><div class="t"><span class="chip" data-kind="clinical" style="--c:#2FE6C8">Clinical</span>The rule</div></div>
+<div class="e topic" id="5.3.4" data-n="5.3.4"><a class="n" href="#5.3.4" title="Copy link to 5.3.4">5.3.4</a><div class="t">Uncertain Diagnosis — Setting Rules (I.B.14 / II.H / III.C / IV.H)</div></div>
+<div class="e point" id="5.3.4.1" data-n="5.3.4.1"><a class="n" href="#5.3.4.1" title="Copy link to 5.3.4.1">5.3.4.1</a><div class="t"><span class="chip" data-kind="clinical" style="--c:#2FE6C8">Clinical</span>The ruled-out rule</div></div>
+<div class="e topic" id="5.3.5" data-n="5.3.5"><a class="n" href="#5.3.5" title="Copy link to 5.3.5">5.3.5</a><div class="t">Post-Procedural Complications (I.B.16 / I.A.19)</div></div>
+<div class="e point" id="5.3.5.1" data-n="5.3.5.1"><a class="n" href="#5.3.5.1" title="Copy link to 5.3.5.1">5.3.5.1</a><div class="t"><span class="chip" data-kind="clinical" style="--c:#2FE6C8">Clinical</span>Two-part documentation requirement</div></div>
+<div class="e point" id="5.3.5.2" data-n="5.3.5.2"><a class="n" href="#5.3.5.2" title="Copy link to 5.3.5.2">5.3.5.2</a><div class="t"><span class="chip" data-kind="adjudication" style="--c:#F3CB7D">Adjudication</span>D62 (acute post-haemorrhagic anaemia) requires documented acute blood loss — not inferred from haemoglobin. Apply four guidelines together: I.B.16 (post-op complication documentation), I.A.19 (no assuming from labs), I.B.14 (physician must name it), and UHDDS reportability (it must have affected car</div></div>
+<div class="e topic" id="5.3.6" data-n="5.3.6"><a class="n" href="#5.3.6" title="Copy link to 5.3.6">5.3.6</a><div class="t">Reportable Diagnosis Validation — UHDDS · MEAT · Defensive Trio</div></div>
+<div class="e point" id="5.3.6.1" data-n="5.3.6.1"><a class="n" href="#5.3.6.1" title="Copy link to 5.3.6.1">5.3.6.1</a><div class="t"><span class="chip" data-kind="adjudication" style="--c:#F3CB7D">Adjudication</span>The three frameworks operate in sequence: UHDDS sets the reportability bar → MEAT is the tool used to find documentation clearing that bar → the Defensive Trio is the payer’s mechanism for identifying where that bar was not cleared. A claim surviving all three is defensible; a claim failing any one</div></div>
+<div class="e topic" id="5.3.7" data-n="5.3.7"><a class="n" href="#5.3.7" title="Copy link to 5.3.7">5.3.7</a><div class="t">Clinical vs Coding Validation</div></div>
+<div class="e point" id="5.3.7.1" data-n="5.3.7.1"><a class="n" href="#5.3.7.1" title="Copy link to 5.3.7.1">5.3.7.1</a><div class="t"><span class="chip" data-kind="adjudication" style="--c:#F3CB7D">Adjudication</span>A claim can be clinically valid but mis-coded (correct diagnosis, wrong code or sequence). A claim can be correctly coded but clinically unsupported (right code, no clinical basis). These are different failures requiring different remedies and different appeal pathways. Always identify which lens fa</div></div>
+<div class="e sec" id="5.4" data-n="5.4"><a class="n" href="#5.4" title="Copy link to 5.4">5.4</a><div class="t">Procedures &amp; HCPCS</div></div>
+<div class="e topic" id="5.4.1" data-n="5.4.1"><a class="n" href="#5.4.1" title="Copy link to 5.4.1">5.4.1</a><div class="t">3.1 — CPT-4 Categorization</div></div>
+<div class="e point" id="5.4.1.1" data-n="5.4.1.1"><a class="n" href="#5.4.1.1" title="Copy link to 5.4.1.1">5.4.1.1</a><div class="t"><span class="chip" data-kind="clinical" style="--c:#2FE6C8">Clinical</span>Category I structure — six sections</div></div>
+<div class="e topic" id="5.4.2" data-n="5.4.2"><a class="n" href="#5.4.2" title="Copy link to 5.4.2">5.4.2</a><div class="t">3.2 — NCCI Edits</div></div>
+<div class="e point" id="5.4.2.1" data-n="5.4.2.1"><a class="n" href="#5.4.2.1" title="Copy link to 5.4.2.1">5.4.2.1</a><div class="t"><span class="chip" data-kind="clinical" style="--c:#2FE6C8">Clinical</span>Three core NCCI principles</div></div>
+<div class="e point" id="5.4.2.2" data-n="5.4.2.2"><a class="n" href="#5.4.2.2" title="Copy link to 5.4.2.2">5.4.2.2</a><div class="t"><span class="chip" data-kind="coding" style="--c:#56C6FF">Coding</span>UAE / DOH application</div></div>
+<div class="e topic" id="5.4.3" data-n="5.4.3"><a class="n" href="#5.4.3" title="Copy link to 5.4.3">5.4.3</a><div class="t">3.3 — HCPCS Level II Overview</div></div>
+<div class="e point" id="5.4.3.1" data-n="5.4.3.1"><a class="n" href="#5.4.3.1" title="Copy link to 5.4.3.1">5.4.3.1</a><div class="t"><span class="chip" data-kind="clinical" style="--c:#2FE6C8">Clinical</span>Definition and purpose</div></div>
+<div class="e point" id="5.4.3.2" data-n="5.4.3.2"><a class="n" href="#5.4.3.2" title="Copy link to 5.4.3.2">5.4.3.2</a><div class="t"><span class="chip" data-kind="clinical" style="--c:#2FE6C8">Clinical</span>C-codes — device and supply pass-through</div></div>
+<div class="e topic" id="5.4.4" data-n="5.4.4"><a class="n" href="#5.4.4" title="Copy link to 5.4.4">5.4.4</a><div class="t">3.4 — DOH-Adopted HCPCS Modifiers &amp; Edits</div></div>
+<div class="e point" id="5.4.4.1" data-n="5.4.4.1"><a class="n" href="#5.4.4.1" title="Copy link to 5.4.4.1">5.4.4.1</a><div class="t"><span class="chip" data-kind="coding" style="--c:#56C6FF">Coding</span>Abu Dhabi Simple Edits (§5.3)</div></div>
+<div class="e point" id="5.4.4.2" data-n="5.4.4.2"><a class="n" href="#5.4.4.2" title="Copy link to 5.4.4.2">5.4.4.2</a><div class="t"><span class="chip" data-kind="coding" style="--c:#56C6FF">Coding</span>Hospital-Acquired Conditions (§5.5)</div></div>
+<div class="e topic" id="5.4.5" data-n="5.4.5"><a class="n" href="#5.4.5" title="Copy link to 5.4.5">5.4.5</a><div class="t">3.5 — Add-On Payment Rules for High-Cost HCPCS</div></div>
+<div class="e point" id="5.4.5.1" data-n="5.4.5.1"><a class="n" href="#5.4.5.1" title="Copy link to 5.4.5.1">5.4.5.1</a><div class="t"><span class="chip" data-kind="clinical" style="--c:#2FE6C8">Clinical</span>Two add-on payment tracks</div></div>
+<div class="e point" id="5.4.5.2" data-n="5.4.5.2"><a class="n" href="#5.4.5.2" title="Copy link to 5.4.5.2">5.4.5.2</a><div class="t"><span class="chip" data-kind="coding" style="--c:#56C6FF">Coding</span>Costing only vs Payment + Costing</div></div>
+<div class="e point" id="5.4.5.3" data-n="5.4.5.3"><a class="n" href="#5.4.5.3" title="Copy link to 5.4.5.3">5.4.5.3</a><div class="t"><span class="chip" data-kind="coding" style="--c:#56C6FF">Coding</span>How to determine payment eligibility</div></div>
+<div class="e point" id="5.4.5.4" data-n="5.4.5.4"><a class="n" href="#5.4.5.4" title="Copy link to 5.4.5.4">5.4.5.4</a><div class="t"><span class="chip" data-kind="adjudication" style="--c:#F3CB7D">Adjudication</span>High-cost HCPCS add-on is one of the highest-value adjudication items in inpatient claims. Claims submitted with high-cost HCPCS as a separate payable line require verification that (a) the code is on the approved list, (b) the item was actually used in the patient's care, and (c) the encounter type</div></div>
+<div class="e topic" id="5.4.6" data-n="5.4.6"><a class="n" href="#5.4.6" title="Copy link to 5.4.6">5.4.6</a><div class="t">3.6 — LAMA Payment Rule</div></div>
+<div class="e point" id="5.4.6.1" data-n="5.4.6.1"><a class="n" href="#5.4.6.1" title="Copy link to 5.4.6.1">5.4.6.1</a><div class="t"><span class="chip" data-kind="coding" style="--c:#56C6FF">Coding</span>Three requirements for LAMA to apply</div></div>
+<div class="e sec" id="5.5" data-n="5.5"><a class="n" href="#5.5" title="Copy link to 5.5">5.5</a><div class="t">Sepsis</div></div>
+<div class="e topic" id="5.5.1" data-n="5.5.1"><a class="n" href="#5.5.1" title="Copy link to 5.5.1">5.5.1</a><div class="t">Sepsis — clinical definition &amp; adjudication framework</div></div>
+<div class="e point" id="5.5.1.1" data-n="5.5.1.1"><a class="n" href="#5.5.1.1" title="Copy link to 5.5.1.1">5.5.1.1</a><div class="t"><span class="chip" data-kind="clinical" style="--c:#2FE6C8">Clinical</span>Sepsis-3 definition</div></div>
+<div class="e point" id="5.5.1.2" data-n="5.5.1.2"><a class="n" href="#5.5.1.2" title="Copy link to 5.5.1.2">5.5.1.2</a><div class="t"><span class="chip" data-kind="clinical" style="--c:#2FE6C8">Clinical</span>SOFA score — what it measures and how it must be applied</div></div>
+<div class="e point" id="5.5.1.3" data-n="5.5.1.3"><a class="n" href="#5.5.1.3" title="Copy link to 5.5.1.3">5.5.1.3</a><div class="t"><span class="chip" data-kind="coverage" style="--c:#9C7CFF">Coverage</span>Preauthorisation — suspected sepsis</div></div>
+<div class="e point" id="5.5.1.4" data-n="5.5.1.4"><a class="n" href="#5.5.1.4" title="Copy link to 5.5.1.4">5.5.1.4</a><div class="t"><span class="chip" data-kind="coverage" style="--c:#9C7CFF">Coverage</span>Final adjudication — proven sepsis</div></div>
+<div class="e point" id="5.5.1.5" data-n="5.5.1.5"><a class="n" href="#5.5.1.5" title="Copy link to 5.5.1.5">5.5.1.5</a><div class="t"><span class="chip" data-kind="clinical" style="--c:#2FE6C8">Clinical</span>Early sepsis — status in the classification</div></div>
+<div class="e point" id="5.5.1.6" data-n="5.5.1.6"><a class="n" href="#5.5.1.6" title="Copy link to 5.5.1.6">5.5.1.6</a><div class="t"><span class="chip" data-kind="adjudication" style="--c:#F3CB7D">Adjudication</span>This card is the opening layer. A deeper semantic layer follows in the next topic — ‘Sepsis — scoring tables, sequencing &amp; submission’ — with the full SOFA / NEWS-2 / Phoenix component tables, the I.C.1.d sequencing rules and the scoring calculators.</div></div>
+<div class="e topic" id="5.5.2" data-n="5.5.2"><a class="n" href="#5.5.2" title="Copy link to 5.5.2">5.5.2</a><div class="t">Sepsis — scoring tables, sequencing &amp; submission</div></div>
+<div class="e point" id="5.5.2.1" data-n="5.5.2.1"><a class="n" href="#5.5.2.1" title="Copy link to 5.5.2.1">5.5.2.1</a><div class="t"><span class="chip" data-kind="coding" style="--c:#56C6FF">Coding</span>Severity coding</div></div>
+<div class="e point" id="5.5.2.2" data-n="5.5.2.2"><a class="n" href="#5.5.2.2" title="Copy link to 5.5.2.2">5.5.2.2</a><div class="t"><span class="chip" data-kind="clinical" style="--c:#2FE6C8">Clinical</span>Sequencing — ICD-10-CM I.C.1.d</div></div>
+<div class="e point" id="5.5.2.3" data-n="5.5.2.3"><a class="n" href="#5.5.2.3" title="Copy link to 5.5.2.3">5.5.2.3</a><div class="t"><span class="chip" data-kind="adjudication" style="--c:#F3CB7D">Adjudication</span>Score SOFA within a single 24-hour window; values attributable to a chronic baseline (CKD creatinine, COPD hypoxia, cirrhotic thrombocytopenia) do not count toward the acute increment. Validate organ-dysfunction linkage before R65.2x and confirm persistent hypotension before R65.21. Sepsis is among</div></div>
+<div class="e point" id="5.5.2.4" data-n="5.5.2.4"><a class="n" href="#5.5.2.4" title="Copy link to 5.5.2.4">5.5.2.4</a><div class="t"><span class="chip" data-kind="coverage" style="--c:#9C7CFF">Coverage</span>Scoring calculators</div></div>
+<div class="e sec" id="5.6" data-n="5.6"><a class="n" href="#5.6" title="Copy link to 5.6">5.6</a><div class="t">Chest</div></div>
+<div class="e topic" id="5.6.1" data-n="5.6.1"><a class="n" href="#5.6.1" title="Copy link to 5.6.1">5.6.1</a><div class="t">Adult Respiratory Failure</div></div>
+<div class="e point" id="5.6.1.1" data-n="5.6.1.1"><a class="n" href="#5.6.1.1" title="Copy link to 5.6.1.1">5.6.1.1</a><div class="t"><span class="chip" data-kind="clinical" style="--c:#2FE6C8">Clinical</span>Adults — types</div></div>
+<div class="e point" id="5.6.1.2" data-n="5.6.1.2"><a class="n" href="#5.6.1.2" title="Copy link to 5.6.1.2">5.6.1.2</a><div class="t"><span class="chip" data-kind="clinical" style="--c:#2FE6C8">Clinical</span>Adults — timing &amp; compensation</div></div>
+<div class="e point" id="5.6.1.3" data-n="5.6.1.3"><a class="n" href="#5.6.1.3" title="Copy link to 5.6.1.3">5.6.1.3</a><div class="t"><span class="chip" data-kind="clinical" style="--c:#2FE6C8">Clinical</span>Adults — oxygenation severity (P/F · Berlin)</div></div>
+<div class="e point" id="5.6.1.4" data-n="5.6.1.4"><a class="n" href="#5.6.1.4" title="Copy link to 5.6.1.4">5.6.1.4</a><div class="t"><span class="chip" data-kind="clinical" style="--c:#2FE6C8">Clinical</span>Adults — clinical signs</div></div>
+<div class="e point" id="5.6.1.5" data-n="5.6.1.5"><a class="n" href="#5.6.1.5" title="Copy link to 5.6.1.5">5.6.1.5</a><div class="t"><span class="chip" data-kind="coding" style="--c:#56C6FF">Coding</span>Coding guidance</div></div>
+<div class="e topic" id="5.6.2" data-n="5.6.2"><a class="n" href="#5.6.2" title="Copy link to 5.6.2">5.6.2</a><div class="t">Respiratory Distress Syndrome (Surfactant Deficiency)</div></div>
+<div class="e point" id="5.6.2.1" data-n="5.6.2.1"><a class="n" href="#5.6.2.1" title="Copy link to 5.6.2.1">5.6.2.1</a><div class="t">Neonatal RDS · P22.0</div></div>
+<div class="e point" id="5.6.2.2" data-n="5.6.2.2"><a class="n" href="#5.6.2.2" title="Copy link to 5.6.2.2">5.6.2.2</a><div class="t"><span class="chip" data-kind="clinical" style="--c:#2FE6C8">Clinical</span>Clinical features</div></div>
+<div class="e point" id="5.6.2.3" data-n="5.6.2.3"><a class="n" href="#5.6.2.3" title="Copy link to 5.6.2.3">5.6.2.3</a><div class="t"><span class="chip" data-kind="coding" style="--c:#56C6FF">Coding</span>Coding</div></div>
+<div class="e point" id="5.6.2.4" data-n="5.6.2.4"><a class="n" href="#5.6.2.4" title="Copy link to 5.6.2.4">5.6.2.4</a><div class="t"><span class="chip" data-kind="pearl" style="--c:#C4CCDF">Pearl</span>Management is CPAP / surfactant / ventilation — distinct from TTN. Mild RDS without escalation may not meet respiratory-failure criteria.</div></div>
+<div class="e point" id="5.6.2.5" data-n="5.6.2.5"><a class="n" href="#5.6.2.5" title="Copy link to 5.6.2.5">5.6.2.5</a><div class="t">Transient Tachypnoea (TTN) · P22.1</div></div>
+<div class="e point" id="5.6.2.6" data-n="5.6.2.6"><a class="n" href="#5.6.2.6" title="Copy link to 5.6.2.6">5.6.2.6</a><div class="t"><span class="chip" data-kind="clinical" style="--c:#2FE6C8">Clinical</span>Clinical features</div></div>
+<div class="e point" id="5.6.2.7" data-n="5.6.2.7"><a class="n" href="#5.6.2.7" title="Copy link to 5.6.2.7">5.6.2.7</a><div class="t"><span class="chip" data-kind="coding" style="--c:#56C6FF">Coding</span>Coding</div></div>
+<div class="e point" id="5.6.2.8" data-n="5.6.2.8"><a class="n" href="#5.6.2.8" title="Copy link to 5.6.2.8">5.6.2.8</a><div class="t">Meconium Aspiration (MAS) · P24.01</div></div>
+<div class="e point" id="5.6.2.9" data-n="5.6.2.9"><a class="n" href="#5.6.2.9" title="Copy link to 5.6.2.9">5.6.2.9</a><div class="t"><span class="chip" data-kind="clinical" style="--c:#2FE6C8">Clinical</span>Clinical features</div></div>
+<div class="e point" id="5.6.2.10" data-n="5.6.2.10"><a class="n" href="#5.6.2.10" title="Copy link to 5.6.2.10">5.6.2.10</a><div class="t"><span class="chip" data-kind="coding" style="--c:#56C6FF">Coding</span>Coding</div></div>
+<div class="e point" id="5.6.2.11" data-n="5.6.2.11"><a class="n" href="#5.6.2.11" title="Copy link to 5.6.2.11">5.6.2.11</a><div class="t">PPHN · P29.3</div></div>
+<div class="e point" id="5.6.2.12" data-n="5.6.2.12"><a class="n" href="#5.6.2.12" title="Copy link to 5.6.2.12">5.6.2.12</a><div class="t"><span class="chip" data-kind="clinical" style="--c:#2FE6C8">Clinical</span>Clinical features</div></div>
+<div class="e point" id="5.6.2.13" data-n="5.6.2.13"><a class="n" href="#5.6.2.13" title="Copy link to 5.6.2.13">5.6.2.13</a><div class="t"><span class="chip" data-kind="coding" style="--c:#56C6FF">Coding</span>Coding</div></div>
+<div class="e point" id="5.6.2.14" data-n="5.6.2.14"><a class="n" href="#5.6.2.14" title="Copy link to 5.6.2.14">5.6.2.14</a><div class="t"><span class="chip" data-kind="pearl" style="--c:#C4CCDF">Pearl</span>Management — high FiO₂, ventilation, iNO, inotropes, ECMO if refractory — supports a high-acuity picture.</div></div>
+<div class="e point" id="5.6.2.15" data-n="5.6.2.15"><a class="n" href="#5.6.2.15" title="Copy link to 5.6.2.15">5.6.2.15</a><div class="t">Congenital Pneumonia · P23</div></div>
+<div class="e point" id="5.6.2.16" data-n="5.6.2.16"><a class="n" href="#5.6.2.16" title="Copy link to 5.6.2.16">5.6.2.16</a><div class="t"><span class="chip" data-kind="clinical" style="--c:#2FE6C8">Clinical</span>Clinical features</div></div>
+<div class="e point" id="5.6.2.17" data-n="5.6.2.17"><a class="n" href="#5.6.2.17" title="Copy link to 5.6.2.17">5.6.2.17</a><div class="t"><span class="chip" data-kind="coding" style="--c:#56C6FF">Coding</span>Coding</div></div>
+<div class="e topic" id="5.6.3" data-n="5.6.3"><a class="n" href="#5.6.3" title="Copy link to 5.6.3">5.6.3</a><div class="t">Ventilation — driven DRG</div></div>
+<div class="e point" id="5.6.3.1" data-n="5.6.3.1"><a class="n" href="#5.6.3.1" title="Copy link to 5.6.3.1">5.6.3.1</a><div class="t"><span class="chip" data-kind="clinical" style="--c:#2FE6C8">Clinical</span>What drives the tier</div></div>
+<div class="e point" id="5.6.3.2" data-n="5.6.3.2"><a class="n" href="#5.6.3.2" title="Copy link to 5.6.3.2">5.6.3.2</a><div class="t"><span class="chip" data-kind="coding" style="--c:#56C6FF">Coding</span>CPT relationships</div></div>
+<div class="e sec" id="5.7" data-n="5.7"><a class="n" href="#5.7" title="Copy link to 5.7">5.7</a><div class="t">Fracture Coding</div></div>
+<div class="e topic" id="5.7.1" data-n="5.7.1"><a class="n" href="#5.7.1" title="Copy link to 5.7.1">5.7.1</a><div class="t">Fracture sequencing — type to 7-character code</div></div>
+<div class="e topic" id="5.7.2" data-n="5.7.2"><a class="n" href="#5.7.2" title="Copy link to 5.7.2">5.7.2</a><div class="t">Gustilo–Anderson grades &amp; the 7th character</div></div>
+<div class="e point" id="5.7.2.1" data-n="5.7.2.1"><a class="n" href="#5.7.2.1" title="Copy link to 5.7.2.1">5.7.2.1</a><div class="t"><span class="chip" data-kind="clinical" style="--c:#2FE6C8">Clinical</span>Gustilo–Anderson grades</div></div>
+<div class="e point" id="5.7.2.2" data-n="5.7.2.2"><a class="n" href="#5.7.2.2" title="Copy link to 5.7.2.2">5.7.2.2</a><div class="t"><span class="chip" data-kind="coding" style="--c:#56C6FF">Coding</span>7th character — phase of care</div></div>
+<div class="e sec" id="5.8" data-n="5.8"><a class="n" href="#5.8" title="Copy link to 5.8">5.8</a><div class="t">Metabolic</div></div>
+<div class="e topic" id="5.8.1" data-n="5.8.1"><a class="n" href="#5.8.1" title="Copy link to 5.8.1">5.8.1</a><div class="t">Acidosis</div></div>
+<div class="e point" id="5.8.1.1" data-n="5.8.1.1"><a class="n" href="#5.8.1.1" title="Copy link to 5.8.1.1">5.8.1.1</a><div class="t"><span class="chip" data-kind="coding" style="--c:#56C6FF">Coding</span>ICD-10-CM update (effective 1 October 2025)</div></div>
+<div class="e point" id="5.8.1.2" data-n="5.8.1.2"><a class="n" href="#5.8.1.2" title="Copy link to 5.8.1.2">5.8.1.2</a><div class="t"><span class="chip" data-kind="adjudication" style="--c:#F3CB7D">Adjudication</span>Summary rule — acidosis is coded only when clinically significant, documented, and requiring evaluation, treatment, or monitoring. It must not be coded when integral to another condition or when it fails UHDDS criteria.</div></div>
+<div class="e topic" id="5.8.2" data-n="5.8.2"><a class="n" href="#5.8.2" title="Copy link to 5.8.2">5.8.2</a><div class="t">Electrolyte disturbances</div></div>
+<div class="e topic" id="5.8.3" data-n="5.8.3"><a class="n" href="#5.8.3" title="Copy link to 5.8.3">5.8.3</a><div class="t">Encephalopathy</div></div>
+<div class="e point" id="5.8.3.1" data-n="5.8.3.1"><a class="n" href="#5.8.3.1" title="Copy link to 5.8.3.1">5.8.3.1</a><div class="t"><span class="chip" data-kind="clinical" style="--c:#2FE6C8">Clinical</span>Forms</div></div>
+<div class="e point" id="5.8.3.2" data-n="5.8.3.2"><a class="n" href="#5.8.3.2" title="Copy link to 5.8.3.2">5.8.3.2</a><div class="t"><span class="chip" data-kind="coding" style="--c:#56C6FF">Coding</span>Coding</div></div>
+<div class="e topic" id="5.8.4" data-n="5.8.4"><a class="n" href="#5.8.4" title="Copy link to 5.8.4">5.8.4</a><div class="t">Acute post-haemorrhagic anaemia</div></div>
+<div class="e point" id="5.8.4.1" data-n="5.8.4.1"><a class="n" href="#5.8.4.1" title="Copy link to 5.8.4.1">5.8.4.1</a><div class="t"><span class="chip" data-kind="clinical" style="--c:#2FE6C8">Clinical</span>Clinical basis</div></div>
+<div class="e point" id="5.8.4.2" data-n="5.8.4.2"><a class="n" href="#5.8.4.2" title="Copy link to 5.8.4.2">5.8.4.2</a><div class="t"><span class="chip" data-kind="coding" style="--c:#56C6FF">Coding</span>Guideline references</div></div>
+<div class="e sec" id="5.9" data-n="5.9"><a class="n" href="#5.9" title="Copy link to 5.9">5.9</a><div class="t">Renal</div></div>
+<div class="e topic" id="5.9.1" data-n="5.9.1"><a class="n" href="#5.9.1" title="Copy link to 5.9.1">5.9.1</a><div class="t">Acute kidney injury (KDIGO)</div></div>
+<div class="e point" id="5.9.1.1" data-n="5.9.1.1"><a class="n" href="#5.9.1.1" title="Copy link to 5.9.1.1">5.9.1.1</a><div class="t"><span class="chip" data-kind="clinical" style="--c:#2FE6C8">Clinical</span>KDIGO 2012 — diagnostic criteria (any one sufficient)</div></div>
+<div class="e point" id="5.9.1.2" data-n="5.9.1.2"><a class="n" href="#5.9.1.2" title="Copy link to 5.9.1.2">5.9.1.2</a><div class="t"><span class="chip" data-kind="coding" style="--c:#56C6FF">Coding</span>Coding</div></div>
+<div class="e point" id="5.9.1.3" data-n="5.9.1.3"><a class="n" href="#5.9.1.3" title="Copy link to 5.9.1.3">5.9.1.3</a><div class="t"><span class="chip" data-kind="pearl" style="--c:#C4CCDF">Pearl</span>Anchor AKI to a KDIGO threshold and a documented baseline creatinine. A single elevated value, or a transient rise that corrects rapidly with fluids, may not substantiate AKI as a codeable diagnosis.</div></div>
+<div class="e point" id="5.9.1.4" data-n="5.9.1.4"><a class="n" href="#5.9.1.4" title="Copy link to 5.9.1.4">5.9.1.4</a><div class="t"><span class="chip" data-kind="clinical" style="--c:#2FE6C8">Clinical</span>Creatinine interpretation</div></div>
+<div class="e sec" id="5.10" data-n="5.10"><a class="n" href="#5.10" title="Copy link to 5.10">5.10</a><div class="t">Malignancy</div></div>
+<div class="e topic" id="5.10.1" data-n="5.10.1"><a class="n" href="#5.10.1" title="Copy link to 5.10.1">5.10.1</a><div class="t">Malignancy — sequencing when admission is for a complication</div></div>
+<div class="e point" id="5.10.1.1" data-n="5.10.1.1"><a class="n" href="#5.10.1.1" title="Copy link to 5.10.1.1">5.10.1.1</a><div class="t"><span class="chip" data-kind="coding" style="--c:#56C6FF">Coding</span>Sequencing rule (ICD-10-CM Official Guidelines, Section I.C.2 — Neoplasms)</div></div>
+<div class="e point" id="5.10.1.2" data-n="5.10.1.2"><a class="n" href="#5.10.1.2" title="Copy link to 5.10.1.2">5.10.1.2</a><div class="t"><span class="chip" data-kind="coverage" style="--c:#9C7CFF">Coverage</span>Exception — anaemia</div></div>
+<div class="e sec" id="5.11" data-n="5.11"><a class="n" href="#5.11" title="Copy link to 5.11">5.11</a><div class="t">Hepatic</div></div>
+<div class="e topic" id="5.11.1" data-n="5.11.1"><a class="n" href="#5.11.1" title="Copy link to 5.11.1">5.11.1</a><div class="t">Ascites in Decompensated Liver Cirrhosis — Secondary Diagnosis</div></div>
+<div class="e point" id="5.11.1.1" data-n="5.11.1.1"><a class="n" href="#5.11.1.1" title="Copy link to 5.11.1.1">5.11.1.1</a><div class="t"><span class="chip" data-kind="clinical" style="--c:#2FE6C8">Clinical</span>Pathophysiological basis</div></div>
+<div class="e point" id="5.11.1.2" data-n="5.11.1.2"><a class="n" href="#5.11.1.2" title="Copy link to 5.11.1.2">5.11.1.2</a><div class="t"><span class="chip" data-kind="coding" style="--c:#56C6FF">Coding</span>Coding sequence</div></div>
+<div class="e point" id="5.11.1.3" data-n="5.11.1.3"><a class="n" href="#5.11.1.3" title="Copy link to 5.11.1.3">5.11.1.3</a><div class="t"><span class="chip" data-kind="adjudication" style="--c:#F3CB7D">Adjudication</span>The deciding test is what drove the admission. Decompensated cirrhosis is the condition the patient was admitted for — the ascites is its clinical expression. Do not elevate a manifestation to the Principal Diagnosis simply because it is prominent or symptomatic.</div></div>
+<div class="e topic" id="5.11.2" data-n="5.11.2"><a class="n" href="#5.11.2" title="Copy link to 5.11.2">5.11.2</a><div class="t">Malignant Ascites — Principal Diagnosis</div></div>
+<div class="e point" id="5.11.2.1" data-n="5.11.2.1"><a class="n" href="#5.11.2.1" title="Copy link to 5.11.2.1">5.11.2.1</a><div class="t"><span class="chip" data-kind="clinical" style="--c:#2FE6C8">Clinical</span>Guideline authority — I.C.2 (Neoplasms)</div></div>
+<div class="e point" id="5.11.2.2" data-n="5.11.2.2"><a class="n" href="#5.11.2.2" title="Copy link to 5.11.2.2">5.11.2.2</a><div class="t"><span class="chip" data-kind="coding" style="--c:#56C6FF">Coding</span>Coding sequence</div></div>
+<div class="e point" id="5.11.2.3" data-n="5.11.2.3"><a class="n" href="#5.11.2.3" title="Copy link to 5.11.2.3">5.11.2.3</a><div class="t"><span class="chip" data-kind="adjudication" style="--c:#F3CB7D">Adjudication</span>The sequencing is the inverse of the cirrhosis scenario. The common principle in both is: code what is actually being treated as the Principal Diagnosis. In cirrhosis the organ disease is being treated and ascites is its manifestation. In malignancy, when the admission is purely for ascites drainage</div></div>
+<div class="e sec" id="5.12" data-n="5.12"><a class="n" href="#5.12" title="Copy link to 5.12">5.12</a><div class="t">Surgeries</div></div>
+<div class="e topic" id="5.12.1" data-n="5.12.1"><a class="n" href="#5.12.1" title="Copy link to 5.12.1">5.12.1</a><div class="t">Congenital &amp; genetic conditions</div></div>
+<div class="e point" id="5.12.1.1" data-n="5.12.1.1"><a class="n" href="#5.12.1.1" title="Copy link to 5.12.1.1">5.12.1.1</a><div class="t"><span class="chip" data-kind="coverage" style="--c:#9C7CFF">Coverage</span>Coverage rule</div></div>
+<div class="e topic" id="5.12.2" data-n="5.12.2"><a class="n" href="#5.12.2" title="Copy link to 5.12.2">5.12.2</a><div class="t">Cleft lip &amp; palate</div></div>
+<div class="e point" id="5.12.2.1" data-n="5.12.2.1"><a class="n" href="#5.12.2.1" title="Copy link to 5.12.2.1">5.12.2.1</a><div class="t"><span class="chip" data-kind="clinical" style="--c:#2FE6C8">Clinical</span>Why functional</div></div>
+<div class="e topic" id="5.12.3" data-n="5.12.3"><a class="n" href="#5.12.3" title="Copy link to 5.12.3">5.12.3</a><div class="t">Septoplasty</div></div>
+<div class="e point" id="5.12.3.1" data-n="5.12.3.1"><a class="n" href="#5.12.3.1" title="Copy link to 5.12.3.1">5.12.3.1</a><div class="t"><span class="chip" data-kind="coverage" style="--c:#9C7CFF">Coverage</span>Medical necessity</div></div>
+<div class="e topic" id="5.12.4" data-n="5.12.4"><a class="n" href="#5.12.4" title="Copy link to 5.12.4">5.12.4</a><div class="t">Blepharoplasty / ptosis</div></div>
+<div class="e point" id="5.12.4.1" data-n="5.12.4.1"><a class="n" href="#5.12.4.1" title="Copy link to 5.12.4.1">5.12.4.1</a><div class="t"><span class="chip" data-kind="clinical" style="--c:#2FE6C8">Clinical</span>Functional criteria</div></div>
+<div class="e point" id="5.12.4.2" data-n="5.12.4.2"><a class="n" href="#5.12.4.2" title="Copy link to 5.12.4.2">5.12.4.2</a><div class="t"><span class="chip" data-kind="coverage" style="--c:#9C7CFF">Coverage</span>Evidence &amp; covered indications</div></div>
+<div class="e topic" id="5.12.5" data-n="5.12.5"><a class="n" href="#5.12.5" title="Copy link to 5.12.5">5.12.5</a><div class="t">Strabismus surgery</div></div>
+<div class="e point" id="5.12.5.1" data-n="5.12.5.1"><a class="n" href="#5.12.5.1" title="Copy link to 5.12.5.1">5.12.5.1</a><div class="t"><span class="chip" data-kind="coverage" style="--c:#9C7CFF">Coverage</span>Medical necessity</div></div>
+<div class="e topic" id="5.12.6" data-n="5.12.6"><a class="n" href="#5.12.6" title="Copy link to 5.12.6">5.12.6</a><div class="t">Varicocelectomy</div></div>
+<div class="e point" id="5.12.6.1" data-n="5.12.6.1"><a class="n" href="#5.12.6.1" title="Copy link to 5.12.6.1">5.12.6.1</a><div class="t"><span class="chip" data-kind="coverage" style="--c:#9C7CFF">Coverage</span>Medical necessity</div></div>
+<div class="e topic" id="5.12.7" data-n="5.12.7"><a class="n" href="#5.12.7" title="Copy link to 5.12.7">5.12.7</a><div class="t">Epidural — coverage</div></div>
+<div class="e point" id="5.12.7.1" data-n="5.12.7.1"><a class="n" href="#5.12.7.1" title="Copy link to 5.12.7.1">5.12.7.1</a><div class="t"><span class="chip" data-kind="coverage" style="--c:#9C7CFF">Coverage</span>Source rule — obstetric epidural (vaginal delivery)</div></div>
+<div class="e point" id="5.12.7.2" data-n="5.12.7.2"><a class="n" href="#5.12.7.2" title="Copy link to 5.12.7.2">5.12.7.2</a><div class="t"><span class="chip" data-kind="coverage" style="--c:#9C7CFF">Coverage</span>Additional — chronic-pain epidural (separate from the obstetric source rule)</div></div>
+<div class="e sec" id="5.13" data-n="5.13"><a class="n" href="#5.13" title="Copy link to 5.13">5.13</a><div class="t">Specialty Medications</div></div>
+<div class="e topic" id="5.13.1" data-n="5.13.1"><a class="n" href="#5.13.1" title="Copy link to 5.13.1">5.13.1</a><div class="t">Medication master matrix</div></div>
+<div class="e point" id="5.13.1.1" data-n="5.13.1.1"><a class="n" href="#5.13.1.1" title="Copy link to 5.13.1.1">5.13.1.1</a><div class="t"><span class="chip" data-kind="pearl" style="--c:#C4CCDF">Pearl</span>Daratumumab (anti-CD38) interferes with the indirect Coombs (antiglobulin) test → false-positive antibody screens. Notify the transfusion service so compatibility isn’t misread.</div></div>
+<div class="e point" id="5.13.1.2" data-n="5.13.1.2"><a class="n" href="#5.13.1.2" title="Copy link to 5.13.1.2">5.13.1.2</a><div class="t"><span class="chip" data-kind="adjudication" style="--c:#F3CB7D">Adjudication</span>Most are SC / IM depot therapies that are administered and the patient released — a day-case admission is rarely justified by route alone.</div></div>
+<div class="e topic" id="5.13.2" data-n="5.13.2"><a class="n" href="#5.13.2" title="Copy link to 5.13.2">5.13.2</a><div class="t">Key specialty-drug cards</div></div>
+<div class="e topic" id="5.13.3" data-n="5.13.3"><a class="n" href="#5.13.3" title="Copy link to 5.13.3">5.13.3</a><div class="t">GLP-1 receptor agonists</div></div>
+<div class="e point" id="5.13.3.1" data-n="5.13.3.1"><a class="n" href="#5.13.3.1" title="Copy link to 5.13.3.1">5.13.3.1</a><div class="t"><span class="chip" data-kind="clinical" style="--c:#2FE6C8">Clinical</span>Class &amp; mechanism</div></div>
+<div class="e point" id="5.13.3.2" data-n="5.13.3.2"><a class="n" href="#5.13.3.2" title="Copy link to 5.13.3.2">5.13.3.2</a><div class="t"><span class="chip" data-kind="clinical" style="--c:#2FE6C8">Clinical</span>Recognised indications</div></div>
+<div class="e point" id="5.13.3.3" data-n="5.13.3.3"><a class="n" href="#5.13.3.3" title="Copy link to 5.13.3.3">5.13.3.3</a><div class="t"><span class="chip" data-kind="pearl" style="--c:#C4CCDF">Pearl</span>Predominantly subcutaneous therapies (oral semaglutide excepted); route alone rarely justifies admission.</div></div>
+<div class="e topic" id="5.13.4" data-n="5.13.4"><a class="n" href="#5.13.4" title="Copy link to 5.13.4">5.13.4</a><div class="t">PCSK9 inhibitors</div></div>
+<div class="e point" id="5.13.4.1" data-n="5.13.4.1"><a class="n" href="#5.13.4.1" title="Copy link to 5.13.4.1">5.13.4.1</a><div class="t"><span class="chip" data-kind="clinical" style="--c:#2FE6C8">Clinical</span>Class &amp; mechanism</div></div>
+<div class="e point" id="5.13.4.2" data-n="5.13.4.2"><a class="n" href="#5.13.4.2" title="Copy link to 5.13.4.2">5.13.4.2</a><div class="t"><span class="chip" data-kind="clinical" style="--c:#2FE6C8">Clinical</span>Recognised indications</div></div>
+<div class="e point" id="5.13.4.3" data-n="5.13.4.3"><a class="n" href="#5.13.4.3" title="Copy link to 5.13.4.3">5.13.4.3</a><div class="t"><span class="chip" data-kind="pearl" style="--c:#C4CCDF">Pearl</span>Subcutaneous dosing intervals range from fortnightly to twice-yearly depending on the agent.</div></div>
+<div class="e sec" id="5.14" data-n="5.14"><a class="n" href="#5.14" title="Copy link to 5.14">5.14</a><div class="t">References</div></div>
+<div class="e topic" id="5.14.1" data-n="5.14.1"><a class="n" href="#5.14.1" title="Copy link to 5.14.1">5.14.1</a><div class="t">Source corpus</div></div>
+<div class="e point" id="5.14.1.1" data-n="5.14.1.1"><a class="n" href="#5.14.1.1" title="Copy link to 5.14.1.1">5.14.1.1</a><div class="t"><span class="chip" data-kind="pearl" style="--c:#C4CCDF">Pearl</span>DRGs Compendium is a working synthesis built on a strong foundation of accumulated healthcare insurance and clinical experience by Dr. Sherif Alattar. This reference is a distinct tier from the regulatory and grouper authorities below, and underpins the validation logic throughout.</div></div>
+<div class="e point" id="5.14.1.2" data-n="5.14.1.2"><a class="n" href="#5.14.1.2" title="Copy link to 5.14.1.2">5.14.1.2</a><div class="t"><span class="chip" data-kind="coding" style="--c:#56C6FF">Coding</span>DOH regulatory framework (Abu Dhabi)</div></div>
+<div class="e point" id="5.14.1.3" data-n="5.14.1.3"><a class="n" href="#5.14.1.3" title="Copy link to 5.14.1.3">5.14.1.3</a><div class="t"><span class="chip" data-kind="coding" style="--c:#56C6FF">Coding</span>Coding standards</div></div>
+<div class="e point" id="5.14.1.4" data-n="5.14.1.4"><a class="n" href="#5.14.1.4" title="Copy link to 5.14.1.4">5.14.1.4</a><div class="t"><span class="chip" data-kind="coding" style="--c:#56C6FF">Coding</span>Grouper &amp; classification</div></div>
+<div class="e point" id="5.14.1.5" data-n="5.14.1.5"><a class="n" href="#5.14.1.5" title="Copy link to 5.14.1.5">5.14.1.5</a><div class="t"><span class="chip" data-kind="coding" style="--c:#56C6FF">Coding</span>Clinical &amp; professional</div></div>
+<div class="e sec" id="5.15" data-n="5.15"><a class="n" href="#5.15" title="Copy link to 5.15">5.15</a><div class="t">Specialty Medications — full agent list (23)</div></div>
+<div class="e topic" id="5.15.1" data-n="5.15.1"><a class="n" href="#5.15.1" title="Copy link to 5.15.1">5.15.1</a><div class="t">Master matrix — 16 agents # Generic · Brand Class / target Eligible prescriber 5.15.1.1 Dupilumab · Dupixent IL-4Rα (IL-4/IL-13) Dermatology / Pulmonology / Allergy (ENT for CRSwNP) 5.15.1.2 Omalizumab · Xolair Anti-IgE Allergy / Pulmonology (Dermatology for urticaria) 5.15.1.3 Mepolizumab · Nucala Anti-IL-5 Pulmonology / Respiratory (Allergy) 5.15.1.4 Tralokinumab · Adtralza Anti-IL-13 Dermatology 5.15.1.5 Lebrikizumab · Ebglyss Anti-IL-13 Dermatology 5.15.1.6 Guselkumab · Tremfya IL-23 (p19) Dermatology / Rheumatology 5.15.1.7 Canakinumab · Ilaris IL-1β Rheumatology / Immunology 5.15.1.8 Daratumumab · Darzalex Anti-CD38 Haematology / Oncology 5.15.1.9 Caplacizumab · Cablivi Anti-vWF Haematology 5.15.1.10 Crizanlizumab · Adakveo Anti-P-selectin Haematology 5.15.1.11 Ribociclib · Kisqali CDK4/6 inhibitor Oncology 5.15.1.12 Cerliponase alfa · Brineura Enzyme replacement (TPP1) Paediatric Neurology 5.15.1.13 Lanreotide · Somatuline Somatostatin analogue Endocrinology / Oncology / GI 5.15.1.14 Octreotide · Sandostatin LAR Somatostatin analogue Endocrinology / Oncology / GI 5.15.1.15 Triptorelin · Decapeptyl GnRH agonist Oncology / Urology / Endocrinology / Gynaecology 5.15.1.16 Bulevirtide · Hepcludex NTCP entry inhibitor Hepatology / Infectious Diseases</div></div>
+<div class="e topic" id="5.15.2" data-n="5.15.2"><a class="n" href="#5.15.2" title="Copy link to 5.15.2">5.15.2</a><div class="t">GLP-1 receptor agonists — 4 agents</div></div>
+<div class="e point" id="5.15.2.1" data-n="5.15.2.1"><a class="n" href="#5.15.2.1" title="Copy link to 5.15.2.1">5.15.2.1</a><div class="t">Dulaglutide</div></div>
+<div class="e point" id="5.15.2.2" data-n="5.15.2.2"><a class="n" href="#5.15.2.2" title="Copy link to 5.15.2.2">5.15.2.2</a><div class="t">Liraglutide</div></div>
+<div class="e point" id="5.15.2.3" data-n="5.15.2.3"><a class="n" href="#5.15.2.3" title="Copy link to 5.15.2.3">5.15.2.3</a><div class="t">Semaglutide</div></div>
+<div class="e point" id="5.15.2.4" data-n="5.15.2.4"><a class="n" href="#5.15.2.4" title="Copy link to 5.15.2.4">5.15.2.4</a><div class="t">Tirzepatide</div></div>
+<div class="e topic" id="5.15.3" data-n="5.15.3"><a class="n" href="#5.15.3" title="Copy link to 5.15.3">5.15.3</a><div class="t">PCSK9 inhibitors — 3 agents</div></div>
+<div class="e point" id="5.15.3.1" data-n="5.15.3.1"><a class="n" href="#5.15.3.1" title="Copy link to 5.15.3.1">5.15.3.1</a><div class="t">Evolocumab</div></div>
+<div class="e point" id="5.15.3.2" data-n="5.15.3.2"><a class="n" href="#5.15.3.2" title="Copy link to 5.15.3.2">5.15.3.2</a><div class="t">Alirocumab</div></div>
+<div class="e point" id="5.15.3.3" data-n="5.15.3.3"><a class="n" href="#5.15.3.3" title="Copy link to 5.15.3.3">5.15.3.3</a><div class="t">Inclisiran</div></div></div></section>
+<section class="page-block" id="page-6" data-page="6"><header class="ph"><span class="pn">06</span><div><h2>Denial Codes — as Knowledge Infrastructure</h2><a class="pf" href="denial-codes.html">denial-codes.html</a></div><span class="pc">38 entries</span></header><div class="entries"><div class="e sec" id="6.1" data-n="6.1"><a class="n" href="#6.1" title="Copy link to 6.1">6.1</a><div class="t">Denial Codes as Healthcare Knowledge Infrastructure</div></div>
+<div class="e sec" id="6.2" data-n="6.2"><a class="n" href="#6.2" title="Copy link to 6.2">6.2</a><div class="t">An anatomy of administrative refusal</div></div>
+<div class="e sec" id="6.3" data-n="6.3"><a class="n" href="#6.3" title="Copy link to 6.3">6.3</a><div class="t">Codes as knowledge infrastructure</div></div>
+<div class="e topic" id="6.3.1" data-n="6.3.1"><a class="n" href="#6.3.1" title="Copy link to 6.3.1">6.3.1</a><div class="t">Research aims</div></div>
+<div class="e sec" id="6.4" data-n="6.4"><a class="n" href="#6.4" title="Copy link to 6.4">6.4</a><div class="t">Where the vocabulary comes from</div></div>
+<div class="e topic" id="6.4.1" data-n="6.4.1"><a class="n" href="#6.4.1" title="Copy link to 6.4.1">6.4.1</a><div class="t">From commerce to the clinic: EDI and ASC X12</div></div>
+<div class="e topic" id="6.4.2" data-n="6.4.2"><a class="n" href="#6.4.2" title="Copy link to 6.4.2">6.4.2</a><div class="t">The semantic layer: CARC, the group codes, and RARC</div></div>
+<div class="e topic" id="6.4.3" data-n="6.4.3"><a class="n" href="#6.4.3" title="Copy link to 6.4.3">6.4.3</a><div class="t">Gulf adoption and the Shafafiya XML pivot</div></div>
+<div class="e sec" id="6.5" data-n="6.5"><a class="n" href="#6.5" title="Copy link to 6.5">6.5</a><div class="t">A precise taxonomic architecture</div></div>
+<div class="e topic" id="6.5.1" data-n="6.5.1"><a class="n" href="#6.5.1" title="Copy link to 6.5.1">6.5.1</a><div class="t">Search the adopted denial-code series</div></div>
+<div class="e sec" id="6.6" data-n="6.6"><a class="n" href="#6.6" title="Copy link to 6.6">6.6</a><div class="t">Five layers of the claims stack</div></div>
+<div class="e sec" id="6.7" data-n="6.7"><a class="n" href="#6.7" title="Copy link to 6.7">6.7</a><div class="t">EDI and XML as competing grammars</div></div>
+<div class="e sec" id="6.8" data-n="6.8"><a class="n" href="#6.8" title="Copy link to 6.8">6.8</a><div class="t">The denial-code production cycle</div></div>
+<div class="e sec" id="6.9" data-n="6.9"><a class="n" href="#6.9" title="Copy link to 6.9">6.9</a><div class="t">Source, access, and the confidentiality lifecycle</div></div>
+<div class="e topic" id="6.9.1" data-n="6.9.1"><a class="n" href="#6.9.1" title="Copy link to 6.9.1">6.9.1</a><div class="t">Public vocabulary versus confidential payload</div></div>
+<div class="e topic" id="6.9.2" data-n="6.9.2"><a class="n" href="#6.9.2" title="Copy link to 6.9.2">6.9.2</a><div class="t">Intellectual-property discipline</div></div>
+<div class="e sec" id="6.10" data-n="6.10"><a class="n" href="#6.10" title="Copy link to 6.10">6.10</a><div class="t">A sociotechnical framework</div></div>
+<div class="e topic" id="6.10.1" data-n="6.10.1"><a class="n" href="#6.10.1" title="Copy link to 6.10.1">6.10.1</a><div class="t">Epistemology — the denial code as administrative truth</div></div>
+<div class="e topic" id="6.10.2" data-n="6.10.2"><a class="n" href="#6.10.2" title="Copy link to 6.10.2">6.10.2</a><div class="t">Bowker &amp; Star — classification as infrastructure</div></div>
+<div class="e topic" id="6.10.3" data-n="6.10.3"><a class="n" href="#6.10.3" title="Copy link to 6.10.3">6.10.3</a><div class="t">Foucault — the discursive boundary of payable reality</div></div>
+<div class="e topic" id="6.10.4" data-n="6.10.4"><a class="n" href="#6.10.4" title="Copy link to 6.10.4">6.10.4</a><div class="t">Wittgenstein — the limits of administrative language</div></div>
+<div class="e sec" id="6.11" data-n="6.11"><a class="n" href="#6.11" title="Copy link to 6.11">6.11</a><div class="t">Methodological blueprint</div></div>
+<div class="e sec" id="6.12" data-n="6.12"><a class="n" href="#6.12" title="Copy link to 6.12">6.12</a><div class="t">Colophon of authority</div></div>
+<div class="e sec" id="6.13" data-n="6.13"><a class="n" href="#6.13" title="Copy link to 6.13">6.13</a><div class="t">References &amp; reference architecture</div></div>
+<div class="e sec" id="6.14" data-n="6.14"><a class="n" href="#6.14" title="Copy link to 6.14">6.14</a><div class="t">Five layers of the claims stack</div></div>
+<div class="e topic" id="6.14.1" data-n="6.14.1"><a class="n" href="#6.14.1" title="Copy link to 6.14.1">6.14.1</a><div class="t">Syntax</div></div>
+<div class="e topic" id="6.14.2" data-n="6.14.2"><a class="n" href="#6.14.2" title="Copy link to 6.14.2">6.14.2</a><div class="t">Semantic vocabulary</div></div>
+<div class="e topic" id="6.14.3" data-n="6.14.3"><a class="n" href="#6.14.3" title="Copy link to 6.14.3">6.14.3</a><div class="t">Jurisdictional implementation</div></div>
+<div class="e topic" id="6.14.4" data-n="6.14.4"><a class="n" href="#6.14.4" title="Copy link to 6.14.4">6.14.4</a><div class="t">Operational adjudication</div></div>
+<div class="e topic" id="6.14.5" data-n="6.14.5"><a class="n" href="#6.14.5" title="Copy link to 6.14.5">6.14.5</a><div class="t">Transactional payload</div></div>
+<div class="e sec" id="6.15" data-n="6.15"><a class="n" href="#6.15" title="Copy link to 6.15">6.15</a><div class="t">Callout cards</div></div>
+<div class="e topic" id="6.15.1" data-n="6.15.1"><a class="n" href="#6.15.1" title="Copy link to 6.15.1">6.15.1</a><div class="t">Core argument</div></div>
+<div class="e topic" id="6.15.2" data-n="6.15.2"><a class="n" href="#6.15.2" title="Copy link to 6.15.2">6.15.2</a><div class="t">A correction of record — two maintainers, not one</div></div>
+<div class="e topic" id="6.15.3" data-n="6.15.3"><a class="n" href="#6.15.3" title="Copy link to 6.15.3">6.15.3</a><div class="t">Primary source</div></div>
+<div class="e topic" id="6.15.4" data-n="6.15.4"><a class="n" href="#6.15.4" title="Copy link to 6.15.4">6.15.4</a><div class="t">Precise separation</div></div>
+<div class="e topic" id="6.15.5" data-n="6.15.5"><a class="n" href="#6.15.5" title="Copy link to 6.15.5">6.15.5</a><div class="t">The correct confidentiality instruments</div></div>
+<div class="e topic" id="6.15.6" data-n="6.15.6"><a class="n" href="#6.15.6" title="Copy link to 6.15.6">6.15.6</a><div class="t">Philosophical synthesis</div></div>
+<div class="e topic" id="6.15.7" data-n="6.15.7"><a class="n" href="#6.15.7" title="Copy link to 6.15.7">6.15.7</a><div class="t">Inclusion &amp; exclusion boundary</div></div></div></section>
+<section class="page-block" id="page-7" data-page="7"><header class="ph"><span class="pn">07</span><div><h2>Denial Navigator</h2><a class="pf" href="denial-codes-semantic.html">denial-codes-semantic.html</a></div><span class="pc">86 entries</span></header><p class="lead">Offline searchable taxonomy — 78 codes across 8 families.</p><div class="entries"><div class="e sec" id="7.1" data-n="7.1"><a class="n" href="#7.1" title="Copy link to 7.1">7.1</a><div class="t">Eligibility  (ELIG) — 7 codes</div></div>
+<div class="e topic" id="7.1.1" data-n="7.1.1"><a class="n" href="#7.1.1" title="Copy link to 7.1.1">7.1.1</a><div class="t">ELIG-001 — Patient is not a covered member</div></div>
+<div class="e topic" id="7.1.2" data-n="7.1.2"><a class="n" href="#7.1.2" title="Copy link to 7.1.2">7.1.2</a><div class="t">ELIG-002 — Services performed after the last date of coverage</div></div>
+<div class="e topic" id="7.1.3" data-n="7.1.3"><a class="n" href="#7.1.3" title="Copy link to 7.1.3">7.1.3</a><div class="t">ELIG-003 — Services performed prior to the effective date of coverage</div></div>
+<div class="e topic" id="7.1.4" data-n="7.1.4"><a class="n" href="#7.1.4" title="Copy link to 7.1.4">7.1.4</a><div class="t">ELIG-004 — Services performed by a non-network provider are not covered</div></div>
+<div class="e topic" id="7.1.5" data-n="7.1.5"><a class="n" href="#7.1.5" title="Copy link to 7.1.5">7.1.5</a><div class="t">ELIG-005 — Lifetime benefit maximum has been reached for this service / benefit category</div></div>
+<div class="e topic" id="7.1.6" data-n="7.1.6"><a class="n" href="#7.1.6" title="Copy link to 7.1.6">7.1.6</a><div class="t">ELIG-006 — Lifetime benefit maximum has been reached</div></div>
+<div class="e topic" id="7.1.7" data-n="7.1.7"><a class="n" href="#7.1.7" title="Copy link to 7.1.7">7.1.7</a><div class="t">ELIG-007 — Outpatient MRI claim requires pre-approval; not eligible if pre-approval was not obtained or was denied</div></div>
+<div class="e sec" id="7.2" data-n="7.2"><a class="n" href="#7.2" title="Copy link to 7.2">7.2</a><div class="t">Authorization  (AUTH) — 9 codes</div></div>
+<div class="e topic" id="7.2.1" data-n="7.2.1"><a class="n" href="#7.2.1" title="Copy link to 7.2.1">7.2.1</a><div class="t">AUTH-001 — Authorization number is missing or was not obtained</div></div>
+<div class="e topic" id="7.2.2" data-n="7.2.2"><a class="n" href="#7.2.2" title="Copy link to 7.2.2">7.2.2</a><div class="t">AUTH-002 — Service is not authorized</div></div>
+<div class="e topic" id="7.2.3" data-n="7.2.3"><a class="n" href="#7.2.3" title="Copy link to 7.2.3">7.2.3</a><div class="t">AUTH-003 — Prior authorization number is invalid</div></div>
+<div class="e topic" id="7.2.4" data-n="7.2.4"><a class="n" href="#7.2.4" title="Copy link to 7.2.4">7.2.4</a><div class="t">AUTH-004 — Service(s) performed outside authorization validity date</div></div>
+<div class="e topic" id="7.2.5" data-n="7.2.5"><a class="n" href="#7.2.5" title="Copy link to 7.2.5">7.2.5</a><div class="t">AUTH-005 — Claim information is inconsistent with pre-certified / authorized services</div></div>
+<div class="e topic" id="7.2.6" data-n="7.2.6"><a class="n" href="#7.2.6" title="Copy link to 7.2.6">7.2.6</a><div class="t">AUTH-006 — Authorization request overlaps or is within the period of another paid claim / approved authorization</div></div>
+<div class="e topic" id="7.2.7" data-n="7.2.7"><a class="n" href="#7.2.7" title="Copy link to 7.2.7">7.2.7</a><div class="t">AUTH-007 — Waiting period on pre-existing / specific conditions</div></div>
+<div class="e topic" id="7.2.8" data-n="7.2.8"><a class="n" href="#7.2.8" title="Copy link to 7.2.8">7.2.8</a><div class="t">AUTH-008 — Inappropriate drug dose — prescription exceeds maximum / minimum dosage per day</div></div>
+<div class="e topic" id="7.2.9" data-n="7.2.9"><a class="n" href="#7.2.9" title="Copy link to 7.2.9">7.2.9</a><div class="t">AUTH-009 — Prescription out of date (non-controlled: 60-day validity; controlled: 3-day validity)</div></div>
+<div class="e sec" id="7.3" data-n="7.3"><a class="n" href="#7.3" title="Copy link to 7.3">7.3</a><div class="t">Clinical / Coding  (CODE) — 15 codes</div></div>
+<div class="e topic" id="7.3.1" data-n="7.3.1"><a class="n" href="#7.3.1" title="Copy link to 7.3.1">7.3.1</a><div class="t">CODE-001 — Missing, incomplete or invalid principal diagnosis</div></div>
+<div class="e topic" id="7.3.2" data-n="7.3.2"><a class="n" href="#7.3.2" title="Copy link to 7.3.2">7.3.2</a><div class="t">CODE-002 — Missing, incomplete or invalid service code</div></div>
+<div class="e topic" id="7.3.3" data-n="7.3.3"><a class="n" href="#7.3.3" title="Copy link to 7.3.3">7.3.3</a><div class="t">CODE-003 — Missing, incomplete or invalid data element</div></div>
+<div class="e topic" id="7.3.4" data-n="7.3.4"><a class="n" href="#7.3.4" title="Copy link to 7.3.4">7.3.4</a><div class="t">CODE-004 — Diagnosis is inconsistent with the patient's age</div></div>
+<div class="e topic" id="7.3.5" data-n="7.3.5"><a class="n" href="#7.3.5" title="Copy link to 7.3.5">7.3.5</a><div class="t">CODE-005 — Diagnosis is inconsistent with the patient's gender</div></div>
+<div class="e topic" id="7.3.6" data-n="7.3.6"><a class="n" href="#7.3.6" title="Copy link to 7.3.6">7.3.6</a><div class="t">CODE-006 — Diagnosis is inconsistent with the procedure</div></div>
+<div class="e topic" id="7.3.7" data-n="7.3.7"><a class="n" href="#7.3.7" title="Copy link to 7.3.7">7.3.7</a><div class="t">CODE-007 — Diagnosis is inconsistent with the provider type</div></div>
+<div class="e topic" id="7.3.8" data-n="7.3.8"><a class="n" href="#7.3.8" title="Copy link to 7.3.8">7.3.8</a><div class="t">CODE-008 — Service code is inconsistent with the patient's age</div></div>
+<div class="e topic" id="7.3.9" data-n="7.3.9"><a class="n" href="#7.3.9" title="Copy link to 7.3.9">7.3.9</a><div class="t">CODE-009 — Service code is inconsistent with the patient's gender</div></div>
+<div class="e topic" id="7.3.10" data-n="7.3.10"><a class="n" href="#7.3.10" title="Copy link to 7.3.10">7.3.10</a><div class="t">CODE-010 — Activity / diagnosis inconsistent with clinician specialty</div></div>
+<div class="e topic" id="7.3.11" data-n="7.3.11"><a class="n" href="#7.3.11" title="Copy link to 7.3.11">7.3.11</a><div class="t">CODE-011 — Incorrect DRG calculated</div></div>
+<div class="e topic" id="7.3.12" data-n="7.3.12"><a class="n" href="#7.3.12" title="Copy link to 7.3.12">7.3.12</a><div class="t">CODE-012 — Encounter type inconsistent with service(s) / diagnosis</div></div>
+<div class="e topic" id="7.3.13" data-n="7.3.13"><a class="n" href="#7.3.13" title="Copy link to 7.3.13">7.3.13</a><div class="t">CODE-013 — Invalid principal diagnosis (e.g. E-codes used as principal diagnosis)</div></div>
+<div class="e topic" id="7.3.14" data-n="7.3.14"><a class="n" href="#7.3.14" title="Copy link to 7.3.14">7.3.14</a><div class="t">CODE-014 — Activity / diagnosis is inconsistent with the patient's age / gender</div></div>
+<div class="e topic" id="7.3.15" data-n="7.3.15"><a class="n" href="#7.3.15" title="Copy link to 7.3.15">7.3.15</a><div class="t">CODE-015 — Activity / diagnosis is inconsistent with the provider type</div></div>
+<div class="e sec" id="7.4" data-n="7.4"><a class="n" href="#7.4" title="Copy link to 7.4">7.4</a><div class="t">Duplicate  (DUPL) — 2 codes</div></div>
+<div class="e topic" id="7.4.1" data-n="7.4.1"><a class="n" href="#7.4.1" title="Copy link to 7.4.1">7.4.1</a><div class="t">DUPL-001 — Duplicate claim — exact same claim submitted more than once</div></div>
+<div class="e topic" id="7.4.2" data-n="7.4.2"><a class="n" href="#7.4.2" title="Copy link to 7.4.2">7.4.2</a><div class="t">DUPL-002 — Payment already made for same / similar service within set time frame</div></div>
+<div class="e sec" id="7.5" data-n="7.5"><a class="n" href="#7.5" title="Copy link to 7.5">7.5</a><div class="t">Medical Necessity  (MNEC) — 6 codes</div></div>
+<div class="e topic" id="7.5.1" data-n="7.5.1"><a class="n" href="#7.5.1" title="Copy link to 7.5.1">7.5.1</a><div class="t">MNEC-001 — Tests or treatments were not ordered by a Medical Doctor</div></div>
+<div class="e topic" id="7.5.2" data-n="7.5.2"><a class="n" href="#7.5.2" title="Copy link to 7.5.2">7.5.2</a><div class="t">MNEC-002 — Services performed were not medically necessary</div></div>
+<div class="e topic" id="7.5.3" data-n="7.5.3"><a class="n" href="#7.5.3" title="Copy link to 7.5.3">7.5.3</a><div class="t">MNEC-003 — Service is not clinically indicated based on good clinical practice</div></div>
+<div class="e topic" id="7.5.4" data-n="7.5.4"><a class="n" href="#7.5.4" title="Copy link to 7.5.4">7.5.4</a><div class="t">MNEC-004 — Service not clinically indicated based on good clinical practice, without additional supporting diagnoses / activities</div></div>
+<div class="e topic" id="7.5.5" data-n="7.5.5"><a class="n" href="#7.5.5" title="Copy link to 7.5.5">7.5.5</a><div class="t">MNEC-005 — Service / supply may be appropriate, but is too frequent</div></div>
+<div class="e topic" id="7.5.6" data-n="7.5.6"><a class="n" href="#7.5.6" title="Copy link to 7.5.6">7.5.6</a><div class="t">MNEC-006 — LASIK not covered — member eligible for optical benefits excluding LASIK</div></div>
+<div class="e sec" id="7.6" data-n="7.6"><a class="n" href="#7.6" title="Copy link to 7.6">7.6</a><div class="t">Non-Coverage  (NCOV) — 26 codes</div></div>
+<div class="e topic" id="7.6.1" data-n="7.6.1"><a class="n" href="#7.6.1" title="Copy link to 7.6.1">7.6.1</a><div class="t">NCOV-001 — Diagnosis(es) is (are) not covered</div></div>
+<div class="e topic" id="7.6.2" data-n="7.6.2"><a class="n" href="#7.6.2" title="Copy link to 7.6.2">7.6.2</a><div class="t">NCOV-002 — Pre-existing conditions are not covered</div></div>
+<div class="e topic" id="7.6.3" data-n="7.6.3"><a class="n" href="#7.6.3" title="Copy link to 7.6.3">7.6.3</a><div class="t">NCOV-003 — Service(s) is (are) not covered</div></div>
+<div class="e topic" id="7.6.4" data-n="7.6.4"><a class="n" href="#7.6.4" title="Copy link to 7.6.4">7.6.4</a><div class="t">NCOV-004 — Elective procedure is not covered</div></div>
+<div class="e topic" id="7.6.5" data-n="7.6.5"><a class="n" href="#7.6.5" title="Copy link to 7.6.5">7.6.5</a><div class="t">NCOV-005 — Dental treatments are not covered</div></div>
+<div class="e topic" id="7.6.6" data-n="7.6.6"><a class="n" href="#7.6.6" title="Copy link to 7.6.6">7.6.6</a><div class="t">NCOV-006 — Hearing services are not covered</div></div>
+<div class="e topic" id="7.6.7" data-n="7.6.7"><a class="n" href="#7.6.7" title="Copy link to 7.6.7">7.6.7</a><div class="t">NCOV-007 — Eye exams and treatments are not covered</div></div>
+<div class="e topic" id="7.6.8" data-n="7.6.8"><a class="n" href="#7.6.8" title="Copy link to 7.6.8">7.6.8</a><div class="t">NCOV-008 — Behavioral and mental health services, treatments and medications are not covered</div></div>
+<div class="e topic" id="7.6.9" data-n="7.6.9"><a class="n" href="#7.6.9" title="Copy link to 7.6.9">7.6.9</a><div class="t">NCOV-009 — Gender manipulation services and associated expenses are not covered</div></div>
+<div class="e topic" id="7.6.10" data-n="7.6.10"><a class="n" href="#7.6.10" title="Copy link to 7.6.10">7.6.10</a><div class="t">NCOV-010 — Experimental or investigational services, treatments, devices and medications are not covered</div></div>
+<div class="e topic" id="7.6.11" data-n="7.6.11"><a class="n" href="#7.6.11" title="Copy link to 7.6.11">7.6.11</a><div class="t">NCOV-011 — Preventative care is not covered</div></div>
+<div class="e topic" id="7.6.12" data-n="7.6.12"><a class="n" href="#7.6.12" title="Copy link to 7.6.12">7.6.12</a><div class="t">NCOV-012 — Vaccinations are not covered</div></div>
+<div class="e topic" id="7.6.13" data-n="7.6.13"><a class="n" href="#7.6.13" title="Copy link to 7.6.13">7.6.13</a><div class="t">NCOV-013 — Immunizations are not covered</div></div>
+<div class="e topic" id="7.6.14" data-n="7.6.14"><a class="n" href="#7.6.14" title="Copy link to 7.6.14">7.6.14</a><div class="t">NCOV-014 — Allergy services and treatments are not covered</div></div>
+<div class="e topic" id="7.6.15" data-n="7.6.15"><a class="n" href="#7.6.15" title="Copy link to 7.6.15">7.6.15</a><div class="t">NCOV-015 — Acupuncture, acupressure, hypnotism and other forms of alternative treatment are not covered</div></div>
+<div class="e topic" id="7.6.16" data-n="7.6.16"><a class="n" href="#7.6.16" title="Copy link to 7.6.16">7.6.16</a><div class="t">NCOV-016 — Ambulance transportation for non-emergency situations is not covered</div></div>
+<div class="e topic" id="7.6.17" data-n="7.6.17"><a class="n" href="#7.6.17" title="Copy link to 7.6.17">7.6.17</a><div class="t">NCOV-017 — Home Health services are not covered</div></div>
+<div class="e topic" id="7.6.18" data-n="7.6.18"><a class="n" href="#7.6.18" title="Copy link to 7.6.18">7.6.18</a><div class="t">NCOV-018 — Home Health (Respite) services are not covered</div></div>
+<div class="e topic" id="7.6.19" data-n="7.6.19"><a class="n" href="#7.6.19" title="Copy link to 7.6.19">7.6.19</a><div class="t">NCOV-019 — Home Health (Private Nurse) services are not covered</div></div>
+<div class="e topic" id="7.6.20" data-n="7.6.20"><a class="n" href="#7.6.20" title="Copy link to 7.6.20">7.6.20</a><div class="t">NCOV-020 — Services resulting from attempted suicide or self-infliction are not covered</div></div>
+<div class="e topic" id="7.6.21" data-n="7.6.21"><a class="n" href="#7.6.21" title="Copy link to 7.6.21">7.6.21</a><div class="t">NCOV-021 — Claim overlaps inpatient stay — resubmit only services rendered outside the inpatient stay</div></div>
+<div class="e topic" id="7.6.22" data-n="7.6.22"><a class="n" href="#7.6.22" title="Copy link to 7.6.22">7.6.22</a><div class="t">NCOV-022 — Service(s) is (are) not performed</div></div>
+<div class="e topic" id="7.6.23" data-n="7.6.23"><a class="n" href="#7.6.23" title="Copy link to 7.6.23">7.6.23</a><div class="t">NCOV-023 — Service(s) performed outside period of hospitalization / admission</div></div>
+<div class="e topic" id="7.6.24" data-n="7.6.24"><a class="n" href="#7.6.24" title="Copy link to 7.6.24">7.6.24</a><div class="t">NCOV-024 — Chronic condition service(s) is (are) not covered</div></div>
+<div class="e topic" id="7.6.25" data-n="7.6.25"><a class="n" href="#7.6.25" title="Copy link to 7.6.25">7.6.25</a><div class="t">NCOV-025 — Service(s) not performed (used after audit)</div></div>
+<div class="e topic" id="7.6.26" data-n="7.6.26"><a class="n" href="#7.6.26" title="Copy link to 7.6.26">7.6.26</a><div class="t">NCOV-026 — Drug not listed in formulary</div></div>
+<div class="e sec" id="7.7" data-n="7.7"><a class="n" href="#7.7" title="Copy link to 7.7">7.7</a><div class="t">Pricing  (PRCE) — 10 codes</div></div>
+<div class="e topic" id="7.7.1" data-n="7.7.1"><a class="n" href="#7.7.1" title="Copy link to 7.7.1">7.7.1</a><div class="t">PRCE-001 — Calculation discrepancy</div></div>
+<div class="e topic" id="7.7.2" data-n="7.7.2"><a class="n" href="#7.7.2" title="Copy link to 7.7.2">7.7.2</a><div class="t">PRCE-002 — Payment is included in the allowance for another service</div></div>
+<div class="e topic" id="7.7.3" data-n="7.7.3"><a class="n" href="#7.7.3" title="Copy link to 7.7.3">7.7.3</a><div class="t">PRCE-003 — Recovery of payment — initial payment made to incorrect provider</div></div>
+<div class="e topic" id="7.7.4" data-n="7.7.4"><a class="n" href="#7.7.4" title="Copy link to 7.7.4">7.7.4</a><div class="t">PRCE-004 — Denial reversed because of medical review</div></div>
+<div class="e topic" id="7.7.5" data-n="7.7.5"><a class="n" href="#7.7.5" title="Copy link to 7.7.5">7.7.5</a><div class="t">PRCE-005 — Service has no contract price</div></div>
+<div class="e topic" id="7.7.6" data-n="7.7.6"><a class="n" href="#7.7.6" title="Copy link to 7.7.6">7.7.6</a><div class="t">PRCE-006 — Consultation within free follow-up period</div></div>
+<div class="e topic" id="7.7.7" data-n="7.7.7"><a class="n" href="#7.7.7" title="Copy link to 7.7.7">7.7.7</a><div class="t">PRCE-007 — Service has no contract price — to be negotiated</div></div>
+<div class="e topic" id="7.7.8" data-n="7.7.8"><a class="n" href="#7.7.8" title="Copy link to 7.7.8">7.7.8</a><div class="t">PRCE-008 — Multiple procedure payment rules incorrectly applied</div></div>
+<div class="e topic" id="7.7.9" data-n="7.7.9"><a class="n" href="#7.7.9" title="Copy link to 7.7.9">7.7.9</a><div class="t">PRCE-009 — Bundled code should be used instead of separate codes</div></div>
+<div class="e topic" id="7.7.10" data-n="7.7.10"><a class="n" href="#7.7.10" title="Copy link to 7.7.10">7.7.10</a><div class="t">PRCE-010 — Co-payment / deductible not collected at point of service</div></div>
+<div class="e sec" id="7.8" data-n="7.8"><a class="n" href="#7.8" title="Copy link to 7.8">7.8</a><div class="t">Timely Filing  (TIME) — 3 codes</div></div>
+<div class="e topic" id="7.8.1" data-n="7.8.1"><a class="n" href="#7.8.1" title="Copy link to 7.8.1">7.8.1</a><div class="t">TIME-001 — Timely filing limit exceeded — claim not submitted within contractual timeframe</div></div>
+<div class="e topic" id="7.8.2" data-n="7.8.2"><a class="n" href="#7.8.2" title="Copy link to 7.8.2">7.8.2</a><div class="t">TIME-002 — Requested additional information was not received, or not received within time limit</div></div>
+<div class="e topic" id="7.8.3" data-n="7.8.3"><a class="n" href="#7.8.3" title="Copy link to 7.8.3">7.8.3</a><div class="t">TIME-003 — Appeal procedures not followed or time limits not met</div></div></div></section>
+<section class="page-block" id="page-8" data-page="8"><header class="ph"><span class="pn">08</span><div><h2>Psychiatry — A Triangulated Lens</h2><a class="pf" href="psychiatry-intro.html">psychiatry-intro.html</a></div><span class="pc">3 entries</span></header><div class="entries"><div class="e sec" id="8.1" data-n="8.1"><a class="n" href="#8.1" title="Copy link to 8.1">8.1</a><div class="t">Introduction to the Psychiatric Diseases Triangulated Lens</div></div>
+<div class="e sec" id="8.2" data-n="8.2"><a class="n" href="#8.2" title="Copy link to 8.2">8.2</a><div class="t">Taxonomy Tree</div></div>
+<div class="e sec" id="8.3" data-n="8.3"><a class="n" href="#8.3" title="Copy link to 8.3">8.3</a><div class="t">Deeper Semantic Layer</div></div></div></section>
+<section class="page-block" id="page-9" data-page="9"><header class="ph"><span class="pn">09</span><div><h2>Psychiatry — Semantic Layer</h2><a class="pf" href="psychiatry-semantic-layer.html">psychiatry-semantic-layer.html</a></div><span class="pc">93 entries</span></header><div class="entries"><div class="e sec" id="9.1" data-n="9.1"><a class="n" href="#9.1" title="Copy link to 9.1">9.1</a><div class="t">Psychiatric Diseases Deeper Semantic Layer</div></div>
+<div class="e sec" id="9.2" data-n="9.2"><a class="n" href="#9.2" title="Copy link to 9.2">9.2</a><div class="t">Licensed IR-DRG logic is proprietary</div></div>
+<div class="e topic" id="9.2.1" data-n="9.2.1"><a class="n" href="#9.2.1" title="Copy link to 9.2.1">9.2.1</a><div class="t">IR-DRG — Solventum (formerly 3M Health Information Systems)</div></div>
+<div class="e sec" id="9.3" data-n="9.3"><a class="n" href="#9.3" title="Copy link to 9.3">9.3</a><div class="t">These weights come from a published DOH addendum</div></div>
+<div class="e topic" id="9.3.1" data-n="9.3.1"><a class="n" href="#9.3.1" title="Copy link to 9.3.1">9.3.1</a><div class="t">DOH Addendum 05 to the Claims &amp; Adjudication Rules V2025.1 — Appendix A</div></div>
+<div class="e sec" id="9.4" data-n="9.4"><a class="n" href="#9.4" title="Copy link to 9.4">9.4</a><div class="t">Authorities &amp; sources</div></div>
+<div class="e topic" id="9.4.1" data-n="9.4.1"><a class="n" href="#9.4.1" title="Copy link to 9.4.1">9.4.1</a><div class="t">ICD-10-CM — CDC / NCHS</div></div>
+<div class="e topic" id="9.4.2" data-n="9.4.2"><a class="n" href="#9.4.2" title="Copy link to 9.4.2">9.4.2</a><div class="t">CMS MS-DRG Definitions Manual</div></div>
+<div class="e topic" id="9.4.3" data-n="9.4.3"><a class="n" href="#9.4.3" title="Copy link to 9.4.3">9.4.3</a><div class="t">Solventum IR-DRG</div></div>
+<div class="e topic" id="9.4.4" data-n="9.4.4"><a class="n" href="#9.4.4" title="Copy link to 9.4.4">9.4.4</a><div class="t">DSM-5-TR — APA</div></div>
+<div class="e topic" id="9.4.5" data-n="9.4.5"><a class="n" href="#9.4.5" title="Copy link to 9.4.5">9.4.5</a><div class="t">DOH Addendum 05 / Claims V2025.1</div></div>
+<div class="e topic" id="9.4.6" data-n="9.4.6"><a class="n" href="#9.4.6" title="Copy link to 9.4.6">9.4.6</a><div class="t">Five source PDFs (UP-01–05)</div></div>
+<div class="e sec" id="9.5" data-n="9.5"><a class="n" href="#9.5" title="Copy link to 9.5">9.5</a><div class="t">Three lanes, one validation rule</div></div>
+<div class="e topic" id="9.5.1" data-n="9.5.1"><a class="n" href="#9.5.1" title="Copy link to 9.5.1">9.5.1</a><div class="t">ICD-10-CM + CMS MS-DRG</div></div>
+<div class="e topic" id="9.5.2" data-n="9.5.2"><a class="n" href="#9.5.2" title="Copy link to 9.5.2">9.5.2</a><div class="t">IR-DRG DX table / grouper</div></div>
+<div class="e topic" id="9.5.3" data-n="9.5.3"><a class="n" href="#9.5.3" title="Copy link to 9.5.3">9.5.3</a><div class="t">Addendum 05 · Appendix A</div></div>
+<div class="e sec" id="9.6" data-n="9.6"><a class="n" href="#9.6" title="Copy link to 9.6">9.6</a><div class="t">Abu Dhabi coding frame and exclusions</div></div>
+<div class="e topic" id="9.6.1" data-n="9.6.1"><a class="n" href="#9.6.1" title="Copy link to 9.6.1">9.6.1</a><div class="t">ICD-10-CM, not</div></div>
+<div class="e topic" id="9.6.2" data-n="9.6.2"><a class="n" href="#9.6.2" title="Copy link to 9.6.2">9.6.2</a><div class="t">CPT-4 / HCPCS</div></div>
+<div class="e topic" id="9.6.3" data-n="9.6.3"><a class="n" href="#9.6.3" title="Copy link to 9.6.3">9.6.3</a><div class="t">DOH V2025.1 and addenda</div></div>
+<div class="e topic" id="9.6.4" data-n="9.6.4"><a class="n" href="#9.6.4" title="Copy link to 9.6.4">9.6.4</a><div class="t">Uncertain diagnosis and integral symptoms</div></div>
+<div class="e sec" id="9.7" data-n="9.7"><a class="n" href="#9.7" title="Copy link to 9.7">9.7</a><div class="t">Clinical terms that need visual handling, not just notes</div></div>
+<div class="e topic" id="9.7.1" data-n="9.7.1"><a class="n" href="#9.7.1" title="Copy link to 9.7.1">9.7.1</a><div class="t">“Neuroses”</div></div>
+<div class="e topic" id="9.7.2" data-n="9.7.2"><a class="n" href="#9.7.2" title="Copy link to 9.7.2">9.7.2</a><div class="t">Adjustment disorders</div></div>
+<div class="e topic" id="9.7.3" data-n="9.7.3"><a class="n" href="#9.7.3" title="Copy link to 9.7.3">9.7.3</a><div class="t">Impulse-control disorders</div></div>
+<div class="e topic" id="9.7.4" data-n="9.7.4"><a class="n" href="#9.7.4" title="Copy link to 9.7.4">9.7.4</a><div class="t">Gender / sexual / psychosexual</div></div>
+<div class="e sec" id="9.8" data-n="9.8"><a class="n" href="#9.8" title="Copy link to 9.8">9.8</a><div class="t">Definitions beneath the labels</div></div>
+<div class="e topic" id="9.8.1" data-n="9.8.1"><a class="n" href="#9.8.1" title="Copy link to 9.8.1">9.8.1</a><div class="t">Impulse-control disorders · F63</div></div>
+<div class="e topic" id="9.8.2" data-n="9.8.2"><a class="n" href="#9.8.2" title="Copy link to 9.8.2">9.8.2</a><div class="t">Pyromania</div></div>
+<div class="e topic" id="9.8.3" data-n="9.8.3"><a class="n" href="#9.8.3" title="Copy link to 9.8.3">9.8.3</a><div class="t">Kleptomania</div></div>
+<div class="e topic" id="9.8.4" data-n="9.8.4"><a class="n" href="#9.8.4" title="Copy link to 9.8.4">9.8.4</a><div class="t">Trichotillomania</div></div>
+<div class="e topic" id="9.8.5" data-n="9.8.5"><a class="n" href="#9.8.5" title="Copy link to 9.8.5">9.8.5</a><div class="t">Intermittent explosive disorder</div></div>
+<div class="e topic" id="9.8.6" data-n="9.8.6"><a class="n" href="#9.8.6" title="Copy link to 9.8.6">9.8.6</a><div class="t">Pathological gambling</div></div>
+<div class="e topic" id="9.8.7" data-n="9.8.7"><a class="n" href="#9.8.7" title="Copy link to 9.8.7">9.8.7</a><div class="t">Gender, sexual &amp; psychosexual · parked · reference only</div></div>
+<div class="e topic" id="9.8.8" data-n="9.8.8"><a class="n" href="#9.8.8" title="Copy link to 9.8.8">9.8.8</a><div class="t">Transsexualism</div></div>
+<div class="e topic" id="9.8.9" data-n="9.8.9"><a class="n" href="#9.8.9" title="Copy link to 9.8.9">9.8.9</a><div class="t">Dual-role transvestism</div></div>
+<div class="e topic" id="9.8.10" data-n="9.8.10"><a class="n" href="#9.8.10" title="Copy link to 9.8.10">9.8.10</a><div class="t">Transvestic fetishism</div></div>
+<div class="e topic" id="9.8.11" data-n="9.8.11"><a class="n" href="#9.8.11" title="Copy link to 9.8.11">9.8.11</a><div class="t">Paraphilic disorders</div></div>
+<div class="e topic" id="9.8.12" data-n="9.8.12"><a class="n" href="#9.8.12" title="Copy link to 9.8.12">9.8.12</a><div class="t">Sexual dysfunctions</div></div>
+<div class="e topic" id="9.8.13" data-n="9.8.13"><a class="n" href="#9.8.13" title="Copy link to 9.8.13">9.8.13</a><div class="t">Other sexual disorders</div></div>
+<div class="e topic" id="9.8.14" data-n="9.8.14"><a class="n" href="#9.8.14" title="Copy link to 9.8.14">9.8.14</a><div class="t">Terminology bridges</div></div>
+<div class="e topic" id="9.8.15" data-n="9.8.15"><a class="n" href="#9.8.15" title="Copy link to 9.8.15">9.8.15</a><div class="t">“Neuroses”</div></div>
+<div class="e topic" id="9.8.16" data-n="9.8.16"><a class="n" href="#9.8.16" title="Copy link to 9.8.16">9.8.16</a><div class="t">Substance use</div></div>
+<div class="e sec" id="9.9" data-n="9.9"><a class="n" href="#9.9" title="Copy link to 9.9">9.9</a><div class="t">Three distinctions the labels hide</div></div>
+<div class="e topic" id="9.9.1" data-n="9.9.1"><a class="n" href="#9.9.1" title="Copy link to 9.9.1">9.9.1</a><div class="t">Diagnostic safeguards — apply before any category is used as a DRG-navigation proxy</div></div>
+<div class="e topic" id="9.9.2" data-n="9.9.2"><a class="n" href="#9.9.2" title="Copy link to 9.9.2">9.9.2</a><div class="t">Schizophrenia is not all psychosis</div></div>
+<div class="e topic" id="9.9.3" data-n="9.9.3"><a class="n" href="#9.9.3" title="Copy link to 9.9.3">9.9.3</a><div class="t">Major Depression is episodic and higher-threshold</div></div>
+<div class="e topic" id="9.9.4" data-n="9.9.4"><a class="n" href="#9.9.4" title="Copy link to 9.9.4">9.9.4</a><div class="t">Other Depressive Disorders emphasize chronicity or subthreshold presentation</div></div>
+<div class="e sec" id="9.10" data-n="9.10"><a class="n" href="#9.10" title="Copy link to 9.10">9.10</a><div class="t">Where an elegant summary needs a sharper edge</div></div>
+<div class="e topic" id="9.10.1" data-n="9.10.1"><a class="n" href="#9.10.1" title="Copy link to 9.10.1">9.10.1</a><div class="t">Bipolar separates into mania, hypomania, and bipolar depression</div></div>
+<div class="e topic" id="9.10.2" data-n="9.10.2"><a class="n" href="#9.10.2" title="Copy link to 9.10.2">9.10.2</a><div class="t">“Eating disorders” is an umbrella — the criterion layer is per-disorder</div></div>
+<div class="e topic" id="9.10.3" data-n="9.10.3"><a class="n" href="#9.10.3" title="Copy link to 9.10.3">9.10.3</a><div class="t">Other compressed umbrellas that must be unpacked before adjudication</div></div>
+<div class="e sec" id="9.11" data-n="9.11"><a class="n" href="#9.11" title="Copy link to 9.11">9.11</a><div class="t">Relative weights, ALOS &amp; day-outlier trims</div></div>
+<div class="e topic" id="9.11.1" data-n="9.11.1"><a class="n" href="#9.11.1" title="Copy link to 9.11.1">9.11.1</a><div class="t">Mental Health Inpatient payment rules (Addendum 05 &amp;sect;4.4.2)</div></div>
+<div class="e sec" id="9.12" data-n="9.12"><a class="n" href="#9.12" title="Copy link to 9.12">9.12</a><div class="t">Lexicon entries — 13 coded conditions # ICD-10 Condition Status 9.12.1 F63.1 Pyromania 19412 · verify 9.12.2 F63.2 Kleptomania 19412 · verify 9.12.3 F63.3 Trichotillomania 19412 · verify 9.12.4 F63.81 Intermittent explosive disorder 19412 · verify 9.12.5 F63.0 Pathological gambling 19412 · verify 9.12.6 F64.0 Transsexualism parked 9.12.7 F64.1 Dual-role transvestism parked 9.12.8 F65.1 Transvestic fetishism parked 9.12.9 F65 Paraphilic disorders parked 9.12.10 F52 Sexual dysfunctions parked 9.12.11 F66 Other sexual disorders parked 9.12.12 F40–F48 “Neuroses” terminology 9.12.13 F10–F19 Substance use terminology</div></div>
+<div class="e sec" id="9.13" data-n="9.13"><a class="n" href="#9.13" title="Copy link to 9.13">9.13</a><div class="t">Label corrections — 6 entries</div></div>
+<div class="e topic" id="9.13.1" data-n="9.13.1"><a class="n" href="#9.13.1" title="Copy link to 9.13.1">9.13.1</a><div class="t">19410 · F20 Schizophrenia is not all psychosis corrected</div></div>
+<div class="e topic" id="9.13.2" data-n="9.13.2"><a class="n" href="#9.13.2" title="Copy link to 9.13.2">9.13.2</a><div class="t">19411 Major Depression is episodic and higher-threshold corrected</div></div>
+<div class="e topic" id="9.13.3" data-n="9.13.3"><a class="n" href="#9.13.3" title="Copy link to 9.13.3">9.13.3</a><div class="t">19414 · F34.1 Other Depressive Disorders emphasize chronicity or subthreshold presentation corrected</div></div>
+<div class="e topic" id="9.13.4" data-n="9.13.4"><a class="n" href="#9.13.4" title="Copy link to 9.13.4">9.13.4</a><div class="t">19413 · F31 Bipolar separates into mania, hypomania, and bipolar depression expanded</div></div>
+<div class="e topic" id="9.13.5" data-n="9.13.5"><a class="n" href="#9.13.5" title="Copy link to 9.13.5">9.13.5</a><div class="t">19416 · F50 “Eating disorders” is an umbrella — the criterion layer is per-disorder expanded</div></div>
+<div class="e topic" id="9.13.6" data-n="9.13.6"><a class="n" href="#9.13.6" title="Copy link to 9.13.6">9.13.6</a><div class="t">multiple Other compressed umbrellas that must be unpacked before adjudication note</div></div>
+<div class="e sec" id="9.14" data-n="9.14"><a class="n" href="#9.14" title="Copy link to 9.14">9.14</a><div class="t">Relative-weight rows — 30 (10 DRGs × base/CC/MCC)</div></div>
+<div class="e topic" id="9.14.1" data-n="9.14.1"><a class="n" href="#9.14.1" title="Copy link to 9.14.1">9.14.1</a><div class="t">Schizophrenia  —  RW 1.7420</div></div>
+<div class="e topic" id="9.14.2" data-n="9.14.2"><a class="n" href="#9.14.2" title="Copy link to 9.14.2">9.14.2</a><div class="t">Schizophrenia · w/CC  —  RW 3.4364</div></div>
+<div class="e topic" id="9.14.3" data-n="9.14.3"><a class="n" href="#9.14.3" title="Copy link to 9.14.3">9.14.3</a><div class="t">Schizophrenia · w/MCC  —  RW 4.6857</div></div>
+<div class="e topic" id="9.14.4" data-n="9.14.4"><a class="n" href="#9.14.4" title="Copy link to 9.14.4">9.14.4</a><div class="t">Major Depression  —  RW 1.6353</div></div>
+<div class="e topic" id="9.14.5" data-n="9.14.5"><a class="n" href="#9.14.5" title="Copy link to 9.14.5">9.14.5</a><div class="t">Major Depression · w/CC  —  RW 3.2259</div></div>
+<div class="e topic" id="9.14.6" data-n="9.14.6"><a class="n" href="#9.14.6" title="Copy link to 9.14.6">9.14.6</a><div class="t">Major Depression · w/MCC  —  RW 4.6656</div></div>
+<div class="e topic" id="9.14.7" data-n="9.14.7"><a class="n" href="#9.14.7" title="Copy link to 9.14.7">9.14.7</a><div class="t">Personality &amp; Impulse Control  —  RW 0.9545</div></div>
+<div class="e topic" id="9.14.8" data-n="9.14.8"><a class="n" href="#9.14.8" title="Copy link to 9.14.8">9.14.8</a><div class="t">Personality &amp; Impulse Control · w/CC  —  RW 1.7243</div></div>
+<div class="e topic" id="9.14.9" data-n="9.14.9"><a class="n" href="#9.14.9" title="Copy link to 9.14.9">9.14.9</a><div class="t">Personality &amp; Impulse Control · w/MCC  —  RW 4.3943</div></div>
+<div class="e topic" id="9.14.10" data-n="9.14.10"><a class="n" href="#9.14.10" title="Copy link to 9.14.10">9.14.10</a><div class="t">Bipolar Disorders  —  RW 2.4299</div></div>
+<div class="e topic" id="9.14.11" data-n="9.14.11"><a class="n" href="#9.14.11" title="Copy link to 9.14.11">9.14.11</a><div class="t">Bipolar Disorders · w/CC  —  RW 4.7934</div></div>
+<div class="e topic" id="9.14.12" data-n="9.14.12"><a class="n" href="#9.14.12" title="Copy link to 9.14.12">9.14.12</a><div class="t">Bipolar Disorders · w/MCC  —  RW 6.6878</div></div>
+<div class="e topic" id="9.14.13" data-n="9.14.13"><a class="n" href="#9.14.13" title="Copy link to 9.14.13">9.14.13</a><div class="t">Other Depressive Disorders  —  RW 1.3341</div></div>
+<div class="e topic" id="9.14.14" data-n="9.14.14"><a class="n" href="#9.14.14" title="Copy link to 9.14.14">9.14.14</a><div class="t">Other Depressive Disorders · w/CC  —  RW 2.6317</div></div>
+<div class="e topic" id="9.14.15" data-n="9.14.15"><a class="n" href="#9.14.15" title="Copy link to 9.14.15">9.14.15</a><div class="t">Other Depressive Disorders · w/MCC  —  RW 3.9588</div></div>
+<div class="e topic" id="9.14.16" data-n="9.14.16"><a class="n" href="#9.14.16" title="Copy link to 9.14.16">9.14.16</a><div class="t">Neuroses Except Depression  —  RW 1.0195</div></div>
+<div class="e topic" id="9.14.17" data-n="9.14.17"><a class="n" href="#9.14.17" title="Copy link to 9.14.17">9.14.17</a><div class="t">Neuroses Except Depression · w/CC  —  RW 1.2475</div></div>
+<div class="e topic" id="9.14.18" data-n="9.14.18"><a class="n" href="#9.14.18" title="Copy link to 9.14.18">9.14.18</a><div class="t">Neuroses Except Depression · w/MCC  —  RW 2.2512</div></div>
+<div class="e topic" id="9.14.19" data-n="9.14.19"><a class="n" href="#9.14.19" title="Copy link to 9.14.19">9.14.19</a><div class="t">Organic Disturbances &amp; Intellectual Disability  —  RW 1.0174</div></div>
+<div class="e topic" id="9.14.20" data-n="9.14.20"><a class="n" href="#9.14.20" title="Copy link to 9.14.20">9.14.20</a><div class="t">Organic Disturbances &amp; Intellectual Disability · w/CC  —  RW 1.8864</div></div>
+<div class="e topic" id="9.14.21" data-n="9.14.21"><a class="n" href="#9.14.21" title="Copy link to 9.14.21">9.14.21</a><div class="t">Organic Disturbances &amp; Intellectual Disability · w/MCC  —  RW 2.9408</div></div>
+<div class="e topic" id="9.14.22" data-n="9.14.22"><a class="n" href="#9.14.22" title="Copy link to 9.14.22">9.14.22</a><div class="t">Childhood Onset Mental Disorders  —  RW 1.0678</div></div>
+<div class="e topic" id="9.14.23" data-n="9.14.23"><a class="n" href="#9.14.23" title="Copy link to 9.14.23">9.14.23</a><div class="t">Childhood Onset Mental Disorders · w/CC  —  RW 2.1065</div></div>
+<div class="e topic" id="9.14.24" data-n="9.14.24"><a class="n" href="#9.14.24" title="Copy link to 9.14.24">9.14.24</a><div class="t">Childhood Onset Mental Disorders · w/MCC  —  RW 3.0010</div></div>
+<div class="e topic" id="9.14.25" data-n="9.14.25"><a class="n" href="#9.14.25" title="Copy link to 9.14.25">9.14.25</a><div class="t">Compulsive Nutrition Disorders  —  RW 1.1223</div></div>
+<div class="e topic" id="9.14.26" data-n="9.14.26"><a class="n" href="#9.14.26" title="Copy link to 9.14.26">9.14.26</a><div class="t">Compulsive Nutrition Disorders · w/CC  —  RW 2.2138</div></div>
+<div class="e topic" id="9.14.27" data-n="9.14.27"><a class="n" href="#9.14.27" title="Copy link to 9.14.27">9.14.27</a><div class="t">Compulsive Nutrition Disorders · w/MCC  —  RW 3.3680</div></div>
+<div class="e topic" id="9.14.28" data-n="9.14.28"><a class="n" href="#9.14.28" title="Copy link to 9.14.28">9.14.28</a><div class="t">Other Mental Disorders  —  RW 1.1254</div></div>
+<div class="e topic" id="9.14.29" data-n="9.14.29"><a class="n" href="#9.14.29" title="Copy link to 9.14.29">9.14.29</a><div class="t">Other Mental Disorders · w/CC  —  RW 2.2200</div></div>
+<div class="e topic" id="9.14.30" data-n="9.14.30"><a class="n" href="#9.14.30" title="Copy link to 9.14.30">9.14.30</a><div class="t">Other Mental Disorders · w/MCC  —  RW 3.0452</div></div></div></section>
+<section class="page-block" id="page-10" data-page="10"><header class="ph"><span class="pn">10</span><div><h2>Psychiatry across DSM-5-TR &amp; IR-DRG</h2><a class="pf" href="psychiatry-ir-drg-tree.html">psychiatry-ir-drg-tree.html</a></div><span class="pc">144 entries</span></header><p class="lead">10 psychiatric categories, each an IR-DRG with three severity weights. # Category IR-DRG RW base / w-CC / w- MCC 10.1 Bipolar Disorders 19413 2.4299,4.7934,6.6878 10.2 Schizophrenia Disorders 19410 1.7420,3.4364,4.6857 10.3 Major Depression 19411 1.6353,3.2259,4.6656 10.4 Feeding &amp; Eating Disorders 19418 1.1223,2.2138,3.3680 10.5 Neuroses Except Depression 19415 1.0195,1.2475,2.2512 10.6 Personality &amp; Impulse Control 19412 0.9545,1.7243,4.3943 10.7 Organic Disturbances &amp; ID 19416 1.0174,1.8864,2.9408 10.8 Childhood Onset Disorders 19417 1.0678,2.1065,3.0010 10.9 Other Depressive Disorders 19414 1.3341,2.6317,3.9588 10.10 Other Mental Disorders 19419 1.1254,2.2200,3.0452</p><div class="entries"><div class="e sec" id="10.1" data-n="10.1"><a class="n" href="#10.1" title="Copy link to 10.1">10.1</a><div class="t">Bipolar Disorders  ·  IR-DRG 19413 Relative weights (base / w-CC / w-MCC): 2.4299,4.7934,6.6878</div></div>
+<div class="e topic" id="10.1.A" data-n="10.1.A"><a class="n" href="#10.1.A" title="Copy link to 10.1.A">10.1.A</a><div class="t">Cardinal features (6)</div></div>
+<div class="e point" id="10.1.A.1" data-n="10.1.A.1"><a class="n" href="#10.1.A.1" title="Copy link to 10.1.A.1">10.1.A.1</a><div class="t">Manic episode: elevated, expansive, or irritable mood with increased energy</div></div>
+<div class="e point" id="10.1.A.2" data-n="10.1.A.2"><a class="n" href="#10.1.A.2" title="Copy link to 10.1.A.2">10.1.A.2</a><div class="t">Grandiosity or inflated self-esteem</div></div>
+<div class="e point" id="10.1.A.3" data-n="10.1.A.3"><a class="n" href="#10.1.A.3" title="Copy link to 10.1.A.3">10.1.A.3</a><div class="t">Decreased need for sleep</div></div>
+<div class="e point" id="10.1.A.4" data-n="10.1.A.4"><a class="n" href="#10.1.A.4" title="Copy link to 10.1.A.4">10.1.A.4</a><div class="t">Pressured speech or racing thoughts</div></div>
+<div class="e point" id="10.1.A.5" data-n="10.1.A.5"><a class="n" href="#10.1.A.5" title="Copy link to 10.1.A.5">10.1.A.5</a><div class="t">Distractibility, impulsivity, impaired judgment, or high-risk behavior</div></div>
+<div class="e point" id="10.1.A.6" data-n="10.1.A.6"><a class="n" href="#10.1.A.6" title="Copy link to 10.1.A.6">10.1.A.6</a><div class="t">Depressive episodes are common but not required for Bipolar I diagnosis</div></div>
+<div class="e topic" id="10.1.B" data-n="10.1.B"><a class="n" href="#10.1.B" title="Copy link to 10.1.B">10.1.B</a><div class="t">Resource drivers (6)</div></div>
+<div class="e point" id="10.1.B.1" data-n="10.1.B.1"><a class="n" href="#10.1.B.1" title="Copy link to 10.1.B.1">10.1.B.1</a><div class="t">High safety risk</div></div>
+<div class="e point" id="10.1.B.2" data-n="10.1.B.2"><a class="n" href="#10.1.B.2" title="Copy link to 10.1.B.2">10.1.B.2</a><div class="t">Agitation or behavioral escalation</div></div>
+<div class="e point" id="10.1.B.3" data-n="10.1.B.3"><a class="n" href="#10.1.B.3" title="Copy link to 10.1.B.3">10.1.B.3</a><div class="t">Restraints / seclusion when clinically justified</div></div>
+<div class="e point" id="10.1.B.4" data-n="10.1.B.4"><a class="n" href="#10.1.B.4" title="Copy link to 10.1.B.4">10.1.B.4</a><div class="t">Constant observation</div></div>
+<div class="e point" id="10.1.B.5" data-n="10.1.B.5"><a class="n" href="#10.1.B.5" title="Copy link to 10.1.B.5">10.1.B.5</a><div class="t">Medication titration and stabilization</div></div>
+<div class="e point" id="10.1.B.6" data-n="10.1.B.6"><a class="n" href="#10.1.B.6" title="Copy link to 10.1.B.6">10.1.B.6</a><div class="t">Longer stabilization with severe mania, psychosis, suicidality, or comorbidity</div></div>
+<div class="e sec" id="10.2" data-n="10.2"><a class="n" href="#10.2" title="Copy link to 10.2">10.2</a><div class="t">Schizophrenia Disorders  ·  IR-DRG 19410 Relative weights (base / w-CC / w-MCC): 1.7420,3.4364,4.6857</div></div>
+<div class="e topic" id="10.2.A" data-n="10.2.A"><a class="n" href="#10.2.A" title="Copy link to 10.2.A">10.2.A</a><div class="t">Cardinal features (6)</div></div>
+<div class="e point" id="10.2.A.1" data-n="10.2.A.1"><a class="n" href="#10.2.A.1" title="Copy link to 10.2.A.1">10.2.A.1</a><div class="t">At least two DSM-5-TR Criterion A symptoms</div></div>
+<div class="e point" id="10.2.A.2" data-n="10.2.A.2"><a class="n" href="#10.2.A.2" title="Copy link to 10.2.A.2">10.2.A.2</a><div class="t">At least one: delusions, hallucinations, or disorganized speech</div></div>
+<div class="e point" id="10.2.A.3" data-n="10.2.A.3"><a class="n" href="#10.2.A.3" title="Copy link to 10.2.A.3">10.2.A.3</a><div class="t">Symptoms for a significant portion of at least 1 month, or less if treated</div></div>
+<div class="e point" id="10.2.A.4" data-n="10.2.A.4"><a class="n" href="#10.2.A.4" title="Copy link to 10.2.A.4">10.2.A.4</a><div class="t">Continuous signs of disturbance for at least 6 months</div></div>
+<div class="e point" id="10.2.A.5" data-n="10.2.A.5"><a class="n" href="#10.2.A.5" title="Copy link to 10.2.A.5">10.2.A.5</a><div class="t">Functional decline in work, relationships, or self-care</div></div>
+<div class="e point" id="10.2.A.6" data-n="10.2.A.6"><a class="n" href="#10.2.A.6" title="Copy link to 10.2.A.6">10.2.A.6</a><div class="t">Negative symptoms may include avolition, flat affect, alogia, asociality, or anhedonia</div></div>
+<div class="e topic" id="10.2.B" data-n="10.2.B"><a class="n" href="#10.2.B" title="Copy link to 10.2.B">10.2.B</a><div class="t">Resource drivers (5)</div></div>
+<div class="e point" id="10.2.B.1" data-n="10.2.B.1"><a class="n" href="#10.2.B.1" title="Copy link to 10.2.B.1">10.2.B.1</a><div class="t">Acute psychosis</div></div>
+<div class="e point" id="10.2.B.2" data-n="10.2.B.2"><a class="n" href="#10.2.B.2" title="Copy link to 10.2.B.2">10.2.B.2</a><div class="t">Behavioral risk</div></div>
+<div class="e point" id="10.2.B.3" data-n="10.2.B.3"><a class="n" href="#10.2.B.3" title="Copy link to 10.2.B.3">10.2.B.3</a><div class="t">Security / safety needs</div></div>
+<div class="e point" id="10.2.B.4" data-n="10.2.B.4"><a class="n" href="#10.2.B.4" title="Copy link to 10.2.B.4">10.2.B.4</a><div class="t">High medication load</div></div>
+<div class="e point" id="10.2.B.5" data-n="10.2.B.5"><a class="n" href="#10.2.B.5" title="Copy link to 10.2.B.5">10.2.B.5</a><div class="t">Prolonged stabilization</div></div>
+<div class="e topic" id="10.2.C" data-n="10.2.C"><a class="n" href="#10.2.C" title="Copy link to 10.2.C">10.2.C</a><div class="t">Verification note</div></div>
+<div class="e point" id="10.2.C.1" data-n="10.2.C.1"><a class="n" href="#10.2.C.1" title="Copy link to 10.2.C.1">10.2.C.1</a><div class="t">Schizophrenia is one psychotic disorder, not a synonym for all psychoses. Other psychotic disorders require licensed IR-DRG DX table verification.</div></div>
+<div class="e sec" id="10.3" data-n="10.3"><a class="n" href="#10.3" title="Copy link to 10.3">10.3</a><div class="t">Major Depression  ·  IR-DRG 19411 Relative weights (base / w-CC / w-MCC): 1.6353,3.2259,4.6656</div></div>
+<div class="e topic" id="10.3.A" data-n="10.3.A"><a class="n" href="#10.3.A" title="Copy link to 10.3.A">10.3.A</a><div class="t">Cardinal features (6)</div></div>
+<div class="e point" id="10.3.A.1" data-n="10.3.A.1"><a class="n" href="#10.3.A.1" title="Copy link to 10.3.A.1">10.3.A.1</a><div class="t">Depressed mood or anhedonia; at least one required</div></div>
+<div class="e point" id="10.3.A.2" data-n="10.3.A.2"><a class="n" href="#10.3.A.2" title="Copy link to 10.3.A.2">10.3.A.2</a><div class="t">Symptoms present for at least 2 weeks</div></div>
+<div class="e point" id="10.3.A.3" data-n="10.3.A.3"><a class="n" href="#10.3.A.3" title="Copy link to 10.3.A.3">10.3.A.3</a><div class="t">Sleep disturbance or appetite change</div></div>
+<div class="e point" id="10.3.A.4" data-n="10.3.A.4"><a class="n" href="#10.3.A.4" title="Copy link to 10.3.A.4">10.3.A.4</a><div class="t">Psychomotor agitation or retardation</div></div>
+<div class="e point" id="10.3.A.5" data-n="10.3.A.5"><a class="n" href="#10.3.A.5" title="Copy link to 10.3.A.5">10.3.A.5</a><div class="t">Fatigue, worthlessness, guilt, or impaired concentration</div></div>
+<div class="e point" id="10.3.A.6" data-n="10.3.A.6"><a class="n" href="#10.3.A.6" title="Copy link to 10.3.A.6">10.3.A.6</a><div class="t">Suicidal ideation or recurrent thoughts of death</div></div>
+<div class="e topic" id="10.3.B" data-n="10.3.B"><a class="n" href="#10.3.B" title="Copy link to 10.3.B">10.3.B</a><div class="t">Resource drivers (5)</div></div>
+<div class="e point" id="10.3.B.1" data-n="10.3.B.1"><a class="n" href="#10.3.B.1" title="Copy link to 10.3.B.1">10.3.B.1</a><div class="t">Suicide / self-harm risk</div></div>
+<div class="e point" id="10.3.B.2" data-n="10.3.B.2"><a class="n" href="#10.3.B.2" title="Copy link to 10.3.B.2">10.3.B.2</a><div class="t">Close observation</div></div>
+<div class="e point" id="10.3.B.3" data-n="10.3.B.3"><a class="n" href="#10.3.B.3" title="Copy link to 10.3.B.3">10.3.B.3</a><div class="t">Medication and therapy</div></div>
+<div class="e point" id="10.3.B.4" data-n="10.3.B.4"><a class="n" href="#10.3.B.4" title="Copy link to 10.3.B.4">10.3.B.4</a><div class="t">Functional impairment</div></div>
+<div class="e point" id="10.3.B.5" data-n="10.3.B.5"><a class="n" href="#10.3.B.5" title="Copy link to 10.3.B.5">10.3.B.5</a><div class="t">Severe episode, psychotic features, catatonia, or comorbidity when present</div></div>
+<div class="e sec" id="10.4" data-n="10.4"><a class="n" href="#10.4" title="Copy link to 10.4">10.4</a><div class="t">Feeding &amp; Eating Disorders  ·  IR-DRG 19418 Relative weights (base / w-CC / w-MCC): 1.1223,2.2138,3.3680</div></div>
+<div class="e topic" id="10.4.A" data-n="10.4.A"><a class="n" href="#10.4.A" title="Copy link to 10.4.A">10.4.A</a><div class="t">Cardinal features (5)</div></div>
+<div class="e point" id="10.4.A.1" data-n="10.4.A.1"><a class="n" href="#10.4.A.1" title="Copy link to 10.4.A.1">10.4.A.1</a><div class="t">Persistent disturbance in eating or eating-related behavior</div></div>
+<div class="e point" id="10.4.A.2" data-n="10.4.A.2"><a class="n" href="#10.4.A.2" title="Copy link to 10.4.A.2">10.4.A.2</a><div class="t">Restriction, avoidance, binge eating, purging, or compensatory behaviors</div></div>
+<div class="e point" id="10.4.A.3" data-n="10.4.A.3"><a class="n" href="#10.4.A.3" title="Copy link to 10.4.A.3">10.4.A.3</a><div class="t">Body image disturbance or fear of weight gain when applicable</div></div>
+<div class="e point" id="10.4.A.4" data-n="10.4.A.4"><a class="n" href="#10.4.A.4" title="Copy link to 10.4.A.4">10.4.A.4</a><div class="t">Malnutrition, weight instability, or medical compromise in severe restrictive illness</div></div>
+<div class="e point" id="10.4.A.5" data-n="10.4.A.5"><a class="n" href="#10.4.A.5" title="Copy link to 10.4.A.5">10.4.A.5</a><div class="t">Psychosocial or physical-health impairment</div></div>
+<div class="e topic" id="10.4.B" data-n="10.4.B"><a class="n" href="#10.4.B" title="Copy link to 10.4.B">10.4.B</a><div class="t">Resource drivers (6)</div></div>
+<div class="e point" id="10.4.B.1" data-n="10.4.B.1"><a class="n" href="#10.4.B.1" title="Copy link to 10.4.B.1">10.4.B.1</a><div class="t">Electrolyte instability including phosphate, potassium, or magnesium abnormalities</div></div>
+<div class="e point" id="10.4.B.2" data-n="10.4.B.2"><a class="n" href="#10.4.B.2" title="Copy link to 10.4.B.2">10.4.B.2</a><div class="t">Refeeding syndrome monitoring, especially hypophosphatemia</div></div>
+<div class="e point" id="10.4.B.3" data-n="10.4.B.3"><a class="n" href="#10.4.B.3" title="Copy link to 10.4.B.3">10.4.B.3</a><div class="t">Cardiac monitoring for bradycardia, arrhythmia, or QTc prolongation</div></div>
+<div class="e point" id="10.4.B.4" data-n="10.4.B.4"><a class="n" href="#10.4.B.4" title="Copy link to 10.4.B.4">10.4.B.4</a><div class="t">Structured nutritional rehabilitation</div></div>
+<div class="e point" id="10.4.B.5" data-n="10.4.B.5"><a class="n" href="#10.4.B.5" title="Copy link to 10.4.B.5">10.4.B.5</a><div class="t">Nasogastric feeding when indicated</div></div>
+<div class="e point" id="10.4.B.6" data-n="10.4.B.6"><a class="n" href="#10.4.B.6" title="Copy link to 10.4.B.6">10.4.B.6</a><div class="t">Medical-psychiatric stabilization and observation</div></div>
+<div class="e topic" id="10.4.C" data-n="10.4.C"><a class="n" href="#10.4.C" title="Copy link to 10.4.C">10.4.C</a><div class="t">Verification note</div></div>
+<div class="e point" id="10.4.C.1" data-n="10.4.C.1"><a class="n" href="#10.4.C.1" title="Copy link to 10.4.C.1">10.4.C.1</a><div class="t">Licensed IR-DRG label preserved as Compulsive Nutrition Disorders; visible title uses DSM-5-TR- facing terminology.</div></div>
+<div class="e sec" id="10.5" data-n="10.5"><a class="n" href="#10.5" title="Copy link to 10.5">10.5</a><div class="t">Neuroses Except Depression  ·  IR-DRG 19415 Relative weights (base / w-CC / w-MCC): 1.0195,1.2475,2.2512</div></div>
+<div class="e topic" id="10.5.A" data-n="10.5.A"><a class="n" href="#10.5.A" title="Copy link to 10.5.A">10.5.A</a><div class="t">Cardinal features (5)</div></div>
+<div class="e point" id="10.5.A.1" data-n="10.5.A.1"><a class="n" href="#10.5.A.1" title="Copy link to 10.5.A.1">10.5.A.1</a><div class="t">Severe psychological distress without primary psychosis</div></div>
+<div class="e point" id="10.5.A.2" data-n="10.5.A.2"><a class="n" href="#10.5.A.2" title="Copy link to 10.5.A.2">10.5.A.2</a><div class="t">Anxiety, panic, phobic, or trauma/stressor-related symptoms</div></div>
+<div class="e point" id="10.5.A.3" data-n="10.5.A.3"><a class="n" href="#10.5.A.3" title="Copy link to 10.5.A.3">10.5.A.3</a><div class="t">Obsessions, compulsions, intrusive thoughts, or ritualized behaviors</div></div>
+<div class="e point" id="10.5.A.4" data-n="10.5.A.4"><a class="n" href="#10.5.A.4" title="Copy link to 10.5.A.4">10.5.A.4</a><div class="t">Somatic symptom or dissociative presentations without primary psychosis</div></div>
+<div class="e point" id="10.5.A.5" data-n="10.5.A.5"><a class="n" href="#10.5.A.5" title="Copy link to 10.5.A.5">10.5.A.5</a><div class="t">Functional impairment or safety concern requiring inpatient stabilization</div></div>
+<div class="e topic" id="10.5.B" data-n="10.5.B"><a class="n" href="#10.5.B" title="Copy link to 10.5.B">10.5.B</a><div class="t">Resource drivers (5)</div></div>
+<div class="e point" id="10.5.B.1" data-n="10.5.B.1"><a class="n" href="#10.5.B.1" title="Copy link to 10.5.B.1">10.5.B.1</a><div class="t">Acute anxiety, panic, or trauma-related destabilization</div></div>
+<div class="e point" id="10.5.B.2" data-n="10.5.B.2"><a class="n" href="#10.5.B.2" title="Copy link to 10.5.B.2">10.5.B.2</a><div class="t">OCD rituals interfering with nutrition, medication, sleep, or safety</div></div>
+<div class="e point" id="10.5.B.3" data-n="10.5.B.3"><a class="n" href="#10.5.B.3" title="Copy link to 10.5.B.3">10.5.B.3</a><div class="t">Dissociative or somatic symptom presentations requiring diagnostic clarification</div></div>
+<div class="e point" id="10.5.B.4" data-n="10.5.B.4"><a class="n" href="#10.5.B.4" title="Copy link to 10.5.B.4">10.5.B.4</a><div class="t">Medication optimization and structured psychotherapy</div></div>
+<div class="e point" id="10.5.B.5" data-n="10.5.B.5"><a class="n" href="#10.5.B.5" title="Copy link to 10.5.B.5">10.5.B.5</a><div class="t">Functional impairment affecting discharge readiness</div></div>
+<div class="e topic" id="10.5.C" data-n="10.5.C"><a class="n" href="#10.5.C" title="Copy link to 10.5.C">10.5.C</a><div class="t">Verification note</div></div>
+<div class="e point" id="10.5.C.1" data-n="10.5.C.1"><a class="n" href="#10.5.C.1" title="Copy link to 10.5.C.1">10.5.C.1</a><div class="t">Neuroses is a legacy DRG label. Adjustment disorders F43.2x may group here or to 19419 depending on the licensed IR-DRG DX table.</div></div>
+<div class="e sec" id="10.6" data-n="10.6"><a class="n" href="#10.6" title="Copy link to 10.6">10.6</a><div class="t">Personality &amp; Impulse Control  ·  IR-DRG 19412 Relative weights (base / w-CC / w-MCC): 0.9545,1.7243,4.3943</div></div>
+<div class="e topic" id="10.6.A" data-n="10.6.A"><a class="n" href="#10.6.A" title="Copy link to 10.6.A">10.6.A</a><div class="t">Cardinal features (5)</div></div>
+<div class="e point" id="10.6.A.1" data-n="10.6.A.1"><a class="n" href="#10.6.A.1" title="Copy link to 10.6.A.1">10.6.A.1</a><div class="t">Enduring maladaptive patterns</div></div>
+<div class="e point" id="10.6.A.2" data-n="10.6.A.2"><a class="n" href="#10.6.A.2" title="Copy link to 10.6.A.2">10.6.A.2</a><div class="t">Emotional dysregulation</div></div>
+<div class="e point" id="10.6.A.3" data-n="10.6.A.3"><a class="n" href="#10.6.A.3" title="Copy link to 10.6.A.3">10.6.A.3</a><div class="t">Impulsive behaviors</div></div>
+<div class="e point" id="10.6.A.4" data-n="10.6.A.4"><a class="n" href="#10.6.A.4" title="Copy link to 10.6.A.4">10.6.A.4</a><div class="t">Self-harm gestures</div></div>
+<div class="e point" id="10.6.A.5" data-n="10.6.A.5"><a class="n" href="#10.6.A.5" title="Copy link to 10.6.A.5">10.6.A.5</a><div class="t">Poor impulse control</div></div>
+<div class="e topic" id="10.6.B" data-n="10.6.B"><a class="n" href="#10.6.B" title="Copy link to 10.6.B">10.6.B</a><div class="t">Resource drivers (5)</div></div>
+<div class="e point" id="10.6.B.1" data-n="10.6.B.1"><a class="n" href="#10.6.B.1" title="Copy link to 10.6.B.1">10.6.B.1</a><div class="t">Acute crisis</div></div>
+<div class="e point" id="10.6.B.2" data-n="10.6.B.2"><a class="n" href="#10.6.B.2" title="Copy link to 10.6.B.2">10.6.B.2</a><div class="t">Dangerous impulsive behaviors</div></div>
+<div class="e point" id="10.6.B.3" data-n="10.6.B.3"><a class="n" href="#10.6.B.3" title="Copy link to 10.6.B.3">10.6.B.3</a><div class="t">Self-harm or aggression risk</div></div>
+<div class="e point" id="10.6.B.4" data-n="10.6.B.4"><a class="n" href="#10.6.B.4" title="Copy link to 10.6.B.4">10.6.B.4</a><div class="t">Safety management</div></div>
+<div class="e point" id="10.6.B.5" data-n="10.6.B.5"><a class="n" href="#10.6.B.5" title="Copy link to 10.6.B.5">10.6.B.5</a><div class="t">Long-term instability with repeated crisis presentations</div></div>
+<div class="e topic" id="10.6.C" data-n="10.6.C"><a class="n" href="#10.6.C" title="Copy link to 10.6.C">10.6.C</a><div class="t">Verification note</div></div>
+<div class="e point" id="10.6.C.1" data-n="10.6.C.1"><a class="n" href="#10.6.C.1" title="Copy link to 10.6.C.1">10.6.C.1</a><div class="t">F63 impulse-control codes are an edge zone; verify operational grouping against the licensed IR- DRG DX table.</div></div>
+<div class="e sec" id="10.7" data-n="10.7"><a class="n" href="#10.7" title="Copy link to 10.7">10.7</a><div class="t">Organic Disturbances &amp; ID  ·  IR-DRG 19416 Relative weights (base / w-CC / w-MCC): 1.0174,1.8864,2.9408</div></div>
+<div class="e topic" id="10.7.A" data-n="10.7.A"><a class="n" href="#10.7.A" title="Copy link to 10.7.A">10.7.A</a><div class="t">Cardinal features (5)</div></div>
+<div class="e point" id="10.7.A.1" data-n="10.7.A.1"><a class="n" href="#10.7.A.1" title="Copy link to 10.7.A.1">10.7.A.1</a><div class="t">Psychiatric symptoms due to brain disease, cognitive impairment, or organic etiology</div></div>
+<div class="e point" id="10.7.A.2" data-n="10.7.A.2"><a class="n" href="#10.7.A.2" title="Copy link to 10.7.A.2">10.7.A.2</a><div class="t">Delirium, dementia, or intellectual disability-related presentation</div></div>
+<div class="e point" id="10.7.A.3" data-n="10.7.A.3"><a class="n" href="#10.7.A.3" title="Copy link to 10.7.A.3">10.7.A.3</a><div class="t">Memory deficits or cognitive decline</div></div>
+<div class="e point" id="10.7.A.4" data-n="10.7.A.4"><a class="n" href="#10.7.A.4" title="Copy link to 10.7.A.4">10.7.A.4</a><div class="t">Agitation, wandering, disinhibition, or unsafe behavior</div></div>
+<div class="e point" id="10.7.A.5" data-n="10.7.A.5"><a class="n" href="#10.7.A.5" title="Copy link to 10.7.A.5">10.7.A.5</a><div class="t">Need to link symptoms to medical or neurocognitive causality where applicable</div></div>
+<div class="e topic" id="10.7.B" data-n="10.7.B"><a class="n" href="#10.7.B" title="Copy link to 10.7.B">10.7.B</a><div class="t">Resource drivers (5)</div></div>
+<div class="e point" id="10.7.B.1" data-n="10.7.B.1"><a class="n" href="#10.7.B.1" title="Copy link to 10.7.B.1">10.7.B.1</a><div class="t">Medical causality</div></div>
+<div class="e point" id="10.7.B.2" data-n="10.7.B.2"><a class="n" href="#10.7.B.2" title="Copy link to 10.7.B.2">10.7.B.2</a><div class="t">Behavioral risk</div></div>
+<div class="e point" id="10.7.B.3" data-n="10.7.B.3"><a class="n" href="#10.7.B.3" title="Copy link to 10.7.B.3">10.7.B.3</a><div class="t">Constant supervision</div></div>
+<div class="e point" id="10.7.B.4" data-n="10.7.B.4"><a class="n" href="#10.7.B.4" title="Copy link to 10.7.B.4">10.7.B.4</a><div class="t">Unsafe discharge environment</div></div>
+<div class="e point" id="10.7.B.5" data-n="10.7.B.5"><a class="n" href="#10.7.B.5" title="Copy link to 10.7.B.5">10.7.B.5</a><div class="t">Complex placement or caregiver limitations</div></div>
+<div class="e sec" id="10.8" data-n="10.8"><a class="n" href="#10.8" title="Copy link to 10.8">10.8</a><div class="t">Childhood Onset Disorders  ·  IR-DRG 19417 Relative weights (base / w-CC / w-MCC): 1.0678,2.1065,3.0010</div></div>
+<div class="e topic" id="10.8.A" data-n="10.8.A"><a class="n" href="#10.8.A" title="Copy link to 10.8.A">10.8.A</a><div class="t">Cardinal features (5)</div></div>
+<div class="e point" id="10.8.A.1" data-n="10.8.A.1"><a class="n" href="#10.8.A.1" title="Copy link to 10.8.A.1">10.8.A.1</a><div class="t">Neurodevelopmental or childhood-onset behavioral disorders</div></div>
+<div class="e point" id="10.8.A.2" data-n="10.8.A.2"><a class="n" href="#10.8.A.2" title="Copy link to 10.8.A.2">10.8.A.2</a><div class="t">ADHD, ASD, ODD, or conduct disorder where admission-relevant</div></div>
+<div class="e point" id="10.8.A.3" data-n="10.8.A.3"><a class="n" href="#10.8.A.3" title="Copy link to 10.8.A.3">10.8.A.3</a><div class="t">Hyperactivity, impulsivity, aggression, or severe behavioral escalation</div></div>
+<div class="e point" id="10.8.A.4" data-n="10.8.A.4"><a class="n" href="#10.8.A.4" title="Copy link to 10.8.A.4">10.8.A.4</a><div class="t">Social, emotional, communication, or developmental impairment</div></div>
+<div class="e point" id="10.8.A.5" data-n="10.8.A.5"><a class="n" href="#10.8.A.5" title="Copy link to 10.8.A.5">10.8.A.5</a><div class="t">CAMHS-specific complexity</div></div>
+<div class="e topic" id="10.8.B" data-n="10.8.B"><a class="n" href="#10.8.B" title="Copy link to 10.8.B">10.8.B</a><div class="t">Resource drivers (5)</div></div>
+<div class="e point" id="10.8.B.1" data-n="10.8.B.1"><a class="n" href="#10.8.B.1" title="Copy link to 10.8.B.1">10.8.B.1</a><div class="t">Risk to self, family, or peers</div></div>
+<div class="e point" id="10.8.B.2" data-n="10.8.B.2"><a class="n" href="#10.8.B.2" title="Copy link to 10.8.B.2">10.8.B.2</a><div class="t">Severe behavioral escalation</div></div>
+<div class="e point" id="10.8.B.3" data-n="10.8.B.3"><a class="n" href="#10.8.B.3" title="Copy link to 10.8.B.3">10.8.B.3</a><div class="t">Family and school-system complexity</div></div>
+<div class="e point" id="10.8.B.4" data-n="10.8.B.4"><a class="n" href="#10.8.B.4" title="Copy link to 10.8.B.4">10.8.B.4</a><div class="t">Safeguarding or placement concerns</div></div>
+<div class="e point" id="10.8.B.5" data-n="10.8.B.5"><a class="n" href="#10.8.B.5" title="Copy link to 10.8.B.5">10.8.B.5</a><div class="t">Need for structured multidisciplinary stabilization</div></div>
+<div class="e sec" id="10.9" data-n="10.9"><a class="n" href="#10.9" title="Copy link to 10.9">10.9</a><div class="t">Other Depressive Disorders  ·  IR-DRG 19414 Relative weights (base / w-CC / w-MCC): 1.3341,2.6317,3.9588</div></div>
+<div class="e topic" id="10.9.A" data-n="10.9.A"><a class="n" href="#10.9.A" title="Copy link to 10.9.A">10.9.A</a><div class="t">Cardinal features (6)</div></div>
+<div class="e point" id="10.9.A.1" data-n="10.9.A.1"><a class="n" href="#10.9.A.1" title="Copy link to 10.9.A.1">10.9.A.1</a><div class="t">Persistent depressive disorder / dysthymia: chronic depressed mood</div></div>
+<div class="e point" id="10.9.A.2" data-n="10.9.A.2"><a class="n" href="#10.9.A.2" title="Copy link to 10.9.A.2">10.9.A.2</a><div class="t">Duration at least 2 years in adults or 1 year in children/adolescents</div></div>
+<div class="e point" id="10.9.A.3" data-n="10.9.A.3"><a class="n" href="#10.9.A.3" title="Copy link to 10.9.A.3">10.9.A.3</a><div class="t">Never without Criteria A/B symptoms for more than 2 months</div></div>
+<div class="e point" id="10.9.A.4" data-n="10.9.A.4"><a class="n" href="#10.9.A.4" title="Copy link to 10.9.A.4">10.9.A.4</a><div class="t">At least two: appetite, sleep, energy, self-esteem, concentration, or hopelessness</div></div>
+<div class="e point" id="10.9.A.5" data-n="10.9.A.5"><a class="n" href="#10.9.A.5" title="Copy link to 10.9.A.5">10.9.A.5</a><div class="t">Other specified or unspecified depressive disorders causing distress or impairment</div></div>
+<div class="e point" id="10.9.A.6" data-n="10.9.A.6"><a class="n" href="#10.9.A.6" title="Copy link to 10.9.A.6">10.9.A.6</a><div class="t">PMDD only when supported by the licensed IR-DRG diagnosis table</div></div>
+<div class="e topic" id="10.9.B" data-n="10.9.B"><a class="n" href="#10.9.B" title="Copy link to 10.9.B">10.9.B</a><div class="t">Resource drivers (5)</div></div>
+<div class="e point" id="10.9.B.1" data-n="10.9.B.1"><a class="n" href="#10.9.B.1" title="Copy link to 10.9.B.1">10.9.B.1</a><div class="t">Lower baseline intensity</div></div>
+<div class="e point" id="10.9.B.2" data-n="10.9.B.2"><a class="n" href="#10.9.B.2" title="Copy link to 10.9.B.2">10.9.B.2</a><div class="t">Escalates with complexity</div></div>
+<div class="e point" id="10.9.B.3" data-n="10.9.B.3"><a class="n" href="#10.9.B.3" title="Copy link to 10.9.B.3">10.9.B.3</a><div class="t">Functional impact</div></div>
+<div class="e point" id="10.9.B.4" data-n="10.9.B.4"><a class="n" href="#10.9.B.4" title="Copy link to 10.9.B.4">10.9.B.4</a><div class="t">Longer treatment duration than acute depression</div></div>
+<div class="e point" id="10.9.B.5" data-n="10.9.B.5"><a class="n" href="#10.9.B.5" title="Copy link to 10.9.B.5">10.9.B.5</a><div class="t">Superimposed major depressive episodes when present</div></div>
+<div class="e sec" id="10.10" data-n="10.10"><a class="n" href="#10.10" title="Copy link to 10.10">10.10</a><div class="t">Other Mental Disorders  ·  IR-DRG 19419 Relative weights (base / w-CC / w-MCC): 1.1254,2.2200,3.0452</div></div>
+<div class="e topic" id="10.10.A" data-n="10.10.A"><a class="n" href="#10.10.A" title="Copy link to 10.10.A">10.10.A</a><div class="t">Cardinal features (5)</div></div>
+<div class="e point" id="10.10.A.1" data-n="10.10.A.1"><a class="n" href="#10.10.A.1" title="Copy link to 10.10.A.1">10.10.A.1</a><div class="t">Residual, transient, stress-related, or unclassified psychiatric states</div></div>
+<div class="e point" id="10.10.A.2" data-n="10.10.A.2"><a class="n" href="#10.10.A.2" title="Copy link to 10.10.A.2">10.10.A.2</a><div class="t">Adjustment disorders when supported by the licensed IR-DRG diagnosis table</div></div>
+<div class="e point" id="10.10.A.3" data-n="10.10.A.3"><a class="n" href="#10.10.A.3" title="Copy link to 10.10.A.3">10.10.A.3</a><div class="t">Stress reactions and somatic symptom-related presentations</div></div>
+<div class="e point" id="10.10.A.4" data-n="10.10.A.4"><a class="n" href="#10.10.A.4" title="Copy link to 10.10.A.4">10.10.A.4</a><div class="t">Psychiatric response to severe illness or life events with safety risk or functional collapse</div></div>
+<div class="e point" id="10.10.A.5" data-n="10.10.A.5"><a class="n" href="#10.10.A.5" title="Copy link to 10.10.A.5">10.10.A.5</a><div class="t">Other residual psychiatric conditions supported by the licensed IR-DRG diagnosis table</div></div>
+<div class="e topic" id="10.10.B" data-n="10.10.B"><a class="n" href="#10.10.B" title="Copy link to 10.10.B">10.10.B</a><div class="t">Resource drivers (3)</div></div>
+<div class="e point" id="10.10.B.1" data-n="10.10.B.1"><a class="n" href="#10.10.B.1" title="Copy link to 10.10.B.1">10.10.B.1</a><div class="t">Usually lower baseline intensity</div></div>
+<div class="e point" id="10.10.B.2" data-n="10.10.B.2"><a class="n" href="#10.10.B.2" title="Copy link to 10.10.B.2">10.10.B.2</a><div class="t">Escalates with crisis, safety risk, or comorbidity</div></div>
+<div class="e point" id="10.10.B.3" data-n="10.10.B.3"><a class="n" href="#10.10.B.3" title="Copy link to 10.10.B.3">10.10.B.3</a><div class="t">Shorter stabilization unless complicated by behavioral risk or medical complexity</div></div>
+<div class="e topic" id="10.10.C" data-n="10.10.C"><a class="n" href="#10.10.C" title="Copy link to 10.10.C">10.10.C</a><div class="t">Verification note</div></div>
+<div class="e point" id="10.10.C.1" data-n="10.10.C.1"><a class="n" href="#10.10.C.1" title="Copy link to 10.10.C.1">10.10.C.1</a><div class="t">Adjustment disorders F43.2x and gender/sexual/psychosexual codes require identity-safe terminology and licensed IR-DRG DX table confirmation when operationally relevant.</div></div></div></section>
+<section class="page-block" id="page-11" data-page="11"><header class="ph"><span class="pn">11</span><div><h2>Setting-of-Care Principles</h2><a class="pf" href="setting-of-care.html">setting-of-care.html</a></div><span class="pc">40 entries</span></header><div class="entries"><div class="e sec" id="11.1" data-n="11.1"><a class="n" href="#11.1" title="Copy link to 11.1">11.1</a><div class="t">Setting of Care Principles</div></div>
+<div class="e sec" id="11.2" data-n="11.2"><a class="n" href="#11.2" title="Copy link to 11.2">11.2</a><div class="t">Care should rise only to the level the patient requires.</div></div>
+<div class="e topic" id="11.2.1" data-n="11.2.1"><a class="n" href="#11.2.1" title="Copy link to 11.2.1">11.2.1</a><div class="t">Clinical necessity governs the setting</div></div>
+<div class="e topic" id="11.2.2" data-n="11.2.2"><a class="n" href="#11.2.2" title="Copy link to 11.2.2">11.2.2</a><div class="t">Care intensity must be distinguished</div></div>
+<div class="e topic" id="11.2.3" data-n="11.2.3"><a class="n" href="#11.2.3" title="Copy link to 11.2.3">11.2.3</a><div class="t">The treatment is not the setting</div></div>
+<div class="e sec" id="11.3" data-n="11.3"><a class="n" href="#11.3" title="Copy link to 11.3">11.3</a><div class="t">Behavior is shaped by information, incentives, and systems.</div></div>
+<div class="e topic" id="11.3.1" data-n="11.3.1"><a class="n" href="#11.3.1" title="Copy link to 11.3.1">11.3.1</a><div class="t">Insurance must manage information asymmetry</div></div>
+<div class="e topic" id="11.3.2" data-n="11.3.2"><a class="n" href="#11.3.2" title="Copy link to 11.3.2">11.3.2</a><div class="t">Provider behavior is shaped by systems</div></div>
+<div class="e sec" id="11.4" data-n="11.4"><a class="n" href="#11.4" title="Copy link to 11.4">11.4</a><div class="t">Management should be proportionate, developmental, and fair.</div></div>
+<div class="e topic" id="11.4.1" data-n="11.4.1"><a class="n" href="#11.4.1" title="Copy link to 11.4.1">11.4.1</a><div class="t">Inform</div></div>
+<div class="e topic" id="11.4.2" data-n="11.4.2"><a class="n" href="#11.4.2" title="Copy link to 11.4.2">11.4.2</a><div class="t">Compare</div></div>
+<div class="e topic" id="11.4.3" data-n="11.4.3"><a class="n" href="#11.4.3" title="Copy link to 11.4.3">11.4.3</a><div class="t">Engage</div></div>
+<div class="e topic" id="11.4.4" data-n="11.4.4"><a class="n" href="#11.4.4" title="Copy link to 11.4.4">11.4.4</a><div class="t">Correct</div></div>
+<div class="e topic" id="11.4.5" data-n="11.4.5"><a class="n" href="#11.4.5" title="Copy link to 11.4.5">11.4.5</a><div class="t">Monitor</div></div>
+<div class="e topic" id="11.4.6" data-n="11.4.6"><a class="n" href="#11.4.6" title="Copy link to 11.4.6">11.4.6</a><div class="t">Escalate</div></div>
+<div class="e sec" id="11.5" data-n="11.5"><a class="n" href="#11.5" title="Copy link to 11.5">11.5</a><div class="t">Design incentives carefully; interpret signals humbly.</div></div>
+<div class="e topic" id="11.5.1" data-n="11.5.1"><a class="n" href="#11.5.1" title="Copy link to 11.5.1">11.5.1</a><div class="t">Payment must not reward avoidable intensity</div></div>
+<div class="e topic" id="11.5.2" data-n="11.5.2"><a class="n" href="#11.5.2" title="Copy link to 11.5.2">11.5.2</a><div class="t">A signal is an invitation to inquiry—not a verdict</div></div>
+<div class="e sec" id="11.6" data-n="11.6"><a class="n" href="#11.6" title="Copy link to 11.6">11.6</a><div class="t">Difference is not dysfunction.</div></div>
+<div class="e topic" id="11.6.1" data-n="11.6.1"><a class="n" href="#11.6.1" title="Copy link to 11.6.1">11.6.1</a><div class="t">Separate variation from unwarranted variation</div></div>
+<div class="e topic" id="11.6.2" data-n="11.6.2"><a class="n" href="#11.6.2" title="Copy link to 11.6.2">11.6.2</a><div class="t">Peer comparison must be credible and fair</div></div>
+<div class="e sec" id="11.7" data-n="11.7"><a class="n" href="#11.7" title="Copy link to 11.7">11.7</a><div class="t">Appropriateness must remain coherent from request to payment.</div></div>
+<div class="e topic" id="11.7.1" data-n="11.7.1"><a class="n" href="#11.7.1" title="Copy link to 11.7.1">11.7.1</a><div class="t">Request</div></div>
+<div class="e topic" id="11.7.2" data-n="11.7.2"><a class="n" href="#11.7.2" title="Copy link to 11.7.2">11.7.2</a><div class="t">Authorization</div></div>
+<div class="e topic" id="11.7.3" data-n="11.7.3"><a class="n" href="#11.7.3" title="Copy link to 11.7.3">11.7.3</a><div class="t">Treatment</div></div>
+<div class="e topic" id="11.7.4" data-n="11.7.4"><a class="n" href="#11.7.4" title="Copy link to 11.7.4">11.7.4</a><div class="t">Documentation</div></div>
+<div class="e topic" id="11.7.5" data-n="11.7.5"><a class="n" href="#11.7.5" title="Copy link to 11.7.5">11.7.5</a><div class="t">Claim</div></div>
+<div class="e topic" id="11.7.6" data-n="11.7.6"><a class="n" href="#11.7.6" title="Copy link to 11.7.6">11.7.6</a><div class="t">Payment</div></div>
+<div class="e topic" id="11.7.7" data-n="11.7.7"><a class="n" href="#11.7.7" title="Copy link to 11.7.7">11.7.7</a><div class="t">Controls must span the lifecycle</div></div>
+<div class="e topic" id="11.7.8" data-n="11.7.8"><a class="n" href="#11.7.8" title="Copy link to 11.7.8">11.7.8</a><div class="t">Prospective stewardship is superior</div></div>
+<div class="e sec" id="11.8" data-n="11.8"><a class="n" href="#11.8" title="Copy link to 11.8">11.8</a><div class="t">Technology should extend judgment—not replace it.</div></div>
+<div class="e topic" id="11.8.1" data-n="11.8.1"><a class="n" href="#11.8.1" title="Copy link to 11.8.1">11.8.1</a><div class="t">Automation should identify; clinicians should judge</div></div>
+<div class="e topic" id="11.8.2" data-n="11.8.2"><a class="n" href="#11.8.2" title="Copy link to 11.8.2">11.8.2</a><div class="t">The burden of control follows the burden of risk</div></div>
+<div class="e sec" id="11.9" data-n="11.9"><a class="n" href="#11.9" title="Copy link to 11.9">11.9</a><div class="t">Stewardship is legitimate only when safety and fairness are indivisible.</div></div>
+<div class="e topic" id="11.9.1" data-n="11.9.1"><a class="n" href="#11.9.1" title="Copy link to 11.9.1">11.9.1</a><div class="t">Patient safety is the non-negotiable boundary</div></div>
+<div class="e topic" id="11.9.2" data-n="11.9.2"><a class="n" href="#11.9.2" title="Copy link to 11.9.2">11.9.2</a><div class="t">Due process is itself an insurance control</div></div>
+<div class="e sec" id="11.10" data-n="11.10"><a class="n" href="#11.10" title="Copy link to 11.10">11.10</a><div class="t">Success is alignment—not denial volume.</div></div>
+<div class="e topic" id="11.10.1" data-n="11.10.1"><a class="n" href="#11.10.1" title="Copy link to 11.10.1">11.10.1</a><div class="t">Measure behavioral improvement</div></div>
+<div class="e topic" id="11.10.2" data-n="11.10.2"><a class="n" href="#11.10.2" title="Copy link to 11.10.2">11.10.2</a><div class="t">The ultimate objective is alignment</div></div>
+<div class="e sec" id="11.11" data-n="11.11"><a class="n" href="#11.11" title="Copy link to 11.11">11.11</a><div class="t">Care should follow clinical purpose—not administrative habit or economic architecture.</div></div></div></section>
+<section class="page-block" id="page-12" data-page="12"><header class="ph"><span class="pn">12</span><div><h2>Source Corpus</h2><a class="pf" href="source-corpus.html">source-corpus.html</a></div><span class="pc">30 entries</span></header><p class="lead">23 authorities across six groups.</p><div class="entries"><div class="e sec" id="12.1" data-n="12.1"><a class="n" href="#12.1" title="Copy link to 12.1">12.1</a><div class="t">Source Corpus The Authorities Beneath Every Page</div></div>
+<div class="e sec" id="12.2" data-n="12.2"><a class="n" href="#12.2" title="Copy link to 12.2">12.2</a><div class="t">The one boundary that governs the whole corpus</div></div>
+<div class="e topic" id="12.2.1" data-n="12.2.1"><a class="n" href="#12.2.1" title="Copy link to 12.2.1">12.2.1</a><div class="t">IR-DRG is licensed, proprietary, and not reproduced</div></div>
+<div class="e sec" id="12.3" data-n="12.3"><a class="n" href="#12.3" title="Copy link to 12.3">12.3</a><div class="t">The published rules every claim is adjudicated against</div></div>
+<div class="e topic" id="12.3.1" data-n="12.3.1"><a class="n" href="#12.3.1" title="Copy link to 12.3.1">12.3.1</a><div class="t">DOH Addendum 05 — Inpatient Mental Health Relative Weights</div></div>
+<div class="e topic" id="12.3.2" data-n="12.3.2"><a class="n" href="#12.3.2" title="Copy link to 12.3.2">12.3.2</a><div class="t">DOH Coding Manual (CS v2021)</div></div>
+<div class="e topic" id="12.3.3" data-n="12.3.3"><a class="n" href="#12.3.3" title="Copy link to 12.3.3">12.3.3</a><div class="t">DOH Claims &amp; Adjudication Rules V2025</div></div>
+<div class="e topic" id="12.3.4" data-n="12.3.4"><a class="n" href="#12.3.4" title="Copy link to 12.3.4">12.3.4</a><div class="t">DOH Addendum 06 — LAMA Framework</div></div>
+<div class="e topic" id="12.3.5" data-n="12.3.5"><a class="n" href="#12.3.5" title="Copy link to 12.3.5">12.3.5</a><div class="t">DOH Mandatory Tariff</div></div>
+<div class="e topic" id="12.3.6" data-n="12.3.6"><a class="n" href="#12.3.6" title="Copy link to 12.3.6">12.3.6</a><div class="t">DOH Circular — Congenital / Hereditary &amp; Deformity Coverage</div></div>
+<div class="e sec" id="12.4" data-n="12.4"><a class="n" href="#12.4" title="Copy link to 12.4">12.4</a><div class="t">The classification systems the claims are written in</div></div>
+<div class="e topic" id="12.4.1" data-n="12.4.1"><a class="n" href="#12.4.1" title="Copy link to 12.4.1">12.4.1</a><div class="t">ICD-10-CM Official Guidelines (FY2026)</div></div>
+<div class="e topic" id="12.4.2" data-n="12.4.2"><a class="n" href="#12.4.2" title="Copy link to 12.4.2">12.4.2</a><div class="t">CPT-4 / HCPCS Level II</div></div>
+<div class="e topic" id="12.4.3" data-n="12.4.3"><a class="n" href="#12.4.3" title="Copy link to 12.4.3">12.4.3</a><div class="t">NCCI Edits</div></div>
+<div class="e sec" id="12.5" data-n="12.5"><a class="n" href="#12.5" title="Copy link to 12.5">12.5</a><div class="t">The engine that prices the encounter</div></div>
+<div class="e topic" id="12.5.1" data-n="12.5.1"><a class="n" href="#12.5.1" title="Copy link to 12.5.1">12.5.1</a><div class="t">Solventum (3M) IR-DRG — v2.x</div></div>
+<div class="e topic" id="12.5.2" data-n="12.5.2"><a class="n" href="#12.5.2" title="Copy link to 12.5.2">12.5.2</a><div class="t">CMS MS-DRG Definitions Manual</div></div>
+<div class="e topic" id="12.5.3" data-n="12.5.3"><a class="n" href="#12.5.3" title="Copy link to 12.5.3">12.5.3</a><div class="t">CDC / NCHS ICD-10-CM</div></div>
+<div class="e sec" id="12.6" data-n="12.6"><a class="n" href="#12.6" title="Copy link to 12.6">12.6</a><div class="t">The benchmarks behind every validation rule</div></div>
+<div class="e topic" id="12.6.1" data-n="12.6.1"><a class="n" href="#12.6.1" title="Copy link to 12.6.1">12.6.1</a><div class="t">Sepsis-3 Definition</div></div>
+<div class="e topic" id="12.6.2" data-n="12.6.2"><a class="n" href="#12.6.2" title="Copy link to 12.6.2">12.6.2</a><div class="t">NEWS-2 / qSOFA</div></div>
+<div class="e topic" id="12.6.3" data-n="12.6.3"><a class="n" href="#12.6.3" title="Copy link to 12.6.3">12.6.3</a><div class="t">KDIGO 2012 Staging</div></div>
+<div class="e topic" id="12.6.4" data-n="12.6.4"><a class="n" href="#12.6.4" title="Copy link to 12.6.4">12.6.4</a><div class="t">Berlin Criteria</div></div>
+<div class="e topic" id="12.6.5" data-n="12.6.5"><a class="n" href="#12.6.5" title="Copy link to 12.6.5">12.6.5</a><div class="t">Gustilo–Anderson</div></div>
+<div class="e topic" id="12.6.6" data-n="12.6.6"><a class="n" href="#12.6.6" title="Copy link to 12.6.6">12.6.6</a><div class="t">West Haven Criteria</div></div>
+<div class="e topic" id="12.6.7" data-n="12.6.7"><a class="n" href="#12.6.7" title="Copy link to 12.6.7">12.6.7</a><div class="t">ACOG Thresholds</div></div>
+<div class="e topic" id="12.6.8" data-n="12.6.8"><a class="n" href="#12.6.8" title="Copy link to 12.6.8">12.6.8</a><div class="t">DSM-5-TR (APA)</div></div>
+<div class="e topic" id="12.6.9" data-n="12.6.9"><a class="n" href="#12.6.9" title="Copy link to 12.6.9">12.6.9</a><div class="t">UHDDS / MEAT</div></div>
+<div class="e sec" id="12.7" data-n="12.7"><a class="n" href="#12.7" title="Copy link to 12.7">12.7</a><div class="t">The judgement layer that binds the sources together</div></div>
+<div class="e topic" id="12.7.1" data-n="12.7.1"><a class="n" href="#12.7.1" title="Copy link to 12.7.1">12.7.1</a><div class="t">DRGs Analysis / Clinical Validation — Dr. Sherif Alattar</div></div></div></section>
+<section class="page-block" id="page-13" data-page="13"><header class="ph"><span class="pn">13</span><div><h2>Visual Archive (Gallery)</h2><a class="pf" href="gallery.html">gallery.html</a></div><span class="pc">13 entries</span></header><p class="lead">Dashboards and short films — evidence of data-management practice.</p><div class="entries"><div class="e sec" id="13.1" data-n="13.1"><a class="n" href="#13.1" title="Copy link to 13.1">13.1</a><div class="t">Visual Archive</div></div>
+<div class="e sec" id="13.2" data-n="13.2"><a class="n" href="#13.2" title="Copy link to 13.2">13.2</a><div class="t">Motion</div></div>
+<div class="e topic" id="13.2.1" data-n="13.2.1"><a class="n" href="#13.2.1" title="Copy link to 13.2.1">13.2.1</a><div class="t">The Psychiatric Landscape</div></div>
+<div class="e topic" id="13.2.2" data-n="13.2.2"><a class="n" href="#13.2.2" title="Copy link to 13.2.2">13.2.2</a><div class="t">The Dashboard, in Motion</div></div>
+<div class="e topic" id="13.2.3" data-n="13.2.3"><a class="n" href="#13.2.3" title="Copy link to 13.2.3">13.2.3</a><div class="t">Year in Review 2023</div></div>
+<div class="e sec" id="13.3" data-n="13.3"><a class="n" href="#13.3" title="Copy link to 13.3">13.3</a><div class="t">Static Designs by Sherif</div></div>
+<div class="e topic" id="13.3.1" data-n="13.3.1"><a class="n" href="#13.3.1" title="Copy link to 13.3.1">13.3.1</a><div class="t">The Department Crest</div></div>
+<div class="e sec" id="13.4" data-n="13.4"><a class="n" href="#13.4" title="Copy link to 13.4">13.4</a><div class="t">Data Visualization</div></div>
+<div class="e topic" id="13.4.1" data-n="13.4.1"><a class="n" href="#13.4.1" title="Copy link to 13.4.1">13.4.1</a><div class="t">The Savings Dashboard</div></div>
+<div class="e sec" id="13.5" data-n="13.5"><a class="n" href="#13.5" title="Copy link to 13.5">13.5</a><div class="t">Service Heroes</div></div>
+<div class="e topic" id="13.5.1" data-n="13.5.1"><a class="n" href="#13.5.1" title="Copy link to 13.5.1">13.5.1</a><div class="t">Bupa Arabia — “Service Heroes”</div></div>
+<div class="e sec" id="13.6" data-n="13.6"><a class="n" href="#13.6" title="Copy link to 13.6">13.6</a><div class="t">The Cards</div></div>
+<div class="e topic" id="13.6.1" data-n="13.6.1"><a class="n" href="#13.6.1" title="Copy link to 13.6.1">13.6.1</a><div class="t">The RDD Process</div></div></div></section>
+<section class="page-block" id="page-14" data-page="14"><header class="ph"><span class="pn">14</span><div><h2>About the Author — Executive Dossier</h2><a class="pf" href="executive-summary.html">executive-summary.html</a></div><span class="pc">54 entries</span></header><div class="entries"><div class="e sec" id="14.1" data-n="14.1"><a class="n" href="#14.1" title="Copy link to 14.1">14.1</a><div class="t">Dr. Sherif Alattar</div></div>
+<div class="e sec" id="14.2" data-n="14.2"><a class="n" href="#14.2" title="Copy link to 14.2">14.2</a><div class="t">Why this portfolio exists.</div></div>
+<div class="e topic" id="14.2.1" data-n="14.2.1"><a class="n" href="#14.2.1" title="Copy link to 14.2.1">14.2.1</a><div class="t">Credibility</div></div>
+<div class="e topic" id="14.2.2" data-n="14.2.2"><a class="n" href="#14.2.2" title="Copy link to 14.2.2">14.2.2</a><div class="t">Transparency</div></div>
+<div class="e sec" id="14.3" data-n="14.3"><a class="n" href="#14.3" title="Copy link to 14.3">14.3</a><div class="t">What This Dossier Contains</div></div>
+<div class="e topic" id="14.3.1" data-n="14.3.1"><a class="n" href="#14.3.1" title="Copy link to 14.3.1">14.3.1</a><div class="t">Clinical Practice Foundation</div></div>
+<div class="e topic" id="14.3.2" data-n="14.3.2"><a class="n" href="#14.3.2" title="Copy link to 14.3.2">14.3.2</a><div class="t">AUC Academic Formation</div></div>
+<div class="e topic" id="14.3.3" data-n="14.3.3"><a class="n" href="#14.3.3" title="Copy link to 14.3.3">14.3.3</a><div class="t">Multipayer Operations</div></div>
+<div class="e topic" id="14.3.4" data-n="14.3.4"><a class="n" href="#14.3.4" title="Copy link to 14.3.4">14.3.4</a><div class="t">Provider RCM Operations</div></div>
+<div class="e topic" id="14.3.5" data-n="14.3.5"><a class="n" href="#14.3.5" title="Copy link to 14.3.5">14.3.5</a><div class="t">Cross-Regulatory GCC Practice</div></div>
+<div class="e topic" id="14.3.6" data-n="14.3.6"><a class="n" href="#14.3.6" title="Copy link to 14.3.6">14.3.6</a><div class="t">Operational &amp; Analytical Architecture</div></div>
+<div class="e sec" id="14.4" data-n="14.4"><a class="n" href="#14.4" title="Copy link to 14.4">14.4</a><div class="t">Career Trajectory</div></div>
+<div class="e sec" id="14.5" data-n="14.5"><a class="n" href="#14.5" title="Copy link to 14.5">14.5</a><div class="t">Skills Developed Across the Milestones</div></div>
+<div class="e topic" id="14.5.1" data-n="14.5.1"><a class="n" href="#14.5.1" title="Copy link to 14.5.1">14.5.1</a><div class="t">Clinical Governance &amp; Medical-Necessity Assurance</div></div>
+<div class="e topic" id="14.5.2" data-n="14.5.2"><a class="n" href="#14.5.2" title="Copy link to 14.5.2">14.5.2</a><div class="t">Medical Coding, IR-DRG &amp; Documentation Integrity</div></div>
+<div class="e topic" id="14.5.3" data-n="14.5.3"><a class="n" href="#14.5.3" title="Copy link to 14.5.3">14.5.3</a><div class="t">Utilization &amp; Medical Management</div></div>
+<div class="e topic" id="14.5.4" data-n="14.5.4"><a class="n" href="#14.5.4" title="Copy link to 14.5.4">14.5.4</a><div class="t">Care Management, Case Management &amp; Population Health</div></div>
+<div class="e topic" id="14.5.5" data-n="14.5.5"><a class="n" href="#14.5.5" title="Copy link to 14.5.5">14.5.5</a><div class="t">Clinical Claims Adjudication, Payment Integrity &amp; FWA</div></div>
+<div class="e topic" id="14.5.6" data-n="14.5.6"><a class="n" href="#14.5.6" title="Copy link to 14.5.6">14.5.6</a><div class="t">Cross-Border Regulatory Compliance &amp; Accreditation (KSA &amp; UAE)</div></div>
+<div class="e topic" id="14.5.7" data-n="14.5.7"><a class="n" href="#14.5.7" title="Copy link to 14.5.7">14.5.7</a><div class="t">Cross-Sector Payer–Provider–TPA Fluency</div></div>
+<div class="e topic" id="14.5.8" data-n="14.5.8"><a class="n" href="#14.5.8" title="Copy link to 14.5.8">14.5.8</a><div class="t">Provider Network Engagement &amp; Clinical Behavior Management</div></div>
+<div class="e topic" id="14.5.9" data-n="14.5.9"><a class="n" href="#14.5.9" title="Copy link to 14.5.9">14.5.9</a><div class="t">Value-Based Care, Healthcare Financing &amp; Medical-Cost Management</div></div>
+<div class="e topic" id="14.5.10" data-n="14.5.10"><a class="n" href="#14.5.10" title="Copy link to 14.5.10">14.5.10</a><div class="t">Enterprise Risk &amp; Clinical Quality Governance</div></div>
+<div class="e topic" id="14.5.11" data-n="14.5.11"><a class="n" href="#14.5.11" title="Copy link to 14.5.11">14.5.11</a><div class="t">Performance Intelligence &amp; Healthcare Analytics</div></div>
+<div class="e topic" id="14.5.12" data-n="14.5.12"><a class="n" href="#14.5.12" title="Copy link to 14.5.12">14.5.12</a><div class="t">Health Data Governance, Knowledge Engineering &amp; Applied AI</div></div>
+<div class="e topic" id="14.5.13" data-n="14.5.13"><a class="n" href="#14.5.13" title="Copy link to 14.5.13">14.5.13</a><div class="t">Healthcare Operating-Model Architecture &amp; Process Engineering</div></div>
+<div class="e topic" id="14.5.14" data-n="14.5.14"><a class="n" href="#14.5.14" title="Copy link to 14.5.14">14.5.14</a><div class="t">Design Thinking, Information Design &amp; Executive Communication</div></div>
+<div class="e topic" id="14.5.15" data-n="14.5.15"><a class="n" href="#14.5.15" title="Copy link to 14.5.15">14.5.15</a><div class="t">Technical Signature</div></div>
+<div class="e sec" id="14.6" data-n="14.6"><a class="n" href="#14.6" title="Copy link to 14.6">14.6</a><div class="t">Leadership Timeline</div></div>
+<div class="e sec" id="14.7" data-n="14.7"><a class="n" href="#14.7" title="Copy link to 14.7">14.7</a><div class="t">Education &amp; Qualifications</div></div>
+<div class="e topic" id="14.7.1" data-n="14.7.1"><a class="n" href="#14.7.1" title="Copy link to 14.7.1">14.7.1</a><div class="t">MB BCh — Bachelor of Medicine, Bachelor of Surgery</div></div>
+<div class="e topic" id="14.7.2" data-n="14.7.2"><a class="n" href="#14.7.2" title="Copy link to 14.7.2">14.7.2</a><div class="t">PG Diploma — Healthcare &amp; Hospital Management</div></div>
+<div class="e topic" id="14.7.3" data-n="14.7.3"><a class="n" href="#14.7.3" title="Copy link to 14.7.3">14.7.3</a><div class="t">PG Diploma — Total Quality Management for Healthcare Reform</div></div>
+<div class="e topic" id="14.7.4" data-n="14.7.4"><a class="n" href="#14.7.4" title="Copy link to 14.7.4">14.7.4</a><div class="t">Lean Six Sigma Green Belt (LSSGB)</div></div>
+<div class="e topic" id="14.7.5" data-n="14.7.5"><a class="n" href="#14.7.5" title="Copy link to 14.7.5">14.7.5</a><div class="t">IFCE — Insurance Foundation Certificate Examination</div></div>
+<div class="e topic" id="14.7.6" data-n="14.7.6"><a class="n" href="#14.7.6" title="Copy link to 14.7.6">14.7.6</a><div class="t">IELTS Academic — Band 7.5</div></div>
+<div class="e sec" id="14.8" data-n="14.8"><a class="n" href="#14.8" title="Copy link to 14.8">14.8</a><div class="t">Recognition</div></div>
+<div class="e topic" id="14.8.1" data-n="14.8.1"><a class="n" href="#14.8.1" title="Copy link to 14.8.1">14.8.1</a><div class="t">Bupa Arabia — "Service Heroes" Recognition</div></div>
+<div class="e topic" id="14.8.2" data-n="14.8.2"><a class="n" href="#14.8.2" title="Copy link to 14.8.2">14.8.2</a><div class="t">Total Care Saudi — Appointment as Roving Doctors Department Head</div></div>
+<div class="e sec" id="14.9" data-n="14.9"><a class="n" href="#14.9" title="Copy link to 14.9">14.9</a><div class="t">Document Inventory</div></div>
+<div class="e topic" id="14.9.1" data-n="14.9.1"><a class="n" href="#14.9.1" title="Copy link to 14.9.1">14.9.1</a><div class="t">Academic Credentials</div></div>
+<div class="e topic" id="14.9.2" data-n="14.9.2"><a class="n" href="#14.9.2" title="Copy link to 14.9.2">14.9.2</a><div class="t">Employment &amp; Experience</div></div>
+<div class="e topic" id="14.9.3" data-n="14.9.3"><a class="n" href="#14.9.3" title="Copy link to 14.9.3">14.9.3</a><div class="t">Recognition &amp; Awards</div></div>
+<div class="e topic" id="14.9.4" data-n="14.9.4"><a class="n" href="#14.9.4" title="Copy link to 14.9.4">14.9.4</a><div class="t">Analytical Architecture</div></div>
+<div class="e topic" id="14.9.5" data-n="14.9.5"><a class="n" href="#14.9.5" title="Copy link to 14.9.5">14.9.5</a><div class="t">Technical Signature</div></div>
+<div class="e topic" id="14.9.6" data-n="14.9.6"><a class="n" href="#14.9.6" title="Copy link to 14.9.6">14.9.6</a><div class="t">Savings by Insurance Body</div></div>
+<div class="e topic" id="14.9.7" data-n="14.9.7"><a class="n" href="#14.9.7" title="Copy link to 14.9.7">14.9.7</a><div class="t">Savings by Provider</div></div>
+<div class="e topic" id="14.9.8" data-n="14.9.8"><a class="n" href="#14.9.8" title="Copy link to 14.9.8">14.9.8</a><div class="t">Total Savings 2023 — SAR 20M</div></div>
+<div class="e topic" id="14.9.9" data-n="14.9.9"><a class="n" href="#14.9.9" title="Copy link to 14.9.9">14.9.9</a><div class="t">Geographic Coverage Map</div></div>
+<div class="e topic" id="14.9.10" data-n="14.9.10"><a class="n" href="#14.9.10" title="Copy link to 14.9.10">14.9.10</a><div class="t">Savings by Doctor</div></div>
+<div class="e topic" id="14.9.11" data-n="14.9.11"><a class="n" href="#14.9.11" title="Copy link to 14.9.11">14.9.11</a><div class="t">Reports &amp; Roving Visits</div></div>
+<div class="e topic" id="14.9.12" data-n="14.9.12"><a class="n" href="#14.9.12" title="Copy link to 14.9.12">14.9.12</a><div class="t">Engagement Figures</div></div>
+<div class="e topic" id="14.9.13" data-n="14.9.13"><a class="n" href="#14.9.13" title="Copy link to 14.9.13">14.9.13</a><div class="t">Classification of Savings</div></div>
+<div class="e topic" id="14.9.14" data-n="14.9.14"><a class="n" href="#14.9.14" title="Copy link to 14.9.14">14.9.14</a><div class="t">Payer and Provider Healthcare Operations and Optimization Systems. Colophon Compiled from the Knowledge Nexus source repository on 30 August 2026. Fourteen pages were parsed: eleven as static markup, three at dataset level. The inventory records 105 sections and 567 points. Knowledge Nexus is authored, curated and designed by Dr. Sherif Alattar, MD. The original design, writing and synthesis are the author’s; the referenced standards are not. © 2026 Dr. Sherif Alattar. All rights reserved.</div></div></div></section>
+  <p class="empty" id="empty">Nothing in the map answers to that.</p>
+</main>
+
+<div class="wrap colophon">
+  <div class="hair"></div>
+  <p><b>Method.</b> The inventory was derived from the site source files themselves, not from any secondary listing. Static pages were parsed for their heading hierarchy; pages whose content is generated at runtime from an embedded dataset &mdash; the DRGs Compendium, the Denial Navigator, and the psychiatric IR-DRG tree &mdash; were parsed at the level of that dataset, so that no item is lost to rendering.</p>
+  <p style="margin-top:14px"><b>Numbering.</b> Numbering runs page.section.point. A fourth level is used in the DRGs Compendium, where content blocks sit beneath topics; in the psychiatric tree, suffixes A, B and C denote cardinal features, resource drivers and verification notes respectively. Click any number to copy its permanent address.</p>
+  <p style="margin-top:14px">Also available as a print document: <a href="knowledge-nexus-content-map.pdf">the content map, PDF, 38 pages</a>. &copy; 2026 Dr. Sherif Alattar.</p>
+</div>
+
+<script src="audio.js"></script>
+<script data-goatcounter="https://sherifalattar.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+<script>
+/* ============================================================
+   1 · NEURAL FIELD — hand-written, no libraries
+   A depth-projected particle cloud: points drift in 3D, near
+   neighbours wire together, and the whole field parallaxes to
+   the pointer. Density and motion scale down on small screens
+   and stop entirely under prefers-reduced-motion.
+   ============================================================ */
+(function(){
+  var cv = document.getElementById('neural');
+  if (!cv || !cv.getContext) return;
+  var ctx = cv.getContext('2d');
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var w, h, dpr, pts, cx, cy, FOV = 620;
+  var mx = 0, my = 0, tx = 0, ty = 0;
+
+  function count(){
+    var a = Math.min(window.innerWidth, 1600) * Math.min(window.innerHeight, 1000);
+    return Math.max(120, Math.min(340, Math.round(a / 4800)));
+  }
+  function seed(){
+    pts = [];
+    for (var i = 0, n = count(); i < n; i++){
+      pts.push({
+        x: (Math.random() - .5) * 1500,
+        y: (Math.random() - .5) * 1000,
+        z: Math.random() * 900 + 90,
+        vx: (Math.random() - .5) * .16,
+        vy: (Math.random() - .5) * .13,
+        vz: -(Math.random() * .30 + .10),
+        r: Math.random() * 1.5 + .5,
+        gold: Math.random() < .30
+      });
+    }
+  }
+  function resize(){
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    w = cv.clientWidth; h = cv.clientHeight;
+    cv.width = Math.round(w * dpr); cv.height = Math.round(h * dpr);
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    cx = w / 2; cy = h / 2;
+    seed();
+  }
+
+  var t0 = 0;
+  function frame(now){
+    if (!t0) t0 = now || 0;
+    /* arrival: 0 -> 1 over the first 2.2s, eased, driving speed and brightness */
+    var el = Math.min(1, ((now || 0) - t0) / 2200);
+    var arrive = reduce ? 1 : 1 - Math.pow(1 - el, 3);
+    /* the field converges: it starts flung wide of the frame and settles inward,
+       so the constellation assembles rather than simply being there */
+    var spread = reduce ? 1 : 1 + 1.9 * (1 - arrive);
+    ctx.clearRect(0, 0, w, h);
+    tx += (mx - tx) * .045; ty += (my - ty) * .045;
+
+    var proj = [], i, p, s;
+    for (i = 0; i < pts.length; i++){
+      p = pts[i];
+      if (!reduce){ p.x += p.vx; p.y += p.vy; p.z += p.vz; }
+      if (p.z < 60){ p.z = 990; p.x = (Math.random() - .5) * 1500; p.y = (Math.random() - .5) * 1000; }
+      s = FOV / p.z;
+      proj.push({
+        sx: cx + (p.x + tx * 42) * s * spread,
+        sy: cy + (p.y + ty * 30) * s * spread,
+        /* capped: an uncapped near-field point balloons into bokeh */
+        r: Math.max(.4, Math.min(2.3, p.r * s)),
+        a: Math.max(0, Math.min(1, (1000 - p.z) / 780)) * (0.10 + 0.90 * arrive),
+        gold: p.gold
+      });
+    }
+
+    /* wires first, so the nodes sit on top of them */
+    ctx.lineWidth = 1;
+    for (i = 0; i < proj.length; i++){
+      for (var j = i + 1; j < proj.length; j++){
+        var dx = proj[i].sx - proj[j].sx, dy = proj[i].sy - proj[j].sy;
+        var d2 = dx * dx + dy * dy;
+        if (d2 > 26000) continue;
+        var o = (1 - Math.sqrt(d2) / 161) * .46 * Math.min(proj[i].a, proj[j].a);
+        if (o <= .006) continue;
+        ctx.strokeStyle = (proj[i].gold && proj[j].gold)
+          ? 'rgba(198,163,90,' + o.toFixed(3) + ')'
+          : 'rgba(15,166,194,' + o.toFixed(3) + ')';
+        ctx.beginPath(); ctx.moveTo(proj[i].sx, proj[i].sy); ctx.lineTo(proj[j].sx, proj[j].sy); ctx.stroke();
+      }
+    }
+    ctx.globalCompositeOperation = 'lighter';
+    for (i = 0; i < proj.length; i++){
+      var q = proj[i], c = q.gold ? '198,163,90' : '176,212,235';
+      var g = ctx.createRadialGradient(q.sx, q.sy, 0, q.sx, q.sy, q.r * 3.4);
+      g.addColorStop(0, 'rgba(' + c + ',' + (q.a * .46).toFixed(3) + ')');
+      g.addColorStop(1, 'rgba(' + c + ',0)');
+      ctx.fillStyle = g;
+      ctx.beginPath(); ctx.arc(q.sx, q.sy, q.r * 3.4, 0, 6.2832); ctx.fill();
+      ctx.fillStyle = 'rgba(' + c + ',' + Math.min(1, q.a * 1.15).toFixed(3) + ')';
+      ctx.beginPath(); ctx.arc(q.sx, q.sy, q.r * .85, 0, 6.2832); ctx.fill();
+    }
+    ctx.globalCompositeOperation = 'source-over';
+    raf = requestAnimationFrame(frame);
+  }
+
+  var raf = 0;
+  window.addEventListener('resize', resize);
+  window.addEventListener('pointermove', function(e){
+    mx = (e.clientX / window.innerWidth - .5) * 2;
+    my = (e.clientY / window.innerHeight - .5) * 2;
+  }, { passive: true });
+  document.addEventListener('visibilitychange', function(){
+    if (document.hidden) { cancelAnimationFrame(raf); raf = 0; }
+    else if (!raf) raf = requestAnimationFrame(frame);
+  });
+  resize();
+  raf = requestAnimationFrame(frame);
+})();
+
+/* ============================================================
+   2 · ENTRANCE — staged, with the sheen sweeping the plate
+   ============================================================ */
+(function(){
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var steps = [['.kicker',150],['.plate',420],['.hero .lead',980],['.hero .byline',1240],['.figures',1420],['.cue',1640]];
+  steps.forEach(function(s){
+    var el = document.querySelector(s[0]); if (!el) return;
+    if (reduce){ el.style.opacity = 1; el.style.transform = 'none'; return; }
+    setTimeout(function(){ el.classList.add('lit'); }, s[1]);
+  });
+  if (reduce) return;
+  var sheen = document.querySelector('.plate .sheen'); if (!sheen) return;
+  function sweep(){
+    sheen.animate([{ left: '-60%' }, { left: '140%' }],
+      { duration: 2600, easing: 'cubic-bezier(.4,0,.2,1)' });
+  }
+  setTimeout(function(){ sweep(); setInterval(sweep, 6000); }, 1200);
+})();
+
+/* ============================================================
+   3 · SCROLL PROGRESS
+   ============================================================ */
+(function(){
+  var bar = document.getElementById('progress');
+  var field = document.getElementById('neural');
+  addEventListener('scroll', function(){
+    var max = document.documentElement.scrollHeight - innerHeight;
+    if (bar) bar.style.width = (max > 0 ? (scrollY / max) * 100 : 0) + '%';
+    /* a live field behind 717 lines of reference text is noise, not atmosphere */
+    if (field) field.classList.toggle('recede', scrollY > innerHeight * 0.55);
+  }, { passive: true });
+})();
+
+/* ============================================================
+   4 · THE MAP — search, kind filter, page jump
+   ============================================================ */
+(function(){
+  var q      = document.getElementById('q');
+  var kinds  = Array.prototype.slice.call(document.querySelectorAll('.kind'));
+  var navs   = Array.prototype.slice.call(document.querySelectorAll('.chipnav'));
+  var blocks = Array.prototype.slice.call(document.querySelectorAll('.page-block'));
+  var count  = document.getElementById('count');
+  var empty  = document.getElementById('empty');
+  var all    = Array.prototype.slice.call(document.querySelectorAll('.e'));
+  var active = null;
+
+  all.forEach(function(e){ e._hay = (e.dataset.n + ' ' + e.textContent).toLowerCase(); });
+
+  function apply(){
+    var term = (q.value || '').trim().toLowerCase();
+    var shown = 0;
+    blocks.forEach(function(b){
+      var any = false;
+      Array.prototype.forEach.call(b.querySelectorAll('.e'), function(e){
+        var chip = e.querySelector('.chip');
+        var kind = chip ? chip.dataset.kind : null;
+        var ok = (!term || e._hay.indexOf(term) !== -1) && (!active || kind === active);
+        e.classList.toggle('hidden', !ok);
+        if (ok) { any = true; shown++; }
+      });
+      b.classList.toggle('hidden', !any);
+    });
+    count.textContent = shown + (shown === 1 ? ' entry' : ' entries');
+    empty.classList.toggle('on', shown === 0);
+  }
+
+  q.addEventListener('input', apply);
+  kinds.forEach(function(k){
+    k.addEventListener('click', function(){
+      active = (active === k.dataset.kind) ? null : k.dataset.kind;
+      kinds.forEach(function(o){ o.setAttribute('aria-pressed', String(o.dataset.kind === active)); });
+      apply();
+    });
+  });
+  navs.forEach(function(n){
+    n.addEventListener('click', function(){
+      var t = document.getElementById('page-' + n.dataset.target);
+      if (t) t.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+
+  /* clicking a number copies its permanent address */
+  document.addEventListener('click', function(ev){
+    var a = ev.target.closest ? ev.target.closest('.e .n') : null;
+    if (!a) return;
+    var url = location.origin + location.pathname + a.getAttribute('href');
+    if (navigator.clipboard) {
+      ev.preventDefault();
+      navigator.clipboard.writeText(url).then(function(){
+        var was = a.textContent; a.textContent = 'copied';
+        setTimeout(function(){ a.textContent = was; }, 900);
+        history.replaceState(null, '', a.getAttribute('href'));
+      }).catch(function(){});
+    }
+  });
+
+  apply();
+})();
+</script>
+<!-- sa-linkedin-badge -->
+<div id="sa-linkedin-badge" style="position:fixed;left:0;bottom:0;z-index:9999;display:flex;justify-content:flex-start;padding:0 16px 14px;pointer-events:none;">
+  <a href="https://www.linkedin.com/in/sherifalattar" target="_blank" rel="me noopener noreferrer"
+     style="pointer-events:auto;display:inline-flex;align-items:center;gap:8px;padding:7px 14px;border-radius:999px;background:rgba(10,14,22,.72);border:1px solid rgba(59,155,255,.55);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);font-family:'Inter','Segoe UI',Arial,sans-serif;font-size:12px;font-weight:600;line-height:1;letter-spacing:.02em;color:#3B9BFF;text-decoration:none;white-space:nowrap;box-shadow:0 6px 20px rgba(0,0,0,.5);">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="display:block;flex:none;"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.34V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.07 2.07 0 1 1 0-4.14 2.07 2.07 0 0 1 0 4.14zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.72v20.56C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.72V1.72C24 .77 23.2 0 22.22 0z"/></svg>
+    <span class="sa-li-name" style="display:block;line-height:1;">sherifalattar</span>
+  </a>
+</div>
+<!-- /sa-linkedin-badge -->
+<!-- sa-orcid-badge -->
+<style>@media(max-width:560px){#sa-orcid-badge .sa-orcid-name{display:none}}@media(max-width:430px){#sa-linkedin-badge .sa-li-name{display:none!important}}</style>
+<div id="sa-orcid-badge" style="position:fixed;right:0;bottom:0;z-index:9999;display:flex;justify-content:flex-end;padding:0 16px 14px;pointer-events:none;">
+  <a href="https://orcid.org/0009-0000-8799-9395" target="_blank" rel="me noopener noreferrer"
+     style="pointer-events:auto;display:inline-flex;align-items:center;gap:8px;padding:7px 14px;border-radius:999px;background:rgba(10,14,22,.72);border:1px solid rgba(201,162,75,.35);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);font-family:'Inter','Segoe UI',Arial,sans-serif;font-size:12px;font-weight:600;line-height:1;letter-spacing:.02em;color:#C9A24B;text-decoration:none;white-space:nowrap;box-shadow:0 6px 20px rgba(0,0,0,.5);">
+    <svg width="14" height="14" viewBox="0 0 256 256" role="img" aria-label="ORCID iD" style="display:block;flex:none;"><path fill="#A6CE39" d="M256 128c0 70.7-57.3 128-128 128S0 198.7 0 128 57.3 0 128 0s128 57.3 128 128z"/><g fill="#fff"><path d="M86.3 186.2H70.9V79.1h15.4v107.1z"/><path d="M108.9 79.1h41.6c39.6 0 57 28.3 57 53.6 0 27.5-21.5 53.6-56.8 53.6h-41.8V79.1zm15.4 93.3h24.5c34.9 0 42.9-26.5 42.9-39.7 0-21.5-13.7-39.7-43.7-39.7h-23.7v79.4z"/><circle cx="78.6" cy="56.8" r="10.1"/></g></svg>
+    <span style="display:block;line-height:1;"><span class="sa-orcid-name">Dr. Sherif Alattar &middot; </span>ORCID 0009-0000-8799-9395</span>
+  </a>
+</div>
+<!-- /sa-orcid-badge -->
+</body>
+</html>
