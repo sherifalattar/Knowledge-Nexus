@@ -1305,9 +1305,16 @@ main::before{content:"";position:absolute;top:-40px;bottom:0;left:50%;width:100v
     }
     near = best;
     if (!best){ LABEL.classList.remove('on'); return; }
-    LABEL.innerHTML = '<b>' + (best.page < 10 ? '0' : '') + best.page + '</b>' +
-      best.title.replace(/&/g, '&amp;').replace(/</g, '&lt;') +
-      '<i>' + best.count + ' entries</i>';
+    /* built as nodes rather than markup: text that came out of the DOM must never
+       go back in as HTML, whatever its provenance */
+    LABEL.textContent = '';
+    var lb = document.createElement('b');
+    lb.textContent = (best.page < 10 ? '0' : '') + best.page;
+    var li = document.createElement('i');
+    li.textContent = best.count + ' entries';
+    LABEL.appendChild(lb);
+    LABEL.appendChild(document.createTextNode(best.title));
+    LABEL.appendChild(li);
     /* clamp inside the viewport — a cluster near the edge would push it off-screen */
     LABEL.style.left = Math.round(Math.max(150, Math.min(window.innerWidth - 150, best.sx))) + 'px';
     LABEL.style.top = Math.round(Math.min(window.innerHeight - 60, best.sy + 22)) + 'px';
@@ -1565,17 +1572,24 @@ main::before{content:"";position:absolute;top:-40px;bottom:0;left:50%;width:100v
     x.globalCompositeOperation = 'source-over';
   }
 
-  function esc(t){ return String(t).replace(/&/g,'&amp;').replace(/</g,'&lt;'); }
-
   PAGES.forEach(function(pg, i){
     var el = document.createElement('article');
     el.className = 'gcard';
-    el.innerHTML =
-      '<div class="edge"></div><canvas></canvas>' +
-      '<span class="no">' + (pg.n < 10 ? '0' : '') + pg.n + '</span>' +
-      '<span class="ct">' + pg.s.length + ' entries</span>' +
-      '<div class="face"><h3>' + esc(pg.t) + '</h3><p>' + esc(pg.l) + '</p>' +
-      '<span class="enter">Enter this page &rarr;</span></div>';
+    function mk(tag, cls, text){
+      var e = document.createElement(tag);
+      if (cls) e.className = cls;
+      if (text != null) e.textContent = text;
+      return e;
+    }
+    el.appendChild(mk('div', 'edge'));
+    el.appendChild(document.createElement('canvas'));
+    el.appendChild(mk('span', 'no', (pg.n < 10 ? '0' : '') + pg.n));
+    el.appendChild(mk('span', 'ct', pg.s.length + ' entries'));
+    var face = mk('div', 'face');
+    face.appendChild(mk('h3', null, pg.t));
+    face.appendChild(mk('p', null, pg.l));
+    face.appendChild(mk('span', 'enter', 'Enter this page \u2192'));
+    el.appendChild(face);
     el.addEventListener('click', function(){
       if (i !== active) { active = i; layout(); return; }
       var t = document.getElementById('page-' + pg.n);
