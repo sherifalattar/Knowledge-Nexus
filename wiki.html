@@ -1038,7 +1038,7 @@ main::before{content:"";position:absolute;top:-40px;bottom:0;left:50%;width:100v
 
   function count(){
     var a = Math.min(window.innerWidth, 1600) * Math.min(window.innerHeight, 1000);
-    return Math.max(90, Math.min(230, Math.round(a / 7200)));
+    return Math.max(120, Math.min(340, Math.round(a / 4800)));
   }
   function seed(){
     pts = [];
@@ -1064,7 +1064,15 @@ main::before{content:"";position:absolute;top:-40px;bottom:0;left:50%;width:100v
     seed();
   }
 
-  function frame(){
+  var t0 = 0;
+  function frame(now){
+    if (!t0) t0 = now || 0;
+    /* arrival: 0 -> 1 over the first 2.2s, eased, driving speed and brightness */
+    var el = Math.min(1, ((now || 0) - t0) / 2200);
+    var arrive = reduce ? 1 : 1 - Math.pow(1 - el, 3);
+    /* the field converges: it starts flung wide of the frame and settles inward,
+       so the constellation assembles rather than simply being there */
+    var spread = reduce ? 1 : 1 + 1.9 * (1 - arrive);
     ctx.clearRect(0, 0, w, h);
     tx += (mx - tx) * .045; ty += (my - ty) * .045;
 
@@ -1075,11 +1083,11 @@ main::before{content:"";position:absolute;top:-40px;bottom:0;left:50%;width:100v
       if (p.z < 60){ p.z = 990; p.x = (Math.random() - .5) * 1500; p.y = (Math.random() - .5) * 1000; }
       s = FOV / p.z;
       proj.push({
-        sx: cx + (p.x + tx * 42) * s,
-        sy: cy + (p.y + ty * 30) * s,
+        sx: cx + (p.x + tx * 42) * s * spread,
+        sy: cy + (p.y + ty * 30) * s * spread,
         /* capped: an uncapped near-field point balloons into bokeh */
         r: Math.max(.4, Math.min(2.3, p.r * s)),
-        a: Math.max(0, Math.min(1, (1000 - p.z) / 780)),
+        a: Math.max(0, Math.min(1, (1000 - p.z) / 780)) * (0.10 + 0.90 * arrive),
         gold: p.gold
       });
     }
@@ -1091,7 +1099,7 @@ main::before{content:"";position:absolute;top:-40px;bottom:0;left:50%;width:100v
         var dx = proj[i].sx - proj[j].sx, dy = proj[i].sy - proj[j].sy;
         var d2 = dx * dx + dy * dy;
         if (d2 > 26000) continue;
-        var o = (1 - Math.sqrt(d2) / 161) * .34 * Math.min(proj[i].a, proj[j].a);
+        var o = (1 - Math.sqrt(d2) / 161) * .46 * Math.min(proj[i].a, proj[j].a);
         if (o <= .006) continue;
         ctx.strokeStyle = (proj[i].gold && proj[j].gold)
           ? 'rgba(198,163,90,' + o.toFixed(3) + ')'
@@ -1103,11 +1111,11 @@ main::before{content:"";position:absolute;top:-40px;bottom:0;left:50%;width:100v
     for (i = 0; i < proj.length; i++){
       var q = proj[i], c = q.gold ? '198,163,90' : '176,212,235';
       var g = ctx.createRadialGradient(q.sx, q.sy, 0, q.sx, q.sy, q.r * 3.4);
-      g.addColorStop(0, 'rgba(' + c + ',' + (q.a * .34).toFixed(3) + ')');
+      g.addColorStop(0, 'rgba(' + c + ',' + (q.a * .46).toFixed(3) + ')');
       g.addColorStop(1, 'rgba(' + c + ',0)');
       ctx.fillStyle = g;
       ctx.beginPath(); ctx.arc(q.sx, q.sy, q.r * 3.4, 0, 6.2832); ctx.fill();
-      ctx.fillStyle = 'rgba(' + c + ',' + (q.a * .92).toFixed(3) + ')';
+      ctx.fillStyle = 'rgba(' + c + ',' + Math.min(1, q.a * 1.15).toFixed(3) + ')';
       ctx.beginPath(); ctx.arc(q.sx, q.sy, q.r * .85, 0, 6.2832); ctx.fill();
     }
     ctx.globalCompositeOperation = 'source-over';
