@@ -43,7 +43,18 @@ Live site: https://sherifalattar.github.io/Knowledge-Nexus/
 | `source-corpus.html` | The reference foundation |
 | `gallery.html` | Visual archive — dashboards and short films |
 | `executive-summary.html` | About the Author — the executive dossier |
-| `introduction.html`, `psychiatry-intro.html` | Introductory framing pages |
+| `wiki.html` | The foreword and the Content Map — 711 numbered, citable entries |
+| `verification.html` | The Verification Register — which Compendium blocks name an authority |
+| `introduction.html` | A `noindex` redirect leaf to `wiki.html#foreword` (the page was merged) |
+
+### Numbering and provenance
+
+`drgs-compendium.html` addresses every block as `chapter.section.topic.block` (e.g.
+`I.1.2.4`). The addresses are generated at runtime from the `DATA` array — `NUM` must be
+declared **above** the renderers or every number renders empty — and each is a copyable
+deep link. `verification.html` is the audit of those addresses: 192 blocks, 73 of which
+name an authority. If you add or reorder Compendium blocks, the register's rows and its
+tally must be regenerated from the live `DATA`, not edited by hand.
 
 ## Design language
 

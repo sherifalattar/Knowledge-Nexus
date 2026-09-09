@@ -493,6 +493,30 @@ exploitable path.** The pattern is real; the risk is not.
 that embeds a page inside a script tag and re-parses it. Hand-editing that loader inside a
 4.7 MB generated document would risk the page for no security gain.
 
+## 9 September 2026 — the merge, the numbering, the register
+
+**Done.**
+
+- **`verification.html`** — the Verification Register. 192 rows, one per Compendium block,
+  each linking to its address (`drgs-compendium.html#I.1.2.4`). Tally: **192 / 73 traced /
+  119 untraced / 38%.** Filters by traced state and by chapter. Signed once at the foot.
+  Its design is deliberately a ledger — monospace numerals, ruled rows, almost no colour —
+  and deliberately unlike the rest of the site, which you have said you welcome.
+- **`signature.png`** — extracted from your signature PDF, gold on transparent, 1200×512.
+- **The merge.** `introduction.html` folded into `wiki.html#foreword`; see D-19. All
+  inbound links moved (`observatory.html`, `drgs-compendium.html` footer, the sitemap);
+  `introduction.html` remains only as a `noindex` redirect leaf.
+- **Counts corrected everywhere** on the wiki: 711 / 107 / 604 / 14, verified against the
+  DOM (`107 sec + 373 topic + 231 point = 711`), not asserted.
+- **The Observatory module list** is nine rows again: the Introduction row is gone, the
+  Verification Register row is in.
+
+**Corrections owed and made.**
+
+- The Compendium provenance figure is **73 of 192 (38%)**, not the *41 of 188* quoted
+  earlier from the PDF text. The earlier number was derived from a flattened text extract;
+  the new one from the live `DATA` array in a browser.
+
 ## Still open
 
 
@@ -510,3 +534,13 @@ that embeds a page inside a script tag and re-parses it. Hand-editing that loade
   (`scrollWidth` 453 against a 390px viewport). Measured against the committed version first:
   **not introduced by this day's changes.** Not fixed — out of scope, and no offending element
   could be isolated.
+
+- **The music.** You mentioned a 30 MB file; it has not reached this session yet. When it
+  does: 30 MB is inside GitHub's 100 MB limit, but heavy for a visitor on mobile data. The
+  plan is a web-encoded version for `background-music.mp3` alongside the master, and — for
+  the library you want — a small playlist in `audio.js` rather than a single loop. **The
+  rights position on each track has to be settled before anything is published.**
+- **WebGPU.** Raised by you this session. Worth building for the wiki's constellation
+  (a compute pass could carry 50–100k particles under real force-directed clustering, so
+  search would physically gather the matching entries); not worth it for the liquid band,
+  where WebGL2 already runs at frame rate. Awaiting your decision.
