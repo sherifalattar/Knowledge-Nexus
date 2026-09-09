@@ -412,3 +412,56 @@ Binding on every deliverable, this export included.
 The record bears this out: every PR from `claude/*` head branches is a Claude Code session
 (#1–#3, #34–#38, #41–#44), while the `sherifalattar-patch-*` and named-feature branches are
 direct authoring.
+
+---
+
+## D-19 · 9 September 2026 · The introduction is folded into the Content Map
+
+**Source:** this session. **[RECORDED]** — your words: *"ادمج ال introduction and wiki
+together and remove the fluff."*
+
+`introduction.html` no longer exists as a page. Its two surviving parts — the signed
+foreword and the three foundational pillars — now open `wiki.html`, above the deck and the
+record. Everything else was cut as duplication, measured rather than assumed:
+
+| Cut | Why |
+|---|---|
+| The `.sub` under the title | Restated the foreword's second paragraph |
+| "Specialized Functional Modules" (8 cards) | The Observatory hub, verbatim |
+| "How It Came to Be" | Every sentence already appeared in the foreword |
+| "The Content Map" pointer section | The page *is* the content map |
+
+The foreword itself was rewritten from roughly 250 words to 120, with no phrase repeated.
+The three pillars are now **metered**: each carries a figure beneath it, and the first —
+*Provenance over Assertion* — links to the Verification Register with the honest number,
+**73 / 192**. A claim of provenance that carries its own audit is worth more than one that
+does not.
+
+**Consequences.** The record's page 04 is no longer "Introduction / introduction.html" but
+"Foreword & Principles / this page", holding 5 entries where it held 11. Every count on the
+page moved with it: **711 entries — 107 sections, 604 points, 14 pages** (was 717 / 109 /
+608). `introduction.html` survives only as a `noindex` redirect leaf to `wiki.html#foreword`,
+because the published PDF and outside links still point at it.
+
+---
+
+## D-20 · 9 September 2026 · The Compendium is numbered, and the numbering is audited
+
+**Source:** this session. **[RECORDED]** — your words: *"الفكره انى قصدى ان هنا drgs
+validation ليه بصمه كتاب اكاديمى"* and *"قصد ترقيم دقيق و تتبع للمحتوى بدقه"*.
+
+Two halves of one idea — the academic-book signature you asked for:
+
+1. **Precise numbering.** Every block in `drgs-compendium.html` carries a stable address of
+   the form `I.1.2.4` (chapter · section · topic · block), rendered in the margin, linkable,
+   and click-to-copy.
+2. **Precise traceability.** `verification.html` — the Verification Register — lists all
+   **192** blocks against those addresses and records, for each, whether it names an
+   authority. **73 do; 119 do not; 38%.**
+
+The register publishes the gap rather than hiding it. That is the point: a book's apparatus
+is trusted because it shows what it cannot support, not because it claims everything.
+
+**Correction on the record.** An earlier figure of *41 of 188* was quoted in this project
+from the PDF text. It was wrong. Reading the live `DATA` array in the browser gives
+**73 of 192**. The register carries the measured number.

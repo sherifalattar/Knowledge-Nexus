@@ -5,13 +5,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>The Content Map — Knowledge Nexus</title>
 <meta name="author" content="Dr. Sherif Alattar">
-<meta name="description" content="The structural record of Knowledge Nexus — every page, every section and every discrete point beneath them, each number stable and citable.">
+<meta name="description" content="The foreword to Knowledge Nexus and its structural record — every page, every section and every discrete point beneath them, each number stable and citable.">
 <meta name="theme-color" content="#0A1018">
 <link rel="canonical" href="https://sherifalattar.github.io/Knowledge-Nexus/wiki.html">
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="Knowledge Nexus">
 <meta property="og:title" content="The Content Map — Knowledge Nexus">
-<meta property="og:description" content="Every page, section and point of Knowledge Nexus — 717 entries, each number stable and citable.">
+<meta property="og:description" content="The foreword and the full structural record of Knowledge Nexus — 711 entries, each number stable and citable.">
 <meta property="og:url" content="https://sherifalattar.github.io/Knowledge-Nexus/wiki.html">
 <meta property="og:image" content="https://sherifalattar.github.io/Knowledge-Nexus/Knowledge-Nexus.png">
 <meta property="og:image:width" content="1200">
@@ -243,6 +243,65 @@ main::before{content:"";position:absolute;top:-40px;bottom:0;left:50%;width:100v
 .empty.on{display:block}
 
 /* ============================================================
+   FOREWORD — the opening leaf. This was a page of its own
+   (introduction.html); it is folded in here because a record and
+   the reason for the record belong on one surface. The three
+   principles are stated and then metered: a claim of provenance
+   that carries its own audit is worth more than one that does not.
+   ============================================================ */
+.fore{position:relative;z-index:2;padding:96px 0 8px;scroll-margin-top:20px}
+.fore-head{display:flex;align-items:baseline;gap:18px;flex-wrap:wrap;margin-bottom:30px}
+.fore-eye{font-family:var(--font-mono);font-size:10.5px;letter-spacing:var(--track-eyebrow);
+  text-transform:uppercase;color:var(--gold);white-space:nowrap}
+.fore-h{font-family:var(--font-display);font-weight:600;font-stretch:112%;
+  font-size:clamp(23px,3.4vw,38px);line-height:1.14;color:var(--ink-1);letter-spacing:-.015em}
+.fore-body{max-width:66ch;display:grid;gap:17px}
+.fore-body p{font-size:15.5px;line-height:1.72;color:var(--ink-2);text-wrap:pretty}
+.fore-body .fore-close{font-family:var(--font-serif);font-style:italic;font-size:19px;
+  line-height:1.5;color:var(--ink-3);padding-top:4px}
+/* the principles read as one ruled instrument, not three loose cards */
+/* subgrid, so the numeral, the heading, the rule and the figure sit on the same
+   four lines across all three columns. Flexbox aligned only the outer edges, which
+   left the third rule low wherever its caption ran to one line instead of two. */
+.fore-pil{display:grid;grid-template-columns:repeat(3,1fr);
+  grid-template-rows:auto auto 1fr auto;gap:1px;margin-top:54px;
+  border:1px solid var(--line);border-radius:16px;overflow:hidden;background:var(--line)}
+.pil{background:linear-gradient(180deg,rgba(16,28,49,.92),rgba(9,17,31,.96));
+  padding:26px clamp(18px,2vw,26px) 22px;min-width:0;
+  display:grid;grid-row:span 4;grid-template-rows:subgrid;align-content:start}
+@supports not (grid-template-rows:subgrid){
+  .fore-pil{grid-template-rows:none}
+  .pil{display:flex;flex-direction:column;grid-row:auto}
+  .pil p{flex:1 1 auto}
+}
+.pil-n{font-family:var(--font-mono);font-size:11px;color:var(--gold);letter-spacing:.1em}
+.pil h3{margin-top:12px;font-family:var(--font-display);font-weight:600;font-size:17px;
+  color:var(--ink-1);line-height:1.25;letter-spacing:-.005em}
+.pil p{margin-top:11px;font-size:13.6px;line-height:1.66;color:var(--ink-3)}
+.pil-m{display:block;align-self:start;margin-top:22px;padding-top:16px;border-top:1px solid var(--line-soft);
+  text-decoration:none;color:inherit}
+.pil-m b{display:block;font-family:var(--font-mono);font-weight:500;
+  font-size:clamp(19px,2.2vw,25px);color:var(--ink-1);font-variant-numeric:tabular-nums;
+  letter-spacing:-.01em;line-height:1.1}
+.pil-m b i{font-style:normal;font-size:.55em;color:var(--ink-4);margin-left:1px}
+.pil-m span{display:block;margin-top:8px;font-family:var(--font-mono);font-size:9.5px;
+  letter-spacing:.1em;text-transform:uppercase;color:var(--ink-4);line-height:1.65}
+a.pil-m b,a.pil-m span{transition:color .2s}
+a.pil-m:hover b,a.pil-m:focus-visible b{color:var(--gold-bright)}
+a.pil-m:hover span,a.pil-m:focus-visible span{color:var(--cyan-bright)}
+/* signed once, as a document is */
+.fore-sign{display:flex;align-items:center;gap:20px;margin-top:44px;padding-top:26px;
+  border-top:1px solid var(--line);flex-wrap:wrap}
+.fore-sign img{width:clamp(126px,17vw,182px);height:auto;display:block;opacity:.92}
+.fore-sign-t b{display:block;font-family:var(--font-display);font-weight:600;
+  font-size:14.5px;color:var(--ink-1)}
+.fore-sign-t span{display:block;margin-top:5px;font-family:var(--font-mono);font-size:9.5px;
+  letter-spacing:.18em;text-transform:uppercase;color:var(--ink-4)}
+@media(max-width:900px){.fore-pil{grid-template-columns:1fr;grid-template-rows:none}
+  .pil{display:flex;flex-direction:column;grid-row:auto}}
+@media(max-width:600px){.fore{padding-top:62px}.fore-sign{gap:15px}}
+
+/* ============================================================
    COLOPHON
    ============================================================ */
 .colophon{border-top:1px solid var(--line);padding:40px 0 96px;position:relative;z-index:2}
@@ -344,7 +403,7 @@ main::before{content:"";position:absolute;top:-40px;bottom:0;left:50%;width:100v
 
 <canvas id="neural"></canvas>
 <div id="field-label" aria-hidden="true"></div>
-<script id="kn-map" type="application/json">[{"n":1,"t":"Cinematic Opening","f":"index.html","s":"","l":"Visual threshold. No structured text content."},{"n":2,"t":"The Pyramids","f":"pyramids.html","s":"000","l":"3 sections, 3 entries."},{"n":3,"t":"The Observatory","f":"observatory.html","s":"00666006666666","l":"Hub page — module cards."},{"n":4,"t":"Introduction","f":"introduction.html","s":"00666066660","l":"4 sections, 11 entries."},{"n":5,"t":"DRGs Compendium","f":"drgs-compendium.html","s":"066deef6de6def6def6gde066def06de6f6d6d6df6f6f06d6de6dd6ee6deef6e06ddggdf6edfg06dddde6cdehcdecdecdehcde6de066de06ef66de6de06dehd06eg06def6def06g6d6g6dg6g6g6gg06hf66ddh6ddh06heeee066cccc6ccc","l":"15 sections, 188 entries."},{"n":6,"t":"Denial Codes — as Knowledge Infrastructure","f":"denial-codes.html","s":"00060666060000660666600006666606666666","l":"15 sections, 38 entries."},{"n":7,"t":"Denial Navigator","f":"denial-codes-semantic.html","s":"06666666066666666606666666666666660660666666066666666666666666666666666066666666660666","l":"Offline searchable taxonomy — 78 codes across 8 families."},{"n":8,"t":"Psychiatry — A Triangulated Lens","f":"psychiatry-intro.html","s":"000","l":"3 sections, 3 entries."},{"n":9,"t":"Psychiatry — Semantic Layer","f":"psychiatry-semantic-layer.html","s":"006060666666066606666066660666666666666666606666066606006666660666666666666666666666666666666","l":"14 sections, 93 entries."},{"n":10,"t":"Psychiatry across DSM-5-TR & IR-DRG","f":"psychiatry-ir-drg-tree.html","s":"06cccccc6cccccc06cccccc6ccccc6c06cccccc6ccccc06ccccc6cccccc6c06ccccc6ccccc6c06ccccc6ccccc6c06ccccc6ccccc06ccccc6ccccc06cccccc6ccccc06ccccc6ccc6c","l":"10 psychiatric categories, each an IR-DRG with three severity weights. # Category IR-DRG RW base / w-CC / w- MCC 10.1 Bipolar…"},{"n":11,"t":"Setting-of-Care Principles","f":"setting-of-care.html","s":"0066606606666660660660666666660660660660","l":"11 sections, 40 entries."},{"n":12,"t":"Source Corpus","f":"source-corpus.html","s":"006066666606660666066666666606","l":"23 authorities across six groups."},{"n":13,"t":"Visual Archive (Gallery)","f":"gallery.html","s":"0066606060606","l":"Dashboards and short films — evidence of data-management practice."},{"n":14,"t":"About the Author — Executive Dossier","f":"executive-summary.html","s":"006606666660066666666666666600666666066066666666666666","l":"9 sections, 54 entries."}]</script>
+<script id="kn-map" type="application/json">[{"n":1,"t":"Cinematic Opening","f":"index.html","s":"","l":"Visual threshold. No structured text content."},{"n":2,"t":"The Pyramids","f":"pyramids.html","s":"000","l":"3 sections, 3 entries."},{"n":3,"t":"The Observatory","f":"observatory.html","s":"00666006666666","l":"Hub page — module cards."},{"n":4,"t":"Foreword & Principles","f":"wiki.html#foreword","s":"00666","l":"2 sections, 5 entries."},{"n":5,"t":"DRGs Compendium","f":"drgs-compendium.html","s":"066deef6de6def6def6gde066def06de6f6d6d6df6f6f06d6de6dd6ee6deef6e06ddggdf6edfg06dddde6cdehcdecdecdehcde6de066de06ef66de6de06dehd06eg06def6def06g6d6g6dg6g6g6gg06hf66ddh6ddh06heeee066cccc6ccc","l":"15 sections, 188 entries."},{"n":6,"t":"Denial Codes — as Knowledge Infrastructure","f":"denial-codes.html","s":"00060666060000660666600006666606666666","l":"15 sections, 38 entries."},{"n":7,"t":"Denial Navigator","f":"denial-codes-semantic.html","s":"06666666066666666606666666666666660660666666066666666666666666666666666066666666660666","l":"Offline searchable taxonomy — 78 codes across 8 families."},{"n":8,"t":"Psychiatry — A Triangulated Lens","f":"psychiatry-intro.html","s":"000","l":"3 sections, 3 entries."},{"n":9,"t":"Psychiatry — Semantic Layer","f":"psychiatry-semantic-layer.html","s":"006060666666066606666066660666666666666666606666066606006666660666666666666666666666666666666","l":"14 sections, 93 entries."},{"n":10,"t":"Psychiatry across DSM-5-TR & IR-DRG","f":"psychiatry-ir-drg-tree.html","s":"06cccccc6cccccc06cccccc6ccccc6c06cccccc6ccccc06ccccc6cccccc6c06ccccc6ccccc6c06ccccc6ccccc6c06ccccc6ccccc06ccccc6ccccc06cccccc6ccccc06ccccc6ccc6c","l":"10 psychiatric categories, each an IR-DRG with three severity weights. # Category IR-DRG RW base / w-CC / w- MCC 10.1 Bipolar…"},{"n":11,"t":"Setting-of-Care Principles","f":"setting-of-care.html","s":"0066606606666660660660666666660660660660","l":"11 sections, 40 entries."},{"n":12,"t":"Source Corpus","f":"source-corpus.html","s":"006066666606660666066666666606","l":"23 authorities across six groups."},{"n":13,"t":"Visual Archive (Gallery)","f":"gallery.html","s":"0066606060606","l":"Dashboards and short films — evidence of data-management practice."},{"n":14,"t":"About the Author — Executive Dossier","f":"executive-summary.html","s":"006606666660066666666666666600666666066066666666666666","l":"9 sections, 54 entries."}]</script>
 <div class="vignette"></div>
 <div class="grain"></div>
 <div id="progress"></div>
@@ -360,11 +419,60 @@ main::before{content:"";position:absolute;top:-40px;bottom:0;left:50%;width:100v
   <div class="byline">Dr. Sherif Alattar &middot; MD</div>
   <div class="figures">
     <div class="fig"><b>14</b><span>Pages</span></div>
-    <div class="fig"><b>109</b><span>Sections</span></div>
-    <div class="fig"><b>608</b><span>Points</span></div>
-    <div class="fig"><b>717</b><span>Citable entries</span></div>
+    <div class="fig"><b>107</b><span>Sections</span></div>
+    <div class="fig"><b>604</b><span>Points</span></div>
+    <div class="fig"><b>711</b><span>Citable entries</span></div>
   </div>
   <div class="cue">SCROLL<span class="arrow"></span></div>
+</section>
+
+<section class="fore" id="foreword" aria-labelledby="fore-h">
+  <div class="wrap">
+    <div class="fore-head">
+      <span class="fore-eye">Foreword</span>
+      <h2 class="fore-h" id="fore-h">A connected body of work</h2>
+    </div>
+    <div class="fore-body">
+      <p>Knowledge Nexus began as private notes &mdash; an attempt to understand how the UAE health-insurance system reasons, and where that reasoning departs from the Saudi market I had learned first. Research, comparison of references, and discussion with colleagues turned the notes into something with a structure: a reference for people who must navigate the clinical and financial logic of care in the UAE.</p>
+      <p>It is organised so that heavy material becomes navigable, around the UAE&nbsp;/&nbsp;DoH IR-DRG prospective-payment framework. Modern tools &mdash; artificial intelligence among them &mdash; are used for organisation and synthesis, never for authority. The authorities are named; where a passage carries none, the record says so rather than covering the gap.</p>
+      <p class="fore-close">What follows is the structure itself: every page, every section, and every point beneath them &mdash; numbered, stable, and citable.</p>
+    </div>
+
+    <div class="fore-pil" aria-label="Governing principles">
+      <article class="pil">
+        <span class="pil-n">01</span>
+        <h3>Provenance over Assertion</h3>
+        <p>A claim is traced to a regulation, a grouper, or a clinical reference. Evidence is never folded into judgment.</p>
+        <a class="pil-m" href="verification.html">
+          <b>73<i>&thinsp;/&thinsp;192</i></b>
+          <span>Compendium blocks name an authority &mdash; open the register &rarr;</span>
+        </a>
+      </article>
+      <article class="pil">
+        <span class="pil-n">02</span>
+        <h3>Synthesis over Collection</h3>
+        <p>Material is not gathered but arranged &mdash; into structures that can be compared, followed, and learned from.</p>
+        <div class="pil-m">
+          <b>711<i>&thinsp;/&thinsp;14</i></b>
+          <span>numbered entries across fourteen pages, one structure</span>
+        </div>
+      </article>
+      <article class="pil">
+        <span class="pil-n">03</span>
+        <h3>Refinement over Completion</h3>
+        <p>A living reference. It is never finished; it is revised as regulation and clinical evidence move.</p>
+        <div class="pil-m">
+          <b>Ed.&thinsp;1<i>&thinsp;/&thinsp;2026</i></b>
+          <span>this edition &mdash; to be superseded, not concluded</span>
+        </div>
+      </article>
+    </div>
+
+    <div class="fore-sign">
+      <img src="signature.png" alt="Signature of Dr. Sherif Alattar" width="1200" height="512" decoding="async">
+      <div class="fore-sign-t"><b>Dr. Sherif Alattar</b><span>Author &middot; Creator &middot; Developer</span></div>
+    </div>
+  </div>
 </section>
 
 <section class="gallery wrap" id="deck" tabindex="0" aria-label="The fourteen pages">
@@ -385,20 +493,20 @@ main::before{content:"";position:absolute;top:-40px;bottom:0;left:50%;width:100v
       <a class="brandlink" href="observatory.html">&larr;&nbsp;Knowledge Nexus</a>
       <div class="search">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
-        <input id="q" type="search" placeholder="Search 717 entries &mdash; a number, a code, a phrase&hellip;" aria-label="Search the content map" autocomplete="off">
+        <input id="q" type="search" placeholder="Search 711 entries &mdash; a number, a code, a phrase&hellip;" aria-label="Search the content map" autocomplete="off">
       </div>
       <div class="kinds"><button class="kind" data-kind="clinical" style="--c:#2FE6C8" aria-pressed="false">Clinical</button>
 <button class="kind" data-kind="coding" style="--c:#56C6FF" aria-pressed="false">Coding</button>
 <button class="kind" data-kind="adjudication" style="--c:#F3CB7D" aria-pressed="false">Adjudication</button>
 <button class="kind" data-kind="coverage" style="--c:#9C7CFF" aria-pressed="false">Coverage</button>
 <button class="kind" data-kind="pearl" style="--c:#C4CCDF" aria-pressed="false">Pearl</button></div>
-      <span class="count" id="count">717 entries</span>
+      <span class="count" id="count">711 entries</span>
     </div>
     <nav class="pagenav" aria-label="Jump to a page">
 <button class="chipnav" data-target="1"><b>01</b>Cinematic Opening</button>
 <button class="chipnav" data-target="2"><b>02</b>The Pyramids</button>
 <button class="chipnav" data-target="3"><b>03</b>The Observatory</button>
-<button class="chipnav" data-target="4"><b>04</b>Introduction</button>
+<button class="chipnav" data-target="4"><b>04</b>Foreword &amp; Principles</button>
 <button class="chipnav" data-target="5"><b>05</b>DRGs Compendium</button>
 <button class="chipnav" data-target="6"><b>06</b>Denial Codes</button>
 <button class="chipnav" data-target="7"><b>07</b>Denial Navigator</button>
@@ -432,17 +540,17 @@ main::before{content:"";position:absolute;top:-40px;bottom:0;left:50%;width:100v
 <div class="e topic" id="3.4.5" data-n="3.4.5"><a class="n" href="#3.4.5" title="Copy link to 3.4.5">3.4.5</a><div class="t">Gallery</div></div>
 <div class="e topic" id="3.4.6" data-n="3.4.6"><a class="n" href="#3.4.6" title="Copy link to 3.4.6">3.4.6</a><div class="t">About the Author</div></div>
 <div class="e topic" id="3.4.7" data-n="3.4.7"><a class="n" href="#3.4.7" title="Copy link to 3.4.7">3.4.7</a><div class="t">Source Corpus</div></div></div></section>
-<section class="page-block" id="page-4" data-page="4"><header class="ph"><span class="pn">04</span><div><h2>Introduction</h2><a class="pf" href="introduction.html">introduction.html</a></div><span class="pc">11 entries</span></header><div class="entries"><div class="e sec" id="4.1" data-n="4.1"><a class="n" href="#4.1" title="Copy link to 4.1">4.1</a><div class="t">Introduction to Knowledge Nexus</div></div>
+<section class="page-block" id="page-4" data-page="4"><header class="ph"><span class="pn">04</span><div><h2>Foreword &amp; Principles</h2><a class="pf" href="#foreword">this page &middot; the opening leaf</a></div><span class="pc">5 entries</span></header><div class="entries"><div class="e sec" id="4.1" data-n="4.1"><a class="n" href="#4.1" title="Copy link to 4.1">4.1</a><div class="t">Introduction to Knowledge Nexus</div></div>
 <div class="e sec" id="4.2" data-n="4.2"><a class="n" href="#4.2" title="Copy link to 4.2">4.2</a><div class="t">The Three Foundational Pillars</div></div>
 <div class="e topic" id="4.2.1" data-n="4.2.1"><a class="n" href="#4.2.1" title="Copy link to 4.2.1">4.2.1</a><div class="t">Provenance over Assertion</div></div>
 <div class="e topic" id="4.2.2" data-n="4.2.2"><a class="n" href="#4.2.2" title="Copy link to 4.2.2">4.2.2</a><div class="t">Synthesis over Collection</div></div>
 <div class="e topic" id="4.2.3" data-n="4.2.3"><a class="n" href="#4.2.3" title="Copy link to 4.2.3">4.2.3</a><div class="t">Refinement over Completion</div></div>
-<div class="e sec" id="4.3" data-n="4.3"><a class="n" href="#4.3" title="Copy link to 4.3">4.3</a><div class="t">Specialized Functional Modules</div></div>
-<div class="e topic" id="4.3.1" data-n="4.3.1"><a class="n" href="#4.3.1" title="Copy link to 4.3.1">4.3.1</a><div class="t">DRGs Compendium</div></div>
-<div class="e topic" id="4.3.2" data-n="4.3.2"><a class="n" href="#4.3.2" title="Copy link to 4.3.2">4.3.2</a><div class="t">Psychiatric Knowledge System</div></div>
-<div class="e topic" id="4.3.3" data-n="4.3.3"><a class="n" href="#4.3.3" title="Copy link to 4.3.3">4.3.3</a><div class="t">Denial Navigator</div></div>
-<div class="e topic" id="4.3.4" data-n="4.3.4"><a class="n" href="#4.3.4" title="Copy link to 4.3.4">4.3.4</a><div class="t">Setting of Care Briefing</div></div>
-<div class="e sec" id="4.4" data-n="4.4"><a class="n" href="#4.4" title="Copy link to 4.4">4.4</a><div class="t">How It Came to Be</div></div></div></section>
+
+
+
+
+
+</div></section>
 <section class="page-block" id="page-5" data-page="5"><header class="ph"><span class="pn">05</span><div><h2>DRGs Compendium</h2><a class="pf" href="drgs-compendium.html">drgs-compendium.html</a></div><span class="pc">188 entries</span></header><div class="entries"><div class="e sec" id="5.1" data-n="5.1"><a class="n" href="#5.1" title="Copy link to 5.1">5.1</a><div class="t">Abu Dhabi Regulatory Codebook</div></div>
 <div class="e topic" id="5.1.1" data-n="5.1.1"><a class="n" href="#5.1.1" title="Copy link to 5.1.1">5.1.1</a><div class="t">DOH Governance Hierarchy</div></div>
 <div class="e topic" id="5.1.2" data-n="5.1.2"><a class="n" href="#5.1.2" title="Copy link to 5.1.2">5.1.2</a><div class="t">DOH Claims &amp; Adjudication Rules V2025</div></div>
@@ -1147,7 +1255,7 @@ main::before{content:"";position:absolute;top:-40px;bottom:0;left:50%;width:100v
 <script>
 /* ============================================================
    1 · THE FIELD IS THE MAP
-   Not decoration. Every star is one of the 717 numbered entries,
+   Not decoration. Every star is one of the 711 numbered entries,
    grouped into fourteen constellations — one per page of the site
    — sized by how many entries that page holds, coloured by the
    block labels the Compendium already uses, and wired to their
@@ -1257,7 +1365,7 @@ main::before{content:"";position:absolute;top:-40px;bottom:0;left:50%;width:100v
       s.a = Math.max(0, Math.min(1, (2600 - zz) / 2100)) * (0.12 + 0.88 * arrive);
       s.hit = 0;
       if (matches) {
-        /* six stars out of 717 cannot answer a question at their normal size:
+        /* six stars out of 711 cannot answer a question at their normal size:
            a match is enlarged and pulsed, the rest fall back to a whisper */
         if (matches.has(i)) { s.hit = 1; s.sr *= 2.6; }
         else s.a *= 0.05;
@@ -1383,7 +1491,7 @@ main::before{content:"";position:absolute;top:-40px;bottom:0;left:50%;width:100v
   addEventListener('scroll', function(){
     var max = document.documentElement.scrollHeight - innerHeight;
     if (bar) bar.style.width = (max > 0 ? (scrollY / max) * 100 : 0) + '%';
-    /* a live field behind 717 lines of reference text is noise, not atmosphere */
+    /* a live field behind 711 lines of reference text is noise, not atmosphere */
     if (field) field.classList.toggle('recede', scrollY > innerHeight * 0.55);
     /* and it tracks where you are reading: the page in view holds the light */
     if (window.__knField) {
@@ -1429,7 +1537,7 @@ main::before{content:"";position:absolute;top:-40px;bottom:0;left:50%;width:100v
     count.textContent = shown + (shown === 1 ? ' entry' : ' entries');
     empty.classList.toggle('on', shown === 0);
 
-    /* the constellation is the same 717 entries, so it can answer the same
+    /* the constellation is the same 711 entries, so it can answer the same
        question: light only the stars that survived the filter */
     var field = document.getElementById('neural');
     if (window.__knField) {
@@ -1443,7 +1551,7 @@ main::before{content:"";position:absolute;top:-40px;bottom:0;left:50%;width:100v
     }
   }
 
-  /* filtering can shrink 717 entries to six; without this the reader is left
+  /* filtering can shrink 711 entries to six; without this the reader is left
      stranded wherever the old, longer page had put them */
   function toResults(){
     var top = document.querySelector('.console');
@@ -1508,7 +1616,7 @@ main::before{content:"";position:absolute;top:-40px;bottom:0;left:50%;width:100v
 /* ============================================================
    5 · THE DECK — fourteen pages standing in depth
    Each card carries its own page's constellation as its face,
-   drawn from the same 717 entries the index below lists. One
+   drawn from the same 711 entries the index below lists. One
    card faces the reader; the rest recede left and right.
    ============================================================ */
 (function(){
