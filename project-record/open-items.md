@@ -433,18 +433,79 @@ repository or in a real browser (Chromium, Playwright) before being written here
   **before** the document is replaced; confirmed by watching network requests to `gc.zgo.at`
   on `pyramids.html`, `executive-summary.html` and `observatory.html`.
 
-## Still open, and blocking
+## Resolved later the same day — 9 September, afternoon
 
-- **OI-09** — the vCard blob in public history. Rewritten above. **Not acted on.** Requires
-  explicit instruction and restored write access.
-- **The push.** Three commits — `9c44106`, `fdb9078`, `4db3faa` — exist only in the session
-  container. GitHub authorisation lapsed on or before 7 September, following an account
-  change. Delivered to the author as files plus a git bundle so nothing depends on my access.
-- **The account question.** Whether the GitHub account was *renamed* or *replaced* is
-  unanswered, and it governs everything: **83 references to `sherifalattar.github.io`** across
-  13 files (every canonical tag, every `og:url`, all 14 sitemap entries) plus **20 references
-  to `linkedin.com/in/sherifalattar`** break if the username changed. GitHub's rename redirect
-  holds only until someone else registers the old username.
+The three items listed below as blocking are closed. Recorded here rather than deleted,
+because how they closed is itself the record.
+
+- **The push.** GitHub authorisation was restored by the author reconnecting the claude.ai
+  GitHub connector at ~10:00 UTC. All work pushed, and **PR #45 merged as `4d76dcd`**.
+  GitHub Pages served the new pages **~30 seconds later**; verified live: `wiki.html` 200 with
+  all 717 entries, `knowledge-nexus-content-map.pdf` 200 as `application/pdf`, `audio.js`
+  reporting `bottom:70px`, and `3d-process.png` correctly 404.
+
+- **The account question — answered, and the alarm was unfounded.** The username did **not**
+  change. Evidence: pushes to `https://github.com/sherifalattar/Knowledge-Nexus` succeed, and
+  `sherifalattar.github.io` serves 200. The lapse was a **disconnected claude.ai connector**,
+  nothing more — the author had closed it himself. **The 83 references to
+  `sherifalattar.github.io` and 20 to `linkedin.com/in/sherifalattar` need no change.** The
+  earlier concern was a correct contingency drawn from a wrong premise; stated here so the
+  premise is not inherited by a future session.
+
+- **The branch.** `claude/complete-work-export-4movm1` was merged, so per convention it was
+  restarted from `main` for any follow-up rather than stacked on merged history.
+
+## Also done that afternoon — not in the morning's list
+
+| Work | Detail | Commit |
+|---|---|---|
+| **The sound pill sat inside the badge row** | At `bottom:22px` it shared the band with the ORCID and LinkedIn badges. Twelve pages hid the collision with a 150px padding reservation on the ORCID badge; `drgs-compendium.html` and `source-corpus.html` carried 16px instead, so on those two **the ORCID badge ran underneath the button**. Toggle moved to `bottom:70px` in `audio.js` — one change, every page — and all fourteen normalised to 16px | `d24ed08` |
+| **Three pages had no identity badges at all** | `index.html`, `pyramids.html` and `executive-summary.html` lost both badges to the same `documentElement.replaceWith` swap. The sound pill and the back link survive because each re-attaches; the badges had no such guard. Added the same re-attach, watching the document for the replacement rather than relying on a timed poll — on a 4.7 MB document the swap lands after a fixed window closes | `07aa919` |
+| **Badge geometry made exact** | Measured on all fourteen: ORCID `right:16 bottom:14`, sound `right:22 bottom:70`, gap 26px. Below 430px the ORCID pill still cut through the LinkedIn one, so the handle collapses to its logo — with `!important`, since the span carries an inline `display:block` | `07aa919` |
+| **The Introduction was an orphan** | No page linked to it — not the observatory hub, not the Compendium. Its module list named four modules against a site of nine, and one was **wrong rather than merely missing**: the card titled "Denial Navigator" pointed at `denial-codes.html`, which is the Codes Atlas. Wired into both, list corrected to eight | `b28c405` |
+| **The Content Map published** | The 38-page PDF added and linked, then rendered as a living page: `wiki.html`, all **717 numbered entries**, each with a permanent address. Parsed from the PDF — 717 numbered lines in the source, 717 captured, none lost, none empty. Live search, filter chips in the legend's own colours | `7939126`, `42fd5e2` |
+| **The overture** | Follows the hero of the author's visual-archive draft. That draft loads `three.min.js`, `gsap.min.js` and `ScrollTrigger.min.js` from a `vendor/` folder **that does not exist in this repository**, so it could not have run on the site as written. Field and choreography hand-written instead: a depth-projected particle cloud on canvas, no new dependency | `42fd5e2`, `d19aed6` |
+
+### Two mistakes worth keeping
+
+- **The particle "arrival" made the field emptier.** First attempt seeded particles far out in
+  depth and rushed them forward. But alpha is derived from depth, so everything beyond z=1000
+  was invisible at the start, and the rush flushed the rest past the camera. Converging in
+  *screen space* gives the arrival without ever putting a particle out of range. `d19aed6`
+- **A wordmark on one unbroken line is not responsive.** `KNOWLEDGE NEXUS` measured 417px —
+  wider than a 390px viewport — and at `7.6vw` it overran 768px by two pixels. Now `7.1vw`,
+  breaking in two below 600px. Verified at ten widths from 1600 to 360.
+
+## CodeQL — settled
+
+The `CodeQL` check failed on every push with two `js/xss-through-dom` alerts. **Not this
+work's.** GitHub's own alert history records them first detected three weeks earlier at
+`executive-summary.html:183` **on `main`**, in commit `05c7613`; inserting ten lines of meta
+tags above that line moved it to 193 and CodeQL re-reported it as new.
+
+Traced rather than assumed: `template` comes from `JSON.parse(templateEl.textContent)` — a
+`<script>` tag baked in at build time. The loader reads no `location.*`, no
+`document.referrer`, no `postMessage`, no `window.name`, no query string or hash, and its one
+`fetch` targets `blob:` URLs built from the page's own manifest. **No untrusted source, so no
+exploitable path.** The pattern is real; the risk is not.
+
+**Remedy is a settings action, not a commit:** dismiss the two alerts, or fix the generator
+that embeds a page inside a script tag and re-parses it. Hand-editing that loader inside a
+4.7 MB generated document would risk the page for no security gain.
+
+## Still open
+
+
+- **OI-09** — the vCard blob in public history, carrying a mobile number and an email.
+  **Not acted on.** Write access is no longer the obstacle; explicit instruction is. Removing
+  it needs a history rewrite and a force-push on a public repository: irreversible, it
+  invalidates every existing clone and fork, and forks or caches may retain the blob anyway.
+  Harm reduction, not erasure — and a published phone number cannot be rotated like a
+  password.
+- **The two CodeQL alerts** await dismissal in the security tab. Until then every pull request
+  touching those two files carries a red check for a three-week-old `main` finding.
+- **Should `#layer-boundaries` (08A) appear in the psychiatry stepper?** It now reveals
+  correctly, but it is still absent from the index. An editorial call, not a defect.
 - **A pre-existing horizontal overflow** on `executive-summary.html` at 390px width
   (`scrollWidth` 453 against a 390px viewport). Measured against the committed version first:
   **not introduced by this day's changes.** Not fixed — out of scope, and no offending element

@@ -60,8 +60,28 @@ body{
    OVERTURE — neural field, steel plate, staged entrance
    ============================================================ */
 #neural{position:fixed;inset:0;z-index:-1;display:block;width:100%;height:100%;
-  opacity:1;transition:opacity .7s var(--ease-out)}
+  opacity:1;transition:opacity .7s var(--ease-out);
+  /* the constellation orbits the text rather than crossing it: the centre of the
+     frame is carved out so the wordmark and the lede stay wholly legible */
+  -webkit-mask-image:radial-gradient(58% 46% at 50% 46%, transparent 42%, #000 88%);
+  mask-image:radial-gradient(58% 46% at 50% 46%, transparent 42%, #000 88%)}
 #neural.recede{opacity:.16}
+/* when a query is running, the field comes back up: it is showing the answer */
+#neural.lit-query{opacity:.62}
+#neural.recede.lit-query{opacity:.42}
+/* the constellation names the page you point at — the field is an index,
+   so it should answer when questioned rather than merely decorate */
+#field-label{position:fixed;z-index:3;transform:translate(-50%,0);pointer-events:none;
+  opacity:0;transition:opacity .22s var(--ease-out);
+  display:flex;align-items:baseline;gap:10px;white-space:nowrap;
+  padding:7px 13px;border-radius:999px;background:rgba(10,16,24,.82);
+  -webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);
+  border:1px solid rgba(198,163,90,.30);box-shadow:0 8px 26px rgba(0,0,0,.6);
+  font-family:var(--font-sans);font-size:12.5px;color:var(--ink-1)}
+#field-label.on{opacity:1}
+#field-label b{font-family:var(--font-mono);font-size:10px;color:var(--gold);font-weight:500}
+#field-label i{font-family:var(--font-mono);font-style:normal;font-size:10px;color:var(--ink-4)}
+@media(max-width:720px){#field-label{display:none}}
 .vignette{position:fixed;inset:0;z-index:0;pointer-events:none;
   background:radial-gradient(120% 90% at 50% 44%, transparent 52%, rgba(5,7,11,.58) 100%)}
 #progress{position:fixed;top:0;left:0;height:2px;width:0;z-index:60;
@@ -233,6 +253,8 @@ main::before{content:"";position:absolute;top:-40px;bottom:0;left:50%;width:100v
 <body>
 
 <canvas id="neural"></canvas>
+<div id="field-label" aria-hidden="true"></div>
+<script id="kn-map" type="application/json">[{"n":1,"t":"Cinematic Opening","f":"index.html","s":""},{"n":2,"t":"The Pyramids","f":"pyramids.html","s":"000"},{"n":3,"t":"The Observatory","f":"observatory.html","s":"00666006666666"},{"n":4,"t":"Introduction","f":"introduction.html","s":"00666066660"},{"n":5,"t":"DRGs Compendium","f":"drgs-compendium.html","s":"066deef6de6def6def6gde066def06de6f6d6d6df6f6f06d6de6dd6ee6deef6e06ddggdf6edfg06dddde6cdehcdecdecdehcde6de066de06ef66de6de06dehd06eg06def6def06g6d6g6dg6g6g6gg06hf66ddh6ddh06heeee066cccc6ccc"},{"n":6,"t":"Denial Codes — as Knowledge Infrastructure","f":"denial-codes.html","s":"00060666060000660666600006666606666666"},{"n":7,"t":"Denial Navigator","f":"denial-codes-semantic.html","s":"06666666066666666606666666666666660660666666066666666666666666666666666066666666660666"},{"n":8,"t":"Psychiatry — A Triangulated Lens","f":"psychiatry-intro.html","s":"000"},{"n":9,"t":"Psychiatry — Semantic Layer","f":"psychiatry-semantic-layer.html","s":"006060666666066606666066660666666666666666606666066606006666660666666666666666666666666666666"},{"n":10,"t":"Psychiatry across DSM-5-TR & IR-DRG","f":"psychiatry-ir-drg-tree.html","s":"06cccccc6cccccc06cccccc6ccccc6c06cccccc6ccccc06ccccc6cccccc6c06ccccc6ccccc6c06ccccc6ccccc6c06ccccc6ccccc06ccccc6ccccc06cccccc6ccccc06ccccc6ccc6c"},{"n":11,"t":"Setting-of-Care Principles","f":"setting-of-care.html","s":"0066606606666660660660666666660660660660"},{"n":12,"t":"Source Corpus","f":"source-corpus.html","s":"006066666606660666066666666606"},{"n":13,"t":"Visual Archive (Gallery)","f":"gallery.html","s":"0066606060606"},{"n":14,"t":"About the Author — Executive Dossier","f":"executive-summary.html","s":"006606666660066666666666666600666666066066666666666666"}]</script>
 <div class="vignette"></div>
 <div class="grain"></div>
 <div id="progress"></div>
@@ -1022,116 +1044,203 @@ main::before{content:"";position:absolute;top:-40px;bottom:0;left:50%;width:100v
 <script data-goatcounter="https://sherifalattar.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 <script>
 /* ============================================================
-   1 · NEURAL FIELD — hand-written, no libraries
-   A depth-projected particle cloud: points drift in 3D, near
-   neighbours wire together, and the whole field parallaxes to
-   the pointer. Density and motion scale down on small screens
-   and stop entirely under prefers-reduced-motion.
+   1 · THE FIELD IS THE MAP
+   Not decoration. Every star is one of the 717 numbered entries,
+   grouped into fourteen constellations — one per page of the site
+   — sized by how many entries that page holds, coloured by the
+   block labels the Compendium already uses, and wired to their
+   nearest neighbours within their own page. The layout is
+   deterministic, so the constellation is the same every visit.
    ============================================================ */
 (function(){
   var cv = document.getElementById('neural');
-  if (!cv || !cv.getContext) return;
+  var src = document.getElementById('kn-map');
+  if (!cv || !cv.getContext || !src) return;
+
+  var PAGES;
+  try { PAGES = JSON.parse(src.textContent); } catch (e) { return; }
+
   var ctx = cv.getContext('2d');
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var w, h, dpr, pts, cx, cy, FOV = 620;
-  var mx = 0, my = 0, tx = 0, ty = 0;
+  var LABEL = document.getElementById('field-label');
 
-  function count(){
-    var a = Math.min(window.innerWidth, 1600) * Math.min(window.innerHeight, 1000);
-    return Math.max(120, Math.min(340, Math.round(a / 4800)));
-  }
-  function seed(){
-    pts = [];
-    for (var i = 0, n = count(); i < n; i++){
-      pts.push({
-        x: (Math.random() - .5) * 1500,
-        y: (Math.random() - .5) * 1000,
-        z: Math.random() * 900 + 90,
-        vx: (Math.random() - .5) * .16,
-        vy: (Math.random() - .5) * .13,
-        vz: -(Math.random() * .30 + .10),
-        r: Math.random() * 1.5 + .5,
-        gold: Math.random() < .30
-      });
+  /* legend colours, then a fallback by depth: section, topic, point */
+  var KIND = ['', '47,230,200', '86,198,255', '243,203,125', '156,124,255', '196,204,223'];
+  var DEPTH = ['198,163,90', '143,189,255', '122,140,166'];
+
+  /* deterministic layout — the same constellation on every visit */
+  function rng(seed){ return function(){
+    seed |= 0; seed = seed + 0x6D2B79F5 | 0;
+    var t = Math.imul(seed ^ seed >>> 15, 1 | seed);
+    t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t;
+    return ((t ^ t >>> 14) >>> 0) / 4294967296;
+  };}
+
+  var stars = [], clusters = [], edges = [];
+  (function build(){
+    var R = 760, N = PAGES.length, r = rng(20260830);
+    for (var ci = 0; ci < N; ci++){
+      var pg = PAGES[ci], n = pg.s.length;
+      /* fibonacci sphere: fourteen centres, evenly spread, no clumping */
+      var y = 1 - (ci / (N - 1)) * 2;
+      var rad = Math.sqrt(Math.max(0, 1 - y * y));
+      var th = Math.PI * (3 - Math.sqrt(5)) * ci;
+      var C = { x: Math.cos(th) * rad * R, y: y * R * 0.52, z: Math.sin(th) * rad * R,
+                page: pg.n, title: pg.t, file: pg.f, count: n, first: stars.length, sx: 0, sy: 0, a: 0 };
+      clusters.push(C);
+      var spread = 42 + 6.2 * Math.sqrt(n);
+      var start = stars.length;
+      for (var i = 0; i < n; i++){
+        var code = parseInt(pg.s[i], 36), depth = (code / 6) | 0, kind = code % 6;
+        /* even shell distribution, so a page reads as a body not a blob */
+        var u = r() * 2 - 1, ph = r() * Math.PI * 2, sr = spread * Math.cbrt(r());
+        var pr = Math.sqrt(1 - u * u);
+        stars.push({
+          x: C.x + Math.cos(ph) * pr * sr, y: C.y + u * sr, z: C.z + Math.sin(ph) * pr * sr,
+          c: kind ? KIND[kind] : DEPTH[Math.min(2, depth)],
+          r: depth === 0 ? 1.9 : (depth === 1 ? 1.3 : 0.95),
+          w: depth === 0 ? 1 : 0, ci: ci, sx: 0, sy: 0, sr: 0, a: 0
+        });
+      }
+      /* wires precomputed once: relative positions never change, so the
+         neighbour graph is fixed and each frame only draws it */
+      for (var a = start; a < stars.length; a++){
+        var best = -1, bd = 1e9;
+        for (var bIdx = start; bIdx < stars.length; bIdx++){
+          if (bIdx === a) continue;
+          var dx = stars[a].x - stars[bIdx].x, dy = stars[a].y - stars[bIdx].y, dz = stars[a].z - stars[bIdx].z;
+          var d = dx*dx + dy*dy + dz*dz;
+          if (d < bd){ bd = d; best = bIdx; }
+        }
+        if (best >= 0) edges.push([a, best, stars[a].w || stars[best].w ? 1 : 0]);
+      }
     }
-  }
+  })();
+
+  var w, h, dpr, cx, cy, FOV = 900, mx = 0, my = 0, tx = 0, ty = 0, t0 = 0, raf = 0, near = null;
+  var matches = null, focus = null;
+
   function resize(){
     dpr = Math.min(window.devicePixelRatio || 1, 2);
     w = cv.clientWidth; h = cv.clientHeight;
     cv.width = Math.round(w * dpr); cv.height = Math.round(h * dpr);
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     cx = w / 2; cy = h / 2;
-    seed();
   }
 
-  var t0 = 0;
   function frame(now){
     if (!t0) t0 = now || 0;
-    /* arrival: 0 -> 1 over the first 2.2s, eased, driving speed and brightness */
-    var el = Math.min(1, ((now || 0) - t0) / 2200);
+    var el = Math.min(1, ((now || 0) - t0) / 2400);
     var arrive = reduce ? 1 : 1 - Math.pow(1 - el, 3);
-    /* the field converges: it starts flung wide of the frame and settles inward,
-       so the constellation assembles rather than simply being there */
-    var spread = reduce ? 1 : 1 + 1.9 * (1 - arrive);
+    /* the assembly falls in from far out and settles into its true scale */
+    var scale = reduce ? 1 : 3.1 - 2.1 * arrive;
+    var spin = reduce ? 0.4 : ((now || 0) * 0.000042);
+    var cosA = Math.cos(spin), sinA = Math.sin(spin);
+    var tilt = 0.34, cosB = Math.cos(tilt), sinB = Math.sin(tilt);
+
+    tx += (mx - tx) * .04; ty += (my - ty) * .04;
     ctx.clearRect(0, 0, w, h);
-    tx += (mx - tx) * .045; ty += (my - ty) * .045;
 
-    var proj = [], i, p, s;
-    for (i = 0; i < pts.length; i++){
-      p = pts[i];
-      if (!reduce){ p.x += p.vx; p.y += p.vy; p.z += p.vz; }
-      if (p.z < 60){ p.z = 990; p.x = (Math.random() - .5) * 1500; p.y = (Math.random() - .5) * 1000; }
-      s = FOV / p.z;
-      proj.push({
-        sx: cx + (p.x + tx * 42) * s * spread,
-        sy: cy + (p.y + ty * 30) * s * spread,
-        /* capped: an uncapped near-field point balloons into bokeh */
-        r: Math.max(.4, Math.min(2.3, p.r * s)),
-        a: Math.max(0, Math.min(1, (1000 - p.z) / 780)) * (0.10 + 0.90 * arrive),
-        gold: p.gold
-      });
+    var i, s, X, Y, Z, zz, k;
+    for (i = 0; i < stars.length; i++){
+      s = stars[i];
+      X = s.x * cosA - s.z * sinA; Z = s.x * sinA + s.z * cosA; Y = s.y;
+      var Y2 = Y * cosB - Z * sinB; Z = Y * sinB + Z * cosB;
+      zz = Z * scale + 1500;
+      if (zz < 60) { s.a = 0; continue; }
+      k = FOV / zz;
+      s.sx = cx + (X * scale + tx * 60) * k;
+      s.sy = cy + (Y2 * scale + ty * 40) * k;
+      s.sr = Math.max(.35, s.r * k * 2.1);
+      s.a = Math.max(0, Math.min(1, (2600 - zz) / 2100)) * (0.12 + 0.88 * arrive);
+      s.hit = 0;
+      if (matches) {
+        /* six stars out of 717 cannot answer a question at their normal size:
+           a match is enlarged and pulsed, the rest fall back to a whisper */
+        if (matches.has(i)) { s.hit = 1; s.sr *= 2.6; }
+        else s.a *= 0.05;
+      } else if (focus !== null) s.a *= (s.ci === focus) ? 1 : 0.24;
+    }
+    for (i = 0; i < clusters.length; i++){
+      var C = clusters[i], f = stars[C.first];
+      C.sx = f ? f.sx : 0; C.sy = f ? f.sy : 0; C.a = f ? f.a : 0;
     }
 
-    /* wires first, so the nodes sit on top of them */
     ctx.lineWidth = 1;
-    for (i = 0; i < proj.length; i++){
-      for (var j = i + 1; j < proj.length; j++){
-        var dx = proj[i].sx - proj[j].sx, dy = proj[i].sy - proj[j].sy;
-        var d2 = dx * dx + dy * dy;
-        if (d2 > 26000) continue;
-        var o = (1 - Math.sqrt(d2) / 161) * .46 * Math.min(proj[i].a, proj[j].a);
-        if (o <= .006) continue;
-        ctx.strokeStyle = (proj[i].gold && proj[j].gold)
-          ? 'rgba(198,163,90,' + o.toFixed(3) + ')'
-          : 'rgba(15,166,194,' + o.toFixed(3) + ')';
-        ctx.beginPath(); ctx.moveTo(proj[i].sx, proj[i].sy); ctx.lineTo(proj[j].sx, proj[j].sy); ctx.stroke();
-      }
+    for (i = 0; i < edges.length; i++){
+      var A = stars[edges[i][0]], B = stars[edges[i][1]];
+      if (!A.a || !B.a) continue;
+      var o = Math.min(A.a, B.a) * (edges[i][2] ? .34 : .19);
+      ctx.strokeStyle = 'rgba(' + (edges[i][2] ? '198,163,90,' : '120,168,196,') + o.toFixed(3) + ')';
+      ctx.beginPath(); ctx.moveTo(A.sx, A.sy); ctx.lineTo(B.sx, B.sy); ctx.stroke();
     }
+
     ctx.globalCompositeOperation = 'lighter';
-    for (i = 0; i < proj.length; i++){
-      var q = proj[i], c = q.gold ? '198,163,90' : '176,212,235';
-      var g = ctx.createRadialGradient(q.sx, q.sy, 0, q.sx, q.sy, q.r * 3.4);
-      g.addColorStop(0, 'rgba(' + c + ',' + (q.a * .46).toFixed(3) + ')');
-      g.addColorStop(1, 'rgba(' + c + ',0)');
+    for (i = 0; i < stars.length; i++){
+      s = stars[i]; if (!s.a) continue;
+      var pulse = s.hit ? (0.75 + 0.25 * Math.sin((now || 0) * 0.005)) : 1;
+      var g = ctx.createRadialGradient(s.sx, s.sy, 0, s.sx, s.sy, s.sr * 4);
+      g.addColorStop(0, 'rgba(' + s.c + ',' + (s.a * (s.hit ? .72 : .40) * pulse).toFixed(3) + ')');
+      g.addColorStop(1, 'rgba(' + s.c + ',0)');
       ctx.fillStyle = g;
-      ctx.beginPath(); ctx.arc(q.sx, q.sy, q.r * 3.4, 0, 6.2832); ctx.fill();
-      ctx.fillStyle = 'rgba(' + c + ',' + Math.min(1, q.a * 1.15).toFixed(3) + ')';
-      ctx.beginPath(); ctx.arc(q.sx, q.sy, q.r * .85, 0, 6.2832); ctx.fill();
+      ctx.beginPath(); ctx.arc(s.sx, s.sy, s.sr * 4, 0, 6.2832); ctx.fill();
+      ctx.fillStyle = 'rgba(' + s.c + ',' + Math.min(1, s.a * 1.2 * pulse).toFixed(3) + ')';
+      ctx.beginPath(); ctx.arc(s.sx, s.sy, s.sr * .9, 0, 6.2832); ctx.fill();
     }
     ctx.globalCompositeOperation = 'source-over';
+
     raf = requestAnimationFrame(frame);
   }
 
-  var raf = 0;
+  /* the constellation names itself: whichever page you point at */
+  function label(ev){
+    if (!LABEL) return;
+    var px = ev.clientX, py = ev.clientY, best = null, bd = 150 * 150;
+    for (var i = 0; i < clusters.length; i++){
+      var C = clusters[i]; if (!C.a) continue;
+      var dx = C.sx - px, dy = C.sy - py, d = dx * dx + dy * dy;
+      if (d < bd){ bd = d; best = C; }
+    }
+    near = best;
+    if (!best){ LABEL.classList.remove('on'); return; }
+    LABEL.innerHTML = '<b>' + (best.page < 10 ? '0' : '') + best.page + '</b>' +
+      best.title.replace(/&/g, '&amp;').replace(/</g, '&lt;') +
+      '<i>' + best.count + ' entries</i>';
+    /* clamp inside the viewport — a cluster near the edge would push it off-screen */
+    LABEL.style.left = Math.round(Math.max(150, Math.min(window.innerWidth - 150, best.sx))) + 'px';
+    LABEL.style.top = Math.round(Math.min(window.innerHeight - 60, best.sy + 22)) + 'px';
+    LABEL.classList.add('on');
+  }
+
   window.addEventListener('resize', resize);
+  window.addEventListener('scroll', function(){
+    if (LABEL && window.scrollY > window.innerHeight * .8) { LABEL.classList.remove('on'); near = null; }
+  }, { passive: true });
   window.addEventListener('pointermove', function(e){
     mx = (e.clientX / window.innerWidth - .5) * 2;
     my = (e.clientY / window.innerHeight - .5) * 2;
+    if (window.scrollY < window.innerHeight * .8) label(e); else if (LABEL) LABEL.classList.remove('on');
   }, { passive: true });
-  document.addEventListener('visibilitychange', function(){
-    if (document.hidden) { cancelAnimationFrame(raf); raf = 0; }
-    else if (!raf) raf = requestAnimationFrame(frame);
+  window.addEventListener('click', function(){
+    if (!near || window.scrollY > window.innerHeight * .8) return;
+    var t = document.getElementById('page-' + near.page);
+    if (t) t.scrollIntoView({ behavior: 'smooth', block: 'start' });
   });
+  document.addEventListener('visibilitychange', function(){
+    if (document.hidden){ cancelAnimationFrame(raf); raf = 0; }
+    else if (!raf){ raf = requestAnimationFrame(frame); }
+  });
+  /* the field answers the page: a search lights only the stars that match,
+     and reading a section brings its own constellation forward */
+  window.__knField = {
+    stars: stars.length,
+    match: function(set){ matches = set; },
+    focus: function(pageNo){
+      focus = null;
+      for (var i = 0; i < clusters.length; i++) if (clusters[i].page === pageNo) focus = i;
+    }
+  };
+
   resize();
   raf = requestAnimationFrame(frame);
 })();
@@ -1167,6 +1276,15 @@ main::before{content:"";position:absolute;top:-40px;bottom:0;left:50%;width:100v
     if (bar) bar.style.width = (max > 0 ? (scrollY / max) * 100 : 0) + '%';
     /* a live field behind 717 lines of reference text is noise, not atmosphere */
     if (field) field.classList.toggle('recede', scrollY > innerHeight * 0.55);
+    /* and it tracks where you are reading: the page in view holds the light */
+    if (window.__knField) {
+      var best = null, bd = 1e9;
+      document.querySelectorAll('.page-block:not(.hidden)').forEach(function(b){
+        var d = Math.abs(b.getBoundingClientRect().top - 140);
+        if (d < bd) { bd = d; best = b; }
+      });
+      window.__knField.focus(scrollY > innerHeight * 0.5 && best ? +best.dataset.page : -1);
+    }
   }, { passive: true });
 })();
 
@@ -1183,7 +1301,7 @@ main::before{content:"";position:absolute;top:-40px;bottom:0;left:50%;width:100v
   var all    = Array.prototype.slice.call(document.querySelectorAll('.e'));
   var active = null;
 
-  all.forEach(function(e){ e._hay = (e.dataset.n + ' ' + e.textContent).toLowerCase(); });
+  all.forEach(function(e, i){ e._hay = (e.dataset.n + ' ' + e.textContent).toLowerCase(); e._i = i; });
 
   function apply(){
     var term = (q.value || '').trim().toLowerCase();
@@ -1201,14 +1319,36 @@ main::before{content:"";position:absolute;top:-40px;bottom:0;left:50%;width:100v
     });
     count.textContent = shown + (shown === 1 ? ' entry' : ' entries');
     empty.classList.toggle('on', shown === 0);
+
+    /* the constellation is the same 717 entries, so it can answer the same
+       question: light only the stars that survived the filter */
+    var field = document.getElementById('neural');
+    if (window.__knField) {
+      if (!term && !active) { window.__knField.match(null); if (field) field.classList.remove('lit-query'); }
+      else {
+        var set = new Set();
+        all.forEach(function(e){ if (!e.classList.contains('hidden')) set.add(e._i); });
+        window.__knField.match(set);
+        if (field) field.classList.add('lit-query');
+      }
+    }
   }
 
-  q.addEventListener('input', apply);
+  /* filtering can shrink 717 entries to six; without this the reader is left
+     stranded wherever the old, longer page had put them */
+  function toResults(){
+    var top = document.querySelector('.console');
+    if (!top) return;
+    var y = top.getBoundingClientRect().top + scrollY;
+    if (scrollY > y) scrollTo({ top: y, behavior: 'smooth' });
+  }
+
+  q.addEventListener('input', function(){ apply(); toResults(); });
   kinds.forEach(function(k){
     k.addEventListener('click', function(){
       active = (active === k.dataset.kind) ? null : k.dataset.kind;
       kinds.forEach(function(o){ o.setAttribute('aria-pressed', String(o.dataset.kind === active)); });
-      apply();
+      apply(); toResults();
     });
   });
   navs.forEach(function(n){
