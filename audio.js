@@ -21,7 +21,11 @@
   btn.setAttribute('data-kn-audio', '');
   btn.setAttribute('aria-label', 'Toggle background music');
   btn.style.cssText = [
-    'position:fixed', 'right:22px', 'bottom:22px', 'z-index:2147483000',
+    // Sits above the identity badge row (ORCID right, LinkedIn left), which
+    // occupies the bottom 14-52px band. 22px there put this pill beside the
+    // ORCID badge on pages that reserved room for it, and underneath it on the
+    // two that did not. 70px clears the row on every page.
+    'position:fixed', 'right:22px', 'bottom:70px', 'z-index:2147483000',
     'height:38px', 'padding:0 15px 0 12px', 'display:inline-flex', 'align-items:center', 'gap:8px',
     'border-radius:999px', 'cursor:pointer',
     'font:600 11px/1 ui-sans-serif,system-ui,-apple-system,sans-serif',
