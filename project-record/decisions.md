@@ -625,3 +625,100 @@ What the files actually use, checked page by page:
 
 `CLAUDE.md` now carries this table instead of the aspiration.
 
+---
+
+## D-28 · 10 September 2026 · The music becomes a library, and the library is never preloaded
+
+**Source:** this session. **[RECORDED]** — you uploaded four pieces and had said
+earlier *"the music is short and boring"* and *"انا عندى افكار كتير للمزيكا لانها عشق
+ليا و حابب اعمل music library"*.
+
+Five pieces now, about sixty-one minutes: `background-music.mp3` and
+`Background-music-2..5.mp3`. `audio.js` plays them as a playlist — one ends and the
+next begins, the last returns to the first, and a skip control moves through them by
+hand. The piece **and its position** persist across pages, so navigating continues
+the music rather than restarting it.
+
+**The constraint that shaped the code, and the one to preserve.** The five files are
+~41 MB together. `preload` is `none`; nothing is fetched until Sound is pressed, and
+the next piece is not touched until the current one ends. Measured in Chromium: **0**
+mp3 requests at rest, **1** after pressing Sound, **2** across a whole session that
+played and skipped. A visitor on mobile data must never pay for a minute they do not
+hear — any future change here has to keep that true.
+
+Filenames are **case-sensitive** on GitHub Pages. `Background-music-2.mp3` is not
+`background-music-2.mp3`.
+
+**Found while testing:** `drgs-compendium.html` had never included `audio.js` at all,
+so the music died on the flagship page. One line.
+
+---
+
+## D-29 · 10 September 2026 · The record holds the science, and keeps its old numbers
+
+**Source:** this session. **[RECORDED]** — your words: *"خلى القائمه مقتصره على المحتوى
+العلمى فقط - الصفحات العلميه فقط --- شيل الجزء الخاص بالصفحات التانيه"*.
+
+Out of the record: the cinematic opening, the pyramids, the observatory hub, the
+foreword, the gallery and the dossier. What remains is the eight scientific pages —
+**622 entries, 83 sections, 539 points** (was 711 / 107 / 604).
+
+**They were deliberately not renumbered to 1–8.** Every address on this site is meant
+to be citable; the Compendium stays `5.x` and the Source Corpus stays `12.x`. A tidier
+sequence is not worth breaking every link that already points at them. The deck now
+opens on card `05` rather than `01`, and that is the honest consequence.
+
+---
+
+## D-30 · 10 September 2026 · The deck holds its place while the record changes beneath it
+
+**Source:** this session. **[RECORDED]** — your words: *"الكروت محتاجه تبقى ثابته فى
+نفس الوقت - مش اول ما دوس عليها تطلع القائمه - ممكن تدوس على الكارت و يظهر فى نفس الوقت
+تحت القائمه"*.
+
+Clicking a card no longer travels. The card comes to the front and the record beneath
+it switches to that page at the same moment, with the deck exactly where it was.
+
+**The part that needed work, and will catch anyone who touches this again:** hiding
+the other blocks makes the document shorter, and the browser then shifts `scrollY` on
+its own — so the deck drifted even though nothing asked it to move. The fix measures
+the deck's position in the viewport *before* the filter and restores it *after*.
+Verified at 390 / 768 / 1280: deck top **104px before, 104px after**.
+
+---
+
+## D-31 · 10 September 2026 · No italics, and champagne gold instead of stars
+
+**Source:** this session. **[RECORDED]** — your words: *"شيل الخط المائل مبحبوش اصلا"*
+and *"the stars - to be replaced with light / champagne gold as a background"*.
+
+Every italic is gone from `wiki.html` — 0 italic elements. The line under the title is
+yours verbatim: *"The house — where clinical validation of DRGs is a textbook
+signature."*
+
+In the Observatory, the drifting starfield is deleted — 92 points and a permanent
+`requestAnimationFrame` loop — and the cool cyan/violet ambient light it sat in is now
+champagne gold.
+
+**A judgement recorded because it was a choice, not a certainty.** "Light / champagne
+gold as a background" could mean the whole page inverts to a pale ground. That would
+have made its near-white text unreadable and re-skinned the page uninvited, so the
+gold was applied as *the light falling on the page* and the panels were left dark.
+Sherif was asked whether he wants the panels light too; until he says so, this is
+where it stands.
+
+---
+
+## D-32 · 10 September 2026 · Images belong in files once they are large
+
+**Source:** this session. **[DERIVED]** — from replacing the RDD Process picture.
+
+`CLAUDE.md` prefers inlined base64 so documents travel self-contained. The RDD
+picture was a **686 KB** base64 blob inside `gallery.html`. Replacing it with the new
+`3D-Processes-Picture.png` as a plain file reference made the page **686 KB smaller**
+and the image cacheable on its own.
+
+The convention stands for small glyphs and gradients. Past roughly a hundred
+kilobytes it costs more than it buys, and the root already holds loose images
+(`psychiatry-hero.jpg`, `signature.png`) that establish the exception.
+
