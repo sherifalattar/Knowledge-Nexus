@@ -39,7 +39,7 @@ Live site: https://sherifalattar.github.io/Knowledge-Nexus/
 | File | Role |
 |---|---|
 | `index.html` | The descent — a polar landscape raymarched in real time (WebGPU, WebGL2 fallback) |
-| `pyramids.html` | The metaphoric landing |
+| `pyramids.html` | A Doctrine in Stone — the doctrine, over a raymarched Giza (WebGPU, WebGL2 fallback) |
 | `observatory.html` | The hub; every module orbits here |
 | `drgs-compendium.html` | IR-DRG system |
 | `denial-codes.html` | Denial codes as infrastructure |
