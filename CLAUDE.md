@@ -18,8 +18,15 @@ Live site: https://sherifalattar.github.io/Knowledge-Nexus/
   so documents travel self-contained. Only a few loose assets exist at the root
   (`*.png`, `*.jpg`, `background-music.mp3`).
 - `audio.js` is a single shared script that carries background music across
-  pages and remembers playback state so the music never restarts on navigation.
-  `background-music.mp3` must live at the repository root.
+  pages and remembers **which piece and what position**, so navigation never
+  restarts the music. It plays a five-piece library (~61 minutes) that must live
+  at the repository root: `background-music.mp3` and `Background-music-2..5.mp3`
+  — the capitalisation matters, GitHub Pages is case-sensitive.
+  **The tracks are never preloaded.** Together they are ~41 MB; `preload` is
+  `none` until Sound is pressed, and the next piece is fetched only when the
+  current one ends. Any change here must preserve that — a visitor on mobile
+  data should never pay for a minute they do not hear.
+  Every page must include `audio.js`, or the music dies on that page.
 - Nothing is fetched from a data file at runtime — every module is
   self-contained.
 - Typefaces, the icon set, and the films load over HTTPS, so the canonical
@@ -30,7 +37,7 @@ Live site: https://sherifalattar.github.io/Knowledge-Nexus/
 
 | File | Role |
 |---|---|
-| `index.html` | Cinematic opening (the constellation) |
+| `index.html` | The descent — three NASA IceBridge photographs of Antarctica, scroll-driven |
 | `pyramids.html` | The metaphoric landing |
 | `observatory.html` | The hub; every module orbits here |
 | `drgs-compendium.html` | IR-DRG system |
@@ -46,6 +53,19 @@ Live site: https://sherifalattar.github.io/Knowledge-Nexus/
 | `wiki.html` | The foreword and the Content Map — 711 numbered, citable entries |
 | `verification.html` | The Verification Register — which Compendium blocks name an authority |
 | `introduction.html` | A `noindex` redirect leaf to `wiki.html#foreword` (the page was merged) |
+
+### Third-party imagery
+
+Everything on this site is Sherif's own work except the three photographs on
+`index.html` (`pole-1-flight.jpg`, `pole-2-range.jpg`, `pole-3-front.jpg`).
+They are **NASA / Operation IceBridge**, taken from the DC-8 over the Amundsen
+Sea, the Ellsworth Range and the Thurston Island calving front, and are in the
+**public domain** — NASA imagery carries no copyright. They are credited in the
+page footer anyway, because a site whose first principle is provenance should
+not have an unattributed object on it.
+
+If any image is ever added from a source that is *not* public domain, its
+licence and author go in `project-record/decisions.md` before it is committed.
 
 ### Numbering and provenance
 

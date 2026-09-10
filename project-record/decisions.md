@@ -625,3 +625,172 @@ What the files actually use, checked page by page:
 
 `CLAUDE.md` now carries this table instead of the aspiration.
 
+---
+
+## D-28 · 10 September 2026 · The music becomes a library, and the library is never preloaded
+
+**Source:** this session. **[RECORDED]** — you uploaded four pieces and had said
+earlier *"the music is short and boring"* and *"انا عندى افكار كتير للمزيكا لانها عشق
+ليا و حابب اعمل music library"*.
+
+Five pieces now, about sixty-one minutes: `background-music.mp3` and
+`Background-music-2..5.mp3`. `audio.js` plays them as a playlist — one ends and the
+next begins, the last returns to the first, and a skip control moves through them by
+hand. The piece **and its position** persist across pages, so navigating continues
+the music rather than restarting it.
+
+**The constraint that shaped the code, and the one to preserve.** The five files are
+~41 MB together. `preload` is `none`; nothing is fetched until Sound is pressed, and
+the next piece is not touched until the current one ends. Measured in Chromium: **0**
+mp3 requests at rest, **1** after pressing Sound, **2** across a whole session that
+played and skipped. A visitor on mobile data must never pay for a minute they do not
+hear — any future change here has to keep that true.
+
+Filenames are **case-sensitive** on GitHub Pages. `Background-music-2.mp3` is not
+`background-music-2.mp3`.
+
+**Found while testing:** `drgs-compendium.html` had never included `audio.js` at all,
+so the music died on the flagship page. One line.
+
+---
+
+## D-29 · 10 September 2026 · The record holds the science, and keeps its old numbers
+
+**Source:** this session. **[RECORDED]** — your words: *"خلى القائمه مقتصره على المحتوى
+العلمى فقط - الصفحات العلميه فقط --- شيل الجزء الخاص بالصفحات التانيه"*.
+
+Out of the record: the cinematic opening, the pyramids, the observatory hub, the
+foreword, the gallery and the dossier. What remains is the eight scientific pages —
+**622 entries, 83 sections, 539 points** (was 711 / 107 / 604).
+
+**They were deliberately not renumbered to 1–8.** Every address on this site is meant
+to be citable; the Compendium stays `5.x` and the Source Corpus stays `12.x`. A tidier
+sequence is not worth breaking every link that already points at them. The deck now
+opens on card `05` rather than `01`, and that is the honest consequence.
+
+---
+
+## D-30 · 10 September 2026 · The deck holds its place while the record changes beneath it
+
+**Source:** this session. **[RECORDED]** — your words: *"الكروت محتاجه تبقى ثابته فى
+نفس الوقت - مش اول ما دوس عليها تطلع القائمه - ممكن تدوس على الكارت و يظهر فى نفس الوقت
+تحت القائمه"*.
+
+Clicking a card no longer travels. The card comes to the front and the record beneath
+it switches to that page at the same moment, with the deck exactly where it was.
+
+**The part that needed work, and will catch anyone who touches this again:** hiding
+the other blocks makes the document shorter, and the browser then shifts `scrollY` on
+its own — so the deck drifted even though nothing asked it to move. The fix measures
+the deck's position in the viewport *before* the filter and restores it *after*.
+Verified at 390 / 768 / 1280: deck top **104px before, 104px after**.
+
+---
+
+## D-31 · 10 September 2026 · No italics, and champagne gold instead of stars
+
+**Source:** this session. **[RECORDED]** — your words: *"شيل الخط المائل مبحبوش اصلا"*
+and *"the stars - to be replaced with light / champagne gold as a background"*.
+
+Every italic is gone from `wiki.html` — 0 italic elements. The line under the title is
+yours verbatim: *"The house — where clinical validation of DRGs is a textbook
+signature."*
+
+In the Observatory, the drifting starfield is deleted — 92 points and a permanent
+`requestAnimationFrame` loop — and the cool cyan/violet ambient light it sat in is now
+champagne gold.
+
+**A judgement recorded because it was a choice, not a certainty.** "Light / champagne
+gold as a background" could mean the whole page inverts to a pale ground. That would
+have made its near-white text unreadable and re-skinned the page uninvited, so the
+gold was applied as *the light falling on the page* and the panels were left dark.
+Sherif was asked whether he wants the panels light too; until he says so, this is
+where it stands.
+
+---
+
+## D-32 · 10 September 2026 · Images belong in files once they are large
+
+**Source:** this session. **[DERIVED]** — from replacing the RDD Process picture.
+
+`CLAUDE.md` prefers inlined base64 so documents travel self-contained. The RDD
+picture was a **686 KB** base64 blob inside `gallery.html`. Replacing it with the new
+`3D-Processes-Picture.png` as a plain file reference made the page **686 KB smaller**
+and the image cacheable on its own.
+
+The convention stands for small glyphs and gradients. Past roughly a hundred
+kilobytes it costs more than it buys, and the root already holds loose images
+(`psychiatry-hero.jpg`, `signature.png`) that establish the exception.
+
+---
+
+## D-33 · 10 September 2026 · The opening is a descent onto Antarctica
+
+**Source:** this session. **[RECORDED]** — your words: *"عايز unreal صوره للقطب الجنوبى
+حقيقيه كانك نازل على القطب الجنوبى فعلا على index"*.
+
+`index.html` was a **566,242-byte** generated bundle that unpacked itself at runtime to
+display **454 visible characters**. It is now **19 KB**, hand-authored, and in the
+architecture the rest of the site actually uses.
+
+Three real photographs, in sequence: the DC-8's engines banking over the Amundsen Sea
+ice shelf, the Ellsworth Range, and the Thurston Island calving front. Each is a sticky
+full-viewport frame whose photograph scales down as you scroll, so **the camera falls
+towards the ice rather than the ice sliding past the window**. An altitude readout
+falls with it, 37,000 ft to 600.
+
+**On the images, because it matters here more than on most sites.** You asked for real
+ones and none had arrived, so rather than stall I took **NASA / Operation IceBridge**
+photographs — aerial survey images of Antarctica, shot from the aircraft, in the
+**public domain**. That licence was chosen deliberately over Unsplash or Pexels: NASA
+imagery carries no copyright at all, so there is no permission that could later be
+withdrawn or misread. They are credited in the page footer regardless. On a site whose
+first principle is provenance, an unattributed object would be the one indefensible
+thing on it.
+
+**A legibility fix worth keeping.** The first frame puts white type over a sunlit engine
+cowling, where it vanished. The answer was a radial scrim pooled behind the words, not
+a darker photograph — darkening the whole image to rescue two lines of text would have
+spent the picture to save the caption.
+
+---
+
+## D-34 · 10 September 2026 · Two defects that only measurement would have found
+
+**Source:** this session. **[DERIVED]** — from a browser sweep of all fifteen pages at
+390px and 1280px, run because you said *"زبط الصفحات مع نفسك كلها"*. Twenty-seven of
+thirty checks were clean; these were the other three.
+
+**The overflow that had no overflowing element.** `executive-summary.html` scrolled
+sideways by 67px at 390px. An earlier pass had recorded it as unisolatable, and the
+reason it resisted is worth keeping: **no element exceeded the viewport.** The width
+came from two things that extend the scroll area without widening any box — a
+decorative absolutely positioned `.section-line::before` (366px wide at a 195px offset)
+and content overflowing `.cine-portrait`. Both are meant to bleed, so the page was
+stopped from scrolling rather than the artwork redrawn.
+
+`overflow-x: clip`, **not `hidden`** — `hidden` makes `body` a scroll container and
+detaches every `position: sticky` element on the page. Verified afterwards that the
+sticky `.classbar` still sticks. The rule re-applies itself on DOM swaps, because that
+document replaces its own `documentElement` at runtime.
+
+**Sixty-six dead font URLs, and a font nobody noticed was missing.**
+`psychiatry-ir-drg-tree.html` fired 66 failed requests on every load: an inlined copy of
+a Google Fonts stylesheet whose every `src` had been rewritten to `blob:null/<uuid>` by
+whatever tool exported the page.
+
+Deleting them was easy. What the measurement actually surfaced was better:
+
+| Family | Declared | Used | Had a working source |
+|---|---|---|---|
+| JetBrains Mono | 11 rules | **0 times** | no |
+| Space Grotesk | rules present | **8 times** | **no** |
+| Manrope, DM Mono | via `<link>` | 5, 31 | yes |
+
+**Space Grotesk had been silently falling back to a system font.** Nobody would have
+reported that as a bug; it took counting declarations against uses to see it. It is now
+on the real stylesheet link. File 259,907 → 237,956 bytes, console errors 66 → 0.
+
+**Stated limit:** this container's proxy blocks `fonts.googleapis.com`, so what is
+verified is that the page now *requests* the font correctly — not that it arrives.
+
