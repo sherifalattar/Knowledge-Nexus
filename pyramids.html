@@ -151,10 +151,26 @@ blockquote{margin-top:30px;padding-left:clamp(16px,2.4vw,26px);
 .sign img{height:74px;width:auto;opacity:.9;filter:brightness(0) invert(1) opacity(.72)}
 
 /* ---- the six chambers ------------------------------------------------ */
-.chambers{padding:clamp(42px,7vh,74px) 0 clamp(56px,9vh,104px);
+.chambers{padding:clamp(64px,11vh,120px) 0 clamp(70px,12vh,132px);
   border-top:1px solid rgba(201,164,92,.16);background:#08090A}
+.chambers h2{margin-top:14px;font-family:"Cormorant Garamond",Georgia,serif;font-weight:600;
+  font-size:clamp(28px,4vw,50px);color:#F2ECDD;letter-spacing:.01em}
+.chambers .lede{margin-top:14px;font-size:15.5px;line-height:1.78;color:#A9A090;max-width:56ch}
+.doors{display:grid;grid-template-columns:repeat(auto-fit,minmax(248px,1fr));gap:1px;
+  background:rgba(201,164,92,.18);border:1px solid rgba(201,164,92,.18);border-radius:14px;
+  overflow:hidden;margin-top:36px}
+.door{background:#0C0B09;padding:24px 22px 26px;text-decoration:none;display:block;
+  transition:background .28s}
+.door:hover{background:#141210}
+.door .no{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:9px;letter-spacing:.26em;
+  color:rgba(201,164,92,.66)}
+.door b{display:block;margin-top:12px;font-family:"Cormorant Garamond",Georgia,serif;
+  font-weight:600;font-size:26px;line-height:1.05;color:#F2ECDD}
+.door .to{display:block;margin-top:8px;font-family:"JetBrains Mono",ui-monospace,monospace;
+  font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;color:#C9A45C}
+.door .gloss{display:block;margin-top:12px;font-size:13.5px;line-height:1.62;color:#9A9284}
 
-.close{display:flex;align-items:center;justify-content:space-between;
+.close{margin-top:44px;display:flex;align-items:center;justify-content:space-between;
   gap:20px;flex-wrap:wrap}
 .credit{margin-top:40px;font-family:"JetBrains Mono",ui-monospace,monospace;font-size:10px;
   line-height:1.95;color:#6E695E}
@@ -342,6 +358,44 @@ blockquote{margin-top:30px;padding-left:clamp(16px,2.4vw,26px);
 
 <section class="chambers">
   <div class="wrap">
+    <div class="cap" style="color:rgba(201,164,92,.72)">The axis turns</div>
+    <h2>The Six Chambers</h2>
+    <p class="lede">Here the descent turns. Walk the base of the pyramid &mdash; six doorways,
+    each opening on a single word.</p>
+
+    <div class="doors">
+      <a class="door" href="drgs-compendium.html">
+        <span class="no">01 / 06</span><b>Firmament</b>
+        <span class="to">DRGs Compendium</span>
+        <span class="gloss">The ordered vault of the heavens &mdash; each diagnosis takes its
+        station, each category its house.</span></a>
+      <a class="door" href="psychiatry-intro.html">
+        <span class="no">02 / 06</span><b>Psyche</b>
+        <span class="to">Walk Through Psychiatry</span>
+        <span class="gloss">The soul&rsquo;s oldest word, laid without flinching beside its plain
+        administrative name.</span></a>
+      <a class="door" href="denial-codes.html">
+        <span class="no">03 / 06</span><b>Recusal</b>
+        <span class="to">Denial Codes Development</span>
+        <span class="gloss">A verdict spoken over a claim and weighed before it is
+        refused.</span></a>
+      <a class="door" href="gallery.html">
+        <span class="no">04 / 06</span><b>Visions</b>
+        <span class="to">Visual Archive</span>
+        <span class="gloss">A wall of things seen and made &mdash; a gallery of the seen, made and
+        kept.</span></a>
+      <a class="door" href="setting-of-care.html">
+        <span class="no">05 / 06</span><b>Sanctuary</b>
+        <span class="to">Setting of Care</span>
+        <span class="gloss">The place where care is given and shelter held &mdash; the where of
+        care.</span></a>
+      <a class="door" href="executive-summary.html">
+        <span class="no">06 / 06</span><b>Pilgrim</b>
+        <span class="to">About Me</span>
+        <span class="gloss">The lifelong seeker on an unfinished road &mdash; notes that became a
+        repository.</span></a>
+    </div>
+
     <div class="close">
       <a class="enter" href="observatory.html">Enter Knowledge Nexus &rarr;</a>
       <a class="enter" href="wiki.html">The Content Map &rarr;</a>
