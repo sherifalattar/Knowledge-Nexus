@@ -131,7 +131,7 @@ body{background:#05070C;color:#DCE9F7;overflow-x:clip;
   <section class="leg"><div>
     <h1 class="mark">Knowledge&nbsp;Nexus</h1>
     <div class="sub">Dr. Sherif Alattar &middot; MD</div>
-    <a class="enter" href="observatory.html">Enter the observatory &rarr;</a>
+    <a class="enter" href="pyramids.html">From Antarctica to the origins &rarr;</a>
   </div></section>
 </div>
 
@@ -640,70 +640,6 @@ void main(){
   var n = 0, gi = setInterval(function(){ tick(); if (++n > 40) clearInterval(gi); }, 500);
 })();
 </script>
-</body>
-
-<!-- KN ENTER-FIX: makes the decorative "ENTER" reliably clickable -> observatory.html.
-     Appended safety patch; does not touch the bundled page. Idempotent. -->
-<script>
-(function(){
-  if (window.__knEnterFix) return; window.__knEnterFix = 1;
-  var TARGET = 'pyramids.html';
-
-  function go(e){
-    if (e){ e.preventDefault(); e.stopPropagation(); }
-    // Reuse the page's own cinematic entrance if present
-    try { if (typeof window.knAudioArm === 'function') window.knAudioArm(); } catch(_){}
-    try { sessionStorage.setItem('kn-entering','1'); } catch(_){}
-    window.location.href = TARGET;
-  }
-
-  function isEnter(el){
-    if (!el || !el.textContent) return false;
-    var t = el.textContent.replace(/\s+/g,' ').trim().toUpperCase();
-    return t === 'ENTER';
-  }
-
-  function wire(){
-    var nodes = document.querySelectorAll('a,button,div,span,p,li');
-    var hit = null;
-    for (var i=0;i<nodes.length;i++){
-      if (isEnter(nodes[i])){ hit = nodes[i]; break; }
-    }
-    if (hit){
-      hit.style.cursor = 'pointer';
-      hit.setAttribute('role','link');
-      hit.setAttribute('tabindex','0');
-      hit.setAttribute('aria-label','Enter — open the Observatory');
-      hit.addEventListener('click', go, true);
-      hit.addEventListener('keydown', function(e){
-        if (e.key === 'Enter' || e.key === ' ') go(e);
-      }, true);
-      return true;
-    }
-    return false;
-  }
-
-  function start(){
-    if (wire()) return;
-    // Bundle may render late: retry briefly, then observe the DOM.
-    var tries = 0, iv = setInterval(function(){
-      if (wire() || ++tries > 40) clearInterval(iv);  // ~10s max
-    }, 250);
-    try {
-      var mo = new MutationObserver(function(){ if (wire()) mo.disconnect(); });
-      mo.observe(document.documentElement, {childList:true, subtree:true});
-    } catch(_){}
-  }
-
-  if (document.readyState === 'loading')
-    document.addEventListener('DOMContentLoaded', start);
-  else start();
-})();
-</script>
-<script data-goatcounter="https://sherifalattar.goatcounter.com/count"         async src="//gc.zgo.at/count.js"></script>
-  
-</html>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
 <script src="audio.js"></script>
 <script data-goatcounter="https://sherifalattar.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </body>
