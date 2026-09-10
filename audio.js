@@ -128,20 +128,30 @@
   window.addEventListener('pagehide', remember);
   document.addEventListener('visibilitychange', function () { if (document.hidden) remember(); });
 
+  /* Seeking before playback is unreliable: currentTime set on an element that has
+     not started can be ignored or reset when the media actually loads, which is why
+     resuming after a blocked autoplay silently began the piece again from zero.
+     So the position is applied once playback is really running, and only cleared
+     when it has actually taken. */
+  function applyResume() {
+    if (resumeAt <= 0) return;
+    if (audio.readyState < 1) return;
+    try { audio.currentTime = resumeAt; } catch (e) { return; }
+    if (Math.abs(audio.currentTime - resumeAt) < 1.5) resumeAt = 0;
+  }
   function play() {
+    var ok = function () {
+      applyResume();
+      if (resumeAt > 0) audio.addEventListener('canplay', applyResume, { once: true });
+      ui(true); fadeTo(0.42); save(KEY, 'on');
+    };
     var pr = audio.play();
-    if (pr && pr.then) return pr.then(function () { ui(true); fadeTo(0.42); save(KEY, 'on'); });
-    ui(true); fadeTo(0.42); save(KEY, 'on');
+    if (pr && pr.then) return pr.then(ok);
+    ok();
     return Promise.resolve();
   }
   function start() {
     audio.preload = 'auto';
-    if (resumeAt > 0) {
-      /* seek only once the metadata is there, or currentTime is silently ignored */
-      var seek = function () { try { audio.currentTime = resumeAt; } catch (e) {} resumeAt = 0; };
-      if (audio.readyState >= 1) seek();
-      else audio.addEventListener('loadedmetadata', seek, { once: true });
-    }
     play().catch(function () { ui(false); });
   }
   function stop() { remember(); fadeTo(0, function () { audio.pause(); }); ui(false); save(KEY, 'off'); }
@@ -170,11 +180,6 @@
   var want; try { want = sessionStorage.getItem(KEY); } catch (e) {}
   if (want === 'on') {
     audio.preload = 'auto';
-    if (resumeAt > 0) {
-      var seek0 = function () { try { audio.currentTime = resumeAt; } catch (e) {} resumeAt = 0; };
-      if (audio.readyState >= 1) seek0();
-      else audio.addEventListener('loadedmetadata', seek0, { once: true });
-    }
     play().catch(function () {
       ui(false);
       var resume = function () { start(); window.removeEventListener('pointerdown', resume); window.removeEventListener('keydown', resume); };
