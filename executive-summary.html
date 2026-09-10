@@ -291,4 +291,27 @@ document.addEventListener('DOMContentLoaded', async function() {
 })();
 </script>
 </body>
+<script>
+/* At 390px this page scrolled sideways by ~67px. No element exceeded the viewport:
+   the width came from a decorative absolutely-positioned ::before on .section-line
+   (366px wide, offset 195px) and from content overflowing .cine-portrait, both of
+   which extend the scroll area without widening any box. They are meant to bleed,
+   so the fix is to stop the page scrolling rather than to redraw them.
+   overflow-x:clip, not hidden — hidden would make body a scroll container and
+   detach every position:sticky element on the page.
+   Re-applied on a swap because this document replaces its own documentElement
+   at runtime, which throws away anything written into the original head. */
+(function(){
+  function apply(){
+    if (document.getElementById('kn-clip-x')) return;
+    var st = document.createElement('style');
+    st.id = 'kn-clip-x';
+    st.textContent = 'html,body{overflow-x:clip}';
+    (document.head || document.documentElement).appendChild(st);
+  }
+  apply();
+  new MutationObserver(apply).observe(document, { childList: true, subtree: true });
+  var n = 0, t = setInterval(function(){ apply(); if (++n > 40) clearInterval(t); }, 500);
+})();
+</script>
 </html>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
