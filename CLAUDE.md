@@ -37,7 +37,7 @@ Live site: https://sherifalattar.github.io/Knowledge-Nexus/
 
 | File | Role |
 |---|---|
-| `index.html` | Cinematic opening (the constellation) |
+| `index.html` | The descent — three NASA IceBridge photographs of Antarctica, scroll-driven |
 | `pyramids.html` | The metaphoric landing |
 | `observatory.html` | The hub; every module orbits here |
 | `drgs-compendium.html` | IR-DRG system |
@@ -53,6 +53,19 @@ Live site: https://sherifalattar.github.io/Knowledge-Nexus/
 | `wiki.html` | The foreword and the Content Map — 711 numbered, citable entries |
 | `verification.html` | The Verification Register — which Compendium blocks name an authority |
 | `introduction.html` | A `noindex` redirect leaf to `wiki.html#foreword` (the page was merged) |
+
+### Third-party imagery
+
+Everything on this site is Sherif's own work except the three photographs on
+`index.html` (`pole-1-flight.jpg`, `pole-2-range.jpg`, `pole-3-front.jpg`).
+They are **NASA / Operation IceBridge**, taken from the DC-8 over the Amundsen
+Sea, the Ellsworth Range and the Thurston Island calving front, and are in the
+**public domain** — NASA imagery carries no copyright. They are credited in the
+page footer anyway, because a site whose first principle is provenance should
+not have an unattributed object on it.
+
+If any image is ever added from a source that is *not* public domain, its
+licence and author go in `project-record/decisions.md` before it is committed.
 
 ### Numbering and provenance
 

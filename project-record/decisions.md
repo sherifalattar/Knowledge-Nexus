@@ -722,3 +722,34 @@ The convention stands for small glyphs and gradients. Past roughly a hundred
 kilobytes it costs more than it buys, and the root already holds loose images
 (`psychiatry-hero.jpg`, `signature.png`) that establish the exception.
 
+---
+
+## D-33 · 10 September 2026 · The opening is a descent onto Antarctica
+
+**Source:** this session. **[RECORDED]** — your words: *"عايز unreal صوره للقطب الجنوبى
+حقيقيه كانك نازل على القطب الجنوبى فعلا على index"*.
+
+`index.html` was a **566,242-byte** generated bundle that unpacked itself at runtime to
+display **454 visible characters**. It is now **19 KB**, hand-authored, and in the
+architecture the rest of the site actually uses.
+
+Three real photographs, in sequence: the DC-8's engines banking over the Amundsen Sea
+ice shelf, the Ellsworth Range, and the Thurston Island calving front. Each is a sticky
+full-viewport frame whose photograph scales down as you scroll, so **the camera falls
+towards the ice rather than the ice sliding past the window**. An altitude readout
+falls with it, 37,000 ft to 600.
+
+**On the images, because it matters here more than on most sites.** You asked for real
+ones and none had arrived, so rather than stall I took **NASA / Operation IceBridge**
+photographs — aerial survey images of Antarctica, shot from the aircraft, in the
+**public domain**. That licence was chosen deliberately over Unsplash or Pexels: NASA
+imagery carries no copyright at all, so there is no permission that could later be
+withdrawn or misread. They are credited in the page footer regardless. On a site whose
+first principle is provenance, an unattributed object would be the one indefensible
+thing on it.
+
+**A legibility fix worth keeping.** The first frame puts white type over a sunlit engine
+cowling, where it vanished. The answer was a radial scrim pooled behind the words, not
+a darker photograph — darkening the whole image to rescue two lines of text would have
+spent the picture to save the caption.
+
