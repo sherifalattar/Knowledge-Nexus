@@ -753,3 +753,44 @@ cowling, where it vanished. The answer was a radial scrim pooled behind the word
 a darker photograph — darkening the whole image to rescue two lines of text would have
 spent the picture to save the caption.
 
+---
+
+## D-34 · 10 September 2026 · Two defects that only measurement would have found
+
+**Source:** this session. **[DERIVED]** — from a browser sweep of all fifteen pages at
+390px and 1280px, run because you said *"زبط الصفحات مع نفسك كلها"*. Twenty-seven of
+thirty checks were clean; these were the other three.
+
+**The overflow that had no overflowing element.** `executive-summary.html` scrolled
+sideways by 67px at 390px. An earlier pass had recorded it as unisolatable, and the
+reason it resisted is worth keeping: **no element exceeded the viewport.** The width
+came from two things that extend the scroll area without widening any box — a
+decorative absolutely positioned `.section-line::before` (366px wide at a 195px offset)
+and content overflowing `.cine-portrait`. Both are meant to bleed, so the page was
+stopped from scrolling rather than the artwork redrawn.
+
+`overflow-x: clip`, **not `hidden`** — `hidden` makes `body` a scroll container and
+detaches every `position: sticky` element on the page. Verified afterwards that the
+sticky `.classbar` still sticks. The rule re-applies itself on DOM swaps, because that
+document replaces its own `documentElement` at runtime.
+
+**Sixty-six dead font URLs, and a font nobody noticed was missing.**
+`psychiatry-ir-drg-tree.html` fired 66 failed requests on every load: an inlined copy of
+a Google Fonts stylesheet whose every `src` had been rewritten to `blob:null/<uuid>` by
+whatever tool exported the page.
+
+Deleting them was easy. What the measurement actually surfaced was better:
+
+| Family | Declared | Used | Had a working source |
+|---|---|---|---|
+| JetBrains Mono | 11 rules | **0 times** | no |
+| Space Grotesk | rules present | **8 times** | **no** |
+| Manrope, DM Mono | via `<link>` | 5, 31 | yes |
+
+**Space Grotesk had been silently falling back to a system font.** Nobody would have
+reported that as a bug; it took counting declarations against uses to see it. It is now
+on the real stylesheet link. File 259,907 → 237,956 bytes, console errors 66 → 0.
+
+**Stated limit:** this container's proxy blocks `fonts.googleapis.com`, so what is
+verified is that the page now *requests* the font correctly — not that it arrives.
+
