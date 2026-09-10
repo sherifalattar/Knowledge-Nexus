@@ -23,6 +23,9 @@ Live site: https://sherifalattar.github.io/Knowledge-Nexus/
   at the repository root: `Background-music-2..5.mp3` — the capitalisation
   matters, GitHub Pages is case-sensitive. (`background-music.mp3`, the original
   short loop, was removed on 10 September 2026 at the author's request.)
+  The pill is a **chooser**, not a skip: pressing it toggles sound, and the caret
+  beside it opens the four pieces by name so any one can be reached in a single
+  press. Choosing a row still fetches only that file.
   **The tracks are never preloaded.** Together they are ~38 MB; `preload` is
   `none` until Sound is pressed, and the next piece is fetched only when the
   current one ends. Any change here must preserve that — a visitor on mobile
@@ -51,7 +54,7 @@ Live site: https://sherifalattar.github.io/Knowledge-Nexus/
 | `source-corpus.html` | The reference foundation |
 | `gallery.html` | Visual archive — dashboards and short films |
 | `executive-summary.html` | About the Author — the executive dossier |
-| `wiki.html` | The foreword and the Content Map — 711 numbered, citable entries |
+| `wiki.html` | The foreword and the Content Map — 622 citable entries under five headings |
 | `verification.html` | The Verification Register — which Compendium blocks name an authority |
 | `introduction.html` | A `noindex` redirect leaf to `wiki.html#foreword` (the page was merged) |
 
@@ -68,6 +71,30 @@ unattributed object on it.
 
 If any image is ever added from a source that is *not* public domain, its
 licence and author go in `project-record/decisions.md` before it is committed.
+
+### The Content Map
+
+`wiki.html` divides the record by **five headings**, and by nothing else:
+
+| Heading | Pages | Entries |
+|---|---|---|
+| DRGs Compendium | 5 | 188 |
+| Denial Codes Thesis | 6, 7 | 124 |
+| Psychiatry | 8, 9, 10 | 240 |
+| Setting of Care | 11 | 40 |
+| Source Corpus | 12 | 30 |
+
+**There is no "all" state.** Putting all 622 entries in the document at once made
+it long enough that scrolling stuttered, so one heading is shown at a time and a
+search — which does reach the whole record — is the only thing that spans them.
+Entries carry their **names only**; the substance lines were removed for the same
+reason. Both properties are load-bearing: restoring either brings the stutter back.
+
+The chips are the whole navigation. A 3-D card deck used to stand above the
+record, one card per heading; it was removed because the device — good in itself,
+and still standing on `pyramids.html` where it belongs — did not suit a page whose
+job is to direct the reader. If pages are regrouped, the chips and the
+`data-group` attribute on each `.page-block` must move together.
 
 ### Numbering and provenance
 
@@ -132,6 +159,9 @@ the live card with photo and headline.
 
 - Preserve the single design system (colours, type, restrained motion) when
   editing any page.
+- **"Provenance over assertion" belongs to `observatory.html` alone.** The phrase
+  was repeated on three pages; the idea may be restated elsewhere in other words,
+  but the slogan itself appears once.
 - Keep documents self-contained: prefer inlined SVG/CSS and base64 data-URIs
   over new loose asset files.
 - Keep the `Background-music-*.mp3` files and `audio.js` at the repository root;

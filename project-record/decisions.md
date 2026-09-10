@@ -853,3 +853,65 @@ from `pyr.glsl`.
 undefined), so the WGSL path is transliterated and guarded, **not executed here**. What
 is verified is that WebGL2 renders correctly at 390, 768 and 1280px, with zero
 horizontal overflow, and that a WGSL failure falls to it silently by construction.
+
+---
+
+## D-36 · Five headings, names only, and no way to ask for everything
+
+The Content Map was divided by page — fourteen of them originally, eight after the
+non-scientific pages were dropped — and opened showing all 622 entries at once, each
+with a line of substance beneath it. The author's report was blunt and correct: the
+page was heavy and did not scroll properly.
+
+Three changes, and each of them is load-bearing:
+
+1. **Five headings, not eight pages.** The record now groups under the five bodies of
+   work the author names: DRGs Compendium (page 5, 188 entries), Denial Codes Thesis
+   (6–7, 124), Psychiatry (8–10, 240), Setting of Care (11, 40), Source Corpus (12,
+   30). 622 in total, unchanged — the pages are still addressed as `5.x`…`12.x`, so
+   every existing deep link still resolves.
+2. **Names only.** All 341 substance lines were removed. 247,645 bytes → 180,345.
+3. **No "all" state.** The chip that showed everything is gone, and the map opens on
+   one heading. A search still reaches the whole record — that is now the only thing
+   that spans headings, and it is the right thing to carry that job, because a search
+   returns few rows where "all" returned six hundred.
+
+**What this cost, stated plainly:** you can no longer read the record end to end by
+scrolling. That was the point — the end-to-end scroll was the defect — but it is a
+real loss, and the search is what replaces it.
+
+## D-37 · The music pill chooses instead of stepping
+
+The pill offered a skip arrow, which only ever moves forward: reaching the fourth
+piece meant pressing it three times, and there was no way to see what you were
+choosing between. It is a chooser now — a caret opens the four pieces by name, the
+one playing marked, any of them one press away. The laziness rule is untouched:
+choosing a row sets `audio.src` and nothing else is fetched.
+
+## D-38 · Two readouts that outstayed their purpose, and one slogan on three pages
+
+- The **altitude readout** on `index.html` counted the descent and then kept sitting
+  there, printing over the door grid at the foot of the page. It now retires past the
+  legs, as the pyramids' course counter already did. The same defect, found twice, in
+  two pages built the same way — worth stating as a rule: a fixed readout that
+  measures a finite journey must end with it.
+- **"Provenance over assertion"** appeared on `observatory.html`, `verification.html`
+  and `wiki.html`. A principle repeated on every page reads as a slogan rather than a
+  commitment, so it now appears once, on the observatory. The other two say the same
+  thing in their own words: the wiki's pillar is *Every Claim Names Its Authority*,
+  and the register opens "a claim that names no authority is only an assertion".
+- **A misread, and the correction.** The instruction was that the six-chambers
+  *device* did not suit the **introduction page**. I removed the Six Chambers from
+  `pyramids.html` instead — the one page where they belong. Restored, and the thing
+  actually meant was removed instead: the 3-D card deck that stood above the record
+  on `wiki.html`, one card per heading, 18,544 bytes of markup, payload, renderer
+  and styles.
+
+  Worth stating why the misread happened: the introduction was merged into
+  `wiki.html` in an earlier session, so "the introduction page" no longer names a
+  file anyone can open. The lesson is not "read more carefully" — it is that a page
+  that has been folded into another keeps its old name in conversation long after it
+  stops having one on disk, and a request naming it should be resolved against that
+  history before anything is deleted.
+- The opening page's door grid was **incomplete** — it listed six of the modules and
+  omitted Source Corpus and Setting of Care outright. Eight now, the full set.

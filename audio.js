@@ -3,10 +3,10 @@
    Once enabled, the track and its position persist across pages, so navigating
    never restarts the music.
 
-   Five pieces, about sixty-one minutes. They are NOT preloaded: together they
-   are ~41 MB, and a visitor on mobile data should never pay for a minute they
+   Four pieces, about fifty-eight minutes. They are NOT preloaded: together they
+   are ~38 MB, and a visitor on mobile data should never pay for a minute they
    do not hear. Only the track being played is fetched, and the next one is not
-   touched until the current one ends. */
+   touched until the current one ends — including when one is chosen by name. */
 (function () {
   if (window.__knAudio) return;
   window.__knAudio = true;
@@ -71,22 +71,111 @@
   label.textContent = 'Sound';
   btn.appendChild(label);
 
-  /* Skip: a library you cannot move through is a loop with extra steps. Hidden
-     until the sound is actually on, so the resting pill stays a single word. */
-  var skip = document.createElement('span');
-  skip.setAttribute('role', 'button');
-  skip.setAttribute('tabindex', '0');
-  skip.setAttribute('aria-label', 'Next piece');
-  skip.textContent = '›';
-  skip.style.cssText = [
+  /* A skip arrow only ever steps forward, so choosing a piece meant pressing it
+     until the right one came round. The caret opens the library instead: four
+     rows, the one playing marked, any of them one press away. */
+  var ROMAN = ['I', 'II', 'III', 'IV', 'V', 'VI'];
+
+  var caret = document.createElement('span');
+  caret.setAttribute('role', 'button');
+  caret.setAttribute('tabindex', '0');
+  caret.setAttribute('aria-label', 'Choose a piece');
+  caret.setAttribute('aria-haspopup', 'true');
+  caret.setAttribute('aria-expanded', 'false');
+  caret.innerHTML = '<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 15l6-6 6 6"/></svg>';
+  caret.style.cssText = [
     'display:none', 'width:24px', 'height:24px', 'margin-left:2px',
     'align-items:center', 'justify-content:center', 'border-radius:50%',
-    'font:400 15px/1 ui-sans-serif,system-ui,sans-serif', 'letter-spacing:0',
-    'color:inherit', 'opacity:.72', 'transition:opacity .2s,background .2s'
+    'color:inherit', 'opacity:.72', 'transition:opacity .2s,background .2s,transform .25s'
   ].join(';');
-  skip.addEventListener('mouseenter', function () { skip.style.opacity = '1'; skip.style.background = 'rgba(255,255,255,.10)'; });
-  skip.addEventListener('mouseleave', function () { skip.style.opacity = '.72'; skip.style.background = 'transparent'; });
-  btn.appendChild(skip);
+  caret.addEventListener('mouseenter', function () { caret.style.opacity = '1'; caret.style.background = 'rgba(255,255,255,.10)'; });
+  caret.addEventListener('mouseleave', function () { caret.style.opacity = '.72'; caret.style.background = 'transparent'; });
+  btn.appendChild(caret);
+
+  /* The library itself. Named in numerals, not by filename: the files are
+     numbered 2..5 on disk for historical reasons and no reader should have to
+     know that. Choosing a row still fetches only that one file. */
+  var menu = document.createElement('div');
+  menu.setAttribute('role', 'menu');
+  menu.setAttribute('aria-label', 'The pieces');
+  menu.style.cssText = [
+    'position:fixed', 'right:22px', 'bottom:114px', 'z-index:2147483000',
+    'min-width:152px', 'padding:5px', 'border-radius:14px',
+    'background:rgba(10,13,20,.86)', '-webkit-backdrop-filter:blur(14px)', 'backdrop-filter:blur(14px)',
+    'border:1px solid rgba(201,168,106,.34)', 'box-shadow:0 18px 44px -16px rgba(0,0,0,.9)',
+    'font:600 11px/1 ui-sans-serif,system-ui,-apple-system,sans-serif',
+    'letter-spacing:.14em', 'text-transform:uppercase',
+    'display:none', 'opacity:0', 'transform:translateY(6px)',
+    'transition:opacity .22s ease,transform .22s ease'
+  ].join(';');
+
+  var rows = TRACKS.map(function (_, i) {
+    var r = document.createElement('button');
+    r.type = 'button';
+    r.setAttribute('role', 'menuitemradio');
+    r.style.cssText = [
+      'display:flex', 'align-items:center', 'gap:9px', 'width:100%',
+      'padding:9px 11px', 'border:0', 'border-radius:10px', 'cursor:pointer',
+      'background:transparent', 'color:#E7C887', 'font:inherit', 'text-align:left',
+      'transition:background .18s,color .18s'
+    ].join(';');
+    var dot = document.createElement('span');
+    dot.style.cssText = 'width:9px;display:inline-block;text-align:center';
+    dot.textContent = '\u2022';
+    var name = document.createElement('span');
+    name.textContent = 'Piece ' + ROMAN[i];
+    r.appendChild(dot); r.appendChild(name);
+    r._dot = dot;
+    r.addEventListener('mouseenter', function () { r.style.background = 'rgba(255,255,255,.07)'; });
+    r.addEventListener('mouseleave', function () { r.style.background = 'transparent'; });
+    r.addEventListener('click', function (ev) {
+      ev.stopPropagation();
+      closeMenu();
+      if (i === idx && playing) return;
+      if (playing) goTo(i, true);
+      else { goTo(i, false); start(); }
+    });
+    menu.appendChild(r);
+    return r;
+  });
+  document.documentElement.appendChild(menu);
+
+  function markRows() {
+    if (!rows) return;
+    rows.forEach(function (r, i) {
+      var on = (i === idx);
+      r.setAttribute('aria-checked', String(on));
+      r._dot.textContent = on ? (playing ? '\u25B8' : '\u25CB') : '\u2022';
+      r._dot.style.opacity = on ? '1' : '.42';
+      r.style.color = on ? '#2FE6C8' : '#E7C887';
+    });
+  }
+  var menuOpen = false;
+  function openMenu() {
+    markRows();
+    menu.style.display = 'block';
+    menuOpen = true;
+    caret.setAttribute('aria-expanded', 'true');
+    caret.style.transform = 'rotate(180deg)';
+    requestAnimationFrame(function () { menu.style.opacity = '1'; menu.style.transform = 'translateY(0)'; });
+  }
+  function closeMenu() {
+    if (!menuOpen) return;
+    menuOpen = false;
+    caret.setAttribute('aria-expanded', 'false');
+    caret.style.transform = 'none';
+    menu.style.opacity = '0'; menu.style.transform = 'translateY(6px)';
+    setTimeout(function () { if (!menuOpen) menu.style.display = 'none'; }, 220);
+  }
+  function toggleMenu() { menuOpen ? closeMenu() : openMenu(); }
+  caret.addEventListener('click', function (ev) { ev.stopPropagation(); toggleMenu(); });
+  caret.addEventListener('keydown', function (ev) {
+    if (ev.key === 'Enter' || ev.key === ' ') { ev.preventDefault(); ev.stopPropagation(); toggleMenu(); }
+  });
+  document.addEventListener('click', function (ev) {
+    if (menuOpen && !menu.contains(ev.target) && !btn.contains(ev.target)) closeMenu();
+  });
+  document.addEventListener('keydown', function (ev) { if (ev.key === 'Escape') closeMenu(); });
 
   function mount() { document.documentElement.appendChild(btn); setTimeout(function(){ btn.style.opacity = '1'; }, 1100); }
   mount();
@@ -95,6 +184,7 @@
     guard++;
     if (!btn.isConnected) document.documentElement.appendChild(btn);
     if (!audio.isConnected) document.documentElement.appendChild(audio);
+    if (!menu.isConnected) document.documentElement.appendChild(menu);
     if (guard > 12) clearInterval(gi);
   }, 600);
 
@@ -109,8 +199,9 @@
   }
   function ui(on) {
     playing = on;
-    label.textContent = on ? (idx + 1) + ' / ' + TRACKS.length : 'Sound';
-    skip.style.display = on ? 'inline-flex' : 'none';
+    markRows();
+    label.textContent = on ? 'Piece ' + ROMAN[idx] : 'Sound';
+    caret.style.display = on ? 'inline-flex' : 'none';
     btn.style.paddingRight = on ? '6px' : '15px';
     btn.style.color = on ? '#2FE6C8' : '#E7C887';
     btn.style.borderColor = on ? 'rgba(47,230,200,.5)' : 'rgba(201,168,106,.40)';
@@ -168,11 +259,9 @@
   audio.addEventListener('ended', function () { goTo(idx + 1, true); });
 
   btn.addEventListener('click', function (ev) {
-    if (ev.target === skip || skip.contains(ev.target)) { ev.stopPropagation(); goTo(idx + 1, playing); return; }
+    if (caret.contains(ev.target)) return;   /* the caret belongs to the library */
+    closeMenu();
     playing ? stop() : start();
-  });
-  skip.addEventListener('keydown', function (ev) {
-    if (ev.key === 'Enter' || ev.key === ' ') { ev.preventDefault(); ev.stopPropagation(); goTo(idx + 1, playing); }
   });
 
   // Resume if it was on when navigating from a previous page.
