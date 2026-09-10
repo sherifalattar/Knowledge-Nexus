@@ -88,7 +88,7 @@
     margin:0 0 1.3rem; max-width:18ch;
     background:linear-gradient(180deg,#ffffff 0%, #22e8ff 64%, #2dd6e3 100%);
     -webkit-background-clip:text; background-clip:text; color:transparent;}
-  .subtitle{font-family:var(--serifb); font-weight:300; font-style:italic;
+  .subtitle{font-family:var(--serifb); font-weight:300; 
     font-size:clamp(1.12rem,2.3vw,1.5rem); line-height:1.45; color:var(--dim);
     max-width:46ch; margin:0 0 2.4rem;}
   .byline{display:flex; flex-wrap:wrap; gap:.5rem 1.4rem; align-items:baseline;
@@ -137,7 +137,7 @@
   .prose p.lead{font-size:1.18rem; line-height:1.7; color:#f1f7ff;}
   .prose .first::first-letter{font-family:var(--serifd); font-weight:600; font-size:3.4rem;
     line-height:.8; float:left; padding:.32rem .55rem 0 0; color:var(--gold);}
-  em{font-style:italic; color:#e7f1ff;}
+  em{ color:#e7f1ff;}
   strong{font-weight:600; color:#f3f9ff;}
   .ic{font-family:var(--mono); font-size:.86em; color:var(--gold-bright);
     background:rgba(45,214,227,.08); padding:.05em .35em; border-radius:3px;
@@ -240,10 +240,10 @@
   .refs li::before{content:counter(ref); position:absolute; left:0; top:.7rem;
     font-family:var(--mono); font-size:.72rem; color:var(--gold-deep);}
   .refs li b{color:var(--text); font-weight:600;}
-  .refs li .note{display:block; margin-top:.25rem; font-size:.8rem; color:var(--faint); font-style:italic;}
+  .refs li .note{display:block; margin-top:.25rem; font-size:.8rem; color:var(--faint); }
 
   footer{padding:3.5rem 0 4.5rem; text-align:center;}
-  footer .fmark{font-family:var(--serifd); font-style:italic; font-size:1.15rem; color:var(--dim); margin-bottom:1rem;}
+  footer .fmark{font-family:var(--serifd);  font-size:1.15rem; color:var(--dim); margin-bottom:1rem;}
   footer .fmeta{font-family:var(--mono); font-size:.66rem; letter-spacing:.16em; text-transform:uppercase; color:var(--faint);}
 
   .rv{opacity:0; transform:translateY(18px); transition:opacity .7s ease, transform .7s ease;}
@@ -282,6 +282,7 @@
     border:none; text-decoration:none; transition:transform .25s, box-shadow .25s;}
   .ncta-go:hover{transform:translateY(-2px); box-shadow:0 14px 30px -14px rgba(45,214,227,.55);}
 </style>
+<style id="kn-no-italics">em,i,cite,address,dfn,var{font-style:normal}em,dfn{font-weight:600}</style>
 </head>
 <body>
 <a class="kn-back" href="observatory.html" aria-label="Back to Knowledge Nexus"><span class="kn-home">⌂</span> Nexus</a>

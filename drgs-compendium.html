@@ -89,7 +89,7 @@
   h1.hero .hero-amp{ display:inline-block; width:.12em; }
 
   .hero-sub{ font-family:var(--display); font-weight:300; font-size:clamp(19px,2.4vw,28px); letter-spacing:-.01em; margin:14px 0 0; color:var(--text-2); }
-  .hero-sub em{ font-style:italic; color:var(--gold-2); font-weight:400; }
+  .hero-sub em{  color:var(--gold-2); font-weight:400; }
 
   .lede{ font-family:"Inter",system-ui,sans-serif; font-size:16.5px; line-height:1.74; color:var(--dim); max-width:600px; margin:26px 0 0; font-weight:300; }
 
@@ -128,7 +128,7 @@
   .chip-group:last-child{ padding-right:0; margin-right:0; }
   .chip-group:last-child::after{ display:none; }
   .chip-grouplabel{ display:flex; align-items:baseline; gap:9px; padding-left:2px; }
-  .cgl-rom{ font-family:var(--display); font-style:italic; font-weight:800; font-size:16px; line-height:1;
+  .cgl-rom{ font-family:var(--display);  font-weight:800; font-size:16px; line-height:1;
     color:transparent; -webkit-text-fill-color:transparent;
     background:linear-gradient(150deg,#eef1f8,#56c6ff 60%,#7c6bff); -webkit-background-clip:text; background-clip:text; }
   .cgl-name{ font-family:"JetBrains Mono",monospace; font-size:8.5px; font-weight:600; letter-spacing:.18em;
@@ -635,7 +635,7 @@
   @keyframes chMast{ from{opacity:0; transform:translateY(16px)} to{opacity:1; transform:none} }
   /* the numeral — oversized italic display, gradient as ink */
   .ch-num{
-    font-family:var(--display); font-weight:800; font-style:italic;
+    font-family:var(--display); font-weight:800; 
     font-size:clamp(58px,7vw,86px); line-height:.82; letter-spacing:-.01em;
     color:transparent; -webkit-text-fill-color:transparent;
     background:linear-gradient(155deg,#eef1f8 0%, #56c6ff 58%, #7c6bff 100%);
@@ -785,7 +785,7 @@
   /* ── oversized CONTENTS anchor (editorial statement) ───────────────── */
   .toc-anchor{ position:relative; margin:0 var(--pg) 8px; padding:0 0 26px;
     border-bottom:2px solid rgba(150,168,220,.18); z-index:2; }
-  .toc-anchor-big{ font-family:var(--display); font-weight:800; font-style:italic;
+  .toc-anchor-big{ font-family:var(--display); font-weight:800; 
     font-size:clamp(54px,9vw,118px); line-height:.84; letter-spacing:-.04em;
     color:transparent; -webkit-text-fill-color:transparent;
     background:linear-gradient(118deg,#eef1f8 0%,#9fb4d4 40%,#56c6ff 72%,#7c6bff 100%);
@@ -804,7 +804,7 @@
   .toc-ch-hdr{ display:grid; grid-template-columns:auto 1fr auto; align-items:baseline;
     gap:0 20px; padding-bottom:16px; margin-bottom:4px;
     border-bottom:1px solid rgba(150,168,220,.16); }
-  .toc-ch-rom{ font-family:var(--display); font-style:italic; font-weight:800;
+  .toc-ch-rom{ font-family:var(--display);  font-weight:800;
     font-size:clamp(26px,3vw,38px); line-height:.9; letter-spacing:-.01em;
     color:transparent; -webkit-text-fill-color:transparent;
     background:linear-gradient(150deg,#eef1f8,#56c6ff 60%,#7c6bff);
@@ -882,6 +882,7 @@
 .kn-back .kn-home{font-size:13px;line-height:1}
 @media(max-width:640px){.kn-back{font-size:10px;padding:8px 12px;left:14px;top:14px}}
 </style>
+<style id="kn-no-italics">em,i,cite,address,dfn,var{font-style:normal}em,dfn{font-weight:600}</style>
 </head>
 <body>
 <a class="kn-back" href="observatory.html" aria-label="Back to Knowledge Nexus"><span class="kn-home">⌂</span> Nexus</a>
