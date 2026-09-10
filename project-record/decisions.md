@@ -794,3 +794,62 @@ on the real stylesheet link. File 259,907 → 237,956 bytes, console errors 66 �
 **Stated limit:** this container's proxy blocks `fonts.googleapis.com`, so what is
 verified is that the page now *requests* the font correctly — not that it arrives.
 
+
+---
+
+## D-35 · The pyramids page was blank, and had been for some time
+
+`pyramids.html` did not render. Not badly — **blank**, at every width, and the fault
+predated this session (it is blank at commit `05c7613` too).
+
+The cause was a chain, and every link had to hold for the page to appear:
+
+1. All the content sat inside a custom element `<x-dc>`, hidden by
+   `x-dc{display:none!important}` until a runtime upgraded it.
+2. `customElements.get('x-dc')` was `false` — the element was never defined.
+3. The runtime that defines it arrived as a compressed blob asset, needed `React`
+   and `ReactDOM` **from unpkg.com**, and evaluated the component with `new Function()`.
+4. `window.React` was `undefined`, and no error surfaced anywhere: the page's own
+   `#__bundler_err` sink was empty and the console was clean.
+
+A page that fails silently, with its content already marked `display:none`, cannot
+report that it has failed. That is the real lesson, and it is why the rebuild below
+has three renderers with the text outside all of them.
+
+**Rebuilt from scratch, hand-authored.** 414,836 bytes → 44,275, and it renders.
+
+- The monument is three signed-distance pyramids on a raymarched desert plateau, lit by
+  one low sun with a hard shadow march. The courses cut into the faces are geometry
+  (`sin((p.y-c.y)*2.35)*0.115` subtracted from the SDF), not a texture, which is what
+  makes the stone read as built rather than moulded.
+- Same three-tier renderer as `index.html`: **WebGPU (WGSL) → WebGL2 (GLSL) → a painted
+  sky**. Both shaders are the same arithmetic; the WGSL is validated inside
+  `pushErrorScope('validation')` so a browser that dislikes it drops to WebGL2 rather
+  than showing nothing. The doctrine text is plain HTML outside every canvas, so the
+  page cannot go blank again whatever the GPU does.
+- Adaptive render scale, measured not guessed: starts at 0.72 (0.55 on phones) and
+  follows the frame time between 0.26 and 0.95.
+- The readout counts **courses, 203 → 1** — the number of surviving courses on the Great
+  Pyramid — and retires itself once the descent ends, because it was printing over the
+  doctrine and over the first chamber.
+- The doctrine text is carried **verbatim** from the old page, all eight parts, the
+  three by-laws diagram and the six chambers. Emphasis is gold and weighted, never
+  slanted: `em{font-style:normal}` — measured 0 italic elements at 390/768/1280px.
+
+**Where the shader nearly went wrong.** The first render came back milky — no contrast,
+no colour, a white haze over everything. The colours had been authored as if they were
+sRGB and then gamma-decoded a second time, so the sky sat near 1.0 before the tonemap
+ever saw it. Authoring the palette in linear (sand `0.330,0.228,0.118`, limestone
+`0.400,0.318,0.196`) and cutting the fog to `1-exp(-t*0.00135 - (t*0.0021)^2)` gave the
+frame its range back.
+
+**A measurement trap, again.** Two successive edits to the shader changed the render not
+at all — because the harness had the shader inlined in its HTML and was never reading
+the file being edited. The rule from D-31 held: when two consecutive fixes change
+nothing, the problem is not in what you are adjusting. The harness now builds itself
+from `pyr.glsl`.
+
+**Stated limit:** this container exposes no WebGPU adapter (`navigator.gpu` is
+undefined), so the WGSL path is transliterated and guarded, **not executed here**. What
+is verified is that WebGL2 renders correctly at 390, 768 and 1280px, with zero
+horizontal overflow, and that a WGSL failure falls to it silently by construction.
