@@ -38,8 +38,6 @@
   --track-eyebrow:.32em; --track-label:.2em;
   --hairline-gold:linear-gradient(90deg,transparent,var(--gold-soft),transparent);
   --ease-out:cubic-bezier(.2,.7,.2,1);
-  --steel-face:linear-gradient(180deg,#DFE1E5 0%,#B8BABF 24%,#8C8E94 48%,#62646A 72%,#32333A 100%);
-  --steel-ext:0 -1px 0 rgba(255,255,255,.45),0 1px 0 #2E2F35,0 2px 0 #2A2B30,0 3px 0 #26272B,0 4px 0 #222327,0 5px 0 #1E1F23,0 6px 0 #1A1B1E,0 7px 0 #161719,0 8px 0 #121214,0 10px 16px rgba(0,0,0,.85),0 22px 42px rgba(0,0,0,.6);
 }
 *{margin:0;padding:0;box-sizing:border-box}
 /* the ground is painted on the root, not only on body: with overflow-x:clip and a
@@ -61,31 +59,11 @@ body{
 .wrap{width:min(100% - 48px, 1180px);margin-inline:auto}
 
 /* ============================================================
-   OVERTURE — neural field, steel plate, staged entrance
+   OVERTURE — the wordmark and the staged entrance
    ============================================================ */
-#neural{position:fixed;inset:0;z-index:-1;display:block;width:100%;height:100%;
-  opacity:1;transition:opacity .7s var(--ease-out);
-  /* the constellation orbits the text rather than crossing it: the centre of the
-     frame is carved out so the wordmark and the lede stay wholly legible */
-  -webkit-mask-image:radial-gradient(58% 46% at 50% 46%, transparent 42%, #000 88%);
-  mask-image:radial-gradient(58% 46% at 50% 46%, transparent 42%, #000 88%)}
-#neural.recede{opacity:.16}
 /* when a query is running, the field comes back up: it is showing the answer */
-#neural.lit-query{opacity:.62}
-#neural.recede.lit-query{opacity:.42}
 /* the constellation names the page you point at — the field is an index,
    so it should answer when questioned rather than merely decorate */
-#field-label{position:fixed;z-index:3;transform:translate(-50%,0);pointer-events:none;
-  opacity:0;transition:opacity .22s var(--ease-out);
-  display:flex;align-items:baseline;gap:10px;white-space:nowrap;
-  padding:7px 13px;border-radius:999px;background:rgba(10,16,24,.82);
-  -webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);
-  border:1px solid rgba(198,163,90,.30);box-shadow:0 8px 26px rgba(0,0,0,.6);
-  font-family:var(--font-sans);font-size:12.5px;color:var(--ink-1)}
-#field-label.on{opacity:1}
-#field-label b{font-family:var(--font-mono);font-size:10px;color:var(--gold);font-weight:500}
-#field-label i{font-family:var(--font-mono);font-style:normal;font-size:10px;color:var(--ink-4)}
-@media(max-width:720px){#field-label{display:none}}
 .vignette{position:fixed;inset:0;z-index:0;pointer-events:none;
   background:radial-gradient(120% 90% at 50% 44%, transparent 52%, rgba(5,7,11,.58) 100%)}
 #progress{position:fixed;top:0;left:0;height:2px;width:0;z-index:60;
@@ -99,22 +77,29 @@ body{
 .kicker .r.rr{background:linear-gradient(90deg,var(--gold-soft),transparent)}
 
 .plate{position:relative;overflow:hidden;border-radius:8px;
-  padding:clamp(28px,4vw,50px) clamp(30px,6vw,74px);
-  background:linear-gradient(180deg,#282930 0%,#171D27 46%,#0D121A 100%);
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.17),inset 0 -1px 0 rgba(0,0,0,.72),
-             inset 0 70px 90px -66px rgba(255,255,255,.11),0 46px 90px -40px rgba(0,0,0,.9);
+  padding:clamp(22px,3.2vw,38px) clamp(26px,5vw,60px);
+  background:linear-gradient(180deg,#1B1C20 0%,#141519 52%,#0E0F12 100%);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.10),inset 0 -1px 0 rgba(0,0,0,.7),
+             0 30px 64px -44px rgba(0,0,0,.9);
   opacity:0;transform:translateY(40px)}
 .plate::before{content:"";position:absolute;inset:0;opacity:.5;
   background-image:repeating-linear-gradient(90deg, rgba(255,255,255,.055) 0 1px, transparent 1px 3px)}
 .plate .edge{position:absolute;top:0;left:0;right:0;height:1px;background:var(--hairline-gold)}
-.steel{position:relative;display:inline-block;font-family:var(--font-display);font-weight:800;font-stretch:125%;
-  font-size:clamp(26px,7.1vw,86px);line-height:1;letter-spacing:1px;white-space:nowrap;color:transparent;
-  -webkit-text-fill-color:transparent;background:var(--steel-face);
-  -webkit-background-clip:text;background-clip:text;
-  -webkit-text-stroke:.4px rgba(9,13,20,.5);text-shadow:var(--steel-ext)}
-.plate .sheen{position:absolute;top:-40%;bottom:-40%;width:38%;left:-60%;pointer-events:none;
-  background:linear-gradient(90deg,transparent,rgba(255,255,255,.5),transparent);
-  transform:skewX(-18deg);mix-blend-mode:overlay;filter:blur(2px)}
+/* Engraved, not extruded. The wordmark was 86px of expanded black sans raised off a
+   steel plate — the loudest object on a page whose job is to point elsewhere. It is
+   now cut into the surface: the letter is painted a shade darker than the panel and
+   carries a single lit lower lip, which is what a chiselled edge actually does to
+   light. Set in the serif, tracked wide, at roughly half the size. */
+.steel{position:relative;display:inline-block;
+  font-family:var(--font-serif);font-weight:600;
+  font-size:clamp(23px,4.3vw,50px);line-height:1.05;letter-spacing:.15em;
+  text-transform:uppercase;white-space:nowrap;
+  color:#0A0B0D;
+  /* the cut stays dark; legibility comes from the lit lower lip, which is what a
+     chiselled edge actually does to light — not from lightening the letter */
+  text-shadow:0 1px 0 rgba(255,255,255,.26), 0 2px 2px rgba(255,255,255,.06),
+              0 -1px 1px rgba(0,0,0,.75);
+  -webkit-text-stroke:.35px rgba(0,0,0,.5)}
 
 .hero .lead{max-width:730px;margin:34px auto 0;font-family:var(--font-serif);font-style:italic;
   font-size:clamp(17px,1.9vw,23px);line-height:1.55;color:var(--ink-2);text-wrap:pretty;
@@ -159,12 +144,6 @@ body{
 .search input::placeholder{color:var(--ink-4)}
 .search input:focus{border-color:var(--gold-soft);box-shadow:0 0 0 3px var(--gold-dim)}
 .search svg{position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--ink-4);pointer-events:none}
-.kinds{display:flex;gap:6px;flex-wrap:wrap}
-.kind{font-family:var(--font-mono);font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;
-  padding:6px 10px;border-radius:999px;border:1px solid var(--line);background:transparent;
-  color:var(--ink-3);cursor:pointer;transition:all .2s;white-space:nowrap}
-.kind:hover{border-color:var(--c,var(--gold-soft));color:var(--ink-1)}
-.kind[aria-pressed="true"]{border-color:var(--c,var(--gold));color:#0A0A0B;background:var(--c,var(--gold));font-weight:600}
 .count{font-family:var(--font-mono);font-size:10.5px;color:var(--ink-4);white-space:nowrap;
   font-variant-numeric:tabular-nums;flex:none}
 .pagenav{display:flex;gap:7px;overflow-x:auto;padding:0 0 13px;scrollbar-width:thin}
@@ -222,8 +201,8 @@ main::before{content:"";position:absolute;top:-40px;bottom:0;left:50%;width:100v
    and chips of different widths ragged the text edge again inside the point rows.
    Depth is now carried by an indent *inside* the address column, which leaves every
    title aligned — the way a set index reads. */
-.entries{display:grid;gap:1px;--col-n:76px;--col-k:104px}
-.e{display:grid;grid-template-columns:var(--col-n) var(--col-k) 1fr;gap:2px 12px;
+.entries{display:grid;gap:1px;--col-n:76px}
+.e{display:grid;grid-template-columns:var(--col-n) 1fr;gap:2px 14px;
   align-items:baseline;
   padding:9px 14px;border-radius:7px;transition:background .18s}
 .e:hover{background:rgba(34,35,39,.45)}
@@ -232,9 +211,9 @@ main::before{content:"";position:absolute;top:-40px;bottom:0;left:50%;width:100v
   white-space:nowrap;padding-top:2px;font-variant-numeric:tabular-nums;transition:color .18s}
 .e .n:hover{color:var(--gold-bright)}
 .e:target{background:rgba(198,163,90,.10);box-shadow:inset 2px 0 0 var(--gold)}
-.e .t{grid-column:3;grid-row:1;min-width:0;text-wrap:pretty}
+.e .t{grid-column:2;grid-row:1;min-width:0;text-wrap:pretty}
 /* the substance beneath the label — the pearl, not the heading */
-.e .s{grid-column:3;grid-row:2;min-width:0;margin-top:3px;font-size:12.6px;line-height:1.6;
+.e .s{grid-column:2;grid-row:2;min-width:0;margin-top:3px;font-size:12.6px;line-height:1.6;
   color:var(--ink-4);text-wrap:pretty;
   display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 .e:hover .s,.e:target .s{-webkit-line-clamp:12;color:var(--ink-3)}
@@ -246,13 +225,6 @@ main::before{content:"";position:absolute;top:-40px;bottom:0;left:50%;width:100v
 .e.topic .n{padding-left:11px}
 .e.point .n{padding-left:22px}
 .e.point .t{font-size:13.8px;color:var(--ink-2);line-height:1.62}
-/* the chip is its own column, so the text after it starts at the same x whether the
-   kind reads CODING or ADJUDICATION */
-.chip{grid-column:2;grid-row:1;justify-self:start;display:inline-block;
-  padding:2px 8px;border-radius:4px;
-  font-family:var(--font-mono);font-size:9px;letter-spacing:.12em;text-transform:uppercase;
-  color:var(--c);border:1px solid color-mix(in srgb, var(--c) 34%, transparent);
-  background:color-mix(in srgb, var(--c) 11%, transparent);white-space:nowrap}
 .empty{display:none;padding:60px 0;text-align:center;font-family:var(--font-serif);
   font-style:italic;font-size:19px;color:var(--ink-4)}
 .empty.on{display:block}
@@ -336,12 +308,8 @@ a.pil-m:hover span,a.pil-m:focus-visible span{color:var(--cyan-bright)}
   .wrap{width:min(100% - 32px,1180px)}
   .figures{flex-wrap:wrap}
   .fig{flex:1 1 42%}
-  .entries{--col-n:64px;--col-k:0px}
+  .entries{--col-n:64px}
   .e{grid-template-columns:var(--col-n) 1fr;gap:3px 10px}
-  .e .t,.e .s{grid-column:2}
-  .chip{grid-column:2;grid-row:1;margin-bottom:3px}
-  .e .t{grid-row:2}
-  .e .s{grid-row:3}
   .e.topic .n{padding-left:8px}
   .e.point .n{padding-left:16px}
   .ph .pc{display:none}
@@ -428,7 +396,9 @@ a.pil-m:hover span,a.pil-m:focus-visible span{color:var(--cyan-bright)}
     inset 0 1px 0 rgba(255,255,255,.11)}
 .gcard.is-active:hover{border-color:var(--gold-soft)}
 .gcard .enter{font-family:var(--font-mono);font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;
-  color:var(--gold);opacity:0;transition:opacity .3s;flex:none}
+  color:var(--gold);opacity:0;transition:opacity .3s;flex:none;text-decoration:none;
+  align-self:flex-start;border-bottom:1px solid rgba(198,163,90,.35);padding-bottom:2px}
+.gcard .enter:hover{color:var(--gold-bright);border-bottom-color:var(--gold-bright)}
 .gcard.is-active .enter{opacity:1}
 
 @media(max-width:600px){
@@ -443,8 +413,6 @@ a.pil-m:hover span,a.pil-m:focus-visible span{color:var(--cyan-bright)}
 </head>
 <body>
 
-<canvas id="neural"></canvas>
-<div id="field-label" aria-hidden="true"></div>
 <script id="kn-map" type="application/json">[{"n":1,"t":"Cinematic Opening","f":"index.html","s":"","l":"Visual threshold. No structured text content.","i":[]},{"n":2,"t":"The Pyramids","f":"pyramids.html","s":"000","l":"3 sections, 3 entries.","i":[{"n":"2.1","t":"I came from those who built the pyramids."},{"n":"2.2","t":"A doctrine that is structured outlives him."},{"n":"2.3","t":"The Six Chambers"}]},{"n":3,"t":"The Observatory","f":"observatory.html","s":"00666006666666","l":"Hub page — module cards.","i":[{"n":"3.1","t":"Knowledge Nexus"},{"n":"3.2","t":"Not a folder of files. A system of thinking."},{"n":"3.3","t":"The route from clinical fact to operational decision."},{"n":"3.4","t":"Choose an orbit. Enter a working reference."}]},{"n":4,"t":"Foreword & Principles","f":"wiki.html#foreword","s":"00666","l":"2 sections, 5 entries.","i":[{"n":"4.1","t":"Foreword — a connected body of work"},{"n":"4.2","t":"The three governing principles"}]},{"n":5,"t":"DRGs Compendium","f":"drgs-compendium.html","s":"066deef6de6def6def6gde066def06de6f6d6d6df6f6f06d6de6dd6ee6deef6e06ddggdf6edfg06dddde6cdehcdecdecdehcde6de066de06ef66de6de06dehd06eg06def6def06g6d6g6dg6g6g6gg06hf66ddh6ddh06heeee066cccc6ccc","l":"15 sections, 188 entries.","i":[{"n":"5.1","t":"Abu Dhabi Regulatory Codebook"},{"n":"5.2","t":"DRGs Roadmap"},{"n":"5.3","t":"Diagnoses Coding Validation"},{"n":"5.4","t":"Procedures & HCPCS"},{"n":"5.5","t":"Sepsis"},{"n":"5.6","t":"Chest"},{"n":"5.7","t":"Fracture Coding"},{"n":"5.8","t":"Metabolic"},{"n":"5.9","t":"Renal"},{"n":"5.10","t":"Malignancy"},{"n":"5.11","t":"Hepatic"},{"n":"5.12","t":"Surgeries"},{"n":"5.13","t":"Specialty Medications"},{"n":"5.14","t":"References"},{"n":"5.15","t":"Specialty Medications — full agent list (23)"}]},{"n":6,"t":"Denial Codes — as Knowledge Infrastructure","f":"denial-codes.html","s":"00060666060000660666600006666606666666","l":"15 sections, 38 entries.","i":[{"n":"6.1","t":"Denial Codes as Healthcare Knowledge Infrastructure"},{"n":"6.2","t":"An anatomy of administrative refusal"},{"n":"6.3","t":"Codes as knowledge infrastructure"},{"n":"6.4","t":"Where the vocabulary comes from"},{"n":"6.5","t":"A precise taxonomic architecture"},{"n":"6.6","t":"Five layers of the claims stack"},{"n":"6.7","t":"EDI and XML as competing grammars"},{"n":"6.8","t":"The denial-code production cycle"},{"n":"6.9","t":"Source, access, and the confidentiality lifecycle"},{"n":"6.10","t":"A sociotechnical framework"},{"n":"6.11","t":"Methodological blueprint"},{"n":"6.12","t":"Colophon of authority"},{"n":"6.13","t":"References & reference architecture"},{"n":"6.14","t":"Five layers of the claims stack"},{"n":"6.15","t":"Callout cards"}]},{"n":7,"t":"Denial Navigator","f":"denial-codes-semantic.html","s":"06666666066666666606666666666666660660666666066666666666666666666666666066666666660666","l":"Offline searchable taxonomy — 78 codes across 8 families.","i":[{"n":"7.1","t":"Eligibility  (ELIG) — 7 codes"},{"n":"7.2","t":"Authorization  (AUTH) — 9 codes"},{"n":"7.3","t":"Clinical / Coding  (CODE) — 15 codes"},{"n":"7.4","t":"Duplicate  (DUPL) — 2 codes"},{"n":"7.5","t":"Medical Necessity  (MNEC) — 6 codes"},{"n":"7.6","t":"Non-Coverage  (NCOV) — 26 codes"},{"n":"7.7","t":"Pricing  (PRCE) — 10 codes"},{"n":"7.8","t":"Timely Filing  (TIME) — 3 codes"}]},{"n":8,"t":"Psychiatry — A Triangulated Lens","f":"psychiatry-intro.html","s":"000","l":"3 sections, 3 entries.","i":[{"n":"8.1","t":"Introduction to the Psychiatric Diseases Triangulated Lens"},{"n":"8.2","t":"Taxonomy Tree"},{"n":"8.3","t":"Deeper Semantic Layer"}]},{"n":9,"t":"Psychiatry — Semantic Layer","f":"psychiatry-semantic-layer.html","s":"006060666666066606666066660666666666666666606666066606006666660666666666666666666666666666666","l":"14 sections, 93 entries.","i":[{"n":"9.1","t":"Psychiatric Diseases Deeper Semantic Layer"},{"n":"9.2","t":"Licensed IR-DRG logic is proprietary"},{"n":"9.3","t":"These weights come from a published DOH addendum"},{"n":"9.4","t":"Authorities & sources"},{"n":"9.5","t":"Three lanes, one validation rule"},{"n":"9.6","t":"Abu Dhabi coding frame and exclusions"},{"n":"9.7","t":"Clinical terms that need visual handling, not just notes"},{"n":"9.8","t":"Definitions beneath the labels"},{"n":"9.9","t":"Three distinctions the labels hide"},{"n":"9.10","t":"Where an elegant summary needs a sharper edge"},{"n":"9.11","t":"Relative weights, ALOS & day-outlier trims"},{"n":"9.12","t":"Lexicon entries — 13 coded conditions # ICD-10 Condition Status 9.12.1 F63.1 Pyromania 19412 · verify 9.12.2 F63.2 Kleptomania 19412 · verify 9.12.3 F63.3 Trichotillomania 19412 · verify 9.12.4 F63.81 Intermittent explosive disorder 19412 · verify 9.12.5 F63.0 Pathological gambling 19412 · verify 9.12.6 F64.0 Transsexualism parked 9.12.7 F64.1 Dual-role transvestism parked 9.12.8 F65.1 Transvestic fetishism parked 9.12.9 F65 Paraphilic disorders parked 9.12.10 F52 Sexual dysfunctions parked 9.12.11 F66 Other sexual disorders parked 9.12.12 F40–F48 “Neuroses” terminology 9.12.13 F10–F19 Substance use terminology"},{"n":"9.13","t":"Label corrections — 6 entries"},{"n":"9.14","t":"Relative-weight rows — 30 (10 DRGs × base/CC/MCC)"}]},{"n":10,"t":"Psychiatry across DSM-5-TR & IR-DRG","f":"psychiatry-ir-drg-tree.html","s":"06cccccc6cccccc06cccccc6ccccc6c06cccccc6ccccc06ccccc6cccccc6c06ccccc6ccccc6c06ccccc6ccccc6c06ccccc6ccccc06ccccc6ccccc06cccccc6ccccc06ccccc6ccc6c","l":"10 psychiatric categories, each an IR-DRG with three severity weights. # Category IR-DRG RW base / w-CC / w- MCC 10.1 Bipolar…","i":[{"n":"10.1","t":"Bipolar Disorders  ·  IR-DRG 19413 Relative weights (base / w-CC / w-MCC): 2.4299,4.7934,6.6878"},{"n":"10.2","t":"Schizophrenia Disorders  ·  IR-DRG 19410 Relative weights (base / w-CC / w-MCC): 1.7420,3.4364,4.6857"},{"n":"10.3","t":"Major Depression  ·  IR-DRG 19411 Relative weights (base / w-CC / w-MCC): 1.6353,3.2259,4.6656"},{"n":"10.4","t":"Feeding & Eating Disorders  ·  IR-DRG 19418 Relative weights (base / w-CC / w-MCC): 1.1223,2.2138,3.3680"},{"n":"10.5","t":"Neuroses Except Depression  ·  IR-DRG 19415 Relative weights (base / w-CC / w-MCC): 1.0195,1.2475,2.2512"},{"n":"10.6","t":"Personality & Impulse Control  ·  IR-DRG 19412 Relative weights (base / w-CC / w-MCC): 0.9545,1.7243,4.3943"},{"n":"10.7","t":"Organic Disturbances & ID  ·  IR-DRG 19416 Relative weights (base / w-CC / w-MCC): 1.0174,1.8864,2.9408"},{"n":"10.8","t":"Childhood Onset Disorders  ·  IR-DRG 19417 Relative weights (base / w-CC / w-MCC): 1.0678,2.1065,3.0010"},{"n":"10.9","t":"Other Depressive Disorders  ·  IR-DRG 19414 Relative weights (base / w-CC / w-MCC): 1.3341,2.6317,3.9588"},{"n":"10.10","t":"Other Mental Disorders  ·  IR-DRG 19419 Relative weights (base / w-CC / w-MCC): 1.1254,2.2200,3.0452"}]},{"n":11,"t":"Setting-of-Care Principles","f":"setting-of-care.html","s":"0066606606666660660660666666660660660660","l":"11 sections, 40 entries.","i":[{"n":"11.1","t":"Setting of Care Principles"},{"n":"11.2","t":"Care should rise only to the level the patient requires."},{"n":"11.3","t":"Behavior is shaped by information, incentives, and systems."},{"n":"11.4","t":"Management should be proportionate, developmental, and fair."},{"n":"11.5","t":"Design incentives carefully; interpret signals humbly."},{"n":"11.6","t":"Difference is not dysfunction."},{"n":"11.7","t":"Appropriateness must remain coherent from request to payment."},{"n":"11.8","t":"Technology should extend judgment—not replace it."},{"n":"11.9","t":"Stewardship is legitimate only when safety and fairness are indivisible."},{"n":"11.10","t":"Success is alignment—not denial volume."},{"n":"11.11","t":"Care should follow clinical purpose—not administrative habit or economic architecture."}]},{"n":12,"t":"Source Corpus","f":"source-corpus.html","s":"006066666606660666066666666606","l":"23 authorities across six groups.","i":[{"n":"12.1","t":"Source Corpus The Authorities Beneath Every Page"},{"n":"12.2","t":"The one boundary that governs the whole corpus"},{"n":"12.3","t":"The published rules every claim is adjudicated against"},{"n":"12.4","t":"The classification systems the claims are written in"},{"n":"12.5","t":"The engine that prices the encounter"},{"n":"12.6","t":"The benchmarks behind every validation rule"},{"n":"12.7","t":"The judgement layer that binds the sources together"}]},{"n":13,"t":"Visual Archive (Gallery)","f":"gallery.html","s":"0066606060606","l":"Dashboards and short films — evidence of data-management practice.","i":[{"n":"13.1","t":"Visual Archive"},{"n":"13.2","t":"Motion"},{"n":"13.3","t":"Static Designs by Sherif"},{"n":"13.4","t":"Data Visualization"},{"n":"13.5","t":"Service Heroes"},{"n":"13.6","t":"The Cards"}]},{"n":14,"t":"About the Author — Executive Dossier","f":"executive-summary.html","s":"006606666660066666666666666600666666066066666666666666","l":"9 sections, 54 entries.","i":[{"n":"14.1","t":"Dr. Sherif Alattar"},{"n":"14.2","t":"Why this portfolio exists."},{"n":"14.3","t":"What This Dossier Contains"},{"n":"14.4","t":"Career Trajectory"},{"n":"14.5","t":"Skills Developed Across the Milestones"},{"n":"14.6","t":"Leadership Timeline"},{"n":"14.7","t":"Education & Qualifications"},{"n":"14.8","t":"Recognition"},{"n":"14.9","t":"Document Inventory"}]}]</script>
 <div class="vignette"></div>
 <div class="grain"></div>
@@ -455,7 +423,6 @@ a.pil-m:hover span,a.pil-m:focus-visible span{color:var(--cyan-bright)}
   <div class="plate">
     <div class="edge"></div>
     <div class="steel">KNOWLEDGE NEXUS</div>
-    <div class="sheen"></div>
   </div>
   <p class="lead">The structural record of the work &mdash; every page, every section, and every discrete point beneath them, and beneath each one the passage it stands for. Nothing here is summarised, paraphrased, or inferred: the labels and the text under them are reproduced from the source, and every number is stable and may be cited.</p>
   <div class="byline">Dr. Sherif Alattar &middot; MD</div>
@@ -537,14 +504,10 @@ a.pil-m:hover span,a.pil-m:focus-visible span{color:var(--cyan-bright)}
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
         <input id="q" type="search" placeholder="Search 711 entries &mdash; a number, a code, a phrase&hellip;" aria-label="Search the content map" autocomplete="off">
       </div>
-      <div class="kinds"><button class="kind" data-kind="clinical" style="--c:#2FE6C8" aria-pressed="false">Clinical</button>
-<button class="kind" data-kind="coding" style="--c:#56C6FF" aria-pressed="false">Coding</button>
-<button class="kind" data-kind="adjudication" style="--c:#F3CB7D" aria-pressed="false">Adjudication</button>
-<button class="kind" data-kind="coverage" style="--c:#9C7CFF" aria-pressed="false">Coverage</button>
-<button class="kind" data-kind="pearl" style="--c:#C4CCDF" aria-pressed="false">Pearl</button></div>
-      <span class="count" id="count">711 entries</span>
+            <span class="count" id="count">711 entries</span>
     </div>
-    <nav class="pagenav" aria-label="Jump to a page">
+    <nav class="pagenav" aria-label="Show one page, or all">
+<button class="chipnav all" data-target="all" aria-pressed="true"><b>&mdash;</b>All pages</button>
 <button class="chipnav" data-target="1"><b>01</b>Cinematic Opening</button>
 <button class="chipnav" data-target="2"><b>02</b>The Pyramids</button>
 <button class="chipnav" data-target="3"><b>03</b>The Observatory</button>
@@ -596,180 +559,180 @@ a.pil-m:hover span,a.pil-m:focus-visible span{color:var(--cyan-bright)}
 <section class="page-block" id="page-5" data-page="5"><header class="ph"><span class="pn">05</span><div><h2>DRGs Compendium</h2><a class="pf" href="drgs-compendium.html">drgs-compendium.html</a></div><span class="pc">188 entries</span></header><div class="entries"><div class="e sec" id="5.1" data-n="5.1"><a class="n" href="#5.1" title="Copy link to 5.1">5.1</a><div class="t">Abu Dhabi Regulatory Codebook</div><div class="s">Governance hierarchy — DOH rules, coding standards, addenda &amp; active circulars</div></div>
 <div class="e topic" id="5.1.1" data-n="5.1.1"><a class="n" href="#5.1.1" title="Copy link to 5.1.1">5.1.1</a><div class="t">DOH Governance Hierarchy</div><div class="s">The six-layer legal and regulatory cascade that governs every claim in Abu Dhabi — from the health insurance law down to the grouper.</div></div>
 <div class="e topic" id="5.1.2" data-n="5.1.2"><a class="n" href="#5.1.2" title="Copy link to 5.1.2">5.1.2</a><div class="t">DOH Claims &amp; Adjudication Rules V2025</div><div class="s">The operative adjudication rulebook — encounter definitions, claiming methodologies, per-diem service codes, IR-DRG payment rules, modifiers, Hospital-Acquired Conditions, and appendices.</div></div>
-<div class="e point" id="5.1.2.1" data-n="5.1.2.1"><a class="n" href="#5.1.2.1" title="Copy link to 5.1.2.1">5.1.2.1</a><span class="chip" data-kind="clinical" style="--c:#2FE6C8">Clinical</span><div class="t">Encounter definitions (§4.1)</div><div class="s">)Inpatient (§4.1.1): beneficiary admitted for bed occupancy, medically expected to remain ≥ 12 consecutive hours. From 1 January 2013: IR-DRG is the only acceptable reimbursement method for inpatient encounters in Abu Dhabi (Circular 49).Ambulatory Surgical / Same Day Surg</div></div>
-<div class="e point" id="5.1.2.2" data-n="5.1.2.2"><a class="n" href="#5.1.2.2" title="Copy link to 5.1.2.2">5.1.2.2</a><span class="chip" data-kind="coding" style="--c:#56C6FF">Coding</span><div class="t">Claiming methodologies (§4)</div><div class="s">)Fee for Service (FFS, §4.2): CPT-4 / HCPCS / Service Codes billed individually. Negotiated multiplier 1× to 3× Mandatory Tariff per service category or CPT range (§2.3.2).Per Diem (§4.3): all services (excluding defined exclusions) bundled into a daily rate. Basic Product</div></div>
-<div class="e point" id="5.1.2.3" data-n="5.1.2.3"><a class="n" href="#5.1.2.3" title="Copy link to 5.1.2.3">5.1.2.3</a><span class="chip" data-kind="coding" style="--c:#56C6FF">Coding</span><div class="t">Adjudication layer (§5)</div><div class="s">layer (§5)MUE (§5.2): maximum units of a service per patient per date. Claims exceeding the MUE are automatically denied or reduced.Abu Dhabi Simple Edits (§5.3): payer-specific edit rules operating in addition to MUE — bundling, setting-of-care, and inclusion rules for the Abu Dhabi ma</div></div>
-<div class="e point" id="5.1.2.4" data-n="5.1.2.4"><a class="n" href="#5.1.2.4" title="Copy link to 5.1.2.4">5.1.2.4</a><span class="chip" data-kind="adjudication" style="--c:#F3CB7D">Adjudication</span><div class="t">Pre-anesthesia check-up for an inpatient surgery is NOT separately billable — it is included in the inpatient DRG. Unlisted services: use the closest code with an 'UnlistedCodes' observation tag in the eClaim per Routine Reporting Requirements on Shafafiya.</div></div>
+<div class="e point" id="5.1.2.1" data-n="5.1.2.1"><a class="n" href="#5.1.2.1" title="Copy link to 5.1.2.1">5.1.2.1</a><div class="t">Encounter definitions (§4.1)</div><div class="s">Inpatient (§4.1.1): beneficiary admitted for bed occupancy, medically expected to remain ≥ 12 consecutive hours. From 1 January 2013: IR-DRG is the only acceptable reimbursement method for inpatient encounters in Abu Dhabi (Circular 49).Ambulatory Surgical / Same Day Surg</div></div>
+<div class="e point" id="5.1.2.2" data-n="5.1.2.2"><a class="n" href="#5.1.2.2" title="Copy link to 5.1.2.2">5.1.2.2</a><div class="t">Claiming methodologies (§4)</div><div class="s">Fee for Service (FFS, §4.2): CPT-4 / HCPCS / Service Codes billed individually. Negotiated multiplier 1× to 3× Mandatory Tariff per service category or CPT range (§2.3.2).Per Diem (§4.3): all services (excluding defined exclusions) bundled into a daily rate. Basic Product</div></div>
+<div class="e point" id="5.1.2.3" data-n="5.1.2.3"><a class="n" href="#5.1.2.3" title="Copy link to 5.1.2.3">5.1.2.3</a><div class="t">Adjudication layer (§5)</div><div class="s">MUE (§5.2): maximum units of a service per patient per date. Claims exceeding the MUE are automatically denied or reduced.Abu Dhabi Simple Edits (§5.3): payer-specific edit rules operating in addition to MUE — bundling, setting-of-care, and inclusion rules for the Abu Dhabi ma</div></div>
+<div class="e point" id="5.1.2.4" data-n="5.1.2.4"><a class="n" href="#5.1.2.4" title="Copy link to 5.1.2.4">5.1.2.4</a><div class="t">Pre-anesthesia check-up for an inpatient surgery is NOT separately billable — it is included in the inpatient DRG. Unlisted services: use the closest code with an 'UnlistedCodes' observation tag in the eClaim per Routine Reporting Requirements on Shafafiya.</div></div>
 <div class="e topic" id="5.1.3" data-n="5.1.3"><a class="n" href="#5.1.3" title="Copy link to 5.1.3">5.1.3</a><div class="t">DOH Coding Manual CS v2021 — Authorised Codesets</div><div class="s">The complete coding codeset authorised by DOH Abu Dhabi per §3.1 of the Claims &amp; Adjudication Rules — ICD-10-CM (US, not Australian), CPT-4, HCPCS, IR-DRG, Dental, Drug, and Service Codes.</div></div>
-<div class="e point" id="5.1.3.1" data-n="5.1.3.1"><a class="n" href="#5.1.3.1" title="Copy link to 5.1.3.1">5.1.3.1</a><span class="chip" data-kind="clinical" style="--c:#2FE6C8">Clinical</span><div class="t">Standard codes — §3.1</div><div class="s">ICD-10-CM — International Classification of Diseases, 10th Revision, Clinical Modification (US version — not ICD-10-AM / Australian). DOH holds an Emirate-wide licence. Effective October 1 each year (FY2026 = October 2025 edition).CPT-4 — Current Procedural Terminology, 4th Edit</div></div>
-<div class="e point" id="5.1.3.2" data-n="5.1.3.2"><a class="n" href="#5.1.3.2" title="Copy link to 5.1.3.2">5.1.3.2</a><span class="chip" data-kind="coding" style="--c:#56C6FF">Coding</span><div class="t">Key DOH principles</div><div class="s">Selection and sequencing of diagnoses, service codes, procedure codes, or DRGs must meet the DOH Data Standard definitions for the applicable healthcare setting.DOH has Emirate-wide licences for all standard code sets — available at https://www.doh.gov.ae/en/Shafafiya/prices under</div></div>
+<div class="e point" id="5.1.3.1" data-n="5.1.3.1"><a class="n" href="#5.1.3.1" title="Copy link to 5.1.3.1">5.1.3.1</a><div class="t">Standard codes — §3.1</div><div class="s">ICD-10-CM — International Classification of Diseases, 10th Revision, Clinical Modification (US version — not ICD-10-AM / Australian). DOH holds an Emirate-wide licence. Effective October 1 each year (FY2026 = October 2025 edition).CPT-4 — Current Procedural Terminology, 4th Edit</div></div>
+<div class="e point" id="5.1.3.2" data-n="5.1.3.2"><a class="n" href="#5.1.3.2" title="Copy link to 5.1.3.2">5.1.3.2</a><div class="t">Key DOH principles</div><div class="s">Selection and sequencing of diagnoses, service codes, procedure codes, or DRGs must meet the DOH Data Standard definitions for the applicable healthcare setting.DOH has Emirate-wide licences for all standard code sets — available at https://www.doh.gov.ae/en/Shafafiya/prices under</div></div>
 <div class="e topic" id="5.1.4" data-n="5.1.4"><a class="n" href="#5.1.4" title="Copy link to 5.1.4">5.1.4</a><div class="t">Addendum 05 — Inpatient Mental Health Relative Weights</div><div class="s">Addendum 05 revises the IR-DRG relative weights for all inpatient mental health encounters (MDC 19) in the Abu Dhabi DRG payment framework, effective 1 October 2025.</div></div>
-<div class="e point" id="5.1.4.1" data-n="5.1.4.1"><a class="n" href="#5.1.4.1" title="Copy link to 5.1.4.1">5.1.4.1</a><span class="chip" data-kind="clinical" style="--c:#2FE6C8">Clinical</span><div class="t">Scope</div><div class="s">Targeted amendment to the DOH Mandatory Tariff for MDC 19 (Mental Diseases and Disorders) — all 19xxx IR-DRG codes.Revised relative weights reflect updated resource-use benchmarks for the psychiatric DRG families.</div></div>
-<div class="e point" id="5.1.4.2" data-n="5.1.4.2"><a class="n" href="#5.1.4.2" title="Copy link to 5.1.4.2">5.1.4.2</a><span class="chip" data-kind="coding" style="--c:#56C6FF">Coding</span><div class="t">Application</div><div class="s">Payment = Base Rate × Updated MDC-19 Relative Weight from Addendum 05.Addendum 05 supersedes any prior MDC-19 relative weight table — do not apply weights from an earlier tariff edition for mental health DRGs.Effective date: 1 October 2025 — apply to all inpatient mental health encounters</div></div>
-<div class="e point" id="5.1.4.3" data-n="5.1.4.3"><a class="n" href="#5.1.4.3" title="Copy link to 5.1.4.3">5.1.4.3</a><span class="chip" data-kind="adjudication" style="--c:#F3CB7D">Adjudication</span><div class="t">SOI anomaly on record: Bipolar DRG 19413 shows SOI 2 relative weight (4.7934) exceeding SOI 3 (4.6878) — atypical progression for a severity scale. Flagged for verification against the live Addendum 05 before adjudicating.</div></div>
+<div class="e point" id="5.1.4.1" data-n="5.1.4.1"><a class="n" href="#5.1.4.1" title="Copy link to 5.1.4.1">5.1.4.1</a><div class="t">Scope</div><div class="s">Targeted amendment to the DOH Mandatory Tariff for MDC 19 (Mental Diseases and Disorders) — all 19xxx IR-DRG codes.Revised relative weights reflect updated resource-use benchmarks for the psychiatric DRG families.</div></div>
+<div class="e point" id="5.1.4.2" data-n="5.1.4.2"><a class="n" href="#5.1.4.2" title="Copy link to 5.1.4.2">5.1.4.2</a><div class="t">Application</div><div class="s">Payment = Base Rate × Updated MDC-19 Relative Weight from Addendum 05.Addendum 05 supersedes any prior MDC-19 relative weight table — do not apply weights from an earlier tariff edition for mental health DRGs.Effective date: 1 October 2025 — apply to all inpatient mental health encounters</div></div>
+<div class="e point" id="5.1.4.3" data-n="5.1.4.3"><a class="n" href="#5.1.4.3" title="Copy link to 5.1.4.3">5.1.4.3</a><div class="t">SOI anomaly on record: Bipolar DRG 19413 shows SOI 2 relative weight (4.7934) exceeding SOI 3 (4.6878) — atypical progression for a severity scale. Flagged for verification against the live Addendum 05 before adjudicating.</div></div>
 <div class="e topic" id="5.1.5" data-n="5.1.5"><a class="n" href="#5.1.5" title="Copy link to 5.1.5">5.1.5</a><div class="t">Addendum 06 — LAMA Payment Framework</div><div class="s">Effective 1 November 2025, Addendum 06 defines the payment calculation when a patient leaves against medical advice — preventing full DRG payment for a premature, self-initiated discharge.</div></div>
-<div class="e point" id="5.1.5.1" data-n="5.1.5.1"><a class="n" href="#5.1.5.1" title="Copy link to 5.1.5.1">5.1.5.1</a><span class="chip" data-kind="clinical" style="--c:#2FE6C8">Clinical</span><div class="t">LAMA definition</div><div class="s">A patient who refuses further treatment and leaves the facility before the treating physician considers the clinical episode complete.LAMA must be documented: patient refusal note, AMA form signed (or refused), and discharge documentation recording the self-discharge event.</div></div>
-<div class="e point" id="5.1.5.2" data-n="5.1.5.2"><a class="n" href="#5.1.5.2" title="Copy link to 5.1.5.2">5.1.5.2</a><span class="chip" data-kind="coding" style="--c:#56C6FF">Coding</span><div class="t">Payment framework (Addendum 06)</div><div class="s">)A LAMA encounter is NOT reimbursed at the full inpatient DRG.Payment is calculated per the Addendum 06 formula — typically a reduced rate proportional to length of stay or a per-diem equivalent.Effective date: 1 November 2025 — applies to all LAMA encounters on or afte</div></div>
-<div class="e point" id="5.1.5.3" data-n="5.1.5.3"><a class="n" href="#5.1.5.3" title="Copy link to 5.1.5.3">5.1.5.3</a><span class="chip" data-kind="adjudication" style="--c:#F3CB7D">Adjudication</span><div class="t">For claims submitted as full IR-DRG where the discharge record documents LAMA, apply the Addendum 06 calculation and adjust accordingly. The documentation burden rests with the provider — absent a LAMA notation, the standard DRG applies.</div></div>
+<div class="e point" id="5.1.5.1" data-n="5.1.5.1"><a class="n" href="#5.1.5.1" title="Copy link to 5.1.5.1">5.1.5.1</a><div class="t">LAMA definition</div><div class="s">A patient who refuses further treatment and leaves the facility before the treating physician considers the clinical episode complete.LAMA must be documented: patient refusal note, AMA form signed (or refused), and discharge documentation recording the self-discharge event.</div></div>
+<div class="e point" id="5.1.5.2" data-n="5.1.5.2"><a class="n" href="#5.1.5.2" title="Copy link to 5.1.5.2">5.1.5.2</a><div class="t">Payment framework (Addendum 06)</div><div class="s">A LAMA encounter is NOT reimbursed at the full inpatient DRG.Payment is calculated per the Addendum 06 formula — typically a reduced rate proportional to length of stay or a per-diem equivalent.Effective date: 1 November 2025 — applies to all LAMA encounters on or afte</div></div>
+<div class="e point" id="5.1.5.3" data-n="5.1.5.3"><a class="n" href="#5.1.5.3" title="Copy link to 5.1.5.3">5.1.5.3</a><div class="t">For claims submitted as full IR-DRG where the discharge record documents LAMA, apply the Addendum 06 calculation and adjust accordingly. The documentation burden rests with the provider — absent a LAMA notation, the standard DRG applies.</div></div>
 <div class="e topic" id="5.1.6" data-n="5.1.6"><a class="n" href="#5.1.6" title="Copy link to 5.1.6">5.1.6</a><div class="t">DOH Circular 2025-18 — Congenital &amp; Hereditary Coverage</div><div class="s">Clarifies the coverage boundary for congenital deformities and hereditary/genetic diseases — carving out medically necessary therapeutic services from the cosmetic exclusion.</div></div>
-<div class="e point" id="5.1.6.1" data-n="5.1.6.1"><a class="n" href="#5.1.6.1" title="Copy link to 5.1.6.1">5.1.6.1</a><span class="chip" data-kind="coverage" style="--c:#9C7CFF">Coverage</span><div class="t">The coverage rule</div><div class="s">Health Insurance Law 23/2005 sets exclusions for congenital deformities and cosmetic correction.Exclusions do not extend to: (a) medically necessary therapeutic or surgical services for congenital conditions; (b) treatment of hereditary or genetic diseases.The carve-out applies irre</div></div>
-<div class="e point" id="5.1.6.2" data-n="5.1.6.2"><a class="n" href="#5.1.6.2" title="Copy link to 5.1.6.2">5.1.6.2</a><span class="chip" data-kind="clinical" style="--c:#2FE6C8">Clinical</span><div class="t">Cosmetic vs therapeutic test</div><div class="s">Cosmetic (excluded): procedure performed solely to improve physical appearance where the condition is not functionally impairing.Therapeutic (covered): procedure corrects physiological dysfunction, prevents a life-threatening outcome, or is necessary for normal physiologi</div></div>
-<div class="e point" id="5.1.6.3" data-n="5.1.6.3"><a class="n" href="#5.1.6.3" title="Copy link to 5.1.6.3">5.1.6.3</a><span class="chip" data-kind="coding" style="--c:#56C6FF">Coding</span><div class="t">Plan-tier overlay</div><div class="s">Basic and Enhanced plans: congenital conditions are NOT covered unless, if left untreated, the condition will develop into an emergency.Thiqa: covered as per medical necessity regardless of facility.Each procedure through this pathway requires pre-authorisation.</div></div>
+<div class="e point" id="5.1.6.1" data-n="5.1.6.1"><a class="n" href="#5.1.6.1" title="Copy link to 5.1.6.1">5.1.6.1</a><div class="t">The coverage rule</div><div class="s">Health Insurance Law 23/2005 sets exclusions for congenital deformities and cosmetic correction.Exclusions do not extend to: (a) medically necessary therapeutic or surgical services for congenital conditions; (b) treatment of hereditary or genetic diseases.The carve-out applies irre</div></div>
+<div class="e point" id="5.1.6.2" data-n="5.1.6.2"><a class="n" href="#5.1.6.2" title="Copy link to 5.1.6.2">5.1.6.2</a><div class="t">Cosmetic vs therapeutic test</div><div class="s">Cosmetic (excluded): procedure performed solely to improve physical appearance where the condition is not functionally impairing.Therapeutic (covered): procedure corrects physiological dysfunction, prevents a life-threatening outcome, or is necessary for normal physiologi</div></div>
+<div class="e point" id="5.1.6.3" data-n="5.1.6.3"><a class="n" href="#5.1.6.3" title="Copy link to 5.1.6.3">5.1.6.3</a><div class="t">Plan-tier overlay</div><div class="s">Basic and Enhanced plans: congenital conditions are NOT covered unless, if left untreated, the condition will develop into an emergency.Thiqa: covered as per medical necessity regardless of facility.Each procedure through this pathway requires pre-authorisation.</div></div>
 <div class="e sec" id="5.2" data-n="5.2"><a class="n" href="#5.2" title="Copy link to 5.2">5.2</a><div class="t">DRGs Roadmap</div><div class="s">IR‑DRG grouper mechanics &amp; the Abu Dhabi DRG dashboard</div></div>
 <div class="e topic" id="5.2.1" data-n="5.2.1"><a class="n" href="#5.2.1" title="Copy link to 5.2.1">5.2.1</a><div class="t">Common DRGs — Abu Dhabi IR-DRG Dashboard</div><div class="s">The ten highest-volume inpatient DRGs in Abu Dhabi — each with its exact 6-digit IR-DRG code decoded into MDC · Base · SOI, and a one-line adjudication rule.</div></div>
 <div class="e topic" id="5.2.2" data-n="5.2.2"><a class="n" href="#5.2.2" title="Copy link to 5.2.2">5.2.2</a><div class="t">IR-DRG Grouper — Solventum Framework</div><div class="s">How the Solventum IR-DRG grouper converts a coded clinical record into a single DRG code, a severity sub-class, and a payment weight — the engine behind every inpatient claim in Abu Dhabi.</div></div>
-<div class="e point" id="5.2.2.1" data-n="5.2.2.1"><a class="n" href="#5.2.2.1" title="Copy link to 5.2.2.1">5.2.2.1</a><span class="chip" data-kind="clinical" style="--c:#2FE6C8">Clinical</span><div class="t">Grouper logic</div><div class="s">One inpatient stay maps to exactly one IR-DRG. Grouping sequence: (1) Principal Diagnosis → assigns MDC; (2) Principal procedure → surgical vs medical partition; (3) Secondary diagnoses / CCs → drive SOI sub-class; (4) Final DRG code.6-digit IR-DRG code structure: digits 1–2 = MDC; digi</div></div>
-<div class="e point" id="5.2.2.2" data-n="5.2.2.2"><a class="n" href="#5.2.2.2" title="Copy link to 5.2.2.2">5.2.2.2</a><span class="chip" data-kind="coding" style="--c:#56C6FF">Coding</span><div class="t">Payment formula (§4.4.2)</div><div class="s">)DRG Payment = Base Rate × Relative Weight (DOH Mandatory Tariff, Appendix A).Base Rate is a single agreed rate per provider/payer contract.Relative Weight is DRG-specific and population-calibrated by DOH — use only the live DOH tariff values, not generic Solventum or US MS-DR</div></div>
-<div class="e point" id="5.2.2.3" data-n="5.2.2.3"><a class="n" href="#5.2.2.3" title="Copy link to 5.2.2.3">5.2.2.3</a><span class="chip" data-kind="adjudication" style="--c:#F3CB7D">Adjudication</span><div class="t">SOI is driven by CC/MCC assignment among secondary diagnoses — every substantiated reportable secondary diagnosis that qualifies as a CC or MCC raises or sustains the SOI. This is why secondary diagnosis validation is the highest-yield adjudication activity in a DRG market: one unsupported secondary</div><div class="s">Digit positionMeaningExample: 0412031–2MDC (Major Diagnostic Category)04 = Diseases and Disorders of the Respiratory System3–5Base DRG identifier120 = Respiratory failure base group6SOI sub-class3 = Major severity</div></div>
+<div class="e point" id="5.2.2.1" data-n="5.2.2.1"><a class="n" href="#5.2.2.1" title="Copy link to 5.2.2.1">5.2.2.1</a><div class="t">Grouper logic</div><div class="s">One inpatient stay maps to exactly one IR-DRG. Grouping sequence: (1) Principal Diagnosis → assigns MDC; (2) Principal procedure → surgical vs medical partition; (3) Secondary diagnoses / CCs → drive SOI sub-class; (4) Final DRG code.6-digit IR-DRG code structure: digits 1–2 = MDC; digi</div></div>
+<div class="e point" id="5.2.2.2" data-n="5.2.2.2"><a class="n" href="#5.2.2.2" title="Copy link to 5.2.2.2">5.2.2.2</a><div class="t">Payment formula (§4.4.2)</div><div class="s">DRG Payment = Base Rate × Relative Weight (DOH Mandatory Tariff, Appendix A).Base Rate is a single agreed rate per provider/payer contract.Relative Weight is DRG-specific and population-calibrated by DOH — use only the live DOH tariff values, not generic Solventum or US MS-DR</div></div>
+<div class="e point" id="5.2.2.3" data-n="5.2.2.3"><a class="n" href="#5.2.2.3" title="Copy link to 5.2.2.3">5.2.2.3</a><div class="t">SOI is driven by CC/MCC assignment among secondary diagnoses — every substantiated reportable secondary diagnosis that qualifies as a CC or MCC raises or sustains the SOI. This is why secondary diagnosis validation is the highest-yield adjudication activity in a DRG market: one unsupported secondary</div><div class="s">Digit positionMeaningExample: 0412031–2MDC (Major Diagnostic Category)04 = Diseases and Disorders of the Respiratory System3–5Base DRG identifier120 = Respiratory failure base group6SOI sub-class3 = Major severity</div></div>
 <div class="e sec" id="5.3" data-n="5.3"><a class="n" href="#5.3" title="Copy link to 5.3">5.3</a><div class="t">Diagnoses Coding Validation</div><div class="s">ICD-10-CM guidelines · UHDDS reportability · MEAT · Defensive Trio · clinical vs coding</div></div>
 <div class="e topic" id="5.3.1" data-n="5.3.1"><a class="n" href="#5.3.1" title="Copy link to 5.3.1">5.3.1</a><div class="t">ICD-10-CM Architecture &amp; Conventions (Section I.A)</div><div class="s">How ICD-10-CM is built, when editions take effect, and the structural conventions (NEC/NOS/Excludes1/Excludes2/Code First) that govern every coding decision.</div></div>
-<div class="e point" id="5.3.1.1" data-n="5.3.1.1"><a class="n" href="#5.3.1.1" title="Copy link to 5.3.1.1">5.3.1.1</a><span class="chip" data-kind="clinical" style="--c:#2FE6C8">Clinical</span><div class="t">Code structure and edition cycle</div><div class="s">ICD-10-CM codes are 3–7 alphanumeric characters: Category (3 characters) + etiology/anatomy/severity extensions (up to 4). A decimal follows the first three characters.Annual release cycle: new ICD-10-CM editions are effective October 1 each year. The October 2025 rel</div></div>
-<div class="e point" id="5.3.1.2" data-n="5.3.1.2"><a class="n" href="#5.3.1.2" title="Copy link to 5.3.1.2">5.3.1.2</a><span class="chip" data-kind="coding" style="--c:#56C6FF">Coding</span><div class="t">Key conventions</div><div class="s">NEC (Not Elsewhere Classifiable): specific content for which no separate code exists in the classification.NOS (Not Otherwise Specified): equivalent to 'unspecified' — documentation insufficient for a more specific code.Excludes1: the two conditions cannot co-exist — do not code both</div></div>
+<div class="e point" id="5.3.1.1" data-n="5.3.1.1"><a class="n" href="#5.3.1.1" title="Copy link to 5.3.1.1">5.3.1.1</a><div class="t">Code structure and edition cycle</div><div class="s">ICD-10-CM codes are 3–7 alphanumeric characters: Category (3 characters) + etiology/anatomy/severity extensions (up to 4). A decimal follows the first three characters.Annual release cycle: new ICD-10-CM editions are effective October 1 each year. The October 2025 rel</div></div>
+<div class="e point" id="5.3.1.2" data-n="5.3.1.2"><a class="n" href="#5.3.1.2" title="Copy link to 5.3.1.2">5.3.1.2</a><div class="t">Key conventions</div><div class="s">NEC (Not Elsewhere Classifiable): specific content for which no separate code exists in the classification.NOS (Not Otherwise Specified): equivalent to 'unspecified' — documentation insufficient for a more specific code.Excludes1: the two conditions cannot co-exist — do not code both</div></div>
 <div class="e topic" id="5.3.2" data-n="5.3.2"><a class="n" href="#5.3.2" title="Copy link to 5.3.2">5.3.2</a><div class="t">Section I.B — General Coding Guidelines Reference</div><div class="s">The nineteen general coding guidelines that apply to all ICD-10-CM coding encounters — the foundational rules behind every adjudication decision.</div></div>
-<div class="e point" id="5.3.2.1" data-n="5.3.2.1"><a class="n" href="#5.3.2.1" title="Copy link to 5.3.2.1">5.3.2.1</a><span class="chip" data-kind="adjudication" style="--c:#F3CB7D">Adjudication</span><div class="t">I.B.2 (specificity) and I.B.19 (no assuming) are the two highest-yield adjudication leverage points — most challengeable claims fail at least one. A claim surviving both is significantly more defensible.</div><div class="s">SectionRuleAdjudication applicationI.B.1Locating a codeUse both Alphabetic Index and Tabular List — never code from the Index alone.I.B.2Level of detail (specificity)Code to the highest number of characters available. Unspecified code where documentation supports a specific type = queryable / deniab</div></div>
+<div class="e point" id="5.3.2.1" data-n="5.3.2.1"><a class="n" href="#5.3.2.1" title="Copy link to 5.3.2.1">5.3.2.1</a><div class="t">I.B.2 (specificity) and I.B.19 (no assuming) are the two highest-yield adjudication leverage points — most challengeable claims fail at least one. A claim surviving both is significantly more defensible.</div><div class="s">SectionRuleAdjudication applicationI.B.1Locating a codeUse both Alphabetic Index and Tabular List — never code from the Index alone.I.B.2Level of detail (specificity)Code to the highest number of characters available. Unspecified code where documentation supports a specific type = queryable / deniab</div></div>
 <div class="e topic" id="5.3.3" data-n="5.3.3"><a class="n" href="#5.3.3" title="Copy link to 5.3.3">5.3.3</a><div class="t">Integral Signs &amp; Symptoms in Detail (I.B.5)</div><div class="s">Signs and symptoms routinely associated with a disease are not coded separately — coding them inflates SOI and is the most common pattern triggering recovery audit.</div></div>
-<div class="e point" id="5.3.3.1" data-n="5.3.3.1"><a class="n" href="#5.3.3.1" title="Copy link to 5.3.3.1">5.3.3.1</a><span class="chip" data-kind="clinical" style="--c:#2FE6C8">Clinical</span><div class="t">The rule</div><div class="s">I.B.5: Signs, symptoms, and associated findings listed under a diagnosis in the Tabular are NOT separately assigned unless the classification or clinical instruction specifically states otherwise.A condition becomes separately reportable only when: (a) atypical for the disease, or (b) indepe</div></div>
+<div class="e point" id="5.3.3.1" data-n="5.3.3.1"><a class="n" href="#5.3.3.1" title="Copy link to 5.3.3.1">5.3.3.1</a><div class="t">The rule</div><div class="s">I.B.5: Signs, symptoms, and associated findings listed under a diagnosis in the Tabular are NOT separately assigned unless the classification or clinical instruction specifically states otherwise.A condition becomes separately reportable only when: (a) atypical for the disease, or (b) indepe</div></div>
 <div class="e topic" id="5.3.4" data-n="5.3.4"><a class="n" href="#5.3.4" title="Copy link to 5.3.4">5.3.4</a><div class="t">Uncertain Diagnosis — Setting Rules (I.B.14 / II.H / III.C / IV.H)</div><div class="s">Probable or suspected conditions are codeable inpatient but strictly forbidden outpatient — the same wording creates opposite coding outcomes depending on the setting.</div></div>
-<div class="e point" id="5.3.4.1" data-n="5.3.4.1"><a class="n" href="#5.3.4.1" title="Copy link to 5.3.4.1">5.3.4.1</a><span class="chip" data-kind="clinical" style="--c:#2FE6C8">Clinical</span><div class="t">The ruled-out rule</div><div class="s">SettingUncertain diagnosis ruleWhat to codeInpatient — principal diagnosis (II.H)'Probable/suspected/likely/questionable/possible/to be ruled out' at discharge — coded as if confirmedThe uncertain diagnosis itselfInpatient — secondary diagnosis (III.C)Same rule applies to secondary diagnoses at disc</div></div>
+<div class="e point" id="5.3.4.1" data-n="5.3.4.1"><a class="n" href="#5.3.4.1" title="Copy link to 5.3.4.1">5.3.4.1</a><div class="t">The ruled-out rule</div><div class="s">SettingUncertain diagnosis ruleWhat to codeInpatient — principal diagnosis (II.H)'Probable/suspected/likely/questionable/possible/to be ruled out' at discharge — coded as if confirmedThe uncertain diagnosis itselfInpatient — secondary diagnosis (III.C)Same rule applies to secondary diagnoses at disc</div></div>
 <div class="e topic" id="5.3.5" data-n="5.3.5"><a class="n" href="#5.3.5" title="Copy link to 5.3.5">5.3.5</a><div class="t">Post-Procedural Complications (I.B.16 / I.A.19)</div><div class="s">a post-procedural complication requires the provider to explicitly document and link the complication to the procedure — never inferred from a lab abnormality or clinical finding alone.</div></div>
-<div class="e point" id="5.3.5.1" data-n="5.3.5.1"><a class="n" href="#5.3.5.1" title="Copy link to 5.3.5.1">5.3.5.1</a><span class="chip" data-kind="clinical" style="--c:#2FE6C8">Clinical</span><div class="t">Two-part documentation requirement</div><div class="s">I.B.16: the complication must be explicitly documented by the provider.I.A.19: code assignment must be based on provider documentation — a laboratory value or clinical finding alone does not constitute a diagnosis.Together: the provider must (1) name the complicatio</div></div>
-<div class="e point" id="5.3.5.2" data-n="5.3.5.2"><a class="n" href="#5.3.5.2" title="Copy link to 5.3.5.2">5.3.5.2</a><span class="chip" data-kind="adjudication" style="--c:#F3CB7D">Adjudication</span><div class="t">D62 (acute post-haemorrhagic anaemia) requires documented acute blood loss — not inferred from haemoglobin. Apply four guidelines together: I.B.16 (post-op complication documentation), I.A.19 (no assuming from labs), I.B.14 (physician must name it), and UHDDS reportability (it must have affected car</div><div class="s">ScenarioCodeable?ReasoningSurgeon documents 'wound infection — complication of recent closure'YesExplicit name and procedure linkagePost-op Hb 7.0 — physician writes 'post-op anaemia, transfused'Borderline — query linkageAnaemia documented; acute blood-loss link not explicitPost-op Hb 7.0 — no provi</div></div>
+<div class="e point" id="5.3.5.1" data-n="5.3.5.1"><a class="n" href="#5.3.5.1" title="Copy link to 5.3.5.1">5.3.5.1</a><div class="t">Two-part documentation requirement</div><div class="s">I.B.16: the complication must be explicitly documented by the provider.I.A.19: code assignment must be based on provider documentation — a laboratory value or clinical finding alone does not constitute a diagnosis.Together: the provider must (1) name the complicatio</div></div>
+<div class="e point" id="5.3.5.2" data-n="5.3.5.2"><a class="n" href="#5.3.5.2" title="Copy link to 5.3.5.2">5.3.5.2</a><div class="t">D62 (acute post-haemorrhagic anaemia) requires documented acute blood loss — not inferred from haemoglobin. Apply four guidelines together: I.B.16 (post-op complication documentation), I.A.19 (no assuming from labs), I.B.14 (physician must name it), and UHDDS reportability (it must have affected car</div><div class="s">ScenarioCodeable?ReasoningSurgeon documents 'wound infection — complication of recent closure'YesExplicit name and procedure linkagePost-op Hb 7.0 — physician writes 'post-op anaemia, transfused'Borderline — query linkageAnaemia documented; acute blood-loss link not explicitPost-op Hb 7.0 — no provi</div></div>
 <div class="e topic" id="5.3.6" data-n="5.3.6"><a class="n" href="#5.3.6" title="Copy link to 5.3.6">5.3.6</a><div class="t">Reportable Diagnosis Validation — UHDDS · MEAT · Defensive Trio</div><div class="s">Three interlocking frameworks for validating every secondary diagnosis: UHDDS defines what is reportable, MEAT identifies the clinical evidence that satisfies it, and the Defensive Trio is the payer’s mechanism for challenging what fails.</div></div>
-<div class="e point" id="5.3.6.1" data-n="5.3.6.1"><a class="n" href="#5.3.6.1" title="Copy link to 5.3.6.1">5.3.6.1</a><span class="chip" data-kind="adjudication" style="--c:#F3CB7D">Adjudication</span><div class="t">The three frameworks operate in sequence: UHDDS sets the reportability bar → MEAT is the tool used to find documentation clearing that bar → the Defensive Trio is the payer’s mechanism for identifying where that bar was not cleared. A claim surviving all three is defensible; a claim failing any one</div><div class="s">UHDDS Uniform Hospital Discharge Data Set — reportability criteria Principal Diagnosis — the condition established after study to be chiefly responsible for occasioning the admission. Secondary Diagnosis — any condition that co-exists or develops subsequently and affects care by meeting at least one</div></div>
+<div class="e point" id="5.3.6.1" data-n="5.3.6.1"><a class="n" href="#5.3.6.1" title="Copy link to 5.3.6.1">5.3.6.1</a><div class="t">The three frameworks operate in sequence: UHDDS sets the reportability bar → MEAT is the tool used to find documentation clearing that bar → the Defensive Trio is the payer’s mechanism for identifying where that bar was not cleared. A claim surviving all three is defensible; a claim failing any one</div><div class="s">UHDDS Uniform Hospital Discharge Data Set — reportability criteria Principal Diagnosis — the condition established after study to be chiefly responsible for occasioning the admission. Secondary Diagnosis — any condition that co-exists or develops subsequently and affects care by meeting at least one</div></div>
 <div class="e topic" id="5.3.7" data-n="5.3.7"><a class="n" href="#5.3.7" title="Copy link to 5.3.7">5.3.7</a><div class="t">Clinical vs Coding Validation</div><div class="s">Two fundamentally different questions applied to every claim — a denial must name which lens failed. Conflating them produces both incorrect denials and incorrect approvals.</div></div>
-<div class="e point" id="5.3.7.1" data-n="5.3.7.1"><a class="n" href="#5.3.7.1" title="Copy link to 5.3.7.1">5.3.7.1</a><span class="chip" data-kind="adjudication" style="--c:#F3CB7D">Adjudication</span><div class="t">A claim can be clinically valid but mis-coded (correct diagnosis, wrong code or sequence). A claim can be correctly coded but clinically unsupported (right code, no clinical basis). These are different failures requiring different remedies and different appeal pathways. Always identify which lens fa</div><div class="s">ValidationCoding ValidationQuestionIs the diagnosis supported by the clinical record?Was it coded correctly per ICD-10-CM rules?BasisProvider documentation: history, exam, labs, imaging, assessment/planICD-10-CM Official Guidelines + DOH Coding ManualToolsMEAT framework, UHDDS criteria, cli</div></div>
+<div class="e point" id="5.3.7.1" data-n="5.3.7.1"><a class="n" href="#5.3.7.1" title="Copy link to 5.3.7.1">5.3.7.1</a><div class="t">A claim can be clinically valid but mis-coded (correct diagnosis, wrong code or sequence). A claim can be correctly coded but clinically unsupported (right code, no clinical basis). These are different failures requiring different remedies and different appeal pathways. Always identify which lens fa</div><div class="s">ValidationCoding ValidationQuestionIs the diagnosis supported by the clinical record?Was it coded correctly per ICD-10-CM rules?BasisProvider documentation: history, exam, labs, imaging, assessment/planICD-10-CM Official Guidelines + DOH Coding ManualToolsMEAT framework, UHDDS criteria, cli</div></div>
 <div class="e sec" id="5.4" data-n="5.4"><a class="n" href="#5.4" title="Copy link to 5.4">5.4</a><div class="t">Procedures &amp; HCPCS</div><div class="s">CPT‑4 categorization · NCCI edits · HCPCS Level II · DOH modifiers · add‑on rules · LAMA</div></div>
 <div class="e topic" id="5.4.1" data-n="5.4.1"><a class="n" href="#5.4.1" title="Copy link to 5.4.1">5.4.1</a><div class="t">3.1 — CPT-4 Categorization</div><div class="s">CPT-4 is structured into three mutually exclusive categories — Category I is the primary billable set, Category II is non-payable quality-tracking, and Category III is the temporary emerging-technology set.</div></div>
-<div class="e point" id="5.4.1.1" data-n="5.4.1.1"><a class="n" href="#5.4.1.1" title="Copy link to 5.4.1.1">5.4.1.1</a><span class="chip" data-kind="clinical" style="--c:#2FE6C8">Clinical</span><div class="t">Category I structure — six sections</div><div class="s">CategoryCode RangePurposePayable?DOH contextI10004–99607The main procedure codeset — surgical, diagnostic, therapeutic, E&amp;M, anesthesia, radiology, lab, medicine. The standard billable set for all clinical services.Yes — forms the basis of FFS claimsPrimary set referenced in DOH Coding Manual CS v20</div></div>
+<div class="e point" id="5.4.1.1" data-n="5.4.1.1"><a class="n" href="#5.4.1.1" title="Copy link to 5.4.1.1">5.4.1.1</a><div class="t">Category I structure — six sections</div><div class="s">CategoryCode RangePurposePayable?DOH contextI10004–99607The main procedure codeset — surgical, diagnostic, therapeutic, E&amp;M, anesthesia, radiology, lab, medicine. The standard billable set for all clinical services.Yes — forms the basis of FFS claimsPrimary set referenced in DOH Coding Manual CS v20</div></div>
 <div class="e topic" id="5.4.2" data-n="5.4.2"><a class="n" href="#5.4.2" title="Copy link to 5.4.2">5.4.2</a><div class="t">3.2 — NCCI Edits</div><div class="s">The National Correct Coding Initiative provides three edit mechanisms to prevent unbundling and impossible unit counts. Abu Dhabi adopts NCCI logic through DOH §5.2 (MUE) and §5.3 (Abu Dhabi Simple Edits).</div></div>
-<div class="e point" id="5.4.2.1" data-n="5.4.2.1"><a class="n" href="#5.4.2.1" title="Copy link to 5.4.2.1">5.4.2.1</a><span class="chip" data-kind="clinical" style="--c:#2FE6C8">Clinical</span><div class="t">Three core NCCI principles</div><div class="s">① Comprehensive/Component (PTP): A component service is inherently included in the comprehensive code. Billing both is unbundling — the component (Column 2) cannot be separately billed alongside the comprehensive (Column 1) without a valid modifier documenting a genuinely d</div></div>
-<div class="e point" id="5.4.2.2" data-n="5.4.2.2"><a class="n" href="#5.4.2.2" title="Copy link to 5.4.2.2">5.4.2.2</a><span class="chip" data-kind="coding" style="--c:#56C6FF">Coding</span><div class="t">UAE / DOH application</div><div class="s">Edit types and DOH contextEdit typeMechanismOverride?DOH implementationPTP — Column 1/2 pairsColumn 2 denied alongside Column 1Modifier 59 or X{E,P,S,U} when service is genuinely distinct§5.3 Abu Dhabi Simple Edits extend PTP logic with market-specific bundling rulesPTP — Mutually ExclusiveBoth code</div></div>
+<div class="e point" id="5.4.2.1" data-n="5.4.2.1"><a class="n" href="#5.4.2.1" title="Copy link to 5.4.2.1">5.4.2.1</a><div class="t">Three core NCCI principles</div><div class="s">① Comprehensive/Component (PTP): A component service is inherently included in the comprehensive code. Billing both is unbundling — the component (Column 2) cannot be separately billed alongside the comprehensive (Column 1) without a valid modifier documenting a genuinely d</div></div>
+<div class="e point" id="5.4.2.2" data-n="5.4.2.2"><a class="n" href="#5.4.2.2" title="Copy link to 5.4.2.2">5.4.2.2</a><div class="t">UAE / DOH application</div><div class="s">Edit types and DOH contextEdit typeMechanismOverride?DOH implementationPTP — Column 1/2 pairsColumn 2 denied alongside Column 1Modifier 59 or X{E,P,S,U} when service is genuinely distinct§5.3 Abu Dhabi Simple Edits extend PTP logic with market-specific bundling rulesPTP — Mutually ExclusiveBoth code</div></div>
 <div class="e topic" id="5.4.3" data-n="5.4.3"><a class="n" href="#5.4.3" title="Copy link to 5.4.3">5.4.3</a><div class="t">3.3 — HCPCS Level II Overview</div><div class="s">HCPCS Level II is the alphanumeric non-physician code set covering supplies, equipment, drugs, biologics, ambulance, orthotics, prosthetics, and certain temporary codes — including C-codes for outpatient device and pass-through reporting.</div></div>
-<div class="e point" id="5.4.3.1" data-n="5.4.3.1"><a class="n" href="#5.4.3.1" title="Copy link to 5.4.3.1">5.4.3.1</a><span class="chip" data-kind="clinical" style="--c:#2FE6C8">Clinical</span><div class="t">Definition and purpose</div><div class="s">HCPCS Level II (Healthcare Common Procedure Coding System, Level II) is a standardised alphanumeric code set (A0000–V9999) for goods and services not covered by CPT (HCPCS Level I).Administered by CMS; updated annually. DOH holds an Emirate-wide licence per §3.1 of the Claims &amp;</div></div>
-<div class="e point" id="5.4.3.2" data-n="5.4.3.2"><a class="n" href="#5.4.3.2" title="Copy link to 5.4.3.2">5.4.3.2</a><span class="chip" data-kind="clinical" style="--c:#2FE6C8">Clinical</span><div class="t">C-codes — device and supply pass-through</div><div class="s">HCPCS code series — key groupsSeriesRangeCategoryKey DOH usageAA0000–A9999Ambulance, medical/surgical supplies, radiopharmaceuticalsA0428 (non-emergency ambulance); A9500–A9699, A4641/A4642 (contrast/radiopharmaceuticals)BB4000–B9999Enteral and parenteral nutritionAs applicableCC1000–C9999Hospital o</div></div>
+<div class="e point" id="5.4.3.1" data-n="5.4.3.1"><a class="n" href="#5.4.3.1" title="Copy link to 5.4.3.1">5.4.3.1</a><div class="t">Definition and purpose</div><div class="s">HCPCS Level II (Healthcare Common Procedure Coding System, Level II) is a standardised alphanumeric code set (A0000–V9999) for goods and services not covered by CPT (HCPCS Level I).Administered by CMS; updated annually. DOH holds an Emirate-wide licence per §3.1 of the Claims &amp;</div></div>
+<div class="e point" id="5.4.3.2" data-n="5.4.3.2"><a class="n" href="#5.4.3.2" title="Copy link to 5.4.3.2">5.4.3.2</a><div class="t">C-codes — device and supply pass-through</div><div class="s">HCPCS code series — key groupsSeriesRangeCategoryKey DOH usageAA0000–A9999Ambulance, medical/surgical supplies, radiopharmaceuticalsA0428 (non-emergency ambulance); A9500–A9699, A4641/A4642 (contrast/radiopharmaceuticals)BB4000–B9999Enteral and parenteral nutritionAs applicableCC1000–C9999Hospital o</div></div>
 <div class="e topic" id="5.4.4" data-n="5.4.4"><a class="n" href="#5.4.4" title="Copy link to 5.4.4">5.4.4</a><div class="t">3.4 — DOH-Adopted HCPCS Modifiers &amp; Edits</div><div class="s">DOH recognises four specific CPT/HCPCS modifiers (§5.4), applies Abu Dhabi-specific edit rules (§5.3), and enforces a Hospital-Acquired Condition list with payment adjustment (§5.5).</div></div>
-<div class="e point" id="5.4.4.1" data-n="5.4.4.1"><a class="n" href="#5.4.4.1" title="Copy link to 5.4.4.1">5.4.4.1</a><span class="chip" data-kind="coding" style="--c:#56C6FF">Coding</span><div class="t">Abu Dhabi Simple Edits (§5.3)</div><div class="s">DOH-recognised modifiers — §5.4ModifierNameDOH definition (§5.4)Key audit rule25Significant, separately identifiable E&amp;M same day as a procedureAn E&amp;M on the same date as a procedure is payable only when it addresses a problem distinct from the pre- and post-operative assessment. Must be fully docum</div></div>
-<div class="e point" id="5.4.4.2" data-n="5.4.4.2"><a class="n" href="#5.4.4.2" title="Copy link to 5.4.4.2">5.4.4.2</a><span class="chip" data-kind="coding" style="--c:#56C6FF">Coding</span><div class="t">Hospital-Acquired Conditions (§5.5)</div><div class="s">Abu Dhabi Simple Edits (§5.3)Payer-specific edit rules beyond NCCI, developed for the Abu Dhabi market. Include bundling rules for same-day procedures, setting-of-care requirements, and service code inclusion rules.A claim passing all NCCI checks may still fail an Abu Dhabi Simple Edit.Modifier 59 /</div></div>
+<div class="e point" id="5.4.4.1" data-n="5.4.4.1"><a class="n" href="#5.4.4.1" title="Copy link to 5.4.4.1">5.4.4.1</a><div class="t">Abu Dhabi Simple Edits (§5.3)</div><div class="s">DOH-recognised modifiers — §5.4ModifierNameDOH definition (§5.4)Key audit rule25Significant, separately identifiable E&amp;M same day as a procedureAn E&amp;M on the same date as a procedure is payable only when it addresses a problem distinct from the pre- and post-operative assessment. Must be fully docum</div></div>
+<div class="e point" id="5.4.4.2" data-n="5.4.4.2"><a class="n" href="#5.4.4.2" title="Copy link to 5.4.4.2">5.4.4.2</a><div class="t">Hospital-Acquired Conditions (§5.5)</div><div class="s">Abu Dhabi Simple Edits (§5.3)Payer-specific edit rules beyond NCCI, developed for the Abu Dhabi market. Include bundling rules for same-day procedures, setting-of-care requirements, and service code inclusion rules.A claim passing all NCCI checks may still fail an Abu Dhabi Simple Edit.Modifier 59 /</div></div>
 <div class="e topic" id="5.4.5" data-n="5.4.5"><a class="n" href="#5.4.5" title="Copy link to 5.4.5">5.4.5</a><div class="t">3.5 — Add-On Payment Rules for High-Cost HCPCS</div><div class="s">High-cost HCPCS items (implants, biologics, specialist devices) may attract an add-on payment to the DRG rate. The DOH High-Cost HCPCS Addendum governs which codes qualify, whether payment is generated, and how the add-on is calculated.</div></div>
-<div class="e point" id="5.4.5.1" data-n="5.4.5.1"><a class="n" href="#5.4.5.1" title="Copy link to 5.4.5.1">5.4.5.1</a><span class="chip" data-kind="clinical" style="--c:#2FE6C8">Clinical</span><div class="t">Two add-on payment tracks</div><div class="s">Day-case DRG — high-cost HCPCS add-on: For ambulatory/day-case DRGs, a defined list of high-cost HCPCS codes (implants, biologics, devices) may generate a separate add-on payment on top of the day-case DRG rate. The item must appear on the DOH-approved High-Cost HCPCS list.I</div></div>
-<div class="e point" id="5.4.5.2" data-n="5.4.5.2"><a class="n" href="#5.4.5.2" title="Copy link to 5.4.5.2">5.4.5.2</a><span class="chip" data-kind="coding" style="--c:#56C6FF">Coding</span><div class="t">Costing only vs Payment + Costing</div><div class="s">Costing only: Some HCPCS codes are submitted on the claim for internal cost tracking, statistical reporting, and transparency purposes only. They do not generate a separate payment line — the cost is considered included in the DRG or per-diem rate.Payment + Costing:</div></div>
-<div class="e point" id="5.4.5.3" data-n="5.4.5.3"><a class="n" href="#5.4.5.3" title="Copy link to 5.4.5.3">5.4.5.3</a><span class="chip" data-kind="coding" style="--c:#56C6FF">Coding</span><div class="t">How to determine payment eligibility</div><div class="s">Step 1: Identify the HCPCS code for the high-cost item (typically C-code for devices, J-code for biologics).Step 2: Check the current DOH High-Cost HCPCS Addendum / Mandatory Tariff for the code.Step 3: Confirm encounter type eligibility (day-case vs inpatient lis</div></div>
-<div class="e point" id="5.4.5.4" data-n="5.4.5.4"><a class="n" href="#5.4.5.4" title="Copy link to 5.4.5.4">5.4.5.4</a><span class="chip" data-kind="adjudication" style="--c:#F3CB7D">Adjudication</span><div class="t">High-cost HCPCS add-on is one of the highest-value adjudication items in inpatient claims. Claims submitted with high-cost HCPCS as a separate payable line require verification that (a) the code is on the approved list, (b) the item was actually used in the patient's care, and (c) the encounter type</div><div class="s">High-cost HCPCS add-on is one of the highest-value adjudication items in inpatient claims. Claims submitted with high-cost HCPCS as a separate payable line require verification that (a) the code is on the approved list, (b) the item was actually used in the patient's care, and (c)</div></div>
+<div class="e point" id="5.4.5.1" data-n="5.4.5.1"><a class="n" href="#5.4.5.1" title="Copy link to 5.4.5.1">5.4.5.1</a><div class="t">Two add-on payment tracks</div><div class="s">Day-case DRG — high-cost HCPCS add-on: For ambulatory/day-case DRGs, a defined list of high-cost HCPCS codes (implants, biologics, devices) may generate a separate add-on payment on top of the day-case DRG rate. The item must appear on the DOH-approved High-Cost HCPCS list.I</div></div>
+<div class="e point" id="5.4.5.2" data-n="5.4.5.2"><a class="n" href="#5.4.5.2" title="Copy link to 5.4.5.2">5.4.5.2</a><div class="t">Costing only vs Payment + Costing</div><div class="s">Costing only: Some HCPCS codes are submitted on the claim for internal cost tracking, statistical reporting, and transparency purposes only. They do not generate a separate payment line — the cost is considered included in the DRG or per-diem rate.Payment + Costing:</div></div>
+<div class="e point" id="5.4.5.3" data-n="5.4.5.3"><a class="n" href="#5.4.5.3" title="Copy link to 5.4.5.3">5.4.5.3</a><div class="t">How to determine payment eligibility</div><div class="s">Step 1: Identify the HCPCS code for the high-cost item (typically C-code for devices, J-code for biologics).Step 2: Check the current DOH High-Cost HCPCS Addendum / Mandatory Tariff for the code.Step 3: Confirm encounter type eligibility (day-case vs inpatient lis</div></div>
+<div class="e point" id="5.4.5.4" data-n="5.4.5.4"><a class="n" href="#5.4.5.4" title="Copy link to 5.4.5.4">5.4.5.4</a><div class="t">High-cost HCPCS add-on is one of the highest-value adjudication items in inpatient claims. Claims submitted with high-cost HCPCS as a separate payable line require verification that (a) the code is on the approved list, (b) the item was actually used in the patient's care, and (c) the encounter type</div><div class="s">High-cost HCPCS add-on is one of the highest-value adjudication items in inpatient claims. Claims submitted with high-cost HCPCS as a separate payable line require verification that (a) the code is on the approved list, (b) the item was actually used in the patient's care, and (c)</div></div>
 <div class="e topic" id="5.4.6" data-n="5.4.6"><a class="n" href="#5.4.6" title="Copy link to 5.4.6">5.4.6</a><div class="t">3.6 — LAMA Payment Rule</div><div class="s">A patient who leaves against medical advice (LAMA) before physician-determined clinical completion is NOT reimbursed at the full inpatient DRG — payment is calculated per the Addendum 06 LAMA formula.</div></div>
-<div class="e point" id="5.4.6.1" data-n="5.4.6.1"><a class="n" href="#5.4.6.1" title="Copy link to 5.4.6.1">5.4.6.1</a><span class="chip" data-kind="coding" style="--c:#56C6FF">Coding</span><div class="t">Three requirements for LAMA to apply</div><div class="s">LAMA RULE eff. 1 November 2025 When a patient leaves against medical advice, reimbursement is calculated per the DOH Addendum 06 formula — typically a reduced rate proportional to the actual length of stay or a per-diem equivalent — and is not the full inpatient DRG payment.</div></div>
+<div class="e point" id="5.4.6.1" data-n="5.4.6.1"><a class="n" href="#5.4.6.1" title="Copy link to 5.4.6.1">5.4.6.1</a><div class="t">Three requirements for LAMA to apply</div><div class="s">LAMA RULE eff. 1 November 2025 When a patient leaves against medical advice, reimbursement is calculated per the DOH Addendum 06 formula — typically a reduced rate proportional to the actual length of stay or a per-diem equivalent — and is not the full inpatient DRG payment.</div></div>
 <div class="e sec" id="5.5" data-n="5.5"><a class="n" href="#5.5" title="Copy link to 5.5">5.5</a><div class="t">Sepsis</div></div>
 <div class="e topic" id="5.5.1" data-n="5.5.1"><a class="n" href="#5.5.1" title="Copy link to 5.5.1">5.5.1</a><div class="t">Sepsis — clinical definition &amp; adjudication framework</div><div class="s">The opening reference for sepsis: the Sepsis‑3 definition, what the SOFA score actually measures, and the two‑stage adjudication split between suspected sepsis (preauthorisation) and proven sepsis (final claim).</div></div>
-<div class="e point" id="5.5.1.1" data-n="5.5.1.1"><a class="n" href="#5.5.1.1" title="Copy link to 5.5.1.1">5.5.1.1</a><span class="chip" data-kind="clinical" style="--c:#2FE6C8">Clinical</span><div class="t">Sepsis-3 definition</div><div class="s">Sepsis is a life‑threatening organ dysfunction caused by a dysregulated host response to a localised infection. The infection triggers a systemic response that exceeds the body’s regulatory capacity, ending in end‑organ dysfunction.Septic shock is a subset in which circulatory and</div></div>
-<div class="e point" id="5.5.1.2" data-n="5.5.1.2"><a class="n" href="#5.5.1.2" title="Copy link to 5.5.1.2">5.5.1.2</a><span class="chip" data-kind="clinical" style="--c:#2FE6C8">Clinical</span><div class="t">SOFA score — what it measures and how it must be applied</div><div class="s">The SOFA score is a documented reflection of end‑organ dysfunction, not an alternative to the diagnosis. It records that organ dysfunction is present and quantifies it across six domains: respiratory, coagulation, hepatic, cardiovascular, neuro</div></div>
-<div class="e point" id="5.5.1.3" data-n="5.5.1.3"><a class="n" href="#5.5.1.3" title="Copy link to 5.5.1.3">5.5.1.3</a><span class="chip" data-kind="coverage" style="--c:#9C7CFF">Coverage</span><div class="t">Preauthorisation — suspected sepsis</div><div class="s">Based on the clinical presentation at admission, before a confirmed or definitive diagnosis.Coding reflects the suspected / working diagnosis — sepsis may be coded as probable per the inpatient uncertain‑diagnosis rule (Section II.H).Supporting score (qSOFA / NEWS‑</div></div>
-<div class="e point" id="5.5.1.4" data-n="5.5.1.4"><a class="n" href="#5.5.1.4" title="Copy link to 5.5.1.4">5.5.1.4</a><span class="chip" data-kind="coverage" style="--c:#9C7CFF">Coverage</span><div class="t">Final adjudication — proven sepsis</div><div class="s">Based on the discharge diagnosis after full clinical evaluation — sepsis must be substantiated, not merely suspected at admission.If sepsis criteria are not met at discharge, the localised infection is the Principal Diagnosis; sepsis is coded as secondary only where</div></div>
-<div class="e point" id="5.5.1.5" data-n="5.5.1.5"><a class="n" href="#5.5.1.5" title="Copy link to 5.5.1.5">5.5.1.5</a><span class="chip" data-kind="clinical" style="--c:#2FE6C8">Clinical</span><div class="t">Early sepsis — status in the classification</div><div class="s">Early sepsis has no universally accepted global definition. It is a suspected condition based on the patient’s presentation — not a final, concluded diagnosis.There must be a clear delineation: coding sepsis as a suspected condition on admission drives prea</div></div>
-<div class="e point" id="5.5.1.6" data-n="5.5.1.6"><a class="n" href="#5.5.1.6" title="Copy link to 5.5.1.6">5.5.1.6</a><span class="chip" data-kind="adjudication" style="--c:#F3CB7D">Adjudication</span><div class="t">This card is the opening layer. A deeper semantic layer follows in the next topic — ‘Sepsis — scoring tables, sequencing &amp; submission’ — with the full SOFA / NEWS-2 / Phoenix component tables, the I.C.1.d sequencing rules and the scoring calculators.</div></div>
+<div class="e point" id="5.5.1.1" data-n="5.5.1.1"><a class="n" href="#5.5.1.1" title="Copy link to 5.5.1.1">5.5.1.1</a><div class="t">Sepsis-3 definition</div><div class="s">Sepsis is a life‑threatening organ dysfunction caused by a dysregulated host response to a localised infection. The infection triggers a systemic response that exceeds the body’s regulatory capacity, ending in end‑organ dysfunction.Septic shock is a subset in which circulatory and</div></div>
+<div class="e point" id="5.5.1.2" data-n="5.5.1.2"><a class="n" href="#5.5.1.2" title="Copy link to 5.5.1.2">5.5.1.2</a><div class="t">SOFA score — what it measures and how it must be applied</div><div class="s">The SOFA score is a documented reflection of end‑organ dysfunction, not an alternative to the diagnosis. It records that organ dysfunction is present and quantifies it across six domains: respiratory, coagulation, hepatic, cardiovascular, neuro</div></div>
+<div class="e point" id="5.5.1.3" data-n="5.5.1.3"><a class="n" href="#5.5.1.3" title="Copy link to 5.5.1.3">5.5.1.3</a><div class="t">Preauthorisation — suspected sepsis</div><div class="s">Based on the clinical presentation at admission, before a confirmed or definitive diagnosis.Coding reflects the suspected / working diagnosis — sepsis may be coded as probable per the inpatient uncertain‑diagnosis rule (Section II.H).Supporting score (qSOFA / NEWS‑</div></div>
+<div class="e point" id="5.5.1.4" data-n="5.5.1.4"><a class="n" href="#5.5.1.4" title="Copy link to 5.5.1.4">5.5.1.4</a><div class="t">Final adjudication — proven sepsis</div><div class="s">Based on the discharge diagnosis after full clinical evaluation — sepsis must be substantiated, not merely suspected at admission.If sepsis criteria are not met at discharge, the localised infection is the Principal Diagnosis; sepsis is coded as secondary only where</div></div>
+<div class="e point" id="5.5.1.5" data-n="5.5.1.5"><a class="n" href="#5.5.1.5" title="Copy link to 5.5.1.5">5.5.1.5</a><div class="t">Early sepsis — status in the classification</div><div class="s">Early sepsis has no universally accepted global definition. It is a suspected condition based on the patient’s presentation — not a final, concluded diagnosis.There must be a clear delineation: coding sepsis as a suspected condition on admission drives prea</div></div>
+<div class="e point" id="5.5.1.6" data-n="5.5.1.6"><a class="n" href="#5.5.1.6" title="Copy link to 5.5.1.6">5.5.1.6</a><div class="t">This card is the opening layer. A deeper semantic layer follows in the next topic — ‘Sepsis — scoring tables, sequencing &amp; submission’ — with the full SOFA / NEWS-2 / Phoenix component tables, the I.C.1.d sequencing rules and the scoring calculators.</div></div>
 <div class="e topic" id="5.5.2" data-n="5.5.2"><a class="n" href="#5.5.2" title="Copy link to 5.5.2">5.5.2</a><div class="t">Sepsis — scoring tables, sequencing &amp; submission</div><div class="s">The semantic detail layer beneath the sepsis overview — mandatory scoring thresholds, full component tables, ICD‑10‑CM sequencing and the scoring calculators.</div></div>
-<div class="e point" id="5.5.2.1" data-n="5.5.2.1"><a class="n" href="#5.5.2.1" title="Copy link to 5.5.2.1">5.5.2.1</a><span class="chip" data-kind="coding" style="--c:#56C6FF">Coding</span><div class="t">Severity coding</div><div class="s">Mandatory scoring thresholdsPopulationScoring systemThresholdResultPDxSDxAdultsSOFA (full)≥ 2Severe / early sepsisA41.xR65.2xAdultsqSOFA≥ 2Early sepsis (suspected)A41.x—AdultsNEWS‑2≥ 5Early sepsis (suspected)A41.x—PaediatricPhoenix Sepsis Score≥ 2Severe / early sepsisA41.xR65.2xPaediatricqPS4≥ 2Earl</div></div>
-<div class="e point" id="5.5.2.2" data-n="5.5.2.2"><a class="n" href="#5.5.2.2" title="Copy link to 5.5.2.2">5.5.2.2</a><span class="chip" data-kind="clinical" style="--c:#2FE6C8">Clinical</span><div class="t">Sequencing — ICD-10-CM I.C.1.d</div><div class="s">Adult SOFA — all components submitted within one 24‑hour windowSOFA domainReported asExamplePtsRespiratoryPaO₂/FiO₂ ratio250 mmHg2PlateletcountPlatelet count134 ×10⁹/L1TotalbilirubinTotal bilirubin8 mg/dL3CardiovascularMAP / vasopressorMAP 45 on norepinephrine 0.05 µg/kg/min1GCSGlasgow Coma Score112</div></div>
-<div class="e point" id="5.5.2.3" data-n="5.5.2.3"><a class="n" href="#5.5.2.3" title="Copy link to 5.5.2.3">5.5.2.3</a><span class="chip" data-kind="adjudication" style="--c:#F3CB7D">Adjudication</span><div class="t">Score SOFA within a single 24-hour window; values attributable to a chronic baseline (CKD creatinine, COPD hypoxia, cirrhotic thrombocytopenia) do not count toward the acute increment. Validate organ-dysfunction linkage before R65.2x and confirm persistent hypotension before R65.21. Sepsis is among</div><div class="s">NEWS‑2 — use ‘NA’ for inapplicable values, never blankNEWS‑2 parameterReported asExamplePtsRespirationsRespiratory rate10 / min1SpO₂ Scale 1Oxygen saturation — Scale 198%0SpO₂ Scale 2Scale 2 (chronic hypercapnic RF, 88–92%)NA3SupplementalOxygenSupplemental oxygenOn oxygen2SBPSystolic blood pressure2</div></div>
-<div class="e point" id="5.5.2.4" data-n="5.5.2.4"><a class="n" href="#5.5.2.4" title="Copy link to 5.5.2.4">5.5.2.4</a><span class="chip" data-kind="coverage" style="--c:#9C7CFF">Coverage</span><div class="t">Scoring calculators</div><div class="s">Paediatric Phoenix — 0–1 point per domain, total 0–6Phoenix domainReported asExamplePtsRespiratoryPaO₂/FiO₂ or SpO₂/FiO₂ ± support250 mmHg1CardiovascularMAP / vasopressorMAP 45 on norepinephrine 0.1 µg/kg/min2GCSGlasgow Coma Score111PlateletcountPlatelet count134 ×10⁹/L1</div></div>
+<div class="e point" id="5.5.2.1" data-n="5.5.2.1"><a class="n" href="#5.5.2.1" title="Copy link to 5.5.2.1">5.5.2.1</a><div class="t">Severity coding</div><div class="s">Mandatory scoring thresholdsPopulationScoring systemThresholdResultPDxSDxAdultsSOFA (full)≥ 2Severe / early sepsisA41.xR65.2xAdultsqSOFA≥ 2Early sepsis (suspected)A41.x—AdultsNEWS‑2≥ 5Early sepsis (suspected)A41.x—PaediatricPhoenix Sepsis Score≥ 2Severe / early sepsisA41.xR65.2xPaediatricqPS4≥ 2Earl</div></div>
+<div class="e point" id="5.5.2.2" data-n="5.5.2.2"><a class="n" href="#5.5.2.2" title="Copy link to 5.5.2.2">5.5.2.2</a><div class="t">Sequencing — ICD-10-CM I.C.1.d</div><div class="s">Adult SOFA — all components submitted within one 24‑hour windowSOFA domainReported asExamplePtsRespiratoryPaO₂/FiO₂ ratio250 mmHg2PlateletcountPlatelet count134 ×10⁹/L1TotalbilirubinTotal bilirubin8 mg/dL3CardiovascularMAP / vasopressorMAP 45 on norepinephrine 0.05 µg/kg/min1GCSGlasgow Coma Score112</div></div>
+<div class="e point" id="5.5.2.3" data-n="5.5.2.3"><a class="n" href="#5.5.2.3" title="Copy link to 5.5.2.3">5.5.2.3</a><div class="t">Score SOFA within a single 24-hour window; values attributable to a chronic baseline (CKD creatinine, COPD hypoxia, cirrhotic thrombocytopenia) do not count toward the acute increment. Validate organ-dysfunction linkage before R65.2x and confirm persistent hypotension before R65.21. Sepsis is among</div><div class="s">NEWS‑2 — use ‘NA’ for inapplicable values, never blankNEWS‑2 parameterReported asExamplePtsRespirationsRespiratory rate10 / min1SpO₂ Scale 1Oxygen saturation — Scale 198%0SpO₂ Scale 2Scale 2 (chronic hypercapnic RF, 88–92%)NA3SupplementalOxygenSupplemental oxygenOn oxygen2SBPSystolic blood pressure2</div></div>
+<div class="e point" id="5.5.2.4" data-n="5.5.2.4"><a class="n" href="#5.5.2.4" title="Copy link to 5.5.2.4">5.5.2.4</a><div class="t">Scoring calculators</div><div class="s">Paediatric Phoenix — 0–1 point per domain, total 0–6Phoenix domainReported asExamplePtsRespiratoryPaO₂/FiO₂ or SpO₂/FiO₂ ± support250 mmHg1CardiovascularMAP / vasopressorMAP 45 on norepinephrine 0.1 µg/kg/min2GCSGlasgow Coma Score111PlateletcountPlatelet count134 ×10⁹/L1</div></div>
 <div class="e sec" id="5.6" data-n="5.6"><a class="n" href="#5.6" title="Copy link to 5.6">5.6</a><div class="t">Chest</div><div class="s">Respiratory Failure in Adults and Respiratory Distress Syndrome in Neonates</div></div>
 <div class="e topic" id="5.6.1" data-n="5.6.1"><a class="n" href="#5.6.1" title="Copy link to 5.6.1">5.6.1</a><div class="t">Adult Respiratory Failure</div><div class="s">Failure of the respiratory system to maintain adequate gas exchange — defined by ABG, then typed, timed, and staged.</div></div>
-<div class="e point" id="5.6.1.1" data-n="5.6.1.1"><a class="n" href="#5.6.1.1" title="Copy link to 5.6.1.1">5.6.1.1</a><span class="chip" data-kind="clinical" style="--c:#2FE6C8">Clinical</span><div class="t">Adults — types</div><div class="s">Type I (hypoxaemic): PaO₂ &lt; 60 mmHg on room air with a normal/low PaCO₂ — failure of oxygenation (V/Q mismatch, shunt, diffusion). Causes: pneumonia, ARDS, pulmonary oedema, PE.Type II (hypercapnic): PaCO₂ &gt; 50 mmHg with pH &lt; 7.35 — failure of ventilation (the pump). Causes: COPD exace</div></div>
-<div class="e point" id="5.6.1.2" data-n="5.6.1.2"><a class="n" href="#5.6.1.2" title="Copy link to 5.6.1.2">5.6.1.2</a><span class="chip" data-kind="clinical" style="--c:#2FE6C8">Clinical</span><div class="t">Adults — timing &amp; compensation</div><div class="s">Acute: rapid onset; in type II the pH falls (&lt; 7.35) because compensation hasn’t occurred.Chronic: PaCO₂ elevated but pH near‑normal (≥ 7.35) with a compensatory rise in HCO₃⁻ (renal retention).Acute‑on‑chronic: acute decompensation on a chronic baseline — rising CO₂ wi</div></div>
-<div class="e point" id="5.6.1.3" data-n="5.6.1.3"><a class="n" href="#5.6.1.3" title="Copy link to 5.6.1.3">5.6.1.3</a><span class="chip" data-kind="clinical" style="--c:#2FE6C8">Clinical</span><div class="t">Adults — oxygenation severity (P/F · Berlin)</div><div class="s">)P/F ratio (PaO₂ / FiO₂): &lt; 300 impaired; ARDS — mild 200–300, moderate 100–200, severe ≤ 100 (with PEEP ≥ 5).SpO₂ &lt; 90% / PaO₂ &lt; 60 despite supplemental O₂; a widened A–a gradient supports a parenchymal cause.Always document the FiO₂ / device the gas was d</div></div>
-<div class="e point" id="5.6.1.4" data-n="5.6.1.4"><a class="n" href="#5.6.1.4" title="Copy link to 5.6.1.4">5.6.1.4</a><span class="chip" data-kind="clinical" style="--c:#2FE6C8">Clinical</span><div class="t">Adults — clinical signs</div><div class="s">Dyspnoea, tachypnoea, accessory‑muscle use, cyanosis.Hypercapnia: drowsiness, headache, asterixis, CO₂ narcosis.Late / ominous: silent chest, bradypnoea, altered mental status, haemodynamic instability.</div></div>
-<div class="e point" id="5.6.1.5" data-n="5.6.1.5"><a class="n" href="#5.6.1.5" title="Copy link to 5.6.1.5">5.6.1.5</a><span class="chip" data-kind="coding" style="--c:#56C6FF">Coding</span><div class="t">Coding guidance</div><div class="s">guidanceJ96.0‑ acute · J96.1‑ chronic · J96.2‑ acute‑on‑chronic, with a 5th character for hypoxia (‑1) or hypercapnia (‑2).Sequence per the reason for admission and link to the underlying cause; respiratory failure may be Principal Diagnosis or a reportable Secondary Diagnosis depending on th</div></div>
+<div class="e point" id="5.6.1.1" data-n="5.6.1.1"><a class="n" href="#5.6.1.1" title="Copy link to 5.6.1.1">5.6.1.1</a><div class="t">Adults — types</div><div class="s">Type I (hypoxaemic): PaO₂ &lt; 60 mmHg on room air with a normal/low PaCO₂ — failure of oxygenation (V/Q mismatch, shunt, diffusion). Causes: pneumonia, ARDS, pulmonary oedema, PE.Type II (hypercapnic): PaCO₂ &gt; 50 mmHg with pH &lt; 7.35 — failure of ventilation (the pump). Causes: COPD exace</div></div>
+<div class="e point" id="5.6.1.2" data-n="5.6.1.2"><a class="n" href="#5.6.1.2" title="Copy link to 5.6.1.2">5.6.1.2</a><div class="t">Adults — timing &amp; compensation</div><div class="s">Acute: rapid onset; in type II the pH falls (&lt; 7.35) because compensation hasn’t occurred.Chronic: PaCO₂ elevated but pH near‑normal (≥ 7.35) with a compensatory rise in HCO₃⁻ (renal retention).Acute‑on‑chronic: acute decompensation on a chronic baseline — rising CO₂ wi</div></div>
+<div class="e point" id="5.6.1.3" data-n="5.6.1.3"><a class="n" href="#5.6.1.3" title="Copy link to 5.6.1.3">5.6.1.3</a><div class="t">Adults — oxygenation severity (P/F · Berlin)</div><div class="s">P/F ratio (PaO₂ / FiO₂): &lt; 300 impaired; ARDS — mild 200–300, moderate 100–200, severe ≤ 100 (with PEEP ≥ 5).SpO₂ &lt; 90% / PaO₂ &lt; 60 despite supplemental O₂; a widened A–a gradient supports a parenchymal cause.Always document the FiO₂ / device the gas was d</div></div>
+<div class="e point" id="5.6.1.4" data-n="5.6.1.4"><a class="n" href="#5.6.1.4" title="Copy link to 5.6.1.4">5.6.1.4</a><div class="t">Adults — clinical signs</div><div class="s">Dyspnoea, tachypnoea, accessory‑muscle use, cyanosis.Hypercapnia: drowsiness, headache, asterixis, CO₂ narcosis.Late / ominous: silent chest, bradypnoea, altered mental status, haemodynamic instability.</div></div>
+<div class="e point" id="5.6.1.5" data-n="5.6.1.5"><a class="n" href="#5.6.1.5" title="Copy link to 5.6.1.5">5.6.1.5</a><div class="t">Coding guidance</div><div class="s">guidanceJ96.0‑ acute · J96.1‑ chronic · J96.2‑ acute‑on‑chronic, with a 5th character for hypoxia (‑1) or hypercapnia (‑2).Sequence per the reason for admission and link to the underlying cause; respiratory failure may be Principal Diagnosis or a reportable Secondary Diagnosis depending on th</div></div>
 <div class="e topic" id="5.6.2" data-n="5.6.2"><a class="n" href="#5.6.2" title="Copy link to 5.6.2">5.6.2</a><div class="t">Respiratory Distress Syndrome (Surfactant Deficiency)</div><div class="s">Surfactant deficiency in the preterm infant — and the neonatal‑distress branches to discriminate from it.</div></div>
 <div class="e point" id="5.6.2.1" data-n="5.6.2.1"><a class="n" href="#5.6.2.1" title="Copy link to 5.6.2.1">5.6.2.1</a><div class="t">Neonatal RDS · P22.0</div><div class="s">NEONeonatal Respiratory DistressDistress in the first hours of life → branch by the discriminating feature preterm · ground‑glassNeonatal RDS P22.0Surfactant deficiency in the preterm infant — managed with CPAP / surfactant / ventilation. term · C‑section · self‑limitedTransient Tachypnoea P22.1Dela</div></div>
-<div class="e point" id="5.6.2.2" data-n="5.6.2.2"><a class="n" href="#5.6.2.2" title="Copy link to 5.6.2.2">5.6.2.2</a><span class="chip" data-kind="clinical" style="--c:#2FE6C8">Clinical</span><div class="t">Clinical features</div></div>
-<div class="e point" id="5.6.2.3" data-n="5.6.2.3"><a class="n" href="#5.6.2.3" title="Copy link to 5.6.2.3">5.6.2.3</a><span class="chip" data-kind="coding" style="--c:#56C6FF">Coding</span><div class="t">Coding</div><div class="s">featuresOnset minutes–hours after birth; tachypnoea, grunting, flaring, retractions; progressive over 12–24 h.X‑ray: diffuse symmetric reticulogranular (ground‑glass) opacities, low lung volumes, air bronchograms, no effusion.</div></div>
-<div class="e point" id="5.6.2.4" data-n="5.6.2.4"><a class="n" href="#5.6.2.4" title="Copy link to 5.6.2.4">5.6.2.4</a><span class="chip" data-kind="pearl" style="--c:#C4CCDF">Pearl</span><div class="t">Management is CPAP / surfactant / ventilation — distinct from TTN. Mild RDS without escalation may not meet respiratory-failure criteria.</div><div class="s">P22.0 RDS — preterm + early distress + ground‑glass with low volumes and air bronchograms.</div></div>
+<div class="e point" id="5.6.2.2" data-n="5.6.2.2"><a class="n" href="#5.6.2.2" title="Copy link to 5.6.2.2">5.6.2.2</a><div class="t">Clinical features</div></div>
+<div class="e point" id="5.6.2.3" data-n="5.6.2.3"><a class="n" href="#5.6.2.3" title="Copy link to 5.6.2.3">5.6.2.3</a><div class="t">Coding</div><div class="s">featuresOnset minutes–hours after birth; tachypnoea, grunting, flaring, retractions; progressive over 12–24 h.X‑ray: diffuse symmetric reticulogranular (ground‑glass) opacities, low lung volumes, air bronchograms, no effusion.</div></div>
+<div class="e point" id="5.6.2.4" data-n="5.6.2.4"><a class="n" href="#5.6.2.4" title="Copy link to 5.6.2.4">5.6.2.4</a><div class="t">Management is CPAP / surfactant / ventilation — distinct from TTN. Mild RDS without escalation may not meet respiratory-failure criteria.</div><div class="s">P22.0 RDS — preterm + early distress + ground‑glass with low volumes and air bronchograms.</div></div>
 <div class="e point" id="5.6.2.5" data-n="5.6.2.5"><a class="n" href="#5.6.2.5" title="Copy link to 5.6.2.5">5.6.2.5</a><div class="t">Transient Tachypnoea (TTN) · P22.1</div><div class="s">Management is CPAP / surfactant / ventilation — distinct from TTN. Mild RDS without escalation may not meet respiratory‑failure criteria.</div></div>
-<div class="e point" id="5.6.2.6" data-n="5.6.2.6"><a class="n" href="#5.6.2.6" title="Copy link to 5.6.2.6">5.6.2.6</a><span class="chip" data-kind="clinical" style="--c:#2FE6C8">Clinical</span><div class="t">Clinical features</div><div class="s">Red flagsA transient, self‑resolving course points away from RDS toward TTN.</div></div>
-<div class="e point" id="5.6.2.7" data-n="5.6.2.7"><a class="n" href="#5.6.2.7" title="Copy link to 5.6.2.7">5.6.2.7</a><span class="chip" data-kind="coding" style="--c:#56C6FF">Coding</span><div class="t">Coding</div><div class="s">Transient Tachypnoea (TTN) · P22.1</div></div>
+<div class="e point" id="5.6.2.6" data-n="5.6.2.6"><a class="n" href="#5.6.2.6" title="Copy link to 5.6.2.6">5.6.2.6</a><div class="t">Clinical features</div><div class="s">Red flagsA transient, self‑resolving course points away from RDS toward TTN.</div></div>
+<div class="e point" id="5.6.2.7" data-n="5.6.2.7"><a class="n" href="#5.6.2.7" title="Copy link to 5.6.2.7">5.6.2.7</a><div class="t">Coding</div><div class="s">Transient Tachypnoea (TTN) · P22.1</div></div>
 <div class="e point" id="5.6.2.8" data-n="5.6.2.8"><a class="n" href="#5.6.2.8" title="Copy link to 5.6.2.8">5.6.2.8</a><div class="t">Meconium Aspiration (MAS) · P24.01</div><div class="s">featuresTerm/late‑preterm, often elective C‑section or maternal diabetes; early tachypnoea, good oxygenation, non‑progressive, resolves 24–72 h.X‑ray: normal/increased volumes, prominent vascular markings, fluid in fissures, possible mild effusion; no reticulogranular pattern.</div></div>
-<div class="e point" id="5.6.2.9" data-n="5.6.2.9"><a class="n" href="#5.6.2.9" title="Copy link to 5.6.2.9">5.6.2.9</a><span class="chip" data-kind="clinical" style="--c:#2FE6C8">Clinical</span><div class="t">Clinical features</div><div class="s">P22.1 TTN — low‑flow O₂, supportive care, no surfactant.</div></div>
-<div class="e point" id="5.6.2.10" data-n="5.6.2.10"><a class="n" href="#5.6.2.10" title="Copy link to 5.6.2.10">5.6.2.10</a><span class="chip" data-kind="coding" style="--c:#56C6FF">Coding</span><div class="t">Coding</div><div class="s">Red flagsA transient, self‑resolving course favours TTN, not RDS.Don’t escalate coding to respiratory failure when corrected with low‑flow O₂.</div></div>
+<div class="e point" id="5.6.2.9" data-n="5.6.2.9"><a class="n" href="#5.6.2.9" title="Copy link to 5.6.2.9">5.6.2.9</a><div class="t">Clinical features</div><div class="s">P22.1 TTN — low‑flow O₂, supportive care, no surfactant.</div></div>
+<div class="e point" id="5.6.2.10" data-n="5.6.2.10"><a class="n" href="#5.6.2.10" title="Copy link to 5.6.2.10">5.6.2.10</a><div class="t">Coding</div><div class="s">Red flagsA transient, self‑resolving course favours TTN, not RDS.Don’t escalate coding to respiratory failure when corrected with low‑flow O₂.</div></div>
 <div class="e point" id="5.6.2.11" data-n="5.6.2.11"><a class="n" href="#5.6.2.11" title="Copy link to 5.6.2.11">5.6.2.11</a><div class="t">PPHN · P29.3</div><div class="s">Meconium Aspiration (MAS) · P24.01</div></div>
-<div class="e point" id="5.6.2.12" data-n="5.6.2.12"><a class="n" href="#5.6.2.12" title="Copy link to 5.6.2.12">5.6.2.12</a><span class="chip" data-kind="clinical" style="--c:#2FE6C8">Clinical</span><div class="t">Clinical features</div><div class="s">featuresRespiratory distress with coarse, patchy, asymmetric infiltrates, over‑inflation / air‑trapping.A normal CXR, or a TTN‑pattern CXR (fluid in fissures, prominent markings, mild hyperinflation), is not consistent with MAS.</div></div>
-<div class="e point" id="5.6.2.13" data-n="5.6.2.13"><a class="n" href="#5.6.2.13" title="Copy link to 5.6.2.13">5.6.2.13</a><span class="chip" data-kind="coding" style="--c:#56C6FF">Coding</span><div class="t">Coding</div><div class="s">P24.01 requires aspiration with respiratory symptoms attributable to it.</div></div>
-<div class="e point" id="5.6.2.14" data-n="5.6.2.14"><a class="n" href="#5.6.2.14" title="Copy link to 5.6.2.14">5.6.2.14</a><span class="chip" data-kind="pearl" style="--c:#C4CCDF">Pearl</span><div class="t">Management — high FiO₂, ventilation, iNO, inotropes, ECMO if refractory — supports a high-acuity picture.</div><div class="s">Red flagsDistress from another cause (e.g. TTN) cannot be coded as MAS without radiologic evidence.</div></div>
+<div class="e point" id="5.6.2.12" data-n="5.6.2.12"><a class="n" href="#5.6.2.12" title="Copy link to 5.6.2.12">5.6.2.12</a><div class="t">Clinical features</div><div class="s">featuresRespiratory distress with coarse, patchy, asymmetric infiltrates, over‑inflation / air‑trapping.A normal CXR, or a TTN‑pattern CXR (fluid in fissures, prominent markings, mild hyperinflation), is not consistent with MAS.</div></div>
+<div class="e point" id="5.6.2.13" data-n="5.6.2.13"><a class="n" href="#5.6.2.13" title="Copy link to 5.6.2.13">5.6.2.13</a><div class="t">Coding</div><div class="s">P24.01 requires aspiration with respiratory symptoms attributable to it.</div></div>
+<div class="e point" id="5.6.2.14" data-n="5.6.2.14"><a class="n" href="#5.6.2.14" title="Copy link to 5.6.2.14">5.6.2.14</a><div class="t">Management — high FiO₂, ventilation, iNO, inotropes, ECMO if refractory — supports a high-acuity picture.</div><div class="s">Red flagsDistress from another cause (e.g. TTN) cannot be coded as MAS without radiologic evidence.</div></div>
 <div class="e point" id="5.6.2.15" data-n="5.6.2.15"><a class="n" href="#5.6.2.15" title="Copy link to 5.6.2.15">5.6.2.15</a><div class="t">Congenital Pneumonia · P23</div></div>
-<div class="e point" id="5.6.2.16" data-n="5.6.2.16"><a class="n" href="#5.6.2.16" title="Copy link to 5.6.2.16">5.6.2.16</a><span class="chip" data-kind="clinical" style="--c:#2FE6C8">Clinical</span><div class="t">Clinical features</div><div class="s">featuresTerm/post‑term; severe cyanosis and hypoxaemia; differential pre‑/post‑ductal saturations; often with MAS, pneumonia, sepsis, asphyxia.High pulmonary vascular resistance → right‑to‑left shunt; severe hypoxaemia despite 100% O₂.</div></div>
-<div class="e point" id="5.6.2.17" data-n="5.6.2.17"><a class="n" href="#5.6.2.17" title="Copy link to 5.6.2.17">5.6.2.17</a><span class="chip" data-kind="coding" style="--c:#56C6FF">Coding</span><div class="t">Coding</div><div class="s">X‑ray is non‑specific — echocardiography is required for diagnosis.</div></div>
+<div class="e point" id="5.6.2.16" data-n="5.6.2.16"><a class="n" href="#5.6.2.16" title="Copy link to 5.6.2.16">5.6.2.16</a><div class="t">Clinical features</div><div class="s">featuresTerm/post‑term; severe cyanosis and hypoxaemia; differential pre‑/post‑ductal saturations; often with MAS, pneumonia, sepsis, asphyxia.High pulmonary vascular resistance → right‑to‑left shunt; severe hypoxaemia despite 100% O₂.</div></div>
+<div class="e point" id="5.6.2.17" data-n="5.6.2.17"><a class="n" href="#5.6.2.17" title="Copy link to 5.6.2.17">5.6.2.17</a><div class="t">Coding</div><div class="s">X‑ray is non‑specific — echocardiography is required for diagnosis.</div></div>
 <div class="e topic" id="5.6.3" data-n="5.6.3"><a class="n" href="#5.6.3" title="Copy link to 5.6.3">5.6.3</a><div class="t">Ventilation — driven DRG</div><div class="s">Ventilation type, duration, and tracheostomy drive the DRG and its weight — tracheostomy (CPT 31600) is the highest tier.</div></div>
-<div class="e point" id="5.6.3.1" data-n="5.6.3.1"><a class="n" href="#5.6.3.1" title="Copy link to 5.6.3.1">5.6.3.1</a><span class="chip" data-kind="clinical" style="--c:#2FE6C8">Clinical</span><div class="t">What drives the tier</div><div class="s">Invasive mechanical ventilation and the number of ventilator hours.Whether a tracheostomy was performed — the major escalation.The MV procedure (and any tracheostomy) must be coded with duration captured.</div></div>
-<div class="e point" id="5.6.3.2" data-n="5.6.3.2"><a class="n" href="#5.6.3.2" title="Copy link to 5.6.3.2">5.6.3.2</a><span class="chip" data-kind="coding" style="--c:#56C6FF">Coding</span><div class="t">CPT relationships</div><div class="s">Ventilation — driven DRG (Adjudication Criteria deck, slide 28)CPTTypeWeightDRG94002Short‑term (assisted) ventilation3.906704120394002 + 94003 + 94003 + 94003Long‑term ventilation8.205604120331600 — TracheostomyLong‑term ventilation + tracheostomy—041013</div></div>
+<div class="e point" id="5.6.3.1" data-n="5.6.3.1"><a class="n" href="#5.6.3.1" title="Copy link to 5.6.3.1">5.6.3.1</a><div class="t">What drives the tier</div><div class="s">Invasive mechanical ventilation and the number of ventilator hours.Whether a tracheostomy was performed — the major escalation.The MV procedure (and any tracheostomy) must be coded with duration captured.</div></div>
+<div class="e point" id="5.6.3.2" data-n="5.6.3.2"><a class="n" href="#5.6.3.2" title="Copy link to 5.6.3.2">5.6.3.2</a><div class="t">CPT relationships</div><div class="s">Ventilation — driven DRG (Adjudication Criteria deck, slide 28)CPTTypeWeightDRG94002Short‑term (assisted) ventilation3.906704120394002 + 94003 + 94003 + 94003Long‑term ventilation8.205604120331600 — TracheostomyLong‑term ventilation + tracheostomy—041013</div></div>
 <div class="e sec" id="5.7" data-n="5.7"><a class="n" href="#5.7" title="Copy link to 5.7">5.7</a><div class="t">Fracture Coding</div><div class="s">Type → Gustilo → the full 7‑character ICD‑10 code</div></div>
 <div class="e topic" id="5.7.1" data-n="5.7.1"><a class="n" href="#5.7.1" title="Copy link to 5.7.1">5.7.1</a><div class="t">Fracture sequencing — type to 7-character code</div><div class="s">Classify the fracture, then build the full 7‑character code — and let the open‑fracture grade absorb the soft‑tissue injury.</div></div>
 <div class="e topic" id="5.7.2" data-n="5.7.2"><a class="n" href="#5.7.2" title="Copy link to 5.7.2">5.7.2</a><div class="t">Gustilo–Anderson grades &amp; the 7th character</div><div class="s">The grade encodes soft‑tissue severity; the 7th character encodes the phase of care.</div></div>
-<div class="e point" id="5.7.2.1" data-n="5.7.2.1"><a class="n" href="#5.7.2.1" title="Copy link to 5.7.2.1">5.7.2.1</a><span class="chip" data-kind="clinical" style="--c:#2FE6C8">Clinical</span><div class="t">Gustilo–Anderson grades</div><div class="s">Type I — clean wound &lt; 1 cm, minimal soft‑tissue damage, no devitalisation.Type II — wound &gt; 1 cm with moderate soft‑tissue injury, without extensive crushing or flap loss.Type III — high‑energy injury with extensive soft‑tissue destruction, contamination, or vascular compromi</div></div>
-<div class="e point" id="5.7.2.2" data-n="5.7.2.2"><a class="n" href="#5.7.2.2" title="Copy link to 5.7.2.2">5.7.2.2</a><span class="chip" data-kind="coding" style="--c:#56C6FF">Coding</span><div class="t">7th character — phase of care</div><div class="s">A = initial (active treatment) · D = subsequent (routine healing) · S = sequela.Open‑fracture sub‑characters (e.g. by Gustilo grade) apply where relevant.</div></div>
+<div class="e point" id="5.7.2.1" data-n="5.7.2.1"><a class="n" href="#5.7.2.1" title="Copy link to 5.7.2.1">5.7.2.1</a><div class="t">Gustilo–Anderson grades</div><div class="s">Type I — clean wound &lt; 1 cm, minimal soft‑tissue damage, no devitalisation.Type II — wound &gt; 1 cm with moderate soft‑tissue injury, without extensive crushing or flap loss.Type III — high‑energy injury with extensive soft‑tissue destruction, contamination, or vascular compromi</div></div>
+<div class="e point" id="5.7.2.2" data-n="5.7.2.2"><a class="n" href="#5.7.2.2" title="Copy link to 5.7.2.2">5.7.2.2</a><div class="t">7th character — phase of care</div><div class="s">A = initial (active treatment) · D = subsequent (routine healing) · S = sequela.Open‑fracture sub‑characters (e.g. by Gustilo grade) apply where relevant.</div></div>
 <div class="e sec" id="5.8" data-n="5.8"><a class="n" href="#5.8" title="Copy link to 5.8">5.8</a><div class="t">Metabolic</div></div>
 <div class="e topic" id="5.8.1" data-n="5.8.1"><a class="n" href="#5.8.1" title="Copy link to 5.8.1">5.8.1</a><div class="t">Acidosis</div><div class="s">Acidosis is coded only when clinically significant, documented, and requiring evaluation, treatment, or monitoring.</div></div>
-<div class="e point" id="5.8.1.1" data-n="5.8.1.1"><a class="n" href="#5.8.1.1" title="Copy link to 5.8.1.1">5.8.1.1</a><span class="chip" data-kind="coding" style="--c:#56C6FF">Coding</span><div class="t">ICD-10-CM update (effective 1 October 2025)</div><div class="s">Validation checklistProvider must diagnose acidosis.Supported by arterial blood gas (ABG) showing pH &lt; 7.35.Identify type: metabolic, respiratory, or mixed.Document clinical indicators such as tachypnea, confusion, hypotension.Interventions may include IV fluids, bicarbonate therapy, ventilation sup</div></div>
-<div class="e point" id="5.8.1.2" data-n="5.8.1.2"><a class="n" href="#5.8.1.2" title="Copy link to 5.8.1.2">5.8.1.2</a><span class="chip" data-kind="adjudication" style="--c:#F3CB7D">Adjudication</span><div class="t">Summary rule — acidosis is coded only when clinically significant, documented, and requiring evaluation, treatment, or monitoring. It must not be coded when integral to another condition or when it fails UHDDS criteria.</div><div class="s">Excludes notesWhen NOT to code: mild, transient acidosis corrected without treatment.Lab abnormality without provider diagnosis.Acidosis integral to another condition without separate evaluation or treatment.</div></div>
+<div class="e point" id="5.8.1.1" data-n="5.8.1.1"><a class="n" href="#5.8.1.1" title="Copy link to 5.8.1.1">5.8.1.1</a><div class="t">ICD-10-CM update (effective 1 October 2025)</div><div class="s">Validation checklistProvider must diagnose acidosis.Supported by arterial blood gas (ABG) showing pH &lt; 7.35.Identify type: metabolic, respiratory, or mixed.Document clinical indicators such as tachypnea, confusion, hypotension.Interventions may include IV fluids, bicarbonate therapy, ventilation sup</div></div>
+<div class="e point" id="5.8.1.2" data-n="5.8.1.2"><a class="n" href="#5.8.1.2" title="Copy link to 5.8.1.2">5.8.1.2</a><div class="t">Summary rule — acidosis is coded only when clinically significant, documented, and requiring evaluation, treatment, or monitoring. It must not be coded when integral to another condition or when it fails UHDDS criteria.</div><div class="s">Excludes notesWhen NOT to code: mild, transient acidosis corrected without treatment.Lab abnormality without provider diagnosis.Acidosis integral to another condition without separate evaluation or treatment.</div></div>
 <div class="e topic" id="5.8.2" data-n="5.8.2"><a class="n" href="#5.8.2" title="Copy link to 5.8.2">5.8.2</a><div class="t">Electrolyte disturbances</div><div class="s">Code the specific electrolyte disorder, supported by labs and active management — not a bare abnormal value.</div></div>
 <div class="e topic" id="5.8.3" data-n="5.8.3"><a class="n" href="#5.8.3" title="Copy link to 5.8.3">5.8.3</a><div class="t">Encephalopathy</div><div class="s">Acute global cerebral dysfunction from a systemic cause — name the form, link the cause, and don’t diagnose hepatic encephalopathy on ammonia alone.</div></div>
-<div class="e point" id="5.8.3.1" data-n="5.8.3.1"><a class="n" href="#5.8.3.1" title="Copy link to 5.8.3.1">5.8.3.1</a><span class="chip" data-kind="clinical" style="--c:#2FE6C8">Clinical</span><div class="t">Forms</div><div class="s">Metabolic encephalopathy — altered consciousness / cognition from a systemic derangement: electrolytes, glucose, uraemia, hypoxia, hypercapnia, or organ failure.Hepatic encephalopathy — neuropsychiatric syndrome of liver failure / cirrhosis, graded West Haven I–IV (I minimal → IV coma); precipi</div></div>
-<div class="e point" id="5.8.3.2" data-n="5.8.3.2"><a class="n" href="#5.8.3.2" title="Copy link to 5.8.3.2">5.8.3.2</a><span class="chip" data-kind="coding" style="--c:#56C6FF">Coding</span><div class="t">Coding</div><div class="s">Metabolic encephalopathy G93.41; toxic / toxic‑metabolic encephalopathy G92.-.Hepatic encephalopathy / coma is captured with the hepatic‑failure codes (K72.-) or as a decompensation manifestation of the underlying cirrhosis.Always code and link the underlying cause.</div></div>
+<div class="e point" id="5.8.3.1" data-n="5.8.3.1"><a class="n" href="#5.8.3.1" title="Copy link to 5.8.3.1">5.8.3.1</a><div class="t">Forms</div><div class="s">Metabolic encephalopathy — altered consciousness / cognition from a systemic derangement: electrolytes, glucose, uraemia, hypoxia, hypercapnia, or organ failure.Hepatic encephalopathy — neuropsychiatric syndrome of liver failure / cirrhosis, graded West Haven I–IV (I minimal → IV coma); precipi</div></div>
+<div class="e point" id="5.8.3.2" data-n="5.8.3.2"><a class="n" href="#5.8.3.2" title="Copy link to 5.8.3.2">5.8.3.2</a><div class="t">Coding</div><div class="s">Metabolic encephalopathy G93.41; toxic / toxic‑metabolic encephalopathy G92.-.Hepatic encephalopathy / coma is captured with the hepatic‑failure codes (K72.-) or as a decompensation manifestation of the underlying cirrhosis.Always code and link the underlying cause.</div></div>
 <div class="e topic" id="5.8.4" data-n="5.8.4"><a class="n" href="#5.8.4" title="Copy link to 5.8.4">5.8.4</a><div class="t">Acute post-haemorrhagic anaemia</div><div class="s">D62 requires documented acute blood loss — never inferred from a low Hb.</div></div>
-<div class="e point" id="5.8.4.1" data-n="5.8.4.1"><a class="n" href="#5.8.4.1" title="Copy link to 5.8.4.1">5.8.4.1</a><span class="chip" data-kind="clinical" style="--c:#2FE6C8">Clinical</span><div class="t">Clinical basis</div><div class="s">basisAcute blood loss producing symptomatic anaemia, supported by transfusion / monitoring / treatment.</div></div>
-<div class="e point" id="5.8.4.2" data-n="5.8.4.2"><a class="n" href="#5.8.4.2" title="Copy link to 5.8.4.2">5.8.4.2</a><span class="chip" data-kind="coding" style="--c:#56C6FF">Coding</span><div class="t">Guideline references</div><div class="s">I.B.16 — a post‑op complication must be explicitly documented; D62 needs documented acute blood loss.I.A.19 — no assuming haemorrhage from an Hb drop.Section IV.H / III.B — a low Hb alone is coded only with a related provider diagnosis or documented clinical significance, not fro</div></div>
+<div class="e point" id="5.8.4.1" data-n="5.8.4.1"><a class="n" href="#5.8.4.1" title="Copy link to 5.8.4.1">5.8.4.1</a><div class="t">Clinical basis</div><div class="s">basisAcute blood loss producing symptomatic anaemia, supported by transfusion / monitoring / treatment.</div></div>
+<div class="e point" id="5.8.4.2" data-n="5.8.4.2"><a class="n" href="#5.8.4.2" title="Copy link to 5.8.4.2">5.8.4.2</a><div class="t">Guideline references</div><div class="s">I.B.16 — a post‑op complication must be explicitly documented; D62 needs documented acute blood loss.I.A.19 — no assuming haemorrhage from an Hb drop.Section IV.H / III.B — a low Hb alone is coded only with a related provider diagnosis or documented clinical significance, not fro</div></div>
 <div class="e sec" id="5.9" data-n="5.9"><a class="n" href="#5.9" title="Copy link to 5.9">5.9</a><div class="t">Renal</div></div>
 <div class="e topic" id="5.9.1" data-n="5.9.1"><a class="n" href="#5.9.1" title="Copy link to 5.9.1">5.9.1</a><div class="t">Acute kidney injury (KDIGO)</div><div class="s">Define AKI by KDIGO diagnostic criteria, then stage by magnitude of SCr rise or oliguria duration.</div></div>
-<div class="e point" id="5.9.1.1" data-n="5.9.1.1"><a class="n" href="#5.9.1.1" title="Copy link to 5.9.1.1">5.9.1.1</a><span class="chip" data-kind="clinical" style="--c:#2FE6C8">Clinical</span><div class="t">KDIGO 2012 — diagnostic criteria (any one sufficient)</div><div class="s">)SCr rise ≥ 0.3 mg/dL within 48 hours, orSCr rise ≥ 1.5× the known or estimated baseline within 7 days, orUrine output &lt; 0.5 mL/kg/h for ≥ 6 consecutive hours.</div></div>
-<div class="e point" id="5.9.1.2" data-n="5.9.1.2"><a class="n" href="#5.9.1.2" title="Copy link to 5.9.1.2">5.9.1.2</a><span class="chip" data-kind="coding" style="--c:#56C6FF">Coding</span><div class="t">Coding</div><div class="s">KDIGO 2012 AKI stagingStageSCr criterionUrine output11.5–1.9× baseline (7 d) or ≥ 0.3 mg/dL rise (48 h)&lt; 0.5 mL/kg/h for 6–12 h22.0–2.9× baseline&lt; 0.5 mL/kg/h for ≥ 12 h3≥ 3.0× baseline or ≥ 4.0 mg/dL or RRT initiated or (≤ 18 y) eGFR &lt; 35 mL/min/1.73 m²&lt; 0.3 mL/kg/h for ≥ 24 h or anuria ≥ 12 h</div></div>
-<div class="e point" id="5.9.1.3" data-n="5.9.1.3"><a class="n" href="#5.9.1.3" title="Copy link to 5.9.1.3">5.9.1.3</a><span class="chip" data-kind="pearl" style="--c:#C4CCDF">Pearl</span><div class="t">Anchor AKI to a KDIGO threshold and a documented baseline creatinine. A single elevated value, or a transient rise that corrects rapidly with fluids, may not substantiate AKI as a codeable diagnosis.</div><div class="s">N17.9 acute kidney failure, unspecified — where documentation supports no more specific code.N17.0 with tubular necrosis (ATN) · N17.1 with acute cortical necrosis · N17.2 with medullary necrosis.Link the AKI code to cause: pre‑renal (hypovolaemia, shock), intrinsic (ATN, GN, interstitial neph</div></div>
-<div class="e point" id="5.9.1.4" data-n="5.9.1.4"><a class="n" href="#5.9.1.4" title="Copy link to 5.9.1.4">5.9.1.4</a><span class="chip" data-kind="clinical" style="--c:#2FE6C8">Clinical</span><div class="t">Creatinine interpretation</div><div class="s">Anchor AKI to a KDIGO threshold and a documented baseline creatinine. A single elevated value, or a transient rise that corrects rapidly with fluids, may not substantiate AKI as a codeable diagnosis.</div></div>
+<div class="e point" id="5.9.1.1" data-n="5.9.1.1"><a class="n" href="#5.9.1.1" title="Copy link to 5.9.1.1">5.9.1.1</a><div class="t">KDIGO 2012 — diagnostic criteria (any one sufficient)</div><div class="s">SCr rise ≥ 0.3 mg/dL within 48 hours, orSCr rise ≥ 1.5× the known or estimated baseline within 7 days, orUrine output &lt; 0.5 mL/kg/h for ≥ 6 consecutive hours.</div></div>
+<div class="e point" id="5.9.1.2" data-n="5.9.1.2"><a class="n" href="#5.9.1.2" title="Copy link to 5.9.1.2">5.9.1.2</a><div class="t">Coding</div><div class="s">KDIGO 2012 AKI stagingStageSCr criterionUrine output11.5–1.9× baseline (7 d) or ≥ 0.3 mg/dL rise (48 h)&lt; 0.5 mL/kg/h for 6–12 h22.0–2.9× baseline&lt; 0.5 mL/kg/h for ≥ 12 h3≥ 3.0× baseline or ≥ 4.0 mg/dL or RRT initiated or (≤ 18 y) eGFR &lt; 35 mL/min/1.73 m²&lt; 0.3 mL/kg/h for ≥ 24 h or anuria ≥ 12 h</div></div>
+<div class="e point" id="5.9.1.3" data-n="5.9.1.3"><a class="n" href="#5.9.1.3" title="Copy link to 5.9.1.3">5.9.1.3</a><div class="t">Anchor AKI to a KDIGO threshold and a documented baseline creatinine. A single elevated value, or a transient rise that corrects rapidly with fluids, may not substantiate AKI as a codeable diagnosis.</div><div class="s">N17.9 acute kidney failure, unspecified — where documentation supports no more specific code.N17.0 with tubular necrosis (ATN) · N17.1 with acute cortical necrosis · N17.2 with medullary necrosis.Link the AKI code to cause: pre‑renal (hypovolaemia, shock), intrinsic (ATN, GN, interstitial neph</div></div>
+<div class="e point" id="5.9.1.4" data-n="5.9.1.4"><a class="n" href="#5.9.1.4" title="Copy link to 5.9.1.4">5.9.1.4</a><div class="t">Creatinine interpretation</div><div class="s">Anchor AKI to a KDIGO threshold and a documented baseline creatinine. A single elevated value, or a transient rise that corrects rapidly with fluids, may not substantiate AKI as a codeable diagnosis.</div></div>
 <div class="e sec" id="5.10" data-n="5.10"><a class="n" href="#5.10" title="Copy link to 5.10">5.10</a><div class="t">Malignancy</div><div class="s">Neoplasm sequencing when admission is for a complication</div></div>
 <div class="e topic" id="5.10.1" data-n="5.10.1"><a class="n" href="#5.10.1" title="Copy link to 5.10.1">5.10.1</a><div class="t">Malignancy — sequencing when admission is for a complication</div><div class="s">When admission is to treat a complication of a malignancy, the complication is the Principal Diagnosis — with one specific exception for anaemia.</div></div>
-<div class="e point" id="5.10.1.1" data-n="5.10.1.1"><a class="n" href="#5.10.1.1" title="Copy link to 5.10.1.1">5.10.1.1</a><span class="chip" data-kind="coding" style="--c:#56C6FF">Coding</span><div class="t">Sequencing rule (ICD-10-CM Official Guidelines, Section I.C.2 — Neoplasms)</div><div class="s">)When a patient is admitted for treatment of a complication of a malignancy, the complication is sequenced as the Principal Diagnosis, with the malignancy coded as secondary.Examples of complications: pancytopenia, neutropenia,</div></div>
-<div class="e point" id="5.10.1.2" data-n="5.10.1.2"><a class="n" href="#5.10.1.2" title="Copy link to 5.10.1.2">5.10.1.2</a><span class="chip" data-kind="coverage" style="--c:#9C7CFF">Coverage</span><div class="t">Exception — anaemia</div><div class="s">When the admission is for management of anaemia due to malignancy, the malignancy is sequenced as the Principal Diagnosis and the anaemia is coded as secondary.This is the only complication with a specific sequencing exception in the ICD‑10‑CM guidelines.</div></div>
+<div class="e point" id="5.10.1.1" data-n="5.10.1.1"><a class="n" href="#5.10.1.1" title="Copy link to 5.10.1.1">5.10.1.1</a><div class="t">Sequencing rule (ICD-10-CM Official Guidelines, Section I.C.2 — Neoplasms)</div><div class="s">When a patient is admitted for treatment of a complication of a malignancy, the complication is sequenced as the Principal Diagnosis, with the malignancy coded as secondary.Examples of complications: pancytopenia, neutropenia,</div></div>
+<div class="e point" id="5.10.1.2" data-n="5.10.1.2"><a class="n" href="#5.10.1.2" title="Copy link to 5.10.1.2">5.10.1.2</a><div class="t">Exception — anaemia</div><div class="s">When the admission is for management of anaemia due to malignancy, the malignancy is sequenced as the Principal Diagnosis and the anaemia is coded as secondary.This is the only complication with a specific sequencing exception in the ICD‑10‑CM guidelines.</div></div>
 <div class="e sec" id="5.11" data-n="5.11"><a class="n" href="#5.11" title="Copy link to 5.11">5.11</a><div class="t">Hepatic</div></div>
 <div class="e topic" id="5.11.1" data-n="5.11.1"><a class="n" href="#5.11.1" title="Copy link to 5.11.1">5.11.1</a><div class="t">Ascites in Decompensated Liver Cirrhosis — Secondary Diagnosis</div><div class="s">In decompensated liver cirrhosis, ascites is a process that evolves within the pathophysiology of the acute decompensated condition — it is assigned as a secondary diagnosis, not the Principal Diagnosis.</div></div>
-<div class="e point" id="5.11.1.1" data-n="5.11.1.1"><a class="n" href="#5.11.1.1" title="Copy link to 5.11.1.1">5.11.1.1</a><span class="chip" data-kind="clinical" style="--c:#2FE6C8">Clinical</span><div class="t">Pathophysiological basis</div><div class="s">Ascites in the context of acute decompensated cirrhosis is not an independently managed condition — it is an integral manifestation of portal hypertension and hepatic decompensation.The decompensated cirrhosis drives the admission. The ascites evolves within its pathophysiolo</div></div>
-<div class="e point" id="5.11.1.2" data-n="5.11.1.2"><a class="n" href="#5.11.1.2" title="Copy link to 5.11.1.2">5.11.1.2</a><span class="chip" data-kind="coding" style="--c:#56C6FF">Coding</span><div class="t">Coding sequence</div><div class="s">sequencePrincipal Diagnosis → K74.60 · Unspecified cirrhosis of liver (decompensated).Secondary Diagnosis → R18.8 · Other ascites — the specific code for hepatic/portal ascites in this context (not malignant ascites R18.0, not unspecified R18.9).IR‑DRG → 074102 · MDC 07 (Hepatobiliary), Base</div></div>
-<div class="e point" id="5.11.1.3" data-n="5.11.1.3"><a class="n" href="#5.11.1.3" title="Copy link to 5.11.1.3">5.11.1.3</a><span class="chip" data-kind="adjudication" style="--c:#F3CB7D">Adjudication</span><div class="t">The deciding test is what drove the admission. Decompensated cirrhosis is the condition the patient was admitted for — the ascites is its clinical expression. Do not elevate a manifestation to the Principal Diagnosis simply because it is prominent or symptomatic.</div><div class="s">Principal Diagnosis K74.60 Decompensated cirrhosis Secondary Diagnosis R18.8 Other ascites IR‑DRG 074102 MDC 07 · Base 410 · SOI 2</div></div>
+<div class="e point" id="5.11.1.1" data-n="5.11.1.1"><a class="n" href="#5.11.1.1" title="Copy link to 5.11.1.1">5.11.1.1</a><div class="t">Pathophysiological basis</div><div class="s">Ascites in the context of acute decompensated cirrhosis is not an independently managed condition — it is an integral manifestation of portal hypertension and hepatic decompensation.The decompensated cirrhosis drives the admission. The ascites evolves within its pathophysiolo</div></div>
+<div class="e point" id="5.11.1.2" data-n="5.11.1.2"><a class="n" href="#5.11.1.2" title="Copy link to 5.11.1.2">5.11.1.2</a><div class="t">Coding sequence</div><div class="s">sequencePrincipal Diagnosis → K74.60 · Unspecified cirrhosis of liver (decompensated).Secondary Diagnosis → R18.8 · Other ascites — the specific code for hepatic/portal ascites in this context (not malignant ascites R18.0, not unspecified R18.9).IR‑DRG → 074102 · MDC 07 (Hepatobiliary), Base</div></div>
+<div class="e point" id="5.11.1.3" data-n="5.11.1.3"><a class="n" href="#5.11.1.3" title="Copy link to 5.11.1.3">5.11.1.3</a><div class="t">The deciding test is what drove the admission. Decompensated cirrhosis is the condition the patient was admitted for — the ascites is its clinical expression. Do not elevate a manifestation to the Principal Diagnosis simply because it is prominent or symptomatic.</div><div class="s">Principal Diagnosis K74.60 Decompensated cirrhosis Secondary Diagnosis R18.8 Other ascites IR‑DRG 074102 MDC 07 · Base 410 · SOI 2</div></div>
 <div class="e topic" id="5.11.2" data-n="5.11.2"><a class="n" href="#5.11.2" title="Copy link to 5.11.2">5.11.2</a><div class="t">Malignant Ascites — Principal Diagnosis</div><div class="s">When admission is solely for management of malignant ascites, ascites is the Principal Diagnosis per ICD‑10‑CM Section I.C.2 — the neoplasm complication rule designates the complication as PDx when it is the primary management target.</div></div>
-<div class="e point" id="5.11.2.1" data-n="5.11.2.1"><a class="n" href="#5.11.2.1" title="Copy link to 5.11.2.1">5.11.2.1</a><span class="chip" data-kind="clinical" style="--c:#2FE6C8">Clinical</span><div class="t">Guideline authority — I.C.2 (Neoplasms)</div><div class="s">)ICD‑10‑CM Section I.C.2 states: when a patient is admitted for treatment of a complication of a malignancy, the complication is sequenced as the Principal Diagnosis and the malignancy is coded as secondary.Malignant ascites is a complication of an underlying ma</div></div>
-<div class="e point" id="5.11.2.2" data-n="5.11.2.2"><a class="n" href="#5.11.2.2" title="Copy link to 5.11.2.2">5.11.2.2</a><span class="chip" data-kind="coding" style="--c:#56C6FF">Coding</span><div class="t">Coding sequence</div><div class="s">sequencePrincipal Diagnosis → R18.0 · Malignant ascites — applicable when management of the ascites is the sole or primary reason for admission.Secondary Diagnosis → C‑code · The primary malignancy (e.g. C15–C26 for GI primaries, C50 for breast, etc.).If the admission is for active treatment</div></div>
-<div class="e point" id="5.11.2.3" data-n="5.11.2.3"><a class="n" href="#5.11.2.3" title="Copy link to 5.11.2.3">5.11.2.3</a><span class="chip" data-kind="adjudication" style="--c:#F3CB7D">Adjudication</span><div class="t">The sequencing is the inverse of the cirrhosis scenario. The common principle in both is: code what is actually being treated as the Principal Diagnosis. In cirrhosis the organ disease is being treated and ascites is its manifestation. In malignancy, when the admission is purely for ascites drainage</div><div class="s">Principal Diagnosis R18.0 Malignant ascites Secondary Diagnosis C‑code Primary malignancy</div></div>
+<div class="e point" id="5.11.2.1" data-n="5.11.2.1"><a class="n" href="#5.11.2.1" title="Copy link to 5.11.2.1">5.11.2.1</a><div class="t">Guideline authority — I.C.2 (Neoplasms)</div><div class="s">ICD‑10‑CM Section I.C.2 states: when a patient is admitted for treatment of a complication of a malignancy, the complication is sequenced as the Principal Diagnosis and the malignancy is coded as secondary.Malignant ascites is a complication of an underlying ma</div></div>
+<div class="e point" id="5.11.2.2" data-n="5.11.2.2"><a class="n" href="#5.11.2.2" title="Copy link to 5.11.2.2">5.11.2.2</a><div class="t">Coding sequence</div><div class="s">sequencePrincipal Diagnosis → R18.0 · Malignant ascites — applicable when management of the ascites is the sole or primary reason for admission.Secondary Diagnosis → C‑code · The primary malignancy (e.g. C15–C26 for GI primaries, C50 for breast, etc.).If the admission is for active treatment</div></div>
+<div class="e point" id="5.11.2.3" data-n="5.11.2.3"><a class="n" href="#5.11.2.3" title="Copy link to 5.11.2.3">5.11.2.3</a><div class="t">The sequencing is the inverse of the cirrhosis scenario. The common principle in both is: code what is actually being treated as the Principal Diagnosis. In cirrhosis the organ disease is being treated and ascites is its manifestation. In malignancy, when the admission is purely for ascites drainage</div><div class="s">Principal Diagnosis R18.0 Malignant ascites Secondary Diagnosis C‑code Primary malignancy</div></div>
 <div class="e sec" id="5.12" data-n="5.12"><a class="n" href="#5.12" title="Copy link to 5.12">5.12</a><div class="t">Surgeries</div><div class="s">Unified surgical &amp; procedure coverage — functional vs cosmetic distinction</div></div>
 <div class="e topic" id="5.12.1" data-n="5.12.1"><a class="n" href="#5.12.1" title="Copy link to 5.12.1">5.12.1</a><div class="t">Congenital &amp; genetic conditions</div><div class="s">Exclusions and their carve‑outs for congenital and hereditary disease — the basis for covering corrective surgery.</div></div>
-<div class="e point" id="5.12.1.1" data-n="5.12.1.1"><a class="n" href="#5.12.1.1" title="Copy link to 5.12.1.1">5.12.1.1</a><span class="chip" data-kind="coverage" style="--c:#9C7CFF">Coverage</span><div class="t">Coverage rule</div><div class="s">ruleHealth Insurance Law 23/2005 sets exclusions for congenital deformities and cosmetic correction.Exclusions do not extend to medically necessary therapeutic/surgical services for congenital conditions, nor to treatment of hereditary/genetic diseases.</div></div>
+<div class="e point" id="5.12.1.1" data-n="5.12.1.1"><a class="n" href="#5.12.1.1" title="Copy link to 5.12.1.1">5.12.1.1</a><div class="t">Coverage rule</div><div class="s">ruleHealth Insurance Law 23/2005 sets exclusions for congenital deformities and cosmetic correction.Exclusions do not extend to medically necessary therapeutic/surgical services for congenital conditions, nor to treatment of hereditary/genetic diseases.</div></div>
 <div class="e topic" id="5.12.2" data-n="5.12.2"><a class="n" href="#5.12.2" title="Copy link to 5.12.2">5.12.2</a><div class="t">Cleft lip &amp; palate</div><div class="s">Therapeutic repair is covered as a functional procedure; appearance‑only repair is cosmetic — assessed on functional, not appearance, grounds.</div></div>
-<div class="e point" id="5.12.2.1" data-n="5.12.2.1"><a class="n" href="#5.12.2.1" title="Copy link to 5.12.2.1">5.12.2.1</a><span class="chip" data-kind="clinical" style="--c:#2FE6C8">Clinical</span><div class="t">Why functional</div><div class="s">Affects feeding, speech, hearing and dentition — a functional, not cosmetic, problem.</div></div>
+<div class="e point" id="5.12.2.1" data-n="5.12.2.1"><a class="n" href="#5.12.2.1" title="Copy link to 5.12.2.1">5.12.2.1</a><div class="t">Why functional</div><div class="s">Affects feeding, speech, hearing and dentition — a functional, not cosmetic, problem.</div></div>
 <div class="e topic" id="5.12.3" data-n="5.12.3"><a class="n" href="#5.12.3" title="Copy link to 5.12.3">5.12.3</a><div class="t">Septoplasty</div><div class="s">Covered for documented obstruction when medically justified. Cosmetic rhinoplasty is not.</div></div>
-<div class="e point" id="5.12.3.1" data-n="5.12.3.1"><a class="n" href="#5.12.3.1" title="Copy link to 5.12.3.1">5.12.3.1</a><span class="chip" data-kind="coverage" style="--c:#9C7CFF">Coverage</span><div class="t">Medical necessity</div><div class="s">Deviated septum with nasal obstruction, failed medical therapy, or recurrent symptoms.Septoplasty for obstruction = functional; cosmetic rhinoplasty is excluded.</div></div>
+<div class="e point" id="5.12.3.1" data-n="5.12.3.1"><a class="n" href="#5.12.3.1" title="Copy link to 5.12.3.1">5.12.3.1</a><div class="t">Medical necessity</div><div class="s">Deviated septum with nasal obstruction, failed medical therapy, or recurrent symptoms.Septoplasty for obstruction = functional; cosmetic rhinoplasty is excluded.</div></div>
 <div class="e topic" id="5.12.4" data-n="5.12.4"><a class="n" href="#5.12.4" title="Copy link to 5.12.4">5.12.4</a><div class="t">Blepharoplasty / ptosis</div><div class="s">Functional only — eyelid position impairing the visual field, assessed on objective MRD / visual‑field criteria.</div></div>
-<div class="e point" id="5.12.4.1" data-n="5.12.4.1"><a class="n" href="#5.12.4.1" title="Copy link to 5.12.4.1">5.12.4.1</a><span class="chip" data-kind="clinical" style="--c:#2FE6C8">Clinical</span><div class="t">Functional criteria</div><div class="s">Functional obstruction: superior visual field ≤ 30° before taping, with ≥ 12° or ≥ 30% improvement after lid elevation/taping.MRD1 ≤ 2.5 mm indicates clinically significant ptosis — the lid margin encroaches on the visual axis (functional, not cosmetic).When fields aren’t obtainab</div></div>
-<div class="e point" id="5.12.4.2" data-n="5.12.4.2"><a class="n" href="#5.12.4.2" title="Copy link to 5.12.4.2">5.12.4.2</a><span class="chip" data-kind="coverage" style="--c:#9C7CFF">Coverage</span><div class="t">Evidence &amp; covered indications</div><div class="s">Required: taped and untaped visual fields, MRD, medication history, and straight‑ahead gaze photographs.Other covered: failed‑treatment blepharospasm, prosthesis difficulties, or anophthalmic socket.Approve functional repair; cosmetic lid surgery is excluded.</div></div>
+<div class="e point" id="5.12.4.1" data-n="5.12.4.1"><a class="n" href="#5.12.4.1" title="Copy link to 5.12.4.1">5.12.4.1</a><div class="t">Functional criteria</div><div class="s">Functional obstruction: superior visual field ≤ 30° before taping, with ≥ 12° or ≥ 30% improvement after lid elevation/taping.MRD1 ≤ 2.5 mm indicates clinically significant ptosis — the lid margin encroaches on the visual axis (functional, not cosmetic).When fields aren’t obtainab</div></div>
+<div class="e point" id="5.12.4.2" data-n="5.12.4.2"><a class="n" href="#5.12.4.2" title="Copy link to 5.12.4.2">5.12.4.2</a><div class="t">Evidence &amp; covered indications</div><div class="s">Required: taped and untaped visual fields, MRD, medication history, and straight‑ahead gaze photographs.Other covered: failed‑treatment blepharospasm, prosthesis difficulties, or anophthalmic socket.Approve functional repair; cosmetic lid surgery is excluded.</div></div>
 <div class="e topic" id="5.12.5" data-n="5.12.5"><a class="n" href="#5.12.5" title="Copy link to 5.12.5">5.12.5</a><div class="t">Strabismus surgery</div><div class="s">Covered for functional misalignment with justified indications; cosmetic and amblyopia‑only requests are excluded.</div></div>
-<div class="e point" id="5.12.5.1" data-n="5.12.5.1"><a class="n" href="#5.12.5.1" title="Copy link to 5.12.5.1">5.12.5.1</a><span class="chip" data-kind="coverage" style="--c:#9C7CFF">Coverage</span><div class="t">Medical necessity</div><div class="s">Manifest misalignment with diplopia, loss of binocular fusion, or a significant measurable deviation.Children: amblyopia risk or abnormal head posture supports necessity.</div></div>
+<div class="e point" id="5.12.5.1" data-n="5.12.5.1"><a class="n" href="#5.12.5.1" title="Copy link to 5.12.5.1">5.12.5.1</a><div class="t">Medical necessity</div><div class="s">Manifest misalignment with diplopia, loss of binocular fusion, or a significant measurable deviation.Children: amblyopia risk or abnormal head posture supports necessity.</div></div>
 <div class="e topic" id="5.12.6" data-n="5.12.6"><a class="n" href="#5.12.6" title="Copy link to 5.12.6">5.12.6</a><div class="t">Varicocelectomy</div><div class="s">Covered for symptomatic varicocele — pain, infertility, or testicular atrophy.</div></div>
-<div class="e point" id="5.12.6.1" data-n="5.12.6.1"><a class="n" href="#5.12.6.1" title="Copy link to 5.12.6.1">5.12.6.1</a><span class="chip" data-kind="coverage" style="--c:#9C7CFF">Coverage</span><div class="t">Medical necessity</div><div class="s">Palpable varicocele with chronic scrotal pain unresponsive to conservative care, abnormal semen parameters / infertility, or testicular atrophy (especially adolescents).</div></div>
+<div class="e point" id="5.12.6.1" data-n="5.12.6.1"><a class="n" href="#5.12.6.1" title="Copy link to 5.12.6.1">5.12.6.1</a><div class="t">Medical necessity</div><div class="s">Palpable varicocele with chronic scrotal pain unresponsive to conservative care, abnormal semen parameters / infertility, or testicular atrophy (especially adolescents).</div></div>
 <div class="e topic" id="5.12.7" data-n="5.12.7"><a class="n" href="#5.12.7" title="Copy link to 5.12.7">5.12.7</a><div class="t">Epidural — coverage</div><div class="s">The obstetric source rule, kept separate from chronic‑pain epidural injections.</div></div>
-<div class="e point" id="5.12.7.1" data-n="5.12.7.1"><a class="n" href="#5.12.7.1" title="Copy link to 5.12.7.1">5.12.7.1</a><span class="chip" data-kind="coverage" style="--c:#9C7CFF">Coverage</span><div class="t">Source rule — obstetric epidural (vaginal delivery)</div><div class="s">)Epidural anaesthesia for vaginal delivery is a covered obstetric indication.Always refer to the Schedule of Benefits (SOB).</div></div>
-<div class="e point" id="5.12.7.2" data-n="5.12.7.2"><a class="n" href="#5.12.7.2" title="Copy link to 5.12.7.2">5.12.7.2</a><span class="chip" data-kind="coverage" style="--c:#9C7CFF">Coverage</span><div class="t">Additional — chronic-pain epidural (separate from the obstetric source rule)</div><div class="s">)Therapeutic epidural steroid injection — for radiculopathy with imaging‑correlated nerve‑root compression after failed conservative therapy; frequency limits apply.</div></div>
+<div class="e point" id="5.12.7.1" data-n="5.12.7.1"><a class="n" href="#5.12.7.1" title="Copy link to 5.12.7.1">5.12.7.1</a><div class="t">Source rule — obstetric epidural (vaginal delivery)</div><div class="s">Epidural anaesthesia for vaginal delivery is a covered obstetric indication.Always refer to the Schedule of Benefits (SOB).</div></div>
+<div class="e point" id="5.12.7.2" data-n="5.12.7.2"><a class="n" href="#5.12.7.2" title="Copy link to 5.12.7.2">5.12.7.2</a><div class="t">Additional — chronic-pain epidural (separate from the obstetric source rule)</div><div class="s">Therapeutic epidural steroid injection — for radiculopathy with imaging‑correlated nerve‑root compression after failed conservative therapy; frequency limits apply.</div></div>
 <div class="e sec" id="5.13" data-n="5.13"><a class="n" href="#5.13" title="Copy link to 5.13">5.13</a><div class="t">Specialty Medications</div></div>
 <div class="e topic" id="5.13.1" data-n="5.13.1"><a class="n" href="#5.13.1" title="Copy link to 5.13.1">5.13.1</a><div class="t">Medication master matrix</div><div class="s">The primary rapid‑reference for specialty‑drug adjudication — clinical profile and eligible prescriber.</div></div>
-<div class="e point" id="5.13.1.1" data-n="5.13.1.1"><a class="n" href="#5.13.1.1" title="Copy link to 5.13.1.1">5.13.1.1</a><span class="chip" data-kind="pearl" style="--c:#C4CCDF">Pearl</span><div class="t">Daratumumab (anti-CD38) interferes with the indirect Coombs (antiglobulin) test → false-positive antibody screens. Notify the transfusion service so compatibility isn’t misread.</div><div class="s">profileGeneric · BrandClass / targetIndicationRouteDupilumab · DupixentIL‑4Rα (IL‑4/IL‑13)Atopic dermatitis, asthma, CRSwNP, EoESC q2–4wOmalizumab · XolairAnti‑IgESevere allergic asthma, chronic urticariaSC q2–4wMepolizumab · NucalaAnti‑IL‑5Eosinophilic asthma, EGPA, HESSC q4wTralokinumab ·</div></div>
-<div class="e point" id="5.13.1.2" data-n="5.13.1.2"><a class="n" href="#5.13.1.2" title="Copy link to 5.13.1.2">5.13.1.2</a><span class="chip" data-kind="adjudication" style="--c:#F3CB7D">Adjudication</span><div class="t">Most are SC / IM depot therapies that are administered and the patient released — a day-case admission is rarely justified by route alone.</div><div class="s">Eligible prescriberGeneric · BrandEligible prescriberDupixentDermatology / Pulmonology / Allergy (ENT for CRSwNP)XolairAllergy / Pulmonology (Dermatology for urticaria)NucalaPulmonology / Respiratory (Allergy)AdtralzaDermatologyEbglyssDermatologyTremfyaDermatology / RheumatologyIlarisRheumatology /</div></div>
+<div class="e point" id="5.13.1.1" data-n="5.13.1.1"><a class="n" href="#5.13.1.1" title="Copy link to 5.13.1.1">5.13.1.1</a><div class="t">Daratumumab (anti-CD38) interferes with the indirect Coombs (antiglobulin) test → false-positive antibody screens. Notify the transfusion service so compatibility isn’t misread.</div><div class="s">profileGeneric · BrandClass / targetIndicationRouteDupilumab · DupixentIL‑4Rα (IL‑4/IL‑13)Atopic dermatitis, asthma, CRSwNP, EoESC q2–4wOmalizumab · XolairAnti‑IgESevere allergic asthma, chronic urticariaSC q2–4wMepolizumab · NucalaAnti‑IL‑5Eosinophilic asthma, EGPA, HESSC q4wTralokinumab ·</div></div>
+<div class="e point" id="5.13.1.2" data-n="5.13.1.2"><a class="n" href="#5.13.1.2" title="Copy link to 5.13.1.2">5.13.1.2</a><div class="t">Most are SC / IM depot therapies that are administered and the patient released — a day-case admission is rarely justified by route alone.</div><div class="s">Eligible prescriberGeneric · BrandEligible prescriberDupixentDermatology / Pulmonology / Allergy (ENT for CRSwNP)XolairAllergy / Pulmonology (Dermatology for urticaria)NucalaPulmonology / Respiratory (Allergy)AdtralzaDermatologyEbglyssDermatologyTremfyaDermatology / RheumatologyIlarisRheumatology /</div></div>
 <div class="e topic" id="5.13.2" data-n="5.13.2"><a class="n" href="#5.13.2" title="Copy link to 5.13.2">5.13.2</a><div class="t">Key specialty-drug cards</div><div class="s">Concise clinical cards for the high‑frequency specialty drugs — dose, schedule, mechanism of action, and licensed indications.</div></div>
 <div class="e topic" id="5.13.3" data-n="5.13.3"><a class="n" href="#5.13.3" title="Copy link to 5.13.3">5.13.3</a><div class="t">GLP-1 receptor agonists</div><div class="s">Incretin-based therapy for Type 2 Diabetes Mellitus and, for selected licensed agents, chronic weight management.</div></div>
-<div class="e point" id="5.13.3.1" data-n="5.13.3.1"><a class="n" href="#5.13.3.1" title="Copy link to 5.13.3.1">5.13.3.1</a><span class="chip" data-kind="clinical" style="--c:#2FE6C8">Clinical</span><div class="t">Class &amp; mechanism</div><div class="s">Enhance glucose-dependent insulin secretion, suppress glucagon, slow gastric emptying, and increase satiety.Agents include dulaglutide, liraglutide, and semaglutide; tirzepatide is a dual GIP/GLP-1 receptor agonist.</div></div>
-<div class="e point" id="5.13.3.2" data-n="5.13.3.2"><a class="n" href="#5.13.3.2" title="Copy link to 5.13.3.2">5.13.3.2</a><span class="chip" data-kind="clinical" style="--c:#2FE6C8">Clinical</span><div class="t">Recognised indications</div><div class="s">Type 2 Diabetes Mellitus, with cardiovascular and renal risk reduction demonstrated for several agents.Chronic weight management for specifically licensed formulations.</div></div>
-<div class="e point" id="5.13.3.3" data-n="5.13.3.3"><a class="n" href="#5.13.3.3" title="Copy link to 5.13.3.3">5.13.3.3</a><span class="chip" data-kind="pearl" style="--c:#C4CCDF">Pearl</span><div class="t">Predominantly subcutaneous therapies (oral semaglutide excepted); route alone rarely justifies admission.</div></div>
+<div class="e point" id="5.13.3.1" data-n="5.13.3.1"><a class="n" href="#5.13.3.1" title="Copy link to 5.13.3.1">5.13.3.1</a><div class="t">Class &amp; mechanism</div><div class="s">Enhance glucose-dependent insulin secretion, suppress glucagon, slow gastric emptying, and increase satiety.Agents include dulaglutide, liraglutide, and semaglutide; tirzepatide is a dual GIP/GLP-1 receptor agonist.</div></div>
+<div class="e point" id="5.13.3.2" data-n="5.13.3.2"><a class="n" href="#5.13.3.2" title="Copy link to 5.13.3.2">5.13.3.2</a><div class="t">Recognised indications</div><div class="s">Type 2 Diabetes Mellitus, with cardiovascular and renal risk reduction demonstrated for several agents.Chronic weight management for specifically licensed formulations.</div></div>
+<div class="e point" id="5.13.3.3" data-n="5.13.3.3"><a class="n" href="#5.13.3.3" title="Copy link to 5.13.3.3">5.13.3.3</a><div class="t">Predominantly subcutaneous therapies (oral semaglutide excepted); route alone rarely justifies admission.</div></div>
 <div class="e topic" id="5.13.4" data-n="5.13.4"><a class="n" href="#5.13.4" title="Copy link to 5.13.4">5.13.4</a><div class="t">PCSK9 inhibitors</div><div class="s">Injectable LDL-lowering therapy for patients inadequately controlled on, or intolerant of, maximally tolerated statin therapy.</div></div>
-<div class="e point" id="5.13.4.1" data-n="5.13.4.1"><a class="n" href="#5.13.4.1" title="Copy link to 5.13.4.1">5.13.4.1</a><span class="chip" data-kind="clinical" style="--c:#2FE6C8">Clinical</span><div class="t">Class &amp; mechanism</div><div class="s">Monoclonal antibodies (evolocumab, alirocumab) or small interfering RNA (inclisiran) that reduce PCSK9, increasing LDL-receptor availability and lowering LDL-C.Used as add-on to maximally tolerated statin with or without ezetimibe.</div></div>
-<div class="e point" id="5.13.4.2" data-n="5.13.4.2"><a class="n" href="#5.13.4.2" title="Copy link to 5.13.4.2">5.13.4.2</a><span class="chip" data-kind="clinical" style="--c:#2FE6C8">Clinical</span><div class="t">Recognised indications</div><div class="s">Familial hypercholesterolaemia and established atherosclerotic cardiovascular disease with LDL-C above target despite maximal oral therapy.</div></div>
-<div class="e point" id="5.13.4.3" data-n="5.13.4.3"><a class="n" href="#5.13.4.3" title="Copy link to 5.13.4.3">5.13.4.3</a><span class="chip" data-kind="pearl" style="--c:#C4CCDF">Pearl</span><div class="t">Subcutaneous dosing intervals range from fortnightly to twice-yearly depending on the agent.</div></div>
+<div class="e point" id="5.13.4.1" data-n="5.13.4.1"><a class="n" href="#5.13.4.1" title="Copy link to 5.13.4.1">5.13.4.1</a><div class="t">Class &amp; mechanism</div><div class="s">Monoclonal antibodies (evolocumab, alirocumab) or small interfering RNA (inclisiran) that reduce PCSK9, increasing LDL-receptor availability and lowering LDL-C.Used as add-on to maximally tolerated statin with or without ezetimibe.</div></div>
+<div class="e point" id="5.13.4.2" data-n="5.13.4.2"><a class="n" href="#5.13.4.2" title="Copy link to 5.13.4.2">5.13.4.2</a><div class="t">Recognised indications</div><div class="s">Familial hypercholesterolaemia and established atherosclerotic cardiovascular disease with LDL-C above target despite maximal oral therapy.</div></div>
+<div class="e point" id="5.13.4.3" data-n="5.13.4.3"><a class="n" href="#5.13.4.3" title="Copy link to 5.13.4.3">5.13.4.3</a><div class="t">Subcutaneous dosing intervals range from fortnightly to twice-yearly depending on the agent.</div></div>
 <div class="e sec" id="5.14" data-n="5.14"><a class="n" href="#5.14" title="Copy link to 5.14">5.14</a><div class="t">References</div><div class="s">The source corpus the whole adjudication rests on — plus companion tools</div></div>
 <div class="e topic" id="5.14.1" data-n="5.14.1"><a class="n" href="#5.14.1" title="Copy link to 5.14.1">5.14.1</a><div class="t">Source corpus</div><div class="s">Every claim and criterion in this Compendium traces back to one of these named authorities, grouped by tier. authorities</div></div>
-<div class="e point" id="5.14.1.1" data-n="5.14.1.1"><a class="n" href="#5.14.1.1" title="Copy link to 5.14.1.1">5.14.1.1</a><span class="chip" data-kind="pearl" style="--c:#C4CCDF">Pearl</span><div class="t">DRGs Compendium is a working synthesis built on a strong foundation of accumulated healthcare insurance and clinical experience by Dr. Sherif Alattar. This reference is a distinct tier from the regulatory and grouper authorities below, and underpins the validation logic throughout.</div></div>
-<div class="e point" id="5.14.1.2" data-n="5.14.1.2"><a class="n" href="#5.14.1.2" title="Copy link to 5.14.1.2">5.14.1.2</a><span class="chip" data-kind="coding" style="--c:#56C6FF">Coding</span><div class="t">DOH regulatory framework (Abu Dhabi)</div></div>
-<div class="e point" id="5.14.1.3" data-n="5.14.1.3"><a class="n" href="#5.14.1.3" title="Copy link to 5.14.1.3">5.14.1.3</a><span class="chip" data-kind="coding" style="--c:#56C6FF">Coding</span><div class="t">Coding standards</div></div>
-<div class="e point" id="5.14.1.4" data-n="5.14.1.4"><a class="n" href="#5.14.1.4" title="Copy link to 5.14.1.4">5.14.1.4</a><span class="chip" data-kind="coding" style="--c:#56C6FF">Coding</span><div class="t">Grouper &amp; classification</div></div>
-<div class="e point" id="5.14.1.5" data-n="5.14.1.5"><a class="n" href="#5.14.1.5" title="Copy link to 5.14.1.5">5.14.1.5</a><span class="chip" data-kind="coding" style="--c:#56C6FF">Coding</span><div class="t">Clinical &amp; professional</div></div>
+<div class="e point" id="5.14.1.1" data-n="5.14.1.1"><a class="n" href="#5.14.1.1" title="Copy link to 5.14.1.1">5.14.1.1</a><div class="t">DRGs Compendium is a working synthesis built on a strong foundation of accumulated healthcare insurance and clinical experience by Dr. Sherif Alattar. This reference is a distinct tier from the regulatory and grouper authorities below, and underpins the validation logic throughout.</div></div>
+<div class="e point" id="5.14.1.2" data-n="5.14.1.2"><a class="n" href="#5.14.1.2" title="Copy link to 5.14.1.2">5.14.1.2</a><div class="t">DOH regulatory framework (Abu Dhabi)</div></div>
+<div class="e point" id="5.14.1.3" data-n="5.14.1.3"><a class="n" href="#5.14.1.3" title="Copy link to 5.14.1.3">5.14.1.3</a><div class="t">Coding standards</div></div>
+<div class="e point" id="5.14.1.4" data-n="5.14.1.4"><a class="n" href="#5.14.1.4" title="Copy link to 5.14.1.4">5.14.1.4</a><div class="t">Grouper &amp; classification</div></div>
+<div class="e point" id="5.14.1.5" data-n="5.14.1.5"><a class="n" href="#5.14.1.5" title="Copy link to 5.14.1.5">5.14.1.5</a><div class="t">Clinical &amp; professional</div></div>
 <div class="e sec" id="5.15" data-n="5.15"><a class="n" href="#5.15" title="Copy link to 5.15">5.15</a><div class="t">Specialty Medications — full agent list (23)</div></div>
 <div class="e topic" id="5.15.1" data-n="5.15.1"><a class="n" href="#5.15.1" title="Copy link to 5.15.1">5.15.1</a><div class="t">Master matrix — 16 agents # Generic · Brand Class / target Eligible prescriber 5.15.1.1 Dupilumab · Dupixent IL-4Rα (IL-4/IL-13) Dermatology / Pulmonology / Allergy (ENT for CRSwNP) 5.15.1.2 Omalizumab · Xolair Anti-IgE Allergy / Pulmonology (Dermatology for urticaria) 5.15.1.3 Mepolizumab · Nucala Anti-IL-5 Pulmonology / Respiratory (Allergy) 5.15.1.4 Tralokinumab · Adtralza Anti-IL-13 Dermatology 5.15.1.5 Lebrikizumab · Ebglyss Anti-IL-13 Dermatology 5.15.1.6 Guselkumab · Tremfya IL-23 (p19) Dermatology / Rheumatology 5.15.1.7 Canakinumab · Ilaris IL-1β Rheumatology / Immunology 5.15.1.8 Daratumumab · Darzalex Anti-CD38 Haematology / Oncology 5.15.1.9 Caplacizumab · Cablivi Anti-vWF Haematology 5.15.1.10 Crizanlizumab · Adakveo Anti-P-selectin Haematology 5.15.1.11 Ribociclib · Kisqali CDK4/6 inhibitor Oncology 5.15.1.12 Cerliponase alfa · Brineura Enzyme replacement (TPP1) Paediatric Neurology 5.15.1.13 Lanreotide · Somatuline Somatostatin analogue Endocrinology / Oncology / GI 5.15.1.14 Octreotide · Sandostatin LAR Somatostatin analogue Endocrinology / Oncology / GI 5.15.1.15 Triptorelin · Decapeptyl GnRH agonist Oncology / Urology / Endocrinology / Gynaecology 5.15.1.16 Bulevirtide · Hepcludex NTCP entry inhibitor Hepatology / Infectious Diseases</div></div>
 <div class="e topic" id="5.15.2" data-n="5.15.2"><a class="n" href="#5.15.2" title="Copy link to 5.15.2">5.15.2</a><div class="t">GLP-1 receptor agonists — 4 agents</div></div>
@@ -1295,217 +1258,13 @@ a.pil-m:hover span,a.pil-m:focus-visible span{color:var(--cyan-bright)}
 <script src="audio.js"></script>
 <script data-goatcounter="https://sherifalattar.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 <script>
-/* ============================================================
-   1 · THE FIELD IS THE MAP
-   Not decoration. Every star is one of the 711 numbered entries,
-   grouped into fourteen constellations — one per page of the site
-   — sized by how many entries that page holds, coloured by the
-   block labels the Compendium already uses, and wired to their
-   nearest neighbours within their own page. The layout is
-   deterministic, so the constellation is the same every visit.
-   ============================================================ */
-(function(){
-  var cv = document.getElementById('neural');
-  var src = document.getElementById('kn-map');
-  if (!cv || !cv.getContext || !src) return;
-
-  var PAGES;
-  try { PAGES = JSON.parse(src.textContent); } catch (e) { return; }
-
-  var ctx = cv.getContext('2d');
-  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var LABEL = document.getElementById('field-label');
-
-  /* legend colours, then a fallback by depth: section, topic, point */
-  var KIND = ['', '47,230,200', '86,198,255', '243,203,125', '156,124,255', '196,204,223'];
-  var DEPTH = ['198,163,90', '143,189,255', '122,140,166'];
-
-  /* deterministic layout — the same constellation on every visit */
-  function rng(seed){ return function(){
-    seed |= 0; seed = seed + 0x6D2B79F5 | 0;
-    var t = Math.imul(seed ^ seed >>> 15, 1 | seed);
-    t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t;
-    return ((t ^ t >>> 14) >>> 0) / 4294967296;
-  };}
-
-  var stars = [], clusters = [], edges = [];
-  (function build(){
-    var R = 760, N = PAGES.length, r = rng(20260830);
-    for (var ci = 0; ci < N; ci++){
-      var pg = PAGES[ci], n = pg.s.length;
-      /* fibonacci sphere: fourteen centres, evenly spread, no clumping */
-      var y = 1 - (ci / (N - 1)) * 2;
-      var rad = Math.sqrt(Math.max(0, 1 - y * y));
-      var th = Math.PI * (3 - Math.sqrt(5)) * ci;
-      var C = { x: Math.cos(th) * rad * R, y: y * R * 0.52, z: Math.sin(th) * rad * R,
-                page: pg.n, title: pg.t, file: pg.f, count: n, first: stars.length, sx: 0, sy: 0, a: 0 };
-      clusters.push(C);
-      var spread = 42 + 6.2 * Math.sqrt(n);
-      var start = stars.length;
-      for (var i = 0; i < n; i++){
-        var code = parseInt(pg.s[i], 36), depth = (code / 6) | 0, kind = code % 6;
-        /* even shell distribution, so a page reads as a body not a blob */
-        var u = r() * 2 - 1, ph = r() * Math.PI * 2, sr = spread * Math.cbrt(r());
-        var pr = Math.sqrt(1 - u * u);
-        stars.push({
-          x: C.x + Math.cos(ph) * pr * sr, y: C.y + u * sr, z: C.z + Math.sin(ph) * pr * sr,
-          c: kind ? KIND[kind] : DEPTH[Math.min(2, depth)],
-          r: depth === 0 ? 1.9 : (depth === 1 ? 1.3 : 0.95),
-          w: depth === 0 ? 1 : 0, ci: ci, sx: 0, sy: 0, sr: 0, a: 0
-        });
-      }
-      /* wires precomputed once: relative positions never change, so the
-         neighbour graph is fixed and each frame only draws it */
-      for (var a = start; a < stars.length; a++){
-        var best = -1, bd = 1e9;
-        for (var bIdx = start; bIdx < stars.length; bIdx++){
-          if (bIdx === a) continue;
-          var dx = stars[a].x - stars[bIdx].x, dy = stars[a].y - stars[bIdx].y, dz = stars[a].z - stars[bIdx].z;
-          var d = dx*dx + dy*dy + dz*dz;
-          if (d < bd){ bd = d; best = bIdx; }
-        }
-        if (best >= 0) edges.push([a, best, stars[a].w || stars[best].w ? 1 : 0]);
-      }
-    }
-  })();
-
-  var w, h, dpr, cx, cy, FOV = 900, mx = 0, my = 0, tx = 0, ty = 0, t0 = 0, raf = 0, near = null;
-  var matches = null, focus = null;
-
-  function resize(){
-    dpr = Math.min(window.devicePixelRatio || 1, 2);
-    w = cv.clientWidth; h = cv.clientHeight;
-    cv.width = Math.round(w * dpr); cv.height = Math.round(h * dpr);
-    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    cx = w / 2; cy = h / 2;
-  }
-
-  function frame(now){
-    if (!t0) t0 = now || 0;
-    var el = Math.min(1, ((now || 0) - t0) / 2400);
-    var arrive = reduce ? 1 : 1 - Math.pow(1 - el, 3);
-    /* the assembly falls in from far out and settles into its true scale */
-    var scale = reduce ? 1 : 3.1 - 2.1 * arrive;
-    var spin = reduce ? 0.4 : ((now || 0) * 0.000042);
-    var cosA = Math.cos(spin), sinA = Math.sin(spin);
-    var tilt = 0.34, cosB = Math.cos(tilt), sinB = Math.sin(tilt);
-
-    tx += (mx - tx) * .04; ty += (my - ty) * .04;
-    ctx.clearRect(0, 0, w, h);
-
-    var i, s, X, Y, Z, zz, k;
-    for (i = 0; i < stars.length; i++){
-      s = stars[i];
-      X = s.x * cosA - s.z * sinA; Z = s.x * sinA + s.z * cosA; Y = s.y;
-      var Y2 = Y * cosB - Z * sinB; Z = Y * sinB + Z * cosB;
-      zz = Z * scale + 1500;
-      if (zz < 60) { s.a = 0; continue; }
-      k = FOV / zz;
-      s.sx = cx + (X * scale + tx * 60) * k;
-      s.sy = cy + (Y2 * scale + ty * 40) * k;
-      s.sr = Math.max(.35, s.r * k * 2.1);
-      s.a = Math.max(0, Math.min(1, (2600 - zz) / 2100)) * (0.12 + 0.88 * arrive);
-      s.hit = 0;
-      if (matches) {
-        /* six stars out of 711 cannot answer a question at their normal size:
-           a match is enlarged and pulsed, the rest fall back to a whisper */
-        if (matches.has(i)) { s.hit = 1; s.sr *= 2.6; }
-        else s.a *= 0.05;
-      } else if (focus !== null) s.a *= (s.ci === focus) ? 1 : 0.24;
-    }
-    for (i = 0; i < clusters.length; i++){
-      var C = clusters[i], f = stars[C.first];
-      C.sx = f ? f.sx : 0; C.sy = f ? f.sy : 0; C.a = f ? f.a : 0;
-    }
-
-    ctx.lineWidth = 1;
-    for (i = 0; i < edges.length; i++){
-      var A = stars[edges[i][0]], B = stars[edges[i][1]];
-      if (!A.a || !B.a) continue;
-      var o = Math.min(A.a, B.a) * (edges[i][2] ? .34 : .19);
-      ctx.strokeStyle = 'rgba(' + (edges[i][2] ? '198,163,90,' : '120,168,196,') + o.toFixed(3) + ')';
-      ctx.beginPath(); ctx.moveTo(A.sx, A.sy); ctx.lineTo(B.sx, B.sy); ctx.stroke();
-    }
-
-    ctx.globalCompositeOperation = 'lighter';
-    for (i = 0; i < stars.length; i++){
-      s = stars[i]; if (!s.a) continue;
-      var pulse = s.hit ? (0.75 + 0.25 * Math.sin((now || 0) * 0.005)) : 1;
-      var g = ctx.createRadialGradient(s.sx, s.sy, 0, s.sx, s.sy, s.sr * 4);
-      g.addColorStop(0, 'rgba(' + s.c + ',' + (s.a * (s.hit ? .72 : .40) * pulse).toFixed(3) + ')');
-      g.addColorStop(1, 'rgba(' + s.c + ',0)');
-      ctx.fillStyle = g;
-      ctx.beginPath(); ctx.arc(s.sx, s.sy, s.sr * 4, 0, 6.2832); ctx.fill();
-      ctx.fillStyle = 'rgba(' + s.c + ',' + Math.min(1, s.a * 1.2 * pulse).toFixed(3) + ')';
-      ctx.beginPath(); ctx.arc(s.sx, s.sy, s.sr * .9, 0, 6.2832); ctx.fill();
-    }
-    ctx.globalCompositeOperation = 'source-over';
-
-    raf = requestAnimationFrame(frame);
-  }
-
-  /* the constellation names itself: whichever page you point at */
-  function label(ev){
-    if (!LABEL) return;
-    var px = ev.clientX, py = ev.clientY, best = null, bd = 150 * 150;
-    for (var i = 0; i < clusters.length; i++){
-      var C = clusters[i]; if (!C.a) continue;
-      var dx = C.sx - px, dy = C.sy - py, d = dx * dx + dy * dy;
-      if (d < bd){ bd = d; best = C; }
-    }
-    near = best;
-    if (!best){ LABEL.classList.remove('on'); return; }
-    /* built as nodes rather than markup: text that came out of the DOM must never
-       go back in as HTML, whatever its provenance */
-    LABEL.textContent = '';
-    var lb = document.createElement('b');
-    lb.textContent = (best.page < 10 ? '0' : '') + best.page;
-    var li = document.createElement('i');
-    li.textContent = best.count + ' entries';
-    LABEL.appendChild(lb);
-    LABEL.appendChild(document.createTextNode(best.title));
-    LABEL.appendChild(li);
-    /* clamp inside the viewport — a cluster near the edge would push it off-screen */
-    LABEL.style.left = Math.round(Math.max(150, Math.min(window.innerWidth - 150, best.sx))) + 'px';
-    LABEL.style.top = Math.round(Math.min(window.innerHeight - 60, best.sy + 22)) + 'px';
-    LABEL.classList.add('on');
-  }
-
-  window.addEventListener('resize', resize);
-  window.addEventListener('scroll', function(){
-    if (LABEL && window.scrollY > window.innerHeight * .8) { LABEL.classList.remove('on'); near = null; }
-  }, { passive: true });
-  window.addEventListener('pointermove', function(e){
-    mx = (e.clientX / window.innerWidth - .5) * 2;
-    my = (e.clientY / window.innerHeight - .5) * 2;
-    if (window.scrollY < window.innerHeight * .8) label(e); else if (LABEL) LABEL.classList.remove('on');
-  }, { passive: true });
-  window.addEventListener('click', function(){
-    if (!near || window.scrollY > window.innerHeight * .8) return;
-    var t = document.getElementById('page-' + near.page);
-    if (t) t.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  });
-  document.addEventListener('visibilitychange', function(){
-    if (document.hidden){ cancelAnimationFrame(raf); raf = 0; }
-    else if (!raf){ raf = requestAnimationFrame(frame); }
-  });
-  /* the field answers the page: a search lights only the stars that match,
-     and reading a section brings its own constellation forward */
-  window.__knField = {
-    stars: stars.length,
-    match: function(set){ matches = set; },
-    focus: function(pageNo){
-      focus = null;
-      for (var i = 0; i < clusters.length; i++) if (clusters[i].page === pageNo) focus = i;
-    }
-  };
-
-  resize();
-  raf = requestAnimationFrame(frame);
-})();
+/* The background constellation is gone. It ran a requestAnimationFrame loop over
+   711 stars for the life of the page and told the reader nothing they could act on.
+   This page's job is to direct — to say what is here and take you there — so the
+   cost bought nothing. What it used to answer, the record answers in text. */
 
 /* ============================================================
-   2 · ENTRANCE — staged, with the sheen sweeping the plate
+   2 · ENTRANCE — staged
    ============================================================ */
 (function(){
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -1515,13 +1274,6 @@ a.pil-m:hover span,a.pil-m:focus-visible span{color:var(--cyan-bright)}
     if (reduce){ el.style.opacity = 1; el.style.transform = 'none'; return; }
     setTimeout(function(){ el.classList.add('lit'); }, s[1]);
   });
-  if (reduce) return;
-  var sheen = document.querySelector('.plate .sheen'); if (!sheen) return;
-  function sweep(){
-    sheen.animate([{ left: '-60%' }, { left: '140%' }],
-      { duration: 2600, easing: 'cubic-bezier(.4,0,.2,1)' });
-  }
-  setTimeout(function(){ sweep(); setInterval(sweep, 6000); }, 1200);
 })();
 
 /* ============================================================
@@ -1529,36 +1281,39 @@ a.pil-m:hover span,a.pil-m:focus-visible span{color:var(--cyan-bright)}
    ============================================================ */
 (function(){
   var bar = document.getElementById('progress');
-  var field = document.getElementById('neural');
   addEventListener('scroll', function(){
     var max = document.documentElement.scrollHeight - innerHeight;
     if (bar) bar.style.width = (max > 0 ? (scrollY / max) * 100 : 0) + '%';
-    /* a live field behind 711 lines of reference text is noise, not atmosphere */
-    if (field) field.classList.toggle('recede', scrollY > innerHeight * 0.55);
-    /* and it tracks where you are reading: the page in view holds the light */
-    if (window.__knField) {
-      var best = null, bd = 1e9;
-      document.querySelectorAll('.page-block:not(.hidden)').forEach(function(b){
-        var d = Math.abs(b.getBoundingClientRect().top - 140);
-        if (d < bd) { bd = d; best = b; }
-      });
-      window.__knField.focus(scrollY > innerHeight * 0.5 && best ? +best.dataset.page : -1);
-    }
   }, { passive: true });
 })();
 
+/* .page-block is position:sticky, so getBoundingClientRect() reports where it is
+   currently stuck rather than where it sits in the document, and scrollIntoView
+   landed on the wrong row — or, for the first block, did not move at all.
+   offsetTop is the un-stuck flow position, which is what we actually want. */
+function knGoToPage(n){
+  var t = document.getElementById('page-' + n);
+  if (!t) return false;
+  var y = 0, el = t;
+  while (el){ y += el.offsetTop; el = el.offsetParent; }
+  window.scrollTo({ top: Math.max(0, y - 118), behavior: 'smooth' });
+  return true;
+}
+
 /* ============================================================
-   4 · THE MAP — search, kind filter, page jump
+   4 · THE MAP — search, and division by page
    ============================================================ */
 (function(){
   var q      = document.getElementById('q');
-  var kinds  = Array.prototype.slice.call(document.querySelectorAll('.kind'));
   var navs   = Array.prototype.slice.call(document.querySelectorAll('.chipnav'));
   var blocks = Array.prototype.slice.call(document.querySelectorAll('.page-block'));
   var count  = document.getElementById('count');
   var empty  = document.getElementById('empty');
   var all    = Array.prototype.slice.call(document.querySelectorAll('.e'));
-  var active = null;
+  /* the record is divided by page and by nothing else. A clinical/coding/pearl
+     label was a second taxonomy over the same rows, and every topic title already
+     says which it is, so it earned nothing and has been removed. */
+  var page   = null;
 
   all.forEach(function(e, i){ e._hay = (e.dataset.n + ' ' + e.textContent).toLowerCase(); e._i = i; });
 
@@ -1566,31 +1321,17 @@ a.pil-m:hover span,a.pil-m:focus-visible span{color:var(--cyan-bright)}
     var term = (q.value || '').trim().toLowerCase();
     var shown = 0;
     blocks.forEach(function(b){
+      var onPage = (page === null) || (+b.dataset.page === page);
       var any = false;
       Array.prototype.forEach.call(b.querySelectorAll('.e'), function(e){
-        var chip = e.querySelector('.chip');
-        var kind = chip ? chip.dataset.kind : null;
-        var ok = (!term || e._hay.indexOf(term) !== -1) && (!active || kind === active);
+        var ok = onPage && (!term || e._hay.indexOf(term) !== -1);
         e.classList.toggle('hidden', !ok);
         if (ok) { any = true; shown++; }
       });
-      b.classList.toggle('hidden', !any);
+      b.classList.toggle('hidden', !(onPage && (any || !term)));
     });
     count.textContent = shown + (shown === 1 ? ' entry' : ' entries');
     empty.classList.toggle('on', shown === 0);
-
-    /* the constellation is the same 711 entries, so it can answer the same
-       question: light only the stars that survived the filter */
-    var field = document.getElementById('neural');
-    if (window.__knField) {
-      if (!term && !active) { window.__knField.match(null); if (field) field.classList.remove('lit-query'); }
-      else {
-        var set = new Set();
-        all.forEach(function(e){ if (!e.classList.contains('hidden')) set.add(e._i); });
-        window.__knField.match(set);
-        if (field) field.classList.add('lit-query');
-      }
-    }
   }
 
   /* filtering can shrink 711 entries to six; without this the reader is left
@@ -1603,19 +1344,25 @@ a.pil-m:hover span,a.pil-m:focus-visible span{color:var(--cyan-bright)}
   }
 
   q.addEventListener('input', function(){ apply(); toResults(); });
-  kinds.forEach(function(k){
-    k.addEventListener('click', function(){
-      active = (active === k.dataset.kind) ? null : k.dataset.kind;
-      kinds.forEach(function(o){ o.setAttribute('aria-pressed', String(o.dataset.kind === active)); });
-      apply(); toResults();
+
+  /* a page chip narrows the record to that page, and takes you to it. Pressing it
+     again gives the whole record back. */
+  function setPage(n){
+    page = n;
+    navs.forEach(function(o){
+      o.setAttribute('aria-pressed', String(o.dataset.target === 'all' ? n === null : +o.dataset.target === n));
     });
-  });
+    apply();
+  }
   navs.forEach(function(n){
     n.addEventListener('click', function(){
-      var t = document.getElementById('page-' + n.dataset.target);
-      if (t) t.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      if (n.dataset.target === 'all'){ setPage(null); toResults(); return; }
+      var t = +n.dataset.target;
+      setPage(page === t ? null : t);
+      if (page === null) toResults(); else knGoToPage(t);
     });
   });
+  setPage(null);
 
   /* clicking a number copies its permanent address */
   document.addEventListener('click', function(ev){
@@ -1718,12 +1465,21 @@ a.pil-m:hover span,a.pil-m:focus-visible span{color:var(--cyan-bright)}
       list.appendChild(more);
     }
     face.appendChild(list);
-    face.appendChild(mk('span', 'enter', 'Enter this page \u2192'));
+    var enter = document.createElement('a');
+    enter.className = 'enter';
+    enter.href = '#page-' + pg.n;
+    enter.textContent = 'Open page ' + (pg.n < 10 ? '0' : '') + pg.n + ' \u2192';
+    enter.addEventListener('click', function(ev){ ev.preventDefault(); active = i; layout(); knGoToPage(pg.n); });
+    face.appendChild(enter);
     el.appendChild(face);
-    el.addEventListener('click', function(){
-      if (i !== active) { active = i; layout(); return; }
-      var t = document.getElementById('page-' + pg.n);
-      if (t) t.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    /* One click opens the page. A card that is not at the front comes forward
+       *and* opens — the old behaviour needed two clicks with nothing on the card
+       saying so, and on the front card the sticky scroll target meant the second
+       click often did not move at all. */
+    el.addEventListener('click', function(ev){
+      if (ev.target.closest && ev.target.closest('a')) return;
+      if (i !== active) { active = i; layout(); }
+      knGoToPage(pg.n);
     });
     stage.appendChild(el);
     cards.push(el);

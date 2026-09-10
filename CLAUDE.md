@@ -69,10 +69,21 @@ A single, deliberate system — a deep-navy observatory lit by one cyan signal.
 | Ice | `#8fbdff` | Tertiary highlight |
 | Silver / Light | `#dce9f7` · `#eef6ff` | Text |
 
-Type is a three-voice system: **Fraunces** (display serif), **Hanken Grotesk**
-(reading grotesque), and **JetBrains Mono** (data/detail). Motion is
-restrained — constellations, orbits, slow gradients — never decorative for its
-own sake.
+Type is a three-voice system, but the pages do not all speak it identically —
+this was checked against the files rather than taken from this document, which
+previously named two families (Fraunces, Hanken Grotesk) that no page loads:
+
+| Page group | Display | Reading | Data |
+|---|---|---|---|
+| `wiki.html`, `executive-summary.html` | Cormorant Garamond | Archivo | JetBrains Mono |
+| `drgs-compendium.html` | Archivo | Inter | JetBrains Mono |
+| `observatory.html` | Arial Narrow / Aptos Display | Inter | — |
+| psychiatry pages, `source-corpus.html` | Manrope | Manrope | JetBrains Mono |
+
+Motion is restrained, and on `wiki.html` deliberately absent: its background
+constellation and its sheen loop were removed because that page's purpose is to
+direct the reader, and a permanent `requestAnimationFrame` loop bought nothing
+towards that.
 
 ## The LinkedIn badge (README.md)
 
