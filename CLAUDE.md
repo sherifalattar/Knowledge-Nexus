@@ -18,8 +18,15 @@ Live site: https://sherifalattar.github.io/Knowledge-Nexus/
   so documents travel self-contained. Only a few loose assets exist at the root
   (`*.png`, `*.jpg`, `background-music.mp3`).
 - `audio.js` is a single shared script that carries background music across
-  pages and remembers playback state so the music never restarts on navigation.
-  `background-music.mp3` must live at the repository root.
+  pages and remembers **which piece and what position**, so navigation never
+  restarts the music. It plays a five-piece library (~61 minutes) that must live
+  at the repository root: `background-music.mp3` and `Background-music-2..5.mp3`
+  — the capitalisation matters, GitHub Pages is case-sensitive.
+  **The tracks are never preloaded.** Together they are ~41 MB; `preload` is
+  `none` until Sound is pressed, and the next piece is fetched only when the
+  current one ends. Any change here must preserve that — a visitor on mobile
+  data should never pay for a minute they do not hear.
+  Every page must include `audio.js`, or the music dies on that page.
 - Nothing is fetched from a data file at runtime — every module is
   self-contained.
 - Typefaces, the icon set, and the films load over HTTPS, so the canonical
