@@ -16,13 +16,14 @@ Live site: https://sherifalattar.github.io/Knowledge-Nexus/
   hand-authored HTML, CSS, and inline SVG.
 - Imagery is largely **inlined** (gradients, vector glyphs, base64 data-URIs),
   so documents travel self-contained. Only a few loose assets exist at the root
-  (`*.png`, `*.jpg`, `background-music.mp3`).
+  (`*.png`, `*.jpg`, `Background-music-*.mp3`).
 - `audio.js` is a single shared script that carries background music across
   pages and remembers **which piece and what position**, so navigation never
-  restarts the music. It plays a five-piece library (~61 minutes) that must live
-  at the repository root: `background-music.mp3` and `Background-music-2..5.mp3`
-  — the capitalisation matters, GitHub Pages is case-sensitive.
-  **The tracks are never preloaded.** Together they are ~41 MB; `preload` is
+  restarts the music. It plays a four-piece library (~58 minutes) that must live
+  at the repository root: `Background-music-2..5.mp3` — the capitalisation
+  matters, GitHub Pages is case-sensitive. (`background-music.mp3`, the original
+  short loop, was removed on 10 September 2026 at the author's request.)
+  **The tracks are never preloaded.** Together they are ~38 MB; `preload` is
   `none` until Sound is pressed, and the next piece is fetched only when the
   current one ends. Any change here must preserve that — a visitor on mobile
   data should never pay for a minute they do not hear.
@@ -37,7 +38,7 @@ Live site: https://sherifalattar.github.io/Knowledge-Nexus/
 
 | File | Role |
 |---|---|
-| `index.html` | The descent — three NASA IceBridge photographs of Antarctica, scroll-driven |
+| `index.html` | The descent — a polar landscape raymarched in real time (WebGPU, WebGL2 fallback) |
 | `pyramids.html` | The metaphoric landing |
 | `observatory.html` | The hub; every module orbits here |
 | `drgs-compendium.html` | IR-DRG system |
@@ -56,13 +57,14 @@ Live site: https://sherifalattar.github.io/Knowledge-Nexus/
 
 ### Third-party imagery
 
-Everything on this site is Sherif's own work except the three photographs on
-`index.html` (`pole-1-flight.jpg`, `pole-2-range.jpg`, `pole-3-front.jpg`).
-They are **NASA / Operation IceBridge**, taken from the DC-8 over the Amundsen
-Sea, the Ellsworth Range and the Thurston Island calving front, and are in the
-**public domain** — NASA imagery carries no copyright. They are credited in the
-page footer anyway, because a site whose first principle is provenance should
-not have an unattributed object on it.
+Everything on this site is Sherif's own work. The one exception is a set of NASA /
+Operation IceBridge photographs of Antarctica (`pole-1-flight.jpg`,
+`pole-2-range.jpg`, `pole-3-front.jpg`), which are **public domain** — NASA imagery
+carries no copyright. `index.html` no longer displays them: it generates its
+landscape on the GPU instead, and keeps one photograph only as the last-resort
+fallback for a browser with neither WebGPU nor WebGL2. It is credited in the page
+footer, because a site whose first principle is provenance should not have an
+unattributed object on it.
 
 If any image is ever added from a source that is *not* public domain, its
 licence and author go in `project-record/decisions.md` before it is committed.
@@ -132,8 +134,8 @@ the live card with photo and headline.
   editing any page.
 - Keep documents self-contained: prefer inlined SVG/CSS and base64 data-URIs
   over new loose asset files.
-- Keep `background-music.mp3` and `audio.js` at the repository root; do not
-  break cross-page audio continuity.
+- Keep the `Background-music-*.mp3` files and `audio.js` at the repository root;
+  do not break cross-page audio continuity.
 - To preview locally, serve the folder over HTTP (any static server) rather than
   opening files from disk — the embeds need a real origin.
 
