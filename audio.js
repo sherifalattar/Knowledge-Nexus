@@ -17,7 +17,6 @@
 
   /* Filenames are case-sensitive on GitHub Pages — these match the repository. */
   var TRACKS = [
-    'background-music.mp3',
     'Background-music-2.mp3',
     'Background-music-3.mp3',
     'Background-music-4.mp3',

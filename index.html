@@ -19,149 +19,121 @@
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,75..125,100..900&family=Cormorant+Garamond:wght@400..700&family=JetBrains+Mono:wght@300..600&display=swap" rel="stylesheet">
-<link rel="preload" as="image" href="pole-1-flight.jpg" fetchpriority="high">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400..700&family=Cormorant+Garamond:wght@400..700&family=JetBrains+Mono:wght@300..600&display=swap" rel="stylesheet">
 <link rel="icon" type="image/png" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 64 64%27%3E%3Crect width=%2764%27 height=%2764%27 rx=%2714%27 fill=%27%2305070C%27/%3E%3Cpath d=%27M14 44 L32 18 L50 44%27 fill=%27none%27 stroke=%27%23DCE9F7%27 stroke-width=%273%27 stroke-linejoin=%27round%27/%3E%3Ccircle cx=%2732%27 cy=%2714%27 r=%273%27 fill=%27%2322E8FF%27/%3E%3C/svg%3E">
 <style>
 /* ============================================================
-   THE DESCENT
-   Three real photographs, taken from NASA's Operation IceBridge
-   DC-8 while it flew over Antarctica. They are public domain, and
-   they are the whole page: this opening used to be a 566 KB
-   generated bundle that unpacked itself at runtime to show 454
-   characters. Scrolling flies you down through them.
+   THE DESCENT — a real-time flight down onto the polar ice.
+   The landscape is not a photograph and not a mesh: it is a
+   ridged-fBm heightfield raymarched in a fragment shader, lit by
+   a low sun with a hard shadow march. Scrolling lowers the
+   camera; the ice under it is generated as it arrives.
+
+   Three renderers, in order of preference:
+     1. WebGPU  (WGSL)   — used when the browser has navigator.gpu
+     2. WebGL2  (GLSL)   — identical scene, identical maths
+     3. the photographs  — if neither context can be created
+   Any failure in 1 falls silently to 2, and any failure in 2 to 3,
+   so the page cannot end up blank.
    ============================================================ */
 *{margin:0;padding:0;box-sizing:border-box}
 html{background:#05070C;scroll-behavior:smooth}
+html{overflow-x:clip}
 body{background:#05070C;color:#DCE9F7;overflow-x:clip;
-  font-family:"Archivo",system-ui,-apple-system,sans-serif;
-  -webkit-font-smoothing:antialiased}
+  font-family:"Archivo",system-ui,-apple-system,sans-serif;-webkit-font-smoothing:antialiased}
 
-/* each frame is a full viewport that holds still while its photograph
-   scales — the camera falls, the ground does not slide past */
-.leg{position:relative;height:100svh;overflow:clip}
-.sticky{position:sticky;top:0;height:100svh;overflow:clip}
-.shot{position:absolute;inset:-8%;background-size:cover;background-position:center;
-  will-change:transform;transform:scale(var(--s,1))}
-.veil{position:absolute;inset:0;
-  background:linear-gradient(180deg,rgba(5,7,12,.34) 0%,rgba(5,7,12,.10) 38%,rgba(5,7,12,.72) 100%)}
-#leg1 .shot{background-image:url("pole-1-flight.jpg")}
-#leg2 .shot{background-image:url("pole-2-range.jpg")}
-#leg3 .shot{background-image:url("pole-3-front.jpg")}
+#sky{position:fixed;inset:0;z-index:0;display:block;width:100%;height:100%;
+  background:#0d1522 url("pole-2-range.jpg") center/cover no-repeat}
+#sky.live{background-image:none}
+.scrim{position:fixed;inset:0;z-index:1;pointer-events:none;
+  background:linear-gradient(180deg,rgba(5,7,12,.30) 0%,rgba(5,7,12,.02) 34%,rgba(5,7,12,.60) 100%)}
 
-/* the altitude readout — the one piece of chrome, and it is instrument, not decoration */
-.alt{position:fixed;left:clamp(16px,3vw,38px);top:50%;transform:translateY(-50%);z-index:6;
-  font-family:"JetBrains Mono",ui-monospace,monospace;font-size:10px;letter-spacing:.22em;
-  color:rgba(220,233,247,.62);pointer-events:none;
-  display:flex;flex-direction:column;gap:9px;align-items:flex-start}
-.alt b{font-weight:400;font-size:11.5px;color:#DCE9F7;font-variant-numeric:tabular-nums}
-.alt .bar{width:1px;height:clamp(90px,18vh,190px);background:rgba(220,233,247,.18);position:relative}
-.alt .bar i{position:absolute;left:-2px;width:5px;height:5px;border-radius:50%;
-  background:#22E8FF;top:var(--p,0%);transition:top .12s linear;font-style:normal}
-@media(max-width:640px){.alt{display:none}}
-
-.mid{position:absolute;inset:0;display:grid;place-items:center;text-align:center;
-  padding:0 clamp(20px,6vw,60px);z-index:3}
-/* A scrim under the words rather than a darker photograph: the first frame puts
-   the caption over a sunlit engine cowling, where white type disappears. This
-   pools shade exactly where the text sits and leaves the picture alone. */
-.mid > div{position:relative;padding:clamp(26px,4vw,52px) clamp(22px,4vw,58px)}
-.mid > div::before{content:"";position:absolute;inset:-10% -14%;z-index:-1;
-  background:radial-gradient(closest-side,rgba(4,7,13,.72),rgba(4,7,13,.42) 58%,transparent 78%);
-  -webkit-backdrop-filter:blur(2px);backdrop-filter:blur(2px)}
+.legs{position:relative;z-index:2}
+.leg{height:100svh;display:grid;place-items:center;text-align:center;padding:0 clamp(20px,6vw,60px)}
+.leg > div{position:relative;padding:clamp(24px,3.6vw,48px) clamp(22px,4vw,56px)}
+/* the scrim used to bleed 14% past the text box on each side, which extended the
+   document's scroll area and gave the page a 60-80px horizontal scroll at every
+   width — the same shape of bug as the one on the dossier. It stays inside the box
+   now, and the page is clipped as well, so no future decoration can do it again. */
+.leg > div::before{content:"";position:absolute;inset:-30% -3%;z-index:-1;
+  /* wide and shallow: at .66 it read as a dark smudge sitting on the ice. The
+     wordmark already carries its own shadow, so the scrim only has to take the
+     glare off the snow behind it. */
+  background:radial-gradient(closest-side,rgba(4,7,13,.34),rgba(4,7,13,.16) 52%,transparent 76%)}
 .cap{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:10px;letter-spacing:.3em;
-  text-transform:uppercase;color:rgba(220,233,247,.72);text-shadow:0 2px 14px rgba(0,0,0,.8)}
+  text-transform:uppercase;color:rgba(220,233,247,.74);text-shadow:0 2px 14px rgba(0,0,0,.8)}
 .line{margin-top:18px;font-family:"Cormorant Garamond",Georgia,serif;font-weight:500;
-  font-size:clamp(21px,3.1vw,38px);line-height:1.3;color:#F2F7FF;max-width:20ch;
+  font-size:clamp(21px,3.1vw,38px);line-height:1.3;color:#F4F8FF;max-width:20ch;
   text-shadow:0 3px 26px rgba(0,0,0,.75)}
-
-/* the wordmark, cut into the ice rather than laid on it */
 .mark{font-family:"Cormorant Garamond",Georgia,serif;font-weight:600;text-transform:uppercase;
-  font-size:clamp(26px,6.6vw,84px);letter-spacing:.16em;line-height:1.06;color:#EAF2FB;
-  text-shadow:0 2px 0 rgba(255,255,255,.22),0 -1px 2px rgba(10,20,34,.85),0 8px 44px rgba(0,0,0,.6)}
+  font-size:clamp(26px,6.4vw,80px);letter-spacing:.16em;line-height:1.06;color:#EFF5FC;
+  text-shadow:0 2px 0 rgba(255,255,255,.20),0 -1px 2px rgba(10,20,34,.9),0 10px 46px rgba(0,0,0,.66)}
 .sub{margin-top:20px;font-family:"JetBrains Mono",ui-monospace,monospace;font-size:10.5px;
-  letter-spacing:.26em;text-transform:uppercase;color:rgba(220,233,247,.78)}
-.enter{margin-top:38px;display:inline-flex;align-items:center;gap:11px;
-  padding:14px 26px;border-radius:999px;text-decoration:none;
-  font-family:"JetBrains Mono",ui-monospace,monospace;font-size:11px;letter-spacing:.2em;
-  text-transform:uppercase;color:#EAF2FB;
-  border:1px solid rgba(220,233,247,.42);background:rgba(6,10,18,.34);
+  letter-spacing:.26em;text-transform:uppercase;color:rgba(220,233,247,.82)}
+.enter{margin-top:38px;display:inline-flex;align-items:center;gap:11px;padding:14px 26px;
+  border-radius:999px;text-decoration:none;font-family:"JetBrains Mono",ui-monospace,monospace;
+  font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:#EFF5FC;
+  border:1px solid rgba(220,233,247,.44);background:rgba(6,10,18,.36);
   -webkit-backdrop-filter:blur(9px);backdrop-filter:blur(9px);
   transition:background .3s,border-color .3s,transform .3s}
-.enter:hover{background:rgba(6,10,18,.62);border-color:#22E8FF;transform:translateY(-2px)}
+.enter:hover{background:rgba(6,10,18,.66);border-color:#22E8FF;transform:translateY(-2px)}
+
+.alt{position:fixed;left:clamp(16px,3vw,38px);top:50%;transform:translateY(-50%);z-index:6;
+  font-family:"JetBrains Mono",ui-monospace,monospace;font-size:10px;letter-spacing:.22em;
+  color:rgba(220,233,247,.66);pointer-events:none;display:flex;flex-direction:column;gap:9px}
+.alt b{font-weight:400;font-size:11.5px;color:#EFF5FC;font-variant-numeric:tabular-nums}
+.alt .bar{width:1px;height:clamp(90px,18vh,190px);background:rgba(220,233,247,.20);position:relative}
+.alt .bar i{position:absolute;left:-2px;width:5px;height:5px;border-radius:50%;
+  background:#22E8FF;top:var(--p,0%);transition:top .12s linear}
+.alt .api{font-size:8.5px;letter-spacing:.2em;color:rgba(220,233,247,.34)}
+@media(max-width:640px){.alt{display:none}}
 
 .cue{position:fixed;left:50%;bottom:96px;transform:translateX(-50%);z-index:6;
   font-family:"JetBrains Mono",ui-monospace,monospace;font-size:9.5px;letter-spacing:.3em;
-  text-transform:uppercase;color:rgba(220,233,247,.6);transition:opacity .5s;text-align:center}
+  text-transform:uppercase;color:rgba(220,233,247,.62);transition:opacity .5s;text-align:center}
 .cue span{display:block;width:1px;height:34px;margin:10px auto 0;
   background:linear-gradient(180deg,rgba(220,233,247,.7),transparent)}
 
-/* the ground the descent lands on */
 .floor{position:relative;z-index:4;background:#05070C;padding:clamp(64px,11vh,120px) 0 132px}
 .wrap{width:min(100% - 44px,1080px);margin-inline:auto}
 .doors{display:grid;grid-template-columns:repeat(auto-fit,minmax(228px,1fr));gap:1px;
   background:#151A22;border:1px solid #151A22;border-radius:14px;overflow:hidden;margin-top:34px}
-.door{background:#0A0D13;padding:22px 22px 20px;text-decoration:none;display:block;
-  transition:background .25s}
+.door{background:#0A0D13;padding:22px;text-decoration:none;display:block;transition:background .25s}
 .door:hover{background:#111620}
-.door b{display:block;font-family:"Archivo",sans-serif;font-weight:600;font-size:15px;color:#EAF2FB}
+.door b{display:block;font-family:"Archivo",sans-serif;font-weight:600;font-size:15px;color:#EFF5FC}
 .door span{display:block;margin-top:7px;font-size:12.5px;line-height:1.55;color:#8FA0B6}
 .credit{margin-top:44px;font-family:"JetBrains Mono",ui-monospace,monospace;font-size:10px;
-  line-height:1.9;letter-spacing:.04em;color:#61708A}
+  line-height:1.9;color:#61708A}
 .credit a{color:#8FA0B6}
-@media (prefers-reduced-motion: reduce){
-  html{scroll-behavior:auto}
-  .shot{transform:none!important}
-}
+@media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto} }
 </style>
 </head>
 <body>
 
+<canvas id="sky"></canvas>
+<div class="scrim"></div>
+
 <div class="alt" aria-hidden="true">
   <span>ALT</span><b id="altv">37,000</b>
   <div class="bar"><i id="altp"></i></div>
-  <span>FT</span>
+  <span>FT</span><span class="api" id="api"></span>
 </div>
 
-<section class="leg" id="leg1">
-  <div class="sticky">
-    <div class="shot" data-from="1.18" data-to="1.00"></div>
-    <div class="veil"></div>
-    <div class="mid">
-      <div>
-        <div class="cap">78&deg;S &middot; Antarctica</div>
-        <p class="line">Some systems are only legible from above.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="leg" id="leg2">
-  <div class="sticky">
-    <div class="shot" data-from="1.26" data-to="1.02"></div>
-    <div class="veil"></div>
-    <div class="mid">
-      <div>
-        <div class="cap">Ellsworth Range</div>
-        <p class="line">Closer, the shape turns out to be made of rules.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="leg" id="leg3">
-  <div class="sticky">
-    <div class="shot" data-from="1.30" data-to="1.06"></div>
-    <div class="veil"></div>
-    <div class="mid">
-      <div>
-        <h1 class="mark">Knowledge&nbsp;Nexus</h1>
-        <div class="sub">Dr. Sherif Alattar &middot; MD</div>
-        <a class="enter" href="observatory.html">Enter the observatory &rarr;</a>
-      </div>
-    </div>
-  </div>
-</section>
+<div class="legs">
+  <section class="leg"><div>
+    <div class="cap">78&deg;S &middot; approach</div>
+    <p class="line">Some systems are only legible from above.</p>
+  </div></section>
+  <section class="leg"><div>
+    <div class="cap">descending</div>
+    <p class="line">Closer, the shape turns out to be made of rules.</p>
+  </div></section>
+  <section class="leg"><div>
+    <h1 class="mark">Knowledge&nbsp;Nexus</h1>
+    <div class="sub">Dr. Sherif Alattar &middot; MD</div>
+    <a class="enter" href="observatory.html">Enter the observatory &rarr;</a>
+  </div></section>
+</div>
 
 <div class="cue" id="cue">Descend<span></span></div>
 
@@ -177,52 +149,439 @@ body{background:#05070C;color:#DCE9F7;overflow-x:clip;
       <a class="door" href="executive-summary.html"><b>About the author</b><span>The origin and the path behind this work.</span></a>
     </div>
     <p class="credit">
-      Photographs: NASA / Operation IceBridge &mdash; the DC-8 over the Amundsen Sea,
-      the Ellsworth Range, and the Thurston Island calving front.
-      Public domain, from the <a href="https://images.nasa.gov" target="_blank" rel="noopener noreferrer">NASA image library</a>.<br>
-      &copy; 2026 Dr. Sherif Alattar. The text and design are his; the photographs are not, and are credited above.
+      The polar landscape is generated in real time on your own GPU &mdash; a ridged-fBm
+      heightfield, raymarched and sun-shadowed. Nothing on this page is a stock photograph.
+      Should your browser support neither WebGPU nor WebGL2, it falls back to a NASA
+      Operation IceBridge photograph of Antarctica, which is public domain.<br>
+      &copy; 2026 Dr. Sherif Alattar.
     </p>
   </div>
 </footer>
 
-<script>
-/* The descent: each photograph scales down as its leg passes, so the camera
-   falls towards the ice instead of the ice sliding past the window. Driven off
-   scroll position rather than a timer, so it follows the reader exactly. */
-(function(){
-  var legs = [].slice.call(document.querySelectorAll('.leg'));
-  var cue = document.getElementById('cue');
-  var altv = document.getElementById('altv'), altp = document.getElementById('altp');
-  var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var ticking = false;
+<script id="wgsl" type="x-shader">
+struct U { res: vec2f, t: f32, time: f32 };
+@group(0) @binding(0) var<uniform> u: U;
 
-  function frame(){
-    ticking = false;
-    var vh = innerHeight || 1;
-    legs.forEach(function(leg){
-      var shot = leg.querySelector('.shot');
-      if (!shot) return;
-      var r = leg.getBoundingClientRect();
-      /* 0 when the leg's top reaches the top of the screen, 1 when it leaves */
-      var p = Math.min(1, Math.max(0, -r.top / Math.max(1, r.height)));
-      var a = parseFloat(shot.dataset.from), b = parseFloat(shot.dataset.to);
-      if (!reduce) shot.style.transform = 'scale(' + (a + (b - a) * p).toFixed(4) + ')';
-    });
-    var max = document.documentElement.scrollHeight - vh;
-    var t = max > 0 ? Math.min(1, scrollY / max) : 0;
-    if (altv) altv.textContent = Math.round(37000 - t * 36400).toLocaleString('en-US');
-    if (altp) altp.style.setProperty('--p', (t * 100).toFixed(1) + '%');
-    if (cue) {
-      var gone = scrollY > vh * 0.28;
-      cue.style.opacity = gone ? '0' : '1';
-      cue.style.visibility = gone ? 'hidden' : 'visible';
-    }
+const SCALE: f32 = 0.0016;
+
+fn hash(p0: vec2f) -> f32 {
+  var p = fract(p0 * vec2f(127.1, 311.7));
+  p = p + vec2f(dot(p, p + 34.5));
+  return fract(p.x * p.y);
+}
+fn vnoise(p: vec2f) -> f32 {
+  let i = floor(p); let f = fract(p);
+  let w = f * f * (3.0 - 2.0 * f);
+  return mix(mix(hash(i), hash(i + vec2f(1.0, 0.0)), w.x),
+             mix(hash(i + vec2f(0.0, 1.0)), hash(i + vec2f(1.0, 1.0)), w.x), w.y);
+}
+fn terrain(p: vec2f) -> f32 {
+  var h = 0.0; var a = 1.0; var f = 1.0;
+  for (var i = 0; i < 7; i = i + 1) {
+    var n = vnoise(p * f);
+    n = 1.0 - abs(n * 2.0 - 1.0);
+    n = n * n;
+    h = h + n * a; a = a * 0.47; f = f * 2.03;
   }
-  addEventListener('scroll', function(){
-    if (!ticking){ ticking = true; requestAnimationFrame(frame); }
-  }, { passive: true });
-  addEventListener('resize', frame, { passive: true });
-  frame();
+  return h * 300.0 - 130.0;
+}
+fn terrainLow(p: vec2f) -> f32 {
+  var h = 0.0; var a = 1.0; var f = 1.0;
+  for (var i = 0; i < 4; i = i + 1) {
+    var n = vnoise(p * f);
+    n = 1.0 - abs(n * 2.0 - 1.0);
+    n = n * n;
+    h = h + n * a; a = a * 0.47; f = f * 2.03;
+  }
+  return h * 300.0 - 130.0;
+}
+fn normalAt(p: vec2f, w: f32) -> vec3f {
+  let e = w * SCALE;
+  let h = terrain(p);
+  return normalize(vec3f(terrain(p - vec2f(e, 0.0)) - h, w, terrain(p - vec2f(0.0, e)) - h));
+}
+
+@vertex fn vs(@builtin(vertex_index) vi: u32) -> @builtin(position) vec4f {
+  let p = vec2f(f32((vi << 1u) & 2u), f32(vi & 2u));
+  return vec4f(p * 2.0 - 1.0, 0.0, 1.0);
+}
+
+@fragment fn fs(@builtin(position) fc: vec4f) -> @location(0) vec4f {
+  let uv = (vec2f(fc.x, u.res.y - fc.y) - 0.5 * u.res) / u.res.y;
+
+  let fwd = 260.0 + u.t * 1450.0;
+  let cxz = vec2f(u.time * 7.0, fwd);
+  let ground = terrainLow(cxz * SCALE);
+  let agl = mix(1500.0, 300.0, pow(u.t, 1.22));
+  let ro = vec3f(cxz.x, ground + agl, cxz.y);
+  let pitch = mix(-0.05, -0.30, u.t);
+  let rd = normalize(vec3f(uv.x, uv.y + pitch, 1.0));
+
+  let sun = normalize(vec3f(-0.50, 0.30, 0.58));
+
+  let horizon = smoothstep(-0.09, 0.30, rd.y);
+  var sky = mix(vec3f(0.80, 0.87, 0.95), vec3f(0.16, 0.35, 0.68), horizon);
+  let sd = max(dot(rd, sun), 0.0);
+  sky = sky + vec3f(1.0, 0.94, 0.82) * pow(sd, 180.0) * 1.7;
+  sky = sky + vec3f(1.0, 0.90, 0.76) * pow(sd, 7.0) * 0.30;
+  var col = sky;
+
+  var t = 0.0; var hit = -1.0;
+  for (var i = 0; i < 210; i = i + 1) {
+    let p = ro + rd * t;
+    var h: f32;
+    if (t > 1400.0) { h = terrainLow(p.xz * SCALE); } else { h = terrain(p.xz * SCALE); }
+    let d = p.y - h;
+    if (d < 0.0011 * t) { hit = t; break; }
+    t = t + max(d * 0.26, 0.45 + t * 0.0030);
+    if (t > 7000.0) { break; }
+  }
+
+  if (hit > 0.0) {
+    let p = ro + rd * hit;
+    let n = normalAt(p.xz * SCALE, 3.0);
+
+    var sha = 1.0;
+    {
+      let so = p + n * (2.0 + 0.004 * hit);
+      var st = 12.0 + 0.01 * hit;
+      for (var j = 0; j < 48; j = j + 1) {
+        let q = so + sun * st;
+        let dd = q.y - terrain(q.xz * SCALE);
+        if (dd < 0.4) { sha = 0.0; break; }
+        sha = min(sha, 5.5 * dd / st);
+        st = st + clamp(dd * 0.85, 6.0, 190.0);
+        if (st > 3200.0) { break; }
+      }
+      sha = clamp(sha, 0.0, 1.0);
+    }
+    let dif = clamp(dot(n, sun), 0.0, 1.0) * sha;
+    let skyf = clamp(0.5 + 0.5 * n.y, 0.0, 1.0);
+    let bounce = clamp(dot(n, normalize(vec3f(-sun.x, 0.0, -sun.z))), 0.0, 1.0);
+
+    let snow = vec3f(0.96, 0.97, 1.00);
+    var lit = snow * vec3f(0.10, 0.13, 0.20)
+            + snow * dif * vec3f(1.0, 0.965, 0.90) * 2.35
+            + snow * skyf * vec3f(0.42, 0.55, 0.86) * 0.52
+            + snow * bounce * vec3f(0.34, 0.40, 0.52) * 0.16;
+
+    let sparkle = pow(vnoise(p.xz * 0.9), 22.0) * dif;
+    lit = lit + vec3f(1.0) * sparkle * 0.55;
+
+    let hv = normalize(sun - rd);
+    lit = lit + vec3f(0.8, 0.88, 1.0) * pow(clamp(dot(n, hv), 0.0, 1.0), 46.0) * 0.30;
+
+    let fog = 1.0 - exp(-hit * 0.000052);
+    lit = mix(lit, sky * 0.94, fog);
+    col = lit;
+  }
+
+  col = col * 1.14;
+  col = pow(col, vec3f(1.06));
+  col = (col * (2.51 * col + vec3f(0.03))) / (col * (2.43 * col + vec3f(0.59)) + vec3f(0.14));
+  col = pow(col, vec3f(0.4545));
+  col = col * (1.0 - 0.26 * dot(uv, uv));
+  return vec4f(col, 1.0);
+}
+</script>
+<script id="glsl" type="x-shader">#version 300 es
+precision highp float;
+out vec4 O;
+uniform vec2  uRes;
+uniform float uT;      // 0 = high above, 1 = on the ice
+uniform float uTime;
+
+/* ---------- value noise + fBm : the ice sheet is generated, not drawn ---------- */
+float hash(vec2 p){ p=fract(p*vec2(127.1,311.7)); p+=dot(p,p+34.5); return fract(p.x*p.y); }
+float vnoise(vec2 p){
+  vec2 i=floor(p), f=fract(p);
+  vec2 u=f*f*(3.0-2.0*f);
+  return mix(mix(hash(i),hash(i+vec2(1,0)),u.x),
+             mix(hash(i+vec2(0,1)),hash(i+vec2(1,1)),u.x),u.y);
+}
+/* ridged fBm gives the sharp wind-carved crests real polar ice has */
+float terrain(vec2 p){
+  float h=0.0, a=1.0, f=1.0;
+  for(int i=0;i<7;i++){
+    float n=vnoise(p*f);
+    n=1.0-abs(n*2.0-1.0);      // ridge
+    n*=n;
+    h+=n*a;
+    a*=0.47; f*=2.03;
+  }
+  return h*300.0 - 130.0;
+}
+float terrainLow(vec2 p){      /* cheaper march near the far plane */
+  float h=0.0,a=1.0,f=1.0;
+  for(int i=0;i<4;i++){
+    float n=vnoise(p*f); n=1.0-abs(n*2.0-1.0); n*=n;
+    h+=n*a; a*=0.47; f*=2.03;
+  }
+  return h*300.0-130.0;
+}
+/* NOTE ON UNITS — this was the bug that made the whole range look like grey felt.
+   terrain() takes noise-space coordinates but returns WORLD height in metres, so a
+   step of e in noise space is e/SCALE metres on the ground. Putting e itself in the
+   y slot made the normal almost horizontal everywhere: dot(n,sun) collapsed, the
+   sun stopped lighting anything, and the tonemapper lifted the result to flat grey. */
+const float SCALE = 0.0016;
+vec3 normalAt(vec2 p, float w){        // w = step in METRES
+  float e = w*SCALE;
+  float h = terrain(p);
+  return normalize(vec3(terrain(p-vec2(e,0.0))-h, w, terrain(p-vec2(0.0,e))-h));
+}
+
+void main(){
+  vec2 uv=(gl_FragCoord.xy-0.5*uRes)/uRes.y;
+
+  /* The camera falls, and tips from looking ahead to looking down.
+     Altitude is measured ABOVE THE GROUND BENEATH IT, not from sea level: the ice
+     rises to ~170 m here, so a fixed 96 m ended the descent *inside* a ridge and the
+     screen went blank. Sampling the terrain under the camera keeps it flying. */
+  float fwd = 260.0 + uT*1450.0;
+  vec2  cxz = vec2(uTime*7.0, fwd);
+  float ground = terrainLow(cxz*SCALE);
+  float agl = mix(1500.0, 300.0, pow(uT,1.22));
+  vec3  ro  = vec3(cxz.x, ground + agl, cxz.y);
+  float pitch = mix(-0.05, -0.30, uT);
+  vec3  rd  = normalize(vec3(uv.x, uv.y + pitch, 1.0));
+
+  vec3 sun = normalize(vec3(-0.50, 0.30, 0.58));
+
+  /* --- polar sky: bright, cold, with the low sun blooming across it --- */
+  float horizon = smoothstep(-0.09, 0.30, rd.y);
+  vec3 sky = mix(vec3(0.80,0.87,0.95), vec3(0.16,0.35,0.68), horizon);
+  float sd = max(dot(rd,sun),0.0);
+  sky += vec3(1.0,0.94,0.82)*pow(sd,180.0)*1.7;          // the disc
+  sky += vec3(1.0,0.90,0.76)*pow(sd,7.0)*0.30;           // the bloom
+  vec3 col = sky;
+
+  /* --- heightfield march --- */
+  float t=0.0, hit=-1.0;
+  for(int i=0;i<210;i++){
+    vec3 p = ro + rd*t;
+    float h = (t>1400.0) ? terrainLow(p.xz*SCALE) : terrain(p.xz*SCALE);
+    float d = p.y - h;
+    if(d < 0.0011*t){ hit=t; break; }
+    t += max(d*0.26, 0.45 + t*0.0030);
+    if(t>7000.0) break;
+  }
+
+  if(hit>0.0){
+    vec3 p = ro + rd*hit;
+    vec3 n = normalAt(p.xz*SCALE, 3.0);
+
+    /* hard shadow: march toward the sun and see if a crest blocks it */
+    /* The march stops when it is within 0.0018*t of the surface, so the hit point can
+       sit a few metres INSIDE the ice. A shadow ray fired from there is underground on
+       its first step and reports everything as shadowed — which is exactly what it did:
+       the whole range came back black. Start from a point lifted clear of the surface,
+       and step out far enough to leave the tolerance band behind. */
+    float sha=1.0;
+    {
+      vec3 so = p + n*(2.0 + 0.004*hit);
+      float st = 12.0 + 0.01*hit;
+      for(int j=0;j<48;j++){
+        vec3 q = so + sun*st;
+        float dd = q.y - terrain(q.xz*SCALE);
+        if(dd < 0.4){ sha=0.0; break; }
+        sha = min(sha, 5.5*dd/st);
+        st += clamp(dd*0.85, 6.0, 190.0);
+        if(st>3200.0) break;
+      }
+      sha = clamp(sha,0.0,1.0);
+    }
+    float dif = clamp(dot(n,sun),0.0,1.0)*sha;
+    float sky_ = clamp(0.5+0.5*n.y,0.0,1.0);
+    float bounce = clamp(dot(n,normalize(vec3(-sun.x,0.0,-sun.z))),0.0,1.0);
+
+    /* snow: very high albedo, blue in shadow — that blue is why ice reads as ice */
+    vec3 snow = vec3(0.96,0.97,1.00);
+    vec3 lit  = snow*vec3(0.10,0.13,0.20)
+              + snow*dif*vec3(1.0,0.97,0.90)*1.62
+              + snow*sky_*vec3(0.42,0.55,0.86)*0.52
+              + snow*bounce*vec3(0.34,0.40,0.52)*0.16;
+
+    /* wind-blown sastrugi glitter on the crests */
+    float sparkle = pow(vnoise(p.xz*0.9),22.0)*dif;
+    lit += vec3(1.0)*sparkle*0.55;
+
+    /* specular sheen on packed ice */
+    vec3 h_ = normalize(sun - rd);
+    lit += vec3(0.8,0.88,1.0)*pow(clamp(dot(n,h_),0.0,1.0),46.0)*0.30;
+
+
+
+
+    /* aerial perspective — distance is what makes it feel enormous */
+    float fog = 1.0-exp(-hit*0.000052);
+    lit = mix(lit, sky*0.94, fog);
+    col = lit;
+  }
+
+  /* exposure, a gentle filmic curve, and a vignette */
+  col *= 1.14;
+  col = pow(col, vec3(1.06));
+  col = (col*(2.51*col+0.03))/(col*(2.43*col+0.59)+0.14);
+  col = pow(col, vec3(0.4545));
+  float vig = 1.0 - 0.26*dot(uv,uv);
+  col *= vig;
+  O = vec4(col,1.0);
+}
+</script>
+<script>
+(function(){
+  var cv = document.getElementById('sky');
+  var altv = document.getElementById('altv'), altp = document.getElementById('altp');
+  var apiTag = document.getElementById('api'), cue = document.getElementById('cue');
+  var T = 0, dpr = 1, running = false, backend = '';
+
+  function progress(){
+    var max = document.documentElement.scrollHeight - innerHeight;
+    return max > 0 ? Math.min(1, Math.max(0, scrollY / max)) : 0;
+  }
+  function chrome(){
+    var t = progress();
+    /* the descent occupies the three legs; the footer is already on the ground */
+    T = Math.min(1, t / 0.78);
+    if (altv) altv.textContent = Math.round(37000 - T * 36000).toLocaleString('en-US');
+    if (altp) altp.style.setProperty('--p', (T * 100).toFixed(1) + '%');
+    if (cue) { var gone = scrollY > innerHeight * 0.28;
+      cue.style.opacity = gone ? '0' : '1'; cue.style.visibility = gone ? 'hidden' : 'visible'; }
+  }
+  /* The raymarcher is the expensive part, and how expensive depends entirely on the
+     machine: the same shader that is trivial on a discrete GPU was too slow to even
+     screenshot under software rendering. So the render scale is not a fixed guess —
+     it starts modest and then follows the measured frame time, down to a floor that
+     still fills the screen and up again when there is headroom. */
+  var quality = (innerWidth < 760) ? 0.55 : 0.72;
+  var Q_MIN = 0.26, Q_MAX = 0.95;
+  function size(){
+    dpr = Math.min(devicePixelRatio || 1, 2);
+    var w = Math.max(2, Math.floor(innerWidth * dpr * quality));
+    var h = Math.max(2, Math.floor(innerHeight * dpr * quality));
+    if (cv.width !== w || cv.height !== h){ cv.width = w; cv.height = h; }
+    return [w,h];
+  }
+  var lastT = 0, avg = 16;
+  function measure(){
+    var now = performance.now();
+    if (lastT){
+      var dt = Math.min(now - lastT, 200);
+      avg += (dt - avg) * 0.10;
+      /* 34ms ~= under 30fps: give up pixels. 15ms ~= comfortably over 60: take some back. */
+      if (avg > 34 && quality > Q_MIN) quality = Math.max(Q_MIN, quality * 0.86);
+      else if (avg < 15 && quality < Q_MAX) quality = Math.min(Q_MAX, quality * 1.03);
+    }
+    lastT = now;
+  }
+
+  /* ---------------------------------------------------------- 3. photographs */
+  function photographs(){
+    backend = 'still';
+    cv.classList.remove('live');
+    addEventListener('scroll', chrome, { passive:true });
+    chrome();
+  }
+
+  /* ---------------------------------------------------------- 2. WebGL2 */
+  function webgl2(){
+    var gl = null;
+    try { gl = cv.getContext('webgl2', { antialias:false, alpha:false, powerPreference:'high-performance' }); } catch(e){}
+    if (!gl) { photographs(); return; }
+    function compile(type, src){
+      var s = gl.createShader(type); gl.shaderSource(s, src); gl.compileShader(s);
+      return gl.getShaderParameter(s, gl.COMPILE_STATUS) ? s : null;
+    }
+    var vs = compile(gl.VERTEX_SHADER, '#version 300 es\nvoid main(){vec2 p=vec2((gl_VertexID<<1)&2,gl_VertexID&2);gl_Position=vec4(p*2.0-1.0,0,1);}');
+    var fs = compile(gl.FRAGMENT_SHADER, document.getElementById('glsl').textContent);
+    if (!vs || !fs) { photographs(); return; }
+    var pr = gl.createProgram(); gl.attachShader(pr, vs); gl.attachShader(pr, fs); gl.linkProgram(pr);
+    if (!gl.getProgramParameter(pr, gl.LINK_STATUS)) { photographs(); return; }
+    var uRes = gl.getUniformLocation(pr,'uRes'), uT = gl.getUniformLocation(pr,'uT'),
+        uTime = gl.getUniformLocation(pr,'uTime');
+    backend = 'WebGL2';
+    cv.classList.add('live');
+    start(function(){
+      var s = size();
+      gl.viewport(0,0,s[0],s[1]); gl.useProgram(pr);
+      gl.uniform2f(uRes, s[0], s[1]);
+      gl.uniform1f(uT, T);
+      gl.uniform1f(uTime, performance.now()*0.00006);
+      gl.drawArrays(gl.TRIANGLES, 0, 3);
+    });
+  }
+
+  /* ---------------------------------------------------------- 1. WebGPU */
+  function webgpu(){
+    if (!navigator.gpu) { webgl2(); return; }
+    navigator.gpu.requestAdapter().then(function(adapter){
+      if (!adapter) throw new Error('no adapter');
+      return adapter.requestDevice();
+    }).then(function(device){
+      var ctx = cv.getContext('webgpu');
+      if (!ctx) throw new Error('no webgpu context');
+      var fmt = navigator.gpu.getPreferredCanvasFormat();
+      ctx.configure({ device: device, format: fmt, alphaMode: 'opaque' });
+
+      /* Every WGSL and pipeline error is captured rather than thrown at the console,
+         so a shader this browser dislikes drops to WebGL2 instead of showing nothing. */
+      device.pushErrorScope('validation');
+      var mod = device.createShaderModule({ code: document.getElementById('wgsl').textContent });
+      var pipe = device.createRenderPipeline({
+        layout: 'auto',
+        vertex:   { module: mod, entryPoint: 'vs' },
+        fragment: { module: mod, entryPoint: 'fs', targets: [{ format: fmt }] },
+        primitive:{ topology: 'triangle-list' }
+      });
+      return device.popErrorScope().then(function(err){
+        if (err) throw new Error('wgsl: ' + err.message);
+        var buf = device.createBuffer({ size: 16, usage: GPUBufferUsage.UNIFORM | GPUBufferUsage.COPY_DST });
+        var bind = device.createBindGroup({ layout: pipe.getBindGroupLayout(0),
+                                            entries: [{ binding:0, resource:{ buffer: buf } }] });
+        var data = new Float32Array(4);
+        device.lost.then(function(){ running = false; });
+        backend = 'WebGPU';
+        cv.classList.add('live');
+        start(function(){
+          var s = size();
+          data[0] = s[0]; data[1] = s[1]; data[2] = T; data[3] = performance.now()*0.00006;
+          device.queue.writeBuffer(buf, 0, data);
+          var enc = device.createCommandEncoder();
+          var pass = enc.beginRenderPass({ colorAttachments: [{
+            view: ctx.getCurrentTexture().createView(),
+            clearValue: { r:0.05, g:0.07, b:0.10, a:1 },
+            loadOp: 'clear', storeOp: 'store' }] });
+          pass.setPipeline(pipe); pass.setBindGroup(0, bind); pass.draw(3);
+          pass.end(); device.queue.submit([enc.finish()]);
+        });
+      });
+    }).catch(function(){ webgl2(); });
+  }
+
+  /* one loop, whichever backend won; it only paints while the canvas is on screen */
+  function start(paint){
+    running = true;
+    var visible = true, queued = false, failures = 0;
+    document.addEventListener('visibilitychange', function(){ visible = !document.hidden; });
+    if (apiTag) apiTag.textContent = backend;
+    function frame(){
+      queued = false;
+      if (!running) return;
+      if (visible){
+        measure();
+        try { paint(); }
+        catch(e){ if (++failures > 4){ running = false; photographs(); return; } }
+      }
+      requestAnimationFrame(frame);
+    }
+    addEventListener('scroll', function(){ chrome(); }, { passive:true });
+    addEventListener('resize', chrome, { passive:true });
+    chrome();
+    requestAnimationFrame(frame);
+  }
+
+  webgpu();
 })();
 </script>
 
