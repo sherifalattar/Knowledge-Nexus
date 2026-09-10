@@ -155,6 +155,26 @@ the live card with photo and headline.
 
 ## Working conventions
 
+### The design is not yours to change
+
+**No design change without the author's explicit permission — none.** This is a
+standing instruction from Dr. Alattar, given on 11 September 2026, and it is the
+first rule in this file for a reason.
+
+- "Add X to this page" means **add X**. It does not license a rebuild, a
+  re-layout, a re-typesetting, or a removal of anything already there. When a page
+  is broken and the ask cannot be done without touching its structure, say so and
+  **ask** — do not decide.
+- A page's look, its layout, its palette, its typography and the devices on it
+  (a card deck, a hero band, a carousel) are the author's work. Fixing a defect
+  does not extend to redesigning around it.
+- Removing something is a design change. So is moving it, resizing it, or
+  replacing the thing that renders it.
+- When in doubt, the answer is to ask, not to proceed and report afterwards.
+
+Everything in a page's history is recoverable from git, but a design decision the
+author did not make is a cost he pays even when it is reverted.
+
 - Preserve the single design system (colours, type, restrained motion) when
   editing any page.
 - **The Six Chambers belong to `pyramids.html`.** The device — six doorways, one
