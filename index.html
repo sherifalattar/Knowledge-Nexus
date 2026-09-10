@@ -80,7 +80,9 @@ body{background:#05070C;color:#DCE9F7;overflow-x:clip;
 
 .alt{position:fixed;left:clamp(16px,3vw,38px);top:50%;transform:translateY(-50%);z-index:6;
   font-family:"JetBrains Mono",ui-monospace,monospace;font-size:10px;letter-spacing:.22em;
-  color:rgba(220,233,247,.66);pointer-events:none;display:flex;flex-direction:column;gap:9px}
+  color:rgba(220,233,247,.66);pointer-events:none;display:flex;flex-direction:column;gap:9px;
+  transition:opacity .45s}
+.alt.spent{opacity:0;visibility:hidden}
 .alt b{font-weight:400;font-size:11.5px;color:#EFF5FC;font-variant-numeric:tabular-nums}
 .alt .bar{width:1px;height:clamp(90px,18vh,190px);background:rgba(220,233,247,.20);position:relative}
 .alt .bar i{position:absolute;left:-2px;width:5px;height:5px;border-radius:50%;
@@ -113,7 +115,7 @@ body{background:#05070C;color:#DCE9F7;overflow-x:clip;
 <canvas id="sky"></canvas>
 <div class="scrim"></div>
 
-<div class="alt" aria-hidden="true">
+<div class="alt" id="alt" aria-hidden="true">
   <span>ALT</span><b id="altv">37,000</b>
   <div class="bar"><i id="altp"></i></div>
   <span>FT</span><span class="api" id="api"></span>
@@ -142,10 +144,12 @@ body{background:#05070C;color:#DCE9F7;overflow-x:clip;
     <div class="cap">The work</div>
     <div class="doors">
       <a class="door" href="drgs-compendium.html"><b>DRGs Compendium</b><span>The IR-DRG system, addressed block by block.</span></a>
+      <a class="door" href="denial-codes.html"><b>Denial Codes Thesis</b><span>Adjudication codes as knowledge infrastructure.</span></a>
+      <a class="door" href="psychiatry-intro.html"><b>Psychiatry</b><span>DSM-5-TR, IR-DRG and DoH, read together.</span></a>
+      <a class="door" href="setting-of-care.html"><b>Setting of Care</b><span>The principles that decide where care belongs.</span></a>
+      <a class="door" href="source-corpus.html"><b>Source Corpus</b><span>The authorities beneath every page.</span></a>
       <a class="door" href="wiki.html"><b>The Content Map</b><span>Every section and point, numbered and citable.</span></a>
       <a class="door" href="verification.html"><b>Verification Register</b><span>Which blocks name an authority, and which do not.</span></a>
-      <a class="door" href="psychiatry-intro.html"><b>Psychiatry</b><span>DSM-5, IR-DRG and DoH, read together.</span></a>
-      <a class="door" href="denial-codes.html"><b>Codes &middot; Global Atlas</b><span>Adjudication codes and the reasoning beneath them.</span></a>
       <a class="door" href="executive-summary.html"><b>About the author</b><span>The origin and the path behind this work.</span></a>
     </div>
     <p class="credit">
@@ -433,6 +437,7 @@ void main(){
 (function(){
   var cv = document.getElementById('sky');
   var altv = document.getElementById('altv'), altp = document.getElementById('altp');
+  var gauge = document.getElementById('alt'), legs = document.querySelector('.legs');
   var apiTag = document.getElementById('api'), cue = document.getElementById('cue');
   var T = 0, dpr = 1, running = false, backend = '';
 
@@ -448,6 +453,8 @@ void main(){
     if (altp) altp.style.setProperty('--p', (T * 100).toFixed(1) + '%');
     if (cue) { var gone = scrollY > innerHeight * 0.28;
       cue.style.opacity = gone ? '0' : '1'; cue.style.visibility = gone ? 'hidden' : 'visible'; }
+    /* the readout counts the descent; past the ice it was printing over the doors */
+    if (gauge && legs) gauge.classList.toggle('spent', scrollY > legs.offsetHeight - innerHeight * 0.45);
   }
   /* The raymarcher is the expensive part, and how expensive depends entirely on the
      machine: the same shader that is trivial on a discrete GPU was too slow to even
