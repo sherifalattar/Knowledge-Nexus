@@ -532,3 +532,96 @@ lifted out of `.t` to become direct grid children so they could hold a column of
 Depth is carried by an indent *inside* the address column, which leaves every title on one
 vertical line, the way a set index reads. Measured: one title x per width, 390 → 1440.
 
+---
+
+## D-24 · 10 September 2026 · One click opens a page — and why two clicks were needed
+
+**Source:** this session. **[RECORDED]** — your words: *"الكروت مش بتفتح على الصفحه"*.
+
+Two faults sat behind one symptom, and the second is worth keeping on the record
+because it will bite anyone who touches this layout again:
+
+1. Opening a page took **two** clicks — one to bring the card forward, one to
+   navigate — and nothing on the card said so.
+2. The second click often did nothing. `.page-block` is `position: sticky`, so
+   `getBoundingClientRect()` reports where the element is **currently stuck**, not
+   where it sits in the document. `scrollIntoView` therefore aimed at the wrong row,
+   and on the first block it did not move at all (measured: scroll 1903 before,
+   1903 after).
+
+`knGoToPage()` now sums `offsetTop` up the `offsetParent` chain — the un-stuck flow
+position — and the *Open page NN* affordance is a real anchor rather than a span, so
+it works on every card and not only the front one.
+
+---
+
+## D-25 · 10 September 2026 · The record is divided by page and by nothing else
+
+**Source:** this session. **[RECORDED]** — your words: *"تقسيم المواضيع حسب الصفحه
+للسهوله مش تقسيم clinical coding pearl لان العنوان لكل topic is inclusive"*.
+
+The clinical / coding / adjudication / coverage / pearl labels were a **second
+taxonomy laid over the same rows**. Since every topic title already states which it
+is, the labels carried no information the reader did not already have. Removed: 110
+chips and 5 filter buttons.
+
+Their column went with them, so the record is set in two columns now instead of
+three, which tightened the gutter measurably — the title's left edge at 1280px moved
+from 301px to 187px.
+
+The page chips took over the filtering: a chip narrows the record to that page and
+takes you there; pressing it again restores the whole record. An **All pages** chip
+leads the row.
+
+---
+
+## D-26 · 10 September 2026 · The wordmark is engraved, and the background field is gone
+
+**Source:** this session. **[RECORDED]** — your words: *"Knowledge Nexus Label is huge
+and it could be alot better - engraved within the canvus… scroll if heavy - no need
+for it if heavy javascript is used… the wiki is designed to be directive as a main
+objective"*.
+
+**The wordmark** was 86px of expanded black sans raised off a steel plate — the
+loudest object on a page whose whole purpose is to point elsewhere. It is now cut
+into the surface: set in the serif, tracked wide, at 50px, painted a shade darker
+than the panel with a single lit lower lip. **Legibility comes from the lip, not from
+lightening the letter** — that is what a chiselled edge actually does to light. The
+polished-metal sheen was removed with it; a sheen belongs to a raised plate.
+
+**The background constellation** ran a `requestAnimationFrame` loop over 711 stars for
+the life of the page and told the reader nothing they could act on. The sheen was a
+`setInterval` doing the same. Both gone:
+
+| | before | after |
+|---|---|---|
+| Page JavaScript | 20,599 B | 11,168 B |
+| `requestAnimationFrame` sites | 3 | 1 |
+| Canvases | 1 | 0 |
+
+**The governing sentence for this page, in your words:** *the wiki is designed to be
+directive as a main objective.* Anything that does not help the reader find and reach
+something does not belong on it.
+
+---
+
+## D-27 · 10 September 2026 · Correction — the documented typography was wrong
+
+**Source:** this session. **[DERIVED]** — found while looking for "the typography I
+prefer".
+
+`CLAUDE.md` stated the type system as **Fraunces** (display serif) and **Hanken
+Grotesk** (reading grotesque). **No page in the repository loads either family.** The
+document had been describing an intention, not the site.
+
+What the files actually use, checked page by page:
+
+| Page group | Display | Reading | Data |
+|---|---|---|---|
+| `wiki.html`, `executive-summary.html` | Cormorant Garamond | Archivo | JetBrains Mono |
+| `drgs-compendium.html` | Archivo | Inter | JetBrains Mono |
+| `observatory.html` | Arial Narrow / Aptos Display | Inter | — |
+| psychiatry pages, `source-corpus.html` | Manrope | Manrope | JetBrains Mono |
+
+`CLAUDE.md` now carries this table instead of the aspiration.
+
