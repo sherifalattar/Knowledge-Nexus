@@ -90,11 +90,9 @@ search — which does reach the whole record — is the only thing that spans th
 Entries carry their **names only**; the substance lines were removed for the same
 reason. Both properties are load-bearing: restoring either brings the stutter back.
 
-The chips are the whole navigation. A 3-D card deck used to stand above the
-record, one card per heading; it was removed because the device — good in itself,
-and still standing on `pyramids.html` where it belongs — did not suit a page whose
-job is to direct the reader. If pages are regrouped, the chips and the
-`data-group` attribute on each `.page-block` must move together.
+The deck above the record is generated from the `kn-map` JSON, one card per
+heading. If pages are regrouped, that JSON, the chips, and the `data-group`
+attribute on each `.page-block` must move together.
 
 ### Numbering and provenance
 
@@ -159,6 +157,10 @@ the live card with photo and headline.
 
 - Preserve the single design system (colours, type, restrained motion) when
   editing any page.
+- **The Six Chambers belong to `pyramids.html`.** The device — six doorways, one
+  word each — is that page's, and only that page's. It was rendered as artwork
+  (`psychiatry-hero.jpg`) and used as the hero band on `psychiatry-intro.html`;
+  that band was removed on 11 September 2026, and the image is now unreferenced.
 - **"Provenance over assertion" belongs to `observatory.html` alone.** The phrase
   was repeated on three pages; the idea may be restated elsewhere in other words,
   but the slogan itself appears once.

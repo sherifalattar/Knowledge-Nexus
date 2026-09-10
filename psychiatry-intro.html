@@ -13,7 +13,7 @@
 <meta property="og:title" content="Walk Through Psychiatry — Introduction | Knowledge Nexus">
 <meta property="og:description" content="Psychiatry as the framework sees it — how mental and behavioral health cases are classified, grouped, and valued within the UAE DRG system.">
 <meta property="og:url" content="https://sherifalattar.github.io/Knowledge-Nexus/psychiatry-intro.html">
-<meta property="og:image" content="https://sherifalattar.github.io/Knowledge-Nexus/Knowledge-Nexus-Six-Chambers.png">
+<meta property="og:image" content="https://sherifalattar.github.io/Knowledge-Nexus/Knowledge-Nexus.png">
 <meta property="og:image:width" content="1560">
 <meta property="og:image:height" content="1512">
 <meta name="twitter:card" content="summary_large_image">
@@ -134,27 +134,6 @@ footer{padding:28px 0 56px;border-top:1px solid var(--stroke);color:var(--faint)
   .intro-top{grid-template-columns:1fr}.intro-body{columns:1;padding:24px 20px 4px}.signature{justify-content:flex-start;padding:14px 20px 28px}.sigbox{text-align:left;min-width:0}.sigline{margin-left:0}.bridge{grid-template-columns:1fr}
 }
 
-/* ============================================================
-   THE LIQUID BAND — a real image the reader can stir.
-   Raw WebGL2: one quad, two programs, two half-float targets
-   ping-ponged. No library and no build step, so the page stays
-   a single file that opens on its own. If WebGL2 is missing the
-   band falls back to the still image and loses nothing but the
-   motion.
-   ============================================================ */
-.liquid-band{position:relative;height:clamp(200px,26vw,320px);margin:0 0 clamp(20px,3vw,34px);
-  border-radius:16px;overflow:hidden;border:1px solid var(--stroke,rgba(125,151,196,.18));
-  background:#0a1220 center/cover no-repeat url("psychiatry-hero.jpg");
-  box-shadow:0 40px 80px -50px #000}
-.liquid-band canvas{position:absolute;inset:0;width:100%;height:100%;display:block;opacity:0;
-  transition:opacity .6s ease}
-.liquid-band canvas.on{opacity:1}
-.liquid-veil{position:absolute;inset:0;pointer-events:none;
-  background:linear-gradient(180deg,rgba(10,16,24,.30),rgba(10,16,24,.62) 70%,rgba(10,16,24,.86))}
-.liquid-hint{position:absolute;right:14px;bottom:12px;pointer-events:none;
-  font-family:var(--font-mono,ui-monospace,monospace);font-size:9.5px;letter-spacing:.24em;
-  text-transform:uppercase;color:rgba(220,233,247,.5)}
-@media (prefers-reduced-motion: reduce){ .liquid-band canvas{display:none} }
 </style>
 <link rel="icon" type="image/png" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 64 64%27%3E%3Crect width=%2764%27 height=%2764%27 rx=%2714%27 fill=%27%23070A11%27/%3E%3Cpath d=%27M18 38c8-17 20-17 28 0%27 fill=%27none%27 stroke=%27%2319D3F3%27 stroke-width=%274%27 stroke-linecap=%27round%27/%3E%3Ccircle cx=%2732%27 cy=%2727%27 r=%277%27 fill=%27%232FE6C8%27/%3E%3C/svg%3E">
 <style id="kn-no-italics">em,i,cite,address,dfn,var{font-style:normal}em,dfn{font-weight:600}</style>
@@ -176,11 +155,6 @@ footer{padding:28px 0 56px;border-top:1px solid var(--stroke);color:var(--faint)
     <div class="chrome-contact">.preface</div>
   </div>
 
-  <div class="liquid-band" id="liquid-band">
-    <canvas id="liquid"></canvas>
-    <div class="liquid-veil"></div>
-    <div class="liquid-hint">stir it</div>
-  </div>
   <header>
     <span class="eye">Opening layer · scholarly frame</span>
     <h1>Introduction to the Psychiatric Diseases<br>Triangulated Lens</h1>
@@ -220,81 +194,6 @@ footer{padding:28px 0 56px;border-top:1px solid var(--stroke);color:var(--faint)
   </footer>
 </div>
 
-<script>
-/* the band: velocity advected into itself, damped, stirred by the pointer */
-(function(){
-  var cv=document.getElementById('liquid'); if(!cv) return;
-  if(window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  var gl=cv.getContext('webgl2',{antialias:false,alpha:true}); if(!gl) return;   /* still image remains */
-  var QUAD='#version 300 es\nin vec2 p; out vec2 vUv;\nvoid main(){ vUv=p*0.5+0.5; gl_Position=vec4(p,0.,1.); }';
-  var VEL='#version 300 es\nprecision highp float;\nin vec2 vUv; out vec4 o;\nuniform sampler2D uVel;\nuniform vec2 uTexel,uMouse,uDelta;\nuniform float uDt,uRadius,uDamp;\nvoid main(){\n vec2 back=vUv-texture(uVel,vUv).xy*uDt*uTexel;\n vec2 v=texture(uVel,back).xy*uDamp;\n v+=uDelta*smoothstep(uRadius,0.0,distance(vUv,uMouse))*0.85;\n o=vec4(v,0.,1.);\n}';
-  var COMP='#version 300 es\nprecision highp float;\nin vec2 vUv; out vec4 o;\nuniform sampler2D uVel,uImg;\nvoid main(){\n vec2 v=texture(uVel,vUv).xy;\n vec2 uv=vUv+v*0.055;\n float r=texture(uImg,uv+v*0.009).r;\n float g=texture(uImg,uv).g;\n float b=texture(uImg,uv-v*0.009).b;\n vec3 c=vec3(r,g,b)+vec3(.10,.22,.32)*min(length(v)*2.0,1.0);\n o=vec4(c,1.);\n}';
-  function sh(t,src){var x=gl.createShader(t);gl.shaderSource(x,src);gl.compileShader(x);
-    if(!gl.getShaderParameter(x,gl.COMPILE_STATUS))throw new Error(gl.getShaderInfoLog(x));return x;}
-  function prog(a,b){var p=gl.createProgram();gl.attachShader(p,sh(gl.VERTEX_SHADER,a));
-    gl.attachShader(p,sh(gl.FRAGMENT_SHADER,b));gl.linkProgram(p);
-    if(!gl.getProgramParameter(p,gl.LINK_STATUS))throw new Error(gl.getProgramInfoLog(p));return p;}
-  var pVel,pComp; try{ pVel=prog(QUAD,VEL); pComp=prog(QUAD,COMP); }catch(e){ return; }
-  var vao=gl.createVertexArray(); gl.bindVertexArray(vao);
-  var bf=gl.createBuffer(); gl.bindBuffer(gl.ARRAY_BUFFER,bf);
-  gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,-1,3,-1,-1,3]),gl.STATIC_DRAW);
-  gl.enableVertexAttribArray(0); gl.vertexAttribPointer(0,2,gl.FLOAT,false,0,0);
-  gl.getExtension('EXT_color_buffer_half_float'); gl.getExtension('EXT_color_buffer_float');
-  var SIM=192;
-  function tgt(){var t=gl.createTexture();gl.bindTexture(gl.TEXTURE_2D,t);
-    gl.texImage2D(gl.TEXTURE_2D,0,gl.RGBA16F,SIM,SIM,0,gl.RGBA,gl.HALF_FLOAT,null);
-    gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MIN_FILTER,gl.LINEAR);
-    gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MAG_FILTER,gl.LINEAR);
-    gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_S,gl.CLAMP_TO_EDGE);
-    gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_T,gl.CLAMP_TO_EDGE);
-    var f=gl.createFramebuffer();gl.bindFramebuffer(gl.FRAMEBUFFER,f);
-    gl.framebufferTexture2D(gl.FRAMEBUFFER,gl.COLOR_ATTACHMENT0,gl.TEXTURE_2D,t,0);
-    if(gl.checkFramebufferStatus(gl.FRAMEBUFFER)!==gl.FRAMEBUFFER_COMPLETE) return null;
-    gl.clearColor(0,0,0,1);gl.clear(gl.COLOR_BUFFER_BIT);return {t:t,f:f};}
-  var A=tgt(),B=tgt(); if(!A||!B) return;
-  var img=gl.createTexture(); gl.bindTexture(gl.TEXTURE_2D,img);
-  gl.texImage2D(gl.TEXTURE_2D,0,gl.RGBA,1,1,0,gl.RGBA,gl.UNSIGNED_BYTE,new Uint8Array([12,20,34,255]));
-  var ready=false, src=new Image();
-  src.onload=function(){ gl.bindTexture(gl.TEXTURE_2D,img);
-    gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL,true);
-    gl.texImage2D(gl.TEXTURE_2D,0,gl.RGBA,gl.RGBA,gl.UNSIGNED_BYTE,src);
-    gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MIN_FILTER,gl.LINEAR);
-    gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MAG_FILTER,gl.LINEAR);
-    gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_S,gl.CLAMP_TO_EDGE);
-    gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_T,gl.CLAMP_TO_EDGE);
-    ready=true; cv.classList.add('on'); };
-  src.src='psychiatry-hero.jpg';
-  var band=document.getElementById('liquid-band');
-  var M={x:.5,y:.5,tx:.5,ty:.5,dx:0,dy:0};
-  band.addEventListener('pointermove',function(e){ var r=band.getBoundingClientRect();
-    M.tx=(e.clientX-r.left)/r.width; M.ty=1-(e.clientY-r.top)/r.height; },{passive:true});
-  function size(){ var d=Math.min(devicePixelRatio||1,2), r=band.getBoundingClientRect();
-    cv.width=Math.max(1,Math.round(r.width*d)); cv.height=Math.max(1,Math.round(r.height*d)); }
-  addEventListener('resize',size); size();
-  var last=performance.now(), run=true;
-  var io=new IntersectionObserver(function(es){ run=es[0].isIntersecting; },{threshold:0});
-  io.observe(band);
-  function u(p,n){ return gl.getUniformLocation(p,n); }
-  function frame(now){ requestAnimationFrame(frame);
-    if(!ready||!run) { last=now; return; }
-    var dt=Math.min((now-last)/16.667,3); last=now;
-    var k=1-Math.pow(1-0.12,dt), px=M.x, py=M.y;
-    M.x+=(M.tx-M.x)*k; M.y+=(M.ty-M.y)*k; M.dx=(M.x-px)*8; M.dy=(M.y-py)*8;
-    gl.bindVertexArray(vao);
-    gl.bindFramebuffer(gl.FRAMEBUFFER,B.f); gl.viewport(0,0,SIM,SIM); gl.useProgram(pVel);
-    gl.activeTexture(gl.TEXTURE0); gl.bindTexture(gl.TEXTURE_2D,A.t); gl.uniform1i(u(pVel,'uVel'),0);
-    gl.uniform2f(u(pVel,'uTexel'),1/SIM,1/SIM); gl.uniform2f(u(pVel,'uMouse'),M.x,M.y);
-    gl.uniform2f(u(pVel,'uDelta'),M.dx,M.dy); gl.uniform1f(u(pVel,'uDt'),dt*14.0);
-    gl.uniform1f(u(pVel,'uRadius'),0.16); gl.uniform1f(u(pVel,'uDamp'),0.978);
-    gl.drawArrays(gl.TRIANGLES,0,3); var t=A; A=B; B=t;
-    gl.bindFramebuffer(gl.FRAMEBUFFER,null); gl.viewport(0,0,cv.width,cv.height); gl.useProgram(pComp);
-    gl.activeTexture(gl.TEXTURE0); gl.bindTexture(gl.TEXTURE_2D,A.t); gl.uniform1i(u(pComp,'uVel'),0);
-    gl.activeTexture(gl.TEXTURE1); gl.bindTexture(gl.TEXTURE_2D,img); gl.uniform1i(u(pComp,'uImg'),1);
-    gl.drawArrays(gl.TRIANGLES,0,3);
-  }
-  requestAnimationFrame(frame);
-})();
-</script>
 <script src="audio.js"></script>
 
 <script data-goatcounter="https://sherifalattar.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>

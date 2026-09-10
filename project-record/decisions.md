@@ -900,18 +900,25 @@ choosing a row sets `audio.src` and nothing else is fetched.
   commitment, so it now appears once, on the observatory. The other two say the same
   thing in their own words: the wiki's pillar is *Every Claim Names Its Authority*,
   and the register opens "a claim that names no authority is only an assertion".
-- **A misread, and the correction.** The instruction was that the six-chambers
-  *device* did not suit the **introduction page**. I removed the Six Chambers from
-  `pyramids.html` instead — the one page where they belong. Restored, and the thing
-  actually meant was removed instead: the 3-D card deck that stood above the record
-  on `wiki.html`, one card per heading, 18,544 bytes of markup, payload, renderer
-  and styles.
+- **Two misreads before the right page.** The instruction was that the
+  six-chambers *device* did not suit the **introduction page**. I removed the Six
+  Chambers from `pyramids.html` — the one page where they belong. Told that was
+  wrong, I removed the card deck from `wiki.html` instead, on the reasoning that
+  the old `introduction.html` had been merged into it. Also wrong. Both are
+  restored.
 
-  Worth stating why the misread happened: the introduction was merged into
-  `wiki.html` in an earlier session, so "the introduction page" no longer names a
-  file anyone can open. The lesson is not "read more carefully" — it is that a page
-  that has been folded into another keeps its old name in conversation long after it
-  stops having one on disk, and a request naming it should be resolved against that
-  history before anything is deleted.
+  The page meant was **`psychiatry-intro.html`**, whose nav tab reads
+  *introduction*, and whose hero band was the Six Chambers rendered as artwork
+  (`psychiatry-hero.jpg`) and stirred by a WebGL velocity field. The band is gone:
+  markup, shader and styles, 7,104 bytes, and the page's `og:image` no longer
+  points at the chambers either.
+
+  The lesson is not "read more carefully". Twice I answered "which page is the
+  introduction page?" by reasoning from repository history instead of looking at
+  what the pages actually render — and the answer was visible in one `grep` for
+  the artwork, or in one screenshot. **When a request names a page by a word that
+  is not a filename, find the word on the pages before deciding which file it
+  means.** The site has three things that could be called an introduction; only
+  one of them was showing the six chambers.
 - The opening page's door grid was **incomplete** — it listed six of the modules and
   omitted Source Corpus and Setting of Care outright. Eight now, the full set.

@@ -319,11 +319,102 @@ a.pil-m:hover span,a.pil-m:focus-visible span{color:var(--cyan-bright)}
   .cue i{animation:none}
 }
 
+/* ============================================================
+   THE DECK — fourteen pages as cards standing in depth
+   One card faces you; the rest recede left and right, tilted
+   away, each carrying its own page's constellation as its face.
+   ============================================================ */
+.gallery{position:relative;z-index:2;padding:34px 0 70px}
+.gal-head{display:flex;align-items:baseline;justify-content:space-between;gap:20px;
+  flex-wrap:wrap;margin:0 0 26px}
+.gal-head .eyebrow{margin:0}
+.gal-nav{display:flex;align-items:center;gap:10px}
+.gal-nav button{width:38px;height:38px;border-radius:999px;border:1px solid var(--line);
+  background:rgba(18,18,20,.7);color:var(--ink-2);cursor:pointer;display:grid;place-items:center;
+  transition:border-color .25s,color .25s,background .25s,transform .25s}
+.gal-nav button:hover{border-color:var(--gold-soft);color:var(--gold-bright);background:rgba(34,35,39,.85)}
+.gal-nav button:active{transform:scale(.93)}
+.gal-nav .pos{font-family:var(--font-mono);font-size:11px;letter-spacing:.16em;color:var(--ink-4);
+  min-width:92px;text-align:center;font-variant-numeric:tabular-nums}
+
+/* the outer cards sit two viewport-widths out; the stage clips them rather than
+   letting them push the page sideways. clip, not hidden: hidden would make the
+   stage a scroll container. */
+.stage{position:relative;height:clamp(330px,46vw,470px);perspective:1500px;
+  perspective-origin:50% 46%;touch-action:pan-y;overflow:clip;overflow-clip-margin:0}
+.stage::after{content:"";position:absolute;inset:auto 0 -6px 0;height:90px;pointer-events:none;
+  background:linear-gradient(180deg,transparent,rgba(7,11,18,.85))}
+
+/* A card is a graphite slab, not a window onto a starfield. It is black-to-grey,
+   and the only light is thrown from *behind* it onto the ground — never printed on
+   the face. The face carries the page's own sections, numbered, so the reader sees
+   what is inside before deciding to open it. */
+.gcard{position:absolute;left:50%;top:50%;width:clamp(250px,30vw,404px);
+  margin:0;transform-style:preserve-3d;cursor:pointer;
+  border-radius:14px;border:1px solid #27282C;
+  background:linear-gradient(168deg,#232428 0%,#18191C 34%,#0F1012 68%,#0A0A0C 100%);
+  box-shadow:0 40px 80px -44px #000, inset 0 1px 0 rgba(255,255,255,.07);
+  transition:transform .78s var(--ease-out), opacity .78s var(--ease-out),
+             border-color .4s, box-shadow .4s;
+  will-change:transform,opacity}
+/* The backlight is thrown by the slab itself, as an outward shadow. A child element
+   cannot do it: .gcard clips its children (overflow:hidden holds the item list inside
+   the rounded corners), so a glow div was trapped on the face instead of spilling
+   behind. An element's own box-shadow is not clipped by its own overflow. */
+.gcard .glow{display:none}
+
+.gcard{aspect-ratio:16/11;display:flex;flex-direction:column;overflow:hidden}
+.gcard .chead{display:flex;justify-content:space-between;align-items:baseline;
+  padding:14px 18px 0;flex:none}
+.gcard .face{flex:1 1 auto;min-height:0;display:flex;flex-direction:column;
+  transition:opacity .5s var(--ease-out);padding:10px 18px 16px;gap:9px}
+.gcard .no{font-family:var(--font-mono);font-size:10px;letter-spacing:.2em;color:var(--gold)}
+.gcard .ct{font-family:var(--font-mono);font-size:9.5px;letter-spacing:.1em;color:var(--ink-4)}
+.gcard h3{font-family:var(--font-display);font-weight:650;font-stretch:110%;flex:none;
+  font-size:clamp(14px,1.5vw,18px);line-height:1.16;color:var(--ink-1);letter-spacing:-.005em}
+/* the page's own sections, on the face of the card */
+.gcard .items{list-style:none;margin:0;padding:0;flex:1 1 auto;min-height:0;overflow:hidden;
+  display:flex;flex-direction:column;gap:3px;
+  -webkit-mask-image:linear-gradient(180deg,#000 76%,transparent);
+  mask-image:linear-gradient(180deg,#000 76%,transparent)}
+.gcard .items li{display:grid;grid-template-columns:40px 1fr;gap:9px;align-items:baseline;
+  font-size:11.4px;line-height:1.42;color:var(--ink-3)}
+.gcard .items li b{font-family:var(--font-mono);font-weight:400;font-size:9.5px;
+  color:var(--ink-4);font-variant-numeric:tabular-nums}
+.gcard .items li span{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.gcard .items li.more span,.gcard .items li.none span{color:var(--ink-4);white-space:normal}
+.gcard .items li.more,.gcard .items li.none{grid-template-columns:1fr}
+.gcard .edge{position:absolute;top:0;left:0;right:0;height:1px;background:var(--hairline-gold);opacity:.45}
+.gcard:not(.is-active) .face{opacity:.22}
+.gcard:not(.is-active) .chead{opacity:.35}
+.gcard.is-active{border-color:rgba(198,163,90,.40);
+  box-shadow:
+    0 0 120px 26px rgba(198,163,90,.13),
+    0 0 46px 2px rgba(150,180,210,.07),
+    0 54px 100px -46px #000,
+    0 0 0 1px rgba(198,163,90,.11),
+    inset 0 1px 0 rgba(255,255,255,.11)}
+.gcard.is-active:hover{border-color:var(--gold-soft)}
+.gcard .enter{font-family:var(--font-mono);font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--gold);opacity:0;transition:opacity .3s;flex:none;text-decoration:none;
+  align-self:flex-start;border-bottom:1px solid rgba(198,163,90,.35);padding-bottom:2px}
+.gcard .enter:hover{color:var(--gold-bright);border-bottom-color:var(--gold-bright)}
+.gcard.is-active .enter{opacity:1}
+
+@media(max-width:600px){
+  .stage{height:clamp(280px,68vw,360px)}
+  .gcard{width:min(78vw,320px)}
+  .gcard .items li{font-size:10.8px}
+}
+@media (prefers-reduced-motion: reduce){
+  .gcard{transition:none}
+}
 </style>
 <style id="kn-no-italics">em,i,cite,address,dfn,var{font-style:normal}em,dfn{font-weight:600}</style>
 </head>
 <body>
 
+<script id="kn-map" type="application/json">[{"n":1,"a":5,"c":188,"t":"DRGs Compendium","l":"The IR-DRG system, addressed block by block.","i":[{"n":"5.1","t":"Abu Dhabi Regulatory Codebook"},{"n":"5.2","t":"DRGs Roadmap"},{"n":"5.3","t":"Diagnoses Coding Validation"},{"n":"5.4","t":"Procedures & HCPCS"},{"n":"5.5","t":"Sepsis"},{"n":"5.6","t":"Chest"},{"n":"5.7","t":"Fracture Coding"},{"n":"5.8","t":"Metabolic"},{"n":"5.9","t":"Renal"},{"n":"5.10","t":"Malignancy"},{"n":"5.11","t":"Hepatic"},{"n":"5.12","t":"Surgeries"},{"n":"5.13","t":"Specialty Medications"},{"n":"5.14","t":"References"},{"n":"5.15","t":"Specialty Medications — full agent list (23)"}]},{"n":2,"a":6,"c":124,"t":"Denial Codes Thesis","l":"Adjudication codes as knowledge infrastructure, and the navigator over them.","i":[{"n":"6.1","t":"Denial Codes as Healthcare Knowledge Infrastructure"},{"n":"6.2","t":"An anatomy of administrative refusal"},{"n":"6.3","t":"Codes as knowledge infrastructure"},{"n":"6.4","t":"Where the vocabulary comes from"},{"n":"6.5","t":"A precise taxonomic architecture"},{"n":"6.6","t":"Five layers of the claims stack"},{"n":"6.7","t":"EDI and XML as competing grammars"},{"n":"6.8","t":"The denial-code production cycle"},{"n":"6.9","t":"Source, access, and the confidentiality lifecycle"},{"n":"6.10","t":"A sociotechnical framework"},{"n":"6.11","t":"Methodological blueprint"},{"n":"6.12","t":"Colophon of authority"},{"n":"6.13","t":"References & reference architecture"},{"n":"6.14","t":"Five layers of the claims stack"},{"n":"6.15","t":"Callout cards"},{"n":"7.1","t":"Eligibility  (ELIG) — 7 codes"},{"n":"7.2","t":"Authorization  (AUTH) — 9 codes"},{"n":"7.3","t":"Clinical / Coding  (CODE) — 15 codes"},{"n":"7.4","t":"Duplicate  (DUPL) — 2 codes"},{"n":"7.5","t":"Medical Necessity  (MNEC) — 6 codes"},{"n":"7.6","t":"Non-Coverage  (NCOV) — 26 codes"},{"n":"7.7","t":"Pricing  (PRCE) — 10 codes"},{"n":"7.8","t":"Timely Filing  (TIME) — 3 codes"}]},{"n":3,"a":8,"c":240,"t":"Psychiatry","l":"DSM-5-TR, IR-DRG and DoH, read together.","i":[{"n":"8.1","t":"Introduction to the Psychiatric Diseases Triangulated Lens"},{"n":"8.2","t":"Taxonomy Tree"},{"n":"8.3","t":"Deeper Semantic Layer"},{"n":"9.1","t":"Psychiatric Diseases Deeper Semantic Layer"},{"n":"9.2","t":"Licensed IR-DRG logic is proprietary"},{"n":"9.3","t":"These weights come from a published DOH addendum"},{"n":"9.4","t":"Authorities & sources"},{"n":"9.5","t":"Three lanes, one validation rule"},{"n":"9.6","t":"Abu Dhabi coding frame and exclusions"},{"n":"9.7","t":"Clinical terms that need visual handling, not just notes"},{"n":"9.8","t":"Definitions beneath the labels"},{"n":"9.9","t":"Three distinctions the labels hide"},{"n":"9.10","t":"Where an elegant summary needs a sharper edge"},{"n":"9.11","t":"Relative weights, ALOS & day-outlier trims"},{"n":"9.12","t":"Lexicon entries — 13 coded conditions # ICD-10 Condition Status 9.12.1 F63.1 Pyromania 19412 · verify 9.12.2 F63.2 Kleptomania 19412 · verify 9.12.3 F63.3 Trichotillomania 19412 · verify 9.12.4 F63.81 Intermittent explosive disorder 19412 · verify 9.12.5 F63.0 Pathological gambling 19412 · verify 9.12.6 F64.0 Transsexualism parked 9.12.7 F64.1 Dual-role transvestism parked 9.12.8 F65.1 Transvestic fetishism parked 9.12.9 F65 Paraphilic disorders parked 9.12.10 F52 Sexual dysfunctions parked 9.12.11 F66 Other sexual disorders parked 9.12.12 F40–F48 “Neuroses” terminology 9.12.13 F10–F19 Substance use terminology"},{"n":"9.13","t":"Label corrections — 6 entries"},{"n":"9.14","t":"Relative-weight rows — 30 (10 DRGs × base/CC/MCC)"},{"n":"10.1","t":"Bipolar Disorders  ·  IR-DRG 19413 Relative weights (base / w-CC / w-MCC): 2.4299,4.7934,6.6878"},{"n":"10.2","t":"Schizophrenia Disorders  ·  IR-DRG 19410 Relative weights (base / w-CC / w-MCC): 1.7420,3.4364,4.6857"},{"n":"10.3","t":"Major Depression  ·  IR-DRG 19411 Relative weights (base / w-CC / w-MCC): 1.6353,3.2259,4.6656"},{"n":"10.4","t":"Feeding & Eating Disorders  ·  IR-DRG 19418 Relative weights (base / w-CC / w-MCC): 1.1223,2.2138,3.3680"},{"n":"10.5","t":"Neuroses Except Depression  ·  IR-DRG 19415 Relative weights (base / w-CC / w-MCC): 1.0195,1.2475,2.2512"},{"n":"10.6","t":"Personality & Impulse Control  ·  IR-DRG 19412 Relative weights (base / w-CC / w-MCC): 0.9545,1.7243,4.3943"},{"n":"10.7","t":"Organic Disturbances & ID  ·  IR-DRG 19416 Relative weights (base / w-CC / w-MCC): 1.0174,1.8864,2.9408"},{"n":"10.8","t":"Childhood Onset Disorders  ·  IR-DRG 19417 Relative weights (base / w-CC / w-MCC): 1.0678,2.1065,3.0010"},{"n":"10.9","t":"Other Depressive Disorders  ·  IR-DRG 19414 Relative weights (base / w-CC / w-MCC): 1.3341,2.6317,3.9588"},{"n":"10.10","t":"Other Mental Disorders  ·  IR-DRG 19419 Relative weights (base / w-CC / w-MCC): 1.1254,2.2200,3.0452"}]},{"n":4,"a":11,"c":40,"t":"Setting of Care","l":"The principles that decide where care belongs.","i":[{"n":"11.1","t":"Setting of Care Principles"},{"n":"11.2","t":"Care should rise only to the level the patient requires."},{"n":"11.3","t":"Behavior is shaped by information, incentives, and systems."},{"n":"11.4","t":"Management should be proportionate, developmental, and fair."},{"n":"11.5","t":"Design incentives carefully; interpret signals humbly."},{"n":"11.6","t":"Difference is not dysfunction."},{"n":"11.7","t":"Appropriateness must remain coherent from request to payment."},{"n":"11.8","t":"Technology should extend judgment—not replace it."},{"n":"11.9","t":"Stewardship is legitimate only when safety and fairness are indivisible."},{"n":"11.10","t":"Success is alignment—not denial volume."},{"n":"11.11","t":"Care should follow clinical purpose—not administrative habit or economic architecture."}]},{"n":5,"a":12,"c":30,"t":"Source Corpus","l":"The authorities beneath every page.","i":[{"n":"12.1","t":"Source Corpus The Authorities Beneath Every Page"},{"n":"12.2","t":"The one boundary that governs the whole corpus"},{"n":"12.3","t":"The published rules every claim is adjudicated against"},{"n":"12.4","t":"The classification systems the claims are written in"},{"n":"12.5","t":"The engine that prices the encounter"},{"n":"12.6","t":"The benchmarks behind every validation rule"},{"n":"12.7","t":"The judgement layer that binds the sources together"}]}]</script>
 <div class="vignette"></div>
 <div class="grain"></div>
 <div id="progress"></div>
@@ -354,7 +445,7 @@ a.pil-m:hover span,a.pil-m:focus-visible span{color:var(--cyan-bright)}
     <div class="fore-body">
       <p>Knowledge Nexus began as private notes &mdash; an attempt to understand how the UAE health-insurance system reasons, and where that reasoning departs from the Saudi market I had learned first. Research, comparison of references, and discussion with colleagues turned the notes into something with a structure: a reference for people who must navigate the clinical and financial logic of care in the UAE.</p>
       <p>It is organised so that heavy material becomes navigable, around the UAE&nbsp;/&nbsp;DoH IR-DRG prospective-payment framework. Modern tools &mdash; artificial intelligence among them &mdash; are used for organisation and synthesis, never for authority. The authorities are named; where a passage carries none, the record says so rather than covering the gap.</p>
-      <p class="fore-close">What follows is the structure itself &mdash; five headings, and beneath each one every section and point it holds, numbered, stable, and citable.</p>
+      <p class="fore-close">What follows is the structure itself: every page, every section, and every point beneath them &mdash; numbered, stable, and citable.</p>
     </div>
 
     <div class="fore-pil" aria-label="Governing principles">
@@ -394,6 +485,17 @@ a.pil-m:hover span,a.pil-m:focus-visible span{color:var(--cyan-bright)}
   </div>
 </section>
 
+<section class="gallery wrap" id="deck" tabindex="0" aria-label="The five bodies of work">
+  <div class="gal-head">
+    <div class="eyebrow">Five bodies of work &middot; each a story of its own</div>
+    <div class="gal-nav">
+      <button class="prev" type="button" aria-label="Previous page"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>
+      <span class="pos">1 / 5</span>
+      <button class="next" type="button" aria-label="Next page"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></button>
+    </div>
+  </div>
+  <div class="stage"></div>
+</section>
 
 <div class="console">
   <div class="wrap">
@@ -1164,6 +1266,19 @@ function knGoToPage(n){
       knGoToGroup(t);
     });
   });
+  /* The deck drives the same filter without the page moving under it. Hiding the
+     other blocks makes the document shorter, and the browser then shifts scrollY
+     on its own — so the deck's position in the viewport is measured before the
+     filter and restored after it. The cards stay exactly where they were; only
+     the record beneath them changes. */
+  window.knShowPage = function(n){
+    var deck = document.getElementById('deck');
+    var before = deck ? deck.getBoundingClientRect().top : null;
+    setPage(n);
+    if (before === null) return;
+    var after = deck.getBoundingClientRect().top;
+    if (after !== before) window.scrollBy(0, after - before);
+  };
   setPage(1);
 
   /* clicking a number copies its permanent address */
@@ -1204,6 +1319,143 @@ function knGoToPage(n){
   })();
 })();
 
+/* ============================================================
+   5 · THE DECK — fourteen pages standing in depth
+   Each card carries its own page's constellation as its face,
+   drawn from the same 622 entries the index below lists. One
+   card faces the reader; the rest recede left and right.
+   ============================================================ */
+(function(){
+  var host = document.getElementById('deck');
+  var src  = document.getElementById('kn-map');
+  if (!host || !src) return;
+  var PAGES; try { PAGES = JSON.parse(src.textContent); } catch (e) { return; }
+  /* The payload is read out of the DOM, so every value in it counts as untrusted
+     input — and one of them ends up in an href. Coerce the page number to a real
+     integer in range here, once, so nothing downstream builds a URL out of text
+     that came from the document. */
+  PAGES = PAGES.filter(function(pg){
+    pg.n = parseInt(pg.n, 10);
+    pg.a = parseInt(pg.a, 10);
+    return pg.n >= 1 && pg.n <= 99 && pg.a >= 1 && pg.a <= 99;
+  });
+  if (!PAGES.length) return;
+
+  var KIND = ['', '47,230,200', '86,198,255', '243,203,125', '156,124,255', '196,204,223'];
+  var DEPTH = ['198,163,90', '143,189,255', '122,140,166'];
+  var stage = host.querySelector('.stage');
+  var pos   = host.querySelector('.pos');
+  var cards = [], active = 0;
+
+  function rng(seed){ return function(){
+    seed |= 0; seed = seed + 0x6D2B79F5 | 0;
+    var t = Math.imul(seed ^ seed >>> 15, 1 | seed);
+    t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t;
+    return ((t ^ t >>> 14) >>> 0) / 4294967296;
+  };}
+
+  /* No starfield on the cards. A card is a graphite slab lit from behind: the
+     light is cast on the ground around it, never printed on its face. The face
+     carries what the page actually holds — its own sections, numbered. */
+  PAGES.forEach(function(pg, i){
+    var el = document.createElement('article');
+    el.className = 'gcard';
+    function mk(tag, cls, text){
+      var e = document.createElement(tag);
+      if (cls) e.className = cls;
+      if (text != null) e.textContent = text;
+      return e;
+    }
+    el.appendChild(mk('div', 'edge'));
+    var head = mk('div', 'chead');
+    head.appendChild(mk('span', 'no', (pg.n < 10 ? '0' : '') + pg.n));
+    head.appendChild(mk('span', 'ct', pg.c + ' entries'));
+    el.appendChild(head);
+    var face = mk('div', 'face');
+    face.appendChild(mk('h3', null, pg.t));
+    var list = mk('ul', 'items');
+    (pg.i || []).slice(0, 7).forEach(function(it){
+      var li = document.createElement('li');
+      li.appendChild(mk('b', null, it.n));
+      li.appendChild(mk('span', null, it.t));
+      list.appendChild(li);
+    });
+    if (!(pg.i || []).length) {
+      var only = document.createElement('li');
+      only.className = 'none';
+      only.appendChild(mk('span', null, pg.l));
+      list.appendChild(only);
+    } else if (pg.i.length > 7) {
+      var more = document.createElement('li');
+      more.className = 'more';
+      more.appendChild(mk('span', null, '+ ' + (pg.i.length - 7) + ' more sections'));
+      list.appendChild(more);
+    }
+    face.appendChild(list);
+    var enter = document.createElement('a');
+    enter.className = 'enter';
+    enter.href = '#page-' + String(pg.a | 0);
+    enter.textContent = 'Open ' + pg.t + ' \u2192';
+    /* the link is the one control that does travel: it takes you to the entries */
+    enter.addEventListener('click', function(ev){
+      ev.preventDefault(); active = i; layout();
+      if (window.knShowPage) window.knShowPage(pg.n);
+      knGoToPage(pg.a);
+    });
+    face.appendChild(enter);
+    el.appendChild(face);
+    /* The deck does not go anywhere. Clicking a card brings it to the front and
+       shows that page's entries in the record directly below, at the same moment
+       — the reader keeps the cards in view and reads underneath them, instead of
+       being thrown down the document and losing the deck. */
+    el.addEventListener('click', function(ev){
+      if (ev.target.closest && ev.target.closest('a')) return;
+      active = i; layout();
+      if (window.knShowPage) window.knShowPage(pg.n);
+    });
+    stage.appendChild(el);
+    cards.push(el);
+  });
+
+  function layout(){
+    cards.forEach(function(el, i){
+      var d = i - active, ad = Math.abs(d);
+      var vis = ad <= 4;
+      el.style.display = vis ? '' : 'none';
+      if (!vis) return;
+      el.style.zIndex = String(50 - ad);
+      el.style.opacity = ad === 0 ? '1' : String(Math.max(0, 0.5 - ad * 0.11));
+      /* pushed further apart and turned harder away, so the centre card is
+         never crowded by the shoulders of its neighbours */
+      el.style.transform =
+        'translate(-50%,-50%) translateX(' + (d * 58) + '%) translateZ(' + (-ad * 250) + 'px)' +
+        ' rotateY(' + (d * -27) + 'deg) scale(' + (1 - ad * 0.03) + ')';
+      el.classList.toggle('is-active', ad === 0);
+      el.setAttribute('aria-hidden', ad === 0 ? 'false' : 'true');
+    });
+    if (pos) pos.textContent = (active + 1) + ' / ' + cards.length;
+  }
+
+  function step(n){ active = Math.max(0, Math.min(cards.length - 1, active + n)); layout(); }
+  host.querySelector('.prev').addEventListener('click', function(){ step(-1); });
+  host.querySelector('.next').addEventListener('click', function(){ step(1); });
+  host.addEventListener('keydown', function(e){
+    if (e.key === 'ArrowLeft') { step(-1); e.preventDefault(); }
+    if (e.key === 'ArrowRight') { step(1); e.preventDefault(); }
+  });
+
+  /* drag and swipe, because a deck asks to be pushed */
+  var x0 = null;
+  stage.addEventListener('pointerdown', function(e){ x0 = e.clientX; });
+  window.addEventListener('pointerup', function(e){
+    if (x0 === null) return;
+    var dx = e.clientX - x0; x0 = null;
+    if (Math.abs(dx) > 42) step(dx < 0 ? 1 : -1);
+  });
+
+  window.addEventListener('resize', function(){ clearTimeout(layout._t); layout._t = setTimeout(layout, 180); });
+  layout();
+})();
 </script>
 <!-- sa-linkedin-badge -->
 <div id="sa-linkedin-badge" style="position:fixed;left:0;bottom:0;z-index:9999;display:flex;justify-content:flex-start;padding:0 16px 14px;pointer-events:none;">
