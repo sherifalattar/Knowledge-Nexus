@@ -553,10 +553,15 @@ Your five points, and what each became.
   touching those two files carries a red check for a three-week-old `main` finding.
 - **Should `#layer-boundaries` (08A) appear in the psychiatry stepper?** It now reveals
   correctly, but it is still absent from the index. An editorial call, not a defect.
-- **A pre-existing horizontal overflow** on `executive-summary.html` at 390px width
-  (`scrollWidth` 453 against a 390px viewport). Measured against the committed version first:
-  **not introduced by this day's changes.** Not fixed — out of scope, and no offending element
-  could be isolated.
+- ~~**A pre-existing horizontal overflow** on `executive-summary.html` at 390px width.~~
+  **Fixed, 10 September 2026.** It had resisted diagnosis because *no element exceeded the
+  viewport* — which is why the earlier attempt could not isolate it. The width came from two
+  things that extend the scroll area without widening any box: a decorative absolutely
+  positioned `.section-line::before` (366px wide, offset 195px) and content overflowing
+  `.cine-portrait`. Both are meant to bleed, so the page was stopped from scrolling rather
+  than the artwork redrawn: `overflow-x: clip` — **not `hidden`**, which would make `body` a
+  scroll container and detach every `position: sticky` element on the page. Verified after
+  the change: `scrollWidth` 457 → 390, and the sticky `.classbar` still sticks.
 
 - **The music.** You mentioned a 30 MB file; it has not reached this session yet. When it
   does: 30 MB is inside GitHub's 100 MB limit, but heavy for a visitor on mobile data. The

@@ -72,10 +72,10 @@ body{
   color:var(--text);
   font-family:var(--sans);
   background:
-    radial-gradient(1000px 620px at 12% 4%,rgba(34,232,255,.12),transparent 62%),
-    radial-gradient(980px 640px at 94% 12%,rgba(156,124,255,.14),transparent 66%),
-    radial-gradient(760px 520px at 50% 92%,rgba(45,214,227,.10),transparent 65%),
-    linear-gradient(180deg,#02040A 0%,#050915 52%,#02040A 100%);
+    radial-gradient(1000px 620px at 12% 4%,rgba(232,213,168,.15),transparent 62%),
+    radial-gradient(980px 640px at 94% 12%,rgba(214,186,131,.17),transparent 66%),
+    radial-gradient(760px 520px at 50% 92%,rgba(242,227,192,.11),transparent 65%),
+    linear-gradient(180deg,#0A0803 0%,#141007 52%,#0A0803 100%);
   -webkit-font-smoothing:antialiased;
   text-rendering:optimizeLegibility;
   overflow-x:hidden;
@@ -108,7 +108,14 @@ body::after{
     0 45px 160px -70px rgba(0,0,0,.95);
 }
 a{color:inherit;text-decoration:none}
-#field{position:fixed;inset:0;z-index:1;pointer-events:none;opacity:.62}
+/* champagne gold, laid on as light rather than as a field of points: two warm
+   pools and a low horizon glow, so the page reads as lit from somewhere rather
+   than sprinkled with stars */
+#gold{position:fixed;inset:0;z-index:1;pointer-events:none;
+  background:
+    radial-gradient(1180px 760px at 76% -12%, rgba(232,213,168,.22), transparent 62%),
+    radial-gradient(980px 680px at 10% 6%, rgba(214,186,131,.13), transparent 58%),
+    radial-gradient(1400px 520px at 50% 108%, rgba(242,227,192,.10), transparent 66%)}
 .page-shell{
   position:relative;
   z-index:2;
@@ -260,7 +267,7 @@ h1{margin:0;font-family:var(--display);font-size:clamp(58px,8.2vw,112px);line-he
 .sound-toggle svg{width:15px;height:15px}
 @media(max-width:720px){.logo-core{inset:29%}.work-visual{width:118px;height:118px}.sound-toggle{right:24px;bottom:24px;height:38px;font-size:9px}}
 
-@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}#field{display:none}.reveal{opacity:1;transform:none}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}#gold{display:none}.reveal{opacity:1;transform:none}}
 
 /* v6 frame discipline */
 .hero-copy{padding-left:0;min-width:0}
@@ -540,9 +547,10 @@ h1{margin:0;font-family:var(--display);font-size:clamp(58px,8.2vw,112px);line-he
   setTimeout(reveal,3000);   /* safety cap so it never stays black */
 }catch(e){}})();
 </script>
+<style id="kn-no-italics">em,i,cite,address,dfn,var{font-style:normal}em,dfn{font-weight:600}</style>
 </head>
 <body>
-<canvas id="field"></canvas>
+<div id="gold" aria-hidden="true"></div>
 <div class="page-shell">
   <main>
     <section class="hero" id="top">
@@ -648,43 +656,9 @@ h1{margin:0;font-family:var(--display);font-size:clamp(58px,8.2vw,112px);line-he
 
 <script>
 (function(){
-  const canvas=document.getElementById('field');
-  const ctx=canvas.getContext('2d');
-  let w,h,dpr,pts=[];
-  function resize(){
-    dpr=Math.min(window.devicePixelRatio||1,2);
-    w=canvas.width=Math.floor(innerWidth*dpr);
-    h=canvas.height=Math.floor(innerHeight*dpr);
-    canvas.style.width=innerWidth+'px';
-    canvas.style.height=innerHeight+'px';
-    pts=Array.from({length:Math.min(92,Math.floor(innerWidth/18))},()=>({
-      x:Math.random()*w,y:Math.random()*h,r:(Math.random()*1.4+.25)*dpr,
-      vx:(Math.random()-.5)*.18*dpr,vy:(Math.random()-.5)*.18*dpr,
-      a:Math.random()*.55+.16
-    }));
-  }
-  function draw(){
-    ctx.clearRect(0,0,w,h);
-    for(const p of pts){
-      p.x+=p.vx;p.y+=p.vy;
-      if(p.x<0||p.x>w)p.vx*=-1;if(p.y<0||p.y>h)p.vy*=-1;
-      ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
-      ctx.fillStyle='rgba(220,233,247,'+p.a+')';ctx.fill();
-    }
-    for(let i=0;i<pts.length;i++)for(let j=i+1;j<pts.length;j++){
-      const a=pts[i],b=pts[j],dx=a.x-b.x,dy=a.y-b.y,dist=Math.hypot(dx,dy);
-      if(dist<150*dpr){
-        const o=(1-dist/(150*dpr))*.16;
-        const g=ctx.createLinearGradient(a.x,a.y,b.x,b.y);
-        g.addColorStop(0,'rgba(34,232,255,'+o+')');
-        g.addColorStop(.55,'rgba(220,233,247,'+(o*.9)+')');
-        g.addColorStop(1,'rgba(156,124,255,'+o+')');
-        ctx.strokeStyle=g;ctx.lineWidth=.75*dpr;ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);ctx.stroke();
-      }
-    }
-    requestAnimationFrame(draw);
-  }
-  resize();draw();addEventListener('resize',resize,{passive:true});
+  /* The drifting starfield is gone — 92 points and a permanent
+     requestAnimationFrame loop, replaced by a still champagne-gold wash painted
+     in CSS. Nothing to animate, nothing to repaint. */
   const stage=document.getElementById('stage');
   const orbitLabels={n1:'DRGs',n2:'Psychiatry',n3:'Codes',n4:'Care',n5:'Gallery',n6:'About'};
   Object.entries(orbitLabels).forEach(([node,label])=>{
@@ -735,7 +709,7 @@ h1{margin:0;font-family:var(--display);font-size:clamp(58px,8.2vw,112px);line-he
 .inst-track::-webkit-scrollbar{display:none}
 .inst{position:relative;flex:0 0 clamp(280px,58vw,620px);scroll-snap-align:start;
   aspect-ratio:16/10;border-radius:18px;overflow:hidden;border:1px solid rgba(220,233,247,.14);
-  background:#070c15;box-shadow:0 48px 90px -52px #000;transition:border-color .35s,transform .45s}
+  background:#0A0803;box-shadow:0 48px 90px -52px #000;transition:border-color .35s,transform .45s}
 .inst:hover{border-color:rgba(34,232,255,.42);transform:translateY(-3px)}
 .inst canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
 .inst-veil{position:absolute;inset:0;
