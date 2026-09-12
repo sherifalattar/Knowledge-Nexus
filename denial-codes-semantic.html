@@ -223,16 +223,19 @@
 
   /* compact view */
   .grid.compact{grid-template-columns:1fr;gap:7px;}
-  .grid.compact .card{padding:13px 18px;display:grid;grid-template-columns:128px 1fr auto;align-items:center;gap:18px;animation-duration:.35s;}
+  /* one row per code: the .ctop wrapper dissolves, so every piece is placed by hand */
+  .grid.compact .card{padding:13px 18px;display:grid;
+    grid-template-columns:128px minmax(0,1fr) auto auto auto;align-items:center;gap:18px;animation-duration:.35s;}
   .grid.compact .card::before{top:11px;bottom:11px;}
   .grid.compact .ctop{display:contents;}
-  .grid.compact .code{font-size:16px;}
-  .grid.compact .clabel{margin:0;}
-  .grid.compact .desc{font-size:14px;color:var(--silver);}
-  .grid.compact .ref{margin:0;}
-  .grid.compact .copyic{justify-self:end;}
+  .grid.compact .code{grid-area:1/1;font-size:16px;}
+  .grid.compact .desc{grid-area:1/2;font-size:14px;color:var(--silver);}
+  .grid.compact .ref{grid-area:1/3;margin:0;}
+  .grid.compact .clabel{grid-area:1/4;margin:0;}
+  .grid.compact .copyic{grid-area:1/5;justify-self:end;}
   @media(max-width:620px){
-    .grid.compact .card{grid-template-columns:104px 1fr;}
+    .grid.compact .card{grid-template-columns:104px minmax(0,1fr);}
+    .grid.compact .ref{grid-area:2/2;justify-self:start;margin-top:7px;}
     .grid.compact .clabel{display:none;}
     .grid.compact .copyic{display:none;}
   }
