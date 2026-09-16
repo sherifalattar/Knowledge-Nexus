@@ -27,6 +27,12 @@ jobs:
           # Find all .html files in root
           for file in *.html; do
             [ -f "$file" ] || continue
+            case "$file" in
+              google*.html|BingSiteAuth.html|yandex_*.html)
+                echo "Skipping: $file (site-verification stub)"
+                continue
+                ;;
+            esac
             total=$((total + 1))
             
             echo "Checking: $file"
@@ -39,7 +45,7 @@ jobs:
             fi
             
             # Check for proper HTML structure
-            if ! grep -q "<!doctype html" "$file" 2>/dev/null; then
+            if ! grep -qi "<!doctype html" "$file" 2>/dev/null; then
               echo "  ⚠ Missing or malformed doctype"
             fi
             
