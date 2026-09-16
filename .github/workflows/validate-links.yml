@@ -1,0 +1,61 @@
+name: Validate External Links
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  validate-links:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      
+      - name: Validate external sources
+        run: |
+          echo "🔍 Validating external sources from Source Corpus..."
+          echo ""
+          
+          # Critical sources referenced in Knowledge Nexus
+          declare -a sources=(
+            "https://www.cdc.gov/nchs/icd/icd-10-cm/files.html|CDC ICD-10-CM"
+            "https://www.psychiatry.org/psychiatrists/practice/dsm|APA DSM-5-TR"
+            "https://www.solventum.com/en-ae/home/health-information-technology/solutions/ir-drg/|Solventum IR-DRG"
+            "https://www.doh.gov.ae/-/media/Feature/shafifya/dictionary/Codes.ashx|DoH Shafafiya"
+            "https://orcid.org/0009-0000-8799-9395|ORCID Profile"
+          )
+          
+          failed=0
+          success=0
+          
+          for entry in "${sources[@]}"; do
+            IFS='|' read -r url name <<< "$entry"
+            echo "→ Checking: $name"
+            
+            http_code=$(curl -s -o /dev/null -w "%{http_code}" --max-time 10 "$url")
+            
+            if [[ "$http_code" =~ ^(200|301|302|303|307|308|403)$ ]]; then
+              echo "  ✓ OK (HTTP $http_code)"
+              success=$((success + 1))
+            else
+              echo "  ✗ FAILED (HTTP $http_code) - $url"
+              failed=$((failed + 1))
+            fi
+          done
+          
+          echo ""
+          echo "Results: $success passed, $failed failed"
+          
+          if [ $failed -gt 0 ]; then
+            echo ""
+            echo "⚠️  Some sources are unreachable or have changed"
+            exit 1
+          fi
+          
+          echo ""
+          echo "✅ All external sources validated"
