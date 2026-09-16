@@ -1,0 +1,19 @@
+# Exported by three-d-stage
+newmtl crest-artwork
+Kd 1.0000 1.0000 1.0000
+Ks 0.2000 0.2000 0.2000
+Ns 116
+d 1.0000
+
+newmtl navy-steel-plate
+Kd 0.0137 0.0262 0.0595
+Ks 0.2000 0.2000 0.2000
+Ns 100
+d 1.0000
+
+newmtl gold
+Kd 0.5647 0.3663 0.1022
+Ks 0.2000 0.2000 0.2000
+Ns 136
+d 1.0000
+
