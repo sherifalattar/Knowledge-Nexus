@@ -14,7 +14,8 @@ clinical coding · reimbursement · clinical reasoning · the connections betwee
 
 ---
 
-> Knowledge Nexus began as a desire to understand the UAE health‑insurance system, and how it differs in concept from the Saudi market where much of my earlier experience was formed. What started as personal notes grew — through reading, research, validation, comparison of references, and conversations with colleagues — into a broader repository spanning healthcare regulation, coding systems, reimbursement methodology, clinical guidelines, and operational practice.
+>The design and development of Knowledge Nexus was an incredible opportunity to understand the UAE health-insurance system and how it differs in concept from the Saudi market, where much of my earlier experience was formed. What started as personal notes grew — through reading, research, validation, comparison of references, and conversations with colleagues — into a broader repository spanning healthcare regulation, coding systems, reimbursement methodology, clinical guidelines, and operational practice. It is an observational study for my designs as well. What I am most passionate about is medicine, design and music, so that's why this is not a strict academic website; it is rather one within an artistic layout. I published the website as my first one on June 22nd, 2026.
+The idea
 
 ## The idea
 
@@ -26,7 +27,7 @@ It is offered in the open, as a study aid and a record of practice. It is **not*
 
 The site is built as a short journey rather than a page.
 
-1. **A cinematic opening** — a constellation you step through.
+1. **The beginning from the very far** — a step into the world of DRGs.
 2. **The Pyramids** — a metaphoric threshold: a doctrine set in stone, and the chambers that lie ahead.
 3. **The Observatory** — a hub where every module orbits a single point.
 4. **The modules** — each a self‑contained study of one part of the domain.
@@ -37,7 +38,7 @@ A continuous background music follows you from page to page and never restarts a
 
 | Module | What lives there |
 |---|---|
-| **Cinematic Opening** | The constellation you pass through to arrive. |
+| **The pole** | The entrance you pass through to arrive. |
 | **The Pyramids** | The metaphoric landing between the opening and the hub — a doctrine in stone, and the chambers it previews. |
 | **The Observatory** | The hub; every module orbits here. |
 | **DRGs Compendium** | The IR‑DRG system — how inpatient encounters group, and the logic beneath it. |
@@ -53,7 +54,7 @@ A continuous background music follows you from page to page and never restarts a
 
 ## Design language
 
-The look is a single, deliberate system — a deep‑navy observatory lit by one cyan signal.
+The look is mostly but always a single, deliberate system — a deep‑navy observatory lit by one cyan signal.
 
 | Token | Value | Role |
 |---|---|---|
