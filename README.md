@@ -14,8 +14,8 @@ clinical coding · reimbursement · clinical reasoning · the connections betwee
 
 ---
 
->The design and development of Knowledge Nexus was an incredible opportunity to understand the UAE health-insurance system and how it differs in concept from the Saudi market, where much of my earlier experience was formed. What started as personal notes grew — through reading, research, validation, comparison of references, and conversations with colleagues — into a broader repository spanning healthcare regulation, coding systems, reimbursement methodology, clinical guidelines, and operational practice. It is an observational study for my designs as well. What I am most passionate about is medicine, design and music, so that's why this is not a strict academic website; it is rather one within an artistic layout. I published the website as my first one on June 22nd, 2026.
-The idea
+>The design and development of Knowledge Nexus started while a recent journery to understand the UAE health-insurance system and how it differs in concept from the Saudi market, where much of my earlier experience was formed. What started as personal notes grew — through reading, research, validation, comparison of references, and conversations with colleagues — into a broader repository spanning healthcare regulation, coding systems, reimbursement methodology, clinical guidelines, and operational practice. It is an observational study for my designs as well. What I am most passionate about is medicine, design and music, so that's why this is not a strict academic website; it is rather one within an artistic layout. I published the website as my first one on June 22nd, 2026.
+
 
 ## The idea
 
