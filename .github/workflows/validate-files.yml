@@ -81,3 +81,13 @@ jobs:
           
           echo ""
           echo "✅ All HTML files passed integrity check"
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+  schedule:
+    - cron: '0 9 * * 1'
