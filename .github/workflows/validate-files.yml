@@ -7,87 +7,83 @@ on:
   pull_request:
     branches:
       - main
+  workflow_dispatch:
+  schedule:
+    - cron: '0 9 * * 1'
 
 jobs:
   check-integrity:
     runs-on: ubuntu-latest
-    
+
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
-      
+        uses: actions/checkout@v4
+
       - name: Validate HTML files
+        shell: bash
         run: |
-          echo "🔍 Scanning HTML files for integrity..."
+          set -euo pipefail
+
+          echo "🔍 Scanning current HTML files for integrity..."
           echo ""
-          
+
           failed=0
           total=0
-          
-          # Find all .html files in root
-          for file in *.html; do
-            [ -f "$file" ] || continue
+
+          shopt -s nullglob
+          files=( *.html )
+
+          if [[ ${#files[@]} -eq 0 ]]; then
+            echo "❌ No HTML files found"
+            exit 1
+          fi
+
+          for file in "${files[@]}"; do
             case "$file" in
               google*.html|BingSiteAuth.html|yandex_*.html)
                 echo "Skipping: $file (site-verification stub)"
                 continue
                 ;;
             esac
+
             total=$((total + 1))
-            
             echo "Checking: $file"
-            
-            # Check file is not empty
-            if [ ! -s "$file" ]; then
-              echo "  ✗ File is empty or missing"
+
+            if [[ ! -s "$file" ]]; then
+              echo "  ✗ File is empty"
               failed=$((failed + 1))
               continue
             fi
-            
-            # Check for proper HTML structure
-            if ! grep -qi "<!doctype html" "$file" 2>/dev/null; then
+
+            if ! grep -qi '<!doctype html' "$file"; then
               echo "  ⚠ Missing or malformed doctype"
             fi
-            
-            # Check for closing html tag
-            if ! grep -q "</html>" "$file"; then
-              echo "  ✗ Missing closing </html> tag - file may be truncated"
+
+            if ! grep -qi '</html>' "$file"; then
+              echo "  ✗ Missing closing </html> tag"
               failed=$((failed + 1))
               continue
             fi
-            
-            # Check for meta charset
-            if ! grep -q "charset" "$file"; then
+
+            if ! grep -qi 'charset' "$file"; then
               echo "  ⚠ Missing charset declaration"
             fi
-            
-            # Report file size (truncation detection)
+
             size=$(wc -c < "$file")
-            if [ "$size" -lt 2000 ]; then
-              echo "  ⚠ Warning: File is small ($size bytes) - check for truncation"
+
+            if [[ "$size" -lt 2000 ]]; then
+              echo "  ⚠ Warning: file is small (${size} bytes)"
             else
-              echo "  ✓ OK ($size bytes)"
+              echo "  ✓ OK (${size} bytes)"
             fi
           done
-          
+
           echo ""
           echo "Summary: Checked $total files, $failed issues found"
-          
-          if [ $failed -gt 0 ]; then
-            echo ""
+
+          if [[ "$failed" -gt 0 ]]; then
             echo "❌ File integrity check failed"
             exit 1
           fi
-          
-          echo ""
-          echo "✅ All HTML files passed integrity check"
-on:
-  push:
-    branches:
-      - main
-  pull_request:
-    branches:
-      - main
-  workflow_dispatch:
-  schedule:
-    - cron: '0 9 * * 1'
+
+          echo "✅ All current HTML files passed integrity checks"
