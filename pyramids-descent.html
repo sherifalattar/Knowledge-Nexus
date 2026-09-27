@@ -1,0 +1,601 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Descent of the Ray — Knowledge Nexus</title>
+<meta name="robots" content="noindex">
+<meta name="author" content="Dr. Sherif Alattar">
+<meta name="theme-color" content="#080418">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500&family=JetBrains+Mono:wght@400;500&family=Noto+Sans+Egyptian+Hieroglyphs&display=swap">
+<style>
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;background:#080418;color:#e8e2ff;
+    font-family:"Cormorant Garamond",Georgia,serif;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  /* the sky is a single canvas pinned behind everything; scroll drives the camera */
+  #sky{position:fixed;inset:0;width:100vw;height:100vh;display:block;z-index:0}
+  .scrim{position:fixed;inset:0;z-index:1;pointer-events:none;
+    background:radial-gradient(120% 80% at 50% 42%,transparent 38%,rgba(8,4,24,.42) 100%)}
+
+  /* three stations, one screen each */
+  .legs{position:relative;z-index:2;overflow-x:clip}
+  /* each station is two and a half screens tall; its line stays pinned while the camera keeps falling */
+  .leg{min-height:250vh;padding:0 28px}
+  .leg > div{position:sticky;top:calc(50vh - 90px);max-width:min(860px,92vw);margin:0 auto;text-align:center}
+  .legs::after{content:"";display:block;height:120vh}
+
+  .cap{
+    font-family:"JetBrains Mono",ui-monospace,monospace;
+    font-size:10px;letter-spacing:.34em;text-transform:uppercase;
+    color:rgba(232,226,255,.52);margin-bottom:26px
+  }
+  .line{
+    font-size:clamp(27px,4.4vw,56px);font-weight:300;line-height:1.26;
+    letter-spacing:-.012em;margin:0;color:#f6f2ff;
+    text-shadow:0 2px 60px rgba(8,4,24,.92),0 1px 10px rgba(8,4,24,.8)
+  }
+  .todo{color:#6ef0d8;font-style:italic;opacity:.9}
+  /* the passage after the opening sentence: one sentence per station, shorter stations, smaller type */
+  .leg.prose{min-height:260vh}
+  .leg.prose .line{font-size:clamp(21px,2.7vw,34px);line-height:1.4;max-width:760px;margin:0 auto}
+  /* the same sentence, spelled out in hieroglyphs above the English */
+  .glyphs{font-family:"Noto Sans Egyptian Hieroglyphs",serif;font-size:clamp(20px,2.2vw,28px);line-height:1.55;
+    color:#6ef0d8;opacity:.85;max-width:760px;margin:0 auto 26px;overflow-wrap:anywhere;
+    text-shadow:0 0 18px rgba(110,240,216,.35),0 1px 10px rgba(8,4,24,.8);cursor:pointer}
+  /* the English stays hidden until the hieroglyphs are clicked */
+  .leg.prose .line{opacity:0;transition:opacity .6s ease}
+
+  /* the hieroglyphs are a still surface of text; waves run through it and make it bloom */
+  .leg.prose > div{max-width:none;width:100vw;margin:0 0 0 -28px;top:0;height:100vh;position:sticky;text-align:center}
+  .leg.prose .glyphs{position:absolute;inset:0;margin:0;max-width:none;perspective:900px;overflow:hidden;
+    background:none;filter:none;color:#e2bd62;cursor:pointer}
+  .glyphs canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+  .leg.prose .line{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:min(520px,80vw);margin:0;text-align:center;pointer-events:none}
+  .leg.prose.read .line{opacity:1}
+
+  /* silver and gold: the hieroglyphs in gold, the English in silver */
+  .glyphs{background:linear-gradient(180deg,#fff1c2 0%,#e2bd62 50%,#b8893a 100%);
+    -webkit-background-clip:text;background-clip:text;color:transparent;text-shadow:none;
+    filter:drop-shadow(0 0 10px rgba(226,189,98,.35)) drop-shadow(0 1px 6px rgba(8,4,24,.8))}
+  .leg .line{background:linear-gradient(180deg,#ffffff 0%,#d7dce4 50%,#9aa3b2 100%);
+    -webkit-background-clip:text;background-clip:text;color:transparent;text-shadow:none;
+    filter:drop-shadow(0 1px 10px rgba(8,4,24,.9))}
+
+  /* each station fades in as it reaches the middle of the screen */
+  .leg > div{opacity:0;transform:translateY(22px);transition:opacity .9s ease,transform .9s ease}
+  .leg.lit > div{opacity:1;transform:none}
+  @media (prefers-reduced-motion: reduce){
+    .leg > div{opacity:1;transform:none;transition:none}
+    html{scroll-behavior:auto}
+  }
+
+  /* altitude read-out, the sibling of the one on the opening page */
+  .alt{
+    position:fixed;left:clamp(14px,3vw,40px);top:50%;transform:translateY(-50%);z-index:3;
+    font-family:"JetBrains Mono",ui-monospace,monospace;font-size:9.5px;letter-spacing:.22em;
+    text-transform:uppercase;color:rgba(232,226,255,.55);display:grid;gap:9px;justify-items:start;
+    pointer-events:none
+  }
+  .alt b{font-size:13px;font-weight:500;letter-spacing:.1em;color:#6ef0d8}
+  .alt .bar{width:1px;height:clamp(90px,18vh,190px);background:rgba(232,226,255,.2);position:relative}
+  .alt .bar i{position:absolute;left:-2px;width:5px;height:5px;border-radius:50%;
+    background:#6ef0d8;box-shadow:0 0 12px #6ef0d8;top:0;transition:top .12s linear}
+  @media(max-width:620px){.alt{display:none}}
+
+  .cue{
+    position:fixed;left:50%;bottom:26px;transform:translateX(-50%);z-index:3;
+    font-family:"JetBrains Mono",ui-monospace,monospace;font-size:9.5px;letter-spacing:.3em;
+    text-transform:uppercase;color:rgba(232,226,255,.45);display:flex;align-items:center;gap:10px;
+    transition:opacity .5s ease;pointer-events:none
+  }
+  .cue span{width:22px;height:1px;background:rgba(232,226,255,.45);animation:drop 2.4s ease-in-out infinite}
+  @keyframes drop{0%,100%{transform:translateY(-4px);opacity:.35}50%{transform:translateY(4px);opacity:1}}
+  .cue.gone{opacity:0}
+
+  .floor{position:relative;z-index:2;padding:0 0 96px;text-align:center}
+  .floor a{
+    font-family:"JetBrains Mono",ui-monospace,monospace;font-size:11px;letter-spacing:.2em;
+    text-transform:uppercase;color:#6ef0d8;text-decoration:none;
+    border:1px solid rgba(110,240,216,.38);border-radius:999px;padding:12px 22px;
+    display:inline-block;transition:.22s;background:rgba(8,4,24,.5)
+  }
+  .floor a:hover{border-color:#6ef0d8;background:rgba(110,240,216,.1)}
+  .note{margin-top:26px;font-family:"JetBrains Mono",ui-monospace,monospace;font-size:10px;
+    letter-spacing:.12em;color:rgba(232,226,255,.4);line-height:2}
+</style>
+</head>
+<body>
+
+<canvas id="sky"></canvas>
+<div class="scrim"></div>
+
+<div class="alt" aria-hidden="true">
+  <span>alt</span>
+  <b id="altv">240,000</b>
+  <div class="bar"><i id="altp"></i></div>
+  <span>km</span>
+</div>
+
+<div class="legs">
+  <!-- only the ray for the first fifteen screens: the descent is long -->
+  <div style="height:1500vh" aria-hidden="true"></div>
+
+  <section class="leg"><div>
+    <div class="cap">the stone · after</div>
+    <p class="line">A pyramid is not a monument to the dead.</p>
+  </div></section>
+
+  <section class="leg prose"><div>
+    <p class="glyphs" lang="egy">𓏏𓉔𓅂𓐍𓅱𓂋𓇋𓎼𓇋𓈖𓋴𓐍𓅱𓆑𓐍𓉔𓅲𓅓𓄿𓈖𓐍𓃭𓅂𓄿𓂋𓈖𓇋𓈖𓎼𓐍𓄿𓈖𓂧𓐍𓋴𓈎𓇋𓃭𓃭𓐍𓂧𓅂𓆯𓅂𓃭𓅱𓊪𓅓𓅂𓈖𓏏,𓐍𓅃𓉔𓇋𓎢𓉔𓐍𓅲𓃭𓏏𓇋𓅓𓄿𓏏𓅂𓃭𓇌𓐍𓎼𓄿𓆯𓅂𓐍𓂋𓇋𓋴𓅂𓐍𓏏𓅱𓐍𓎢𓇋𓆯𓇋𓃭𓇋𓋴𓄿𓏏𓇋𓅱𓈖,𓐍𓎢𓄿𓈖𓐍𓃀𓅂𓐍𓏏𓂋𓄿𓎢𓅂𓂧𓐍𓃀𓄿𓎢𓈎𓐍𓏏𓅱𓐍𓏏𓉔𓇋𓋴𓐍𓂋𓅂𓎼𓇋𓅱𓈖𓏞</p>
+    <p class="line">The origins of human learning and skill development, which ultimately gave rise to civilisation, can be traced back to this region.</p>
+  </div></section>
+
+  <section class="leg prose"><div>
+    <p class="glyphs" lang="egy">𓏏𓉔𓅂𓐍𓅂𓎼𓇌𓊪𓏏𓇋𓄿𓈖𓐍𓊪𓅂𓅱𓊪𓃭𓅂𓐍𓂋𓅂𓎢𓅱𓎼𓈖𓇋𓋴𓅂𓂧𓐍𓏏𓄿𓇨𓅱𓈖𓅱𓅓𓇌𓐍𓄿𓋴𓐍𓏏𓉔𓅂𓐍𓆑𓅱𓅲𓈖𓂧𓄿𓏏𓇋𓅱𓈖𓐍𓅱𓆑𓐍𓈎𓈖𓅱𓅃𓃭𓅂𓂧𓎼𓅂,𓐍𓄿𓈖𓂧𓐍𓏏𓉔𓅂𓇋𓂋𓐍𓃭𓇋𓈖𓎼𓅲𓇋𓋴𓏏𓇋𓎢𓐍𓃭𓅂𓎼𓄿𓎢𓇌𓐍𓇋𓋴𓐍𓏏𓉔𓅂𓐍𓃭𓅱𓈖𓎼𓅂𓋴𓏏𓐍𓈎𓈖𓅱𓅃𓈖𓐍𓏏𓅱𓐍𓂧𓄿𓏏𓅂,𓐍𓉔𓄿𓆯𓇋𓈖𓎼𓐍𓃀𓅂𓅂𓈖𓐍𓅃𓂋𓇋𓏏𓏏𓅂𓈖𓐍𓆑𓂋𓅱𓅓𓐍𓄿𓂋𓅱𓅲𓈖𓂧𓐍𓏵𓏴𓆙𓆙𓐍𓃀𓎢𓐍𓏏𓅱𓐍𓏏𓉔𓅂𓐍𓅓𓇋𓂧𓂧𓃭𓅂𓐍𓄿𓎼𓅂𓋴𓐍𓄿𓈖𓂧𓐍𓂋𓅂𓅓𓄿𓇋𓈖𓇋𓈖𓎼𓐍𓄿𓋴𓐍𓄿𓐍𓋴𓊪𓅱𓈎𓅂𓈖𓐍𓃭𓄿𓈖𓎼𓅲𓄿𓎼𓅂𓐍𓆑𓅱𓂋𓐍𓄿𓐍𓋴𓇋𓎼𓈖𓇋𓆑𓇋𓎢𓄿𓈖𓏏𓃭𓇌𓐍𓃭𓅱𓈖𓎼𓅂𓂋𓐍𓊪𓅂𓂋𓇋𓅱𓂧𓏞</p>
+    <p class="line">The Egyptian people recognised taxonomy as the foundation of knowledge, and their linguistic legacy is the longest known to date, having been written from around 3200 BC to the Middle Ages and remaining as a spoken language for a significantly longer period.</p>
+  </div></section>
+
+  <section class="leg prose"><div>
+    <p class="glyphs" lang="egy">𓏏𓉔𓅂𓐍𓆯𓄿𓂋𓇋𓅱𓅲𓋴𓐍𓊪𓉔𓄿𓋴𓅂𓋴𓐍𓅱𓆑𓐍𓄿𓈖𓎢𓇋𓅂𓈖𓏏𓐍𓅂𓎼𓇌𓊪𓏏𓇋𓄿𓈖𓐍𓇋𓈖𓎢𓃭𓅲𓂧𓅂𓐍𓅱𓃭𓂧𓐍𓅂𓎼𓇌𓊪𓏏𓇋𓄿𓈖,𓐍𓅓𓇋𓂧𓂧𓃭𓅂𓐍𓅂𓎼𓇌𓊪𓏏𓇋𓄿𓈖𓐍(𓎢𓃭𓄿𓋴𓋴𓇋𓎢𓄿𓃭𓐍𓅂𓎼𓇌𓊪𓏏𓇋𓄿𓈖),𓐍𓃭𓄿𓏏𓅂𓐍𓅂𓎼𓇌𓊪𓏏𓇋𓄿𓈖,𓐍𓂧𓅂𓅓𓅱𓏏𓇋𓎢𓐍𓄿𓈖𓂧𓐍𓎢𓅱𓊪𓏏𓇋𓎢𓏞</p>
+    <p class="line">The various phases of ancient Egyptian include Old Egyptian, Middle Egyptian (Classical Egyptian), Late Egyptian, Demotic and Coptic.</p>
+  </div></section>
+
+  <section class="leg prose"><div>
+    <p class="glyphs" lang="egy">𓅂𓎼𓇌𓊪𓏏𓇋𓄿𓈖𓐍𓅃𓂋𓇋𓏏𓇋𓈖𓎼𓋴𓐍𓂧𓅱𓐍𓈖𓅱𓏏𓐍𓅂𓇨𓉔𓇋𓃀𓇋𓏏𓐍𓂧𓇋𓄿𓃭𓅂𓎢𓏏𓄿𓃭𓐍𓂧𓇋𓆑𓆑𓅂𓂋𓅂𓈖𓎢𓅂𓋴𓐍𓃀𓅂𓆑𓅱𓂋𓅂𓐍𓎢𓅱𓊪𓏏𓇋𓎢,𓐍𓃀𓅲𓏏𓐍𓇋𓏏𓐍𓇋𓋴𓐍𓃀𓅂𓃭𓇋𓅂𓆯𓅂𓂧𓐍𓏏𓉔𓄿𓏏𓐍𓏏𓉔𓅂𓐍𓃭𓄿𓈖𓎼𓅲𓄿𓎼𓅂𓐍𓅃𓄿𓋴𓐍𓃭𓇋𓈎𓅂𓃭𓇌𓐍𓋴𓊪𓅱𓈎𓅂𓈖𓐍𓇋𓈖𓐍𓂋𓅂𓎼𓇋𓅱𓈖𓄿𓃭𓐍𓂧𓇋𓄿𓃭𓅂𓎢𓏏𓋴𓐍𓄿𓂋𓅱𓅲𓈖𓂧𓐍𓅓𓅂𓅓𓊪𓉔𓇋𓋴𓐍𓄿𓈖𓂧𓐍𓃭𓄿𓏏𓅂𓂋𓐍𓏏𓉔𓅂𓃀𓅂𓋴𓏞</p>
+    <p class="line">Egyptian writings do not exhibit dialectal differences before Coptic, but it is believed that the language was likely spoken in regional dialects around Memphis and later Thebes.</p>
+  </div></section>
+
+  <section class="leg prose"><div>
+    <p class="glyphs" lang="egy">𓏏𓉔𓅂𓐍𓂧𓅂𓆯𓅂𓃭𓅱𓊪𓅓𓅂𓈖𓏏𓐍𓅱𓆑𓐍𓋴𓏏𓂋𓅲𓎢𓏏𓅲𓂋𓅂𓐍𓊪𓄿𓆯𓅂𓂧𓐍𓏏𓉔𓅂𓐍𓅃𓄿𓇌𓐍𓆑𓅱𓂋𓐍𓏏𓉔𓅂𓐍𓅂𓅓𓅂𓂋𓎼𓅂𓈖𓎢𓅂𓐍𓅱𓆑𓐍𓅂𓊪𓇋𓋴𓏏𓅂𓅓𓅱𓃭𓅱𓎼𓇌𓏞</p>
+    <p class="line">The development of structure paved the way for the emergence of epistemology.</p>
+  </div></section>
+</div>
+
+<div class="cue" id="cue">Descend<span></span></div>
+
+<footer class="floor">
+  <a href="pyramids.html">Enter the doctrine &rarr;</a>
+  <div class="note">
+    Nothing on this page is a photograph. The ray, the sand and the stone are<br>
+    generated on your own GPU, every frame, from a single shader.
+  </div>
+</footer>
+
+<script>
+/* ============================================================
+   THE DESCENT OF THE RAY
+   One fullscreen triangle. The fragment shader raymarches a
+   dune field and three pyramids; the sun is a shaft rather than
+   a disc, because the shape being descended toward is the shape
+   of the light itself. Scroll drives the camera down.
+   ============================================================ */
+(function(){
+  var cv = document.getElementById('sky');
+  var gl = cv.getContext('webgl2', {antialias:false, alpha:false, powerPreference:'high-performance'});
+  if(!gl){ document.body.style.background = 'linear-gradient(180deg,#9ef4ff,#7a6cf0 34%,#3a1a6e 68%,#080418)'; return; }
+
+  var VERT = '#version 300 es\n\
+void main(){\n\
+  vec2 p = vec2((gl_VertexID<<1)&2, gl_VertexID&2);\n\
+  gl_Position = vec4(p*2.0-1.0, 0.0, 1.0);\n\
+}';
+
+  var FRAG = '#version 300 es\n\
+precision highp float;\n\
+out vec4 outColor;\n\
+uniform vec2  uRes;\n\
+uniform float uTime;\n\
+uniform float uP;      /* 0 = on the ray, 1 = at the stone */\n\
+\n\
+/* ---------- noise ---------- */\n\
+float hash(vec2 p){ return fract(sin(dot(p, vec2(41.3, 289.1))) * 43758.5453); }\n\
+float vnoise(vec2 p){\n\
+  vec2 i = floor(p), f = fract(p);\n\
+  f = f*f*(3.0-2.0*f);\n\
+  float a = hash(i), b = hash(i+vec2(1,0)), c = hash(i+vec2(0,1)), d = hash(i+vec2(1,1));\n\
+  return mix(mix(a,b,f.x), mix(c,d,f.x), f.y);\n\
+}\n\
+float fbm(vec2 p){\n\
+  float s = 0.0, a = 0.5;\n\
+  for(int i=0;i<3;i++){ s += a*vnoise(p); p *= 2.03; a *= 0.5; }\n\
+  return s;\n\
+}\n\
+\n\
+/* ---------- the dune field ---------- */\n\
+float dunes(vec2 p){\n\
+  float h = fbm(p*0.014) * 26.0;\n\
+  h += sin(p.x*0.03 + fbm(p*0.02)*2.2) * 5.0;   /* long wind-combed ridges */\n\
+  h += fbm(p*0.09) * 2.4;\n\
+  return h;\n\
+}\n\
+\n\
+/* ---------- one pyramid, as a square cone ---------- */\n\
+float sdPyramid(vec3 p, float base, float h){\n\
+  p.y += h*0.0;\n\
+  vec2 q = abs(p.xz);\n\
+  float t = max(q.x, q.y);\n\
+  /* slope of the Giza face is close to 4:pi — steep, not a tent */\n\
+  float d = max(p.y - h + t*(h/base), -p.y);\n\
+  return d * 0.62;\n\
+}\n\
+\n\
+float pyramids(vec3 p){\n\
+  float d = 1e9;\n\
+  d = min(d, sdPyramid(p - vec3(   0.0, 0.0,   0.0), 115.0, 146.0));\n\
+  d = min(d, sdPyramid(p - vec3( 260.0, 0.0, 190.0), 105.0, 136.0));\n\
+  d = min(d, sdPyramid(p - vec3(-230.0, 0.0, 240.0),  55.0,  66.0));\n\
+  return d;\n\
+}\n\
+\n\
+/* the world: whichever is nearer, the sand or the stone */\n\
+float map(vec3 p){\n\
+  float ground = p.y - dunes(p.xz);\n\
+  float stone  = pyramids(p);\n\
+  return min(ground, stone);\n\
+}\n\
+\n\
+vec3 normalAt(vec3 p, float e){\n\
+  vec2 k = vec2(1.0, -1.0);\n\
+  return normalize(\n\
+    k.xyy*map(p + k.xyy*e) + k.yyx*map(p + k.yyx*e) +\n\
+    k.yxy*map(p + k.yxy*e) + k.xxx*map(p + k.xxx*e));\n\
+}\n\
+\n\
+/* the light is not a sun. it fans into hues no desert ever held. */\n\
+vec3 spec(float t){ vec3 c = 0.5 + 0.5*cos(6.28318*(vec3(0.00,0.33,0.67) + t)); return pow(c, vec3(3.0)) * 3.4; }\n\
+\n\
+void main(){\n\
+  vec2 uv = (gl_FragCoord.xy - 0.5*uRes) / uRes.y;\n\
+  float p = clamp(uP, 0.0, 1.0);\n\
+\n\
+  /* the sun stays put; only the camera falls away from it */\n\
+  vec3 sunDir = normalize(vec3(-0.13, 0.52, 0.84));\n\
+\n\
+  /* --- the timeline: the fall (p 0 to 0.40), then a long walk across the night sand, and only at the end the stone --- */\n\
+  float land  = smoothstep(0.0, 0.40, p);\n\
+  float fall  = pow(land, 1.35);\n\
+  float walk  = smoothstep(0.40, 1.0, p);\n\
+  float night = smoothstep(0.24, 0.42, p);\n\
+  float look  = smoothstep(0.86, 1.0, p);   /* the last stretch: right up to the stone, looking up at it */\n\
+  float camZ  = mix(-16000.0, -330.0, walk);\n\
+  float camX  = mix(-420.0, -60.0, walk);\n\
+  /* the eye comes down out of the light and settles at eye height above the dunes */\n\
+  vec3  ro = vec3(camX, max(mix(2600.0, 0.0, fall), dunes(vec2(camX, camZ)) + mix(22.0, 5.0, look)), camZ);\n\
+  /* it begins looking straight into the ray, lowers its eyes to the horizon, then lifts them to the stone */\n\
+  float pitch = mix(0.17, 0.035, smoothstep(0.05, 0.40, p)) + 0.03*walk + 0.34*look;\n\
+  vec3  fwd = normalize(vec3(0.0, sin(pitch), cos(pitch)));\n\
+  vec3  rgt = normalize(cross(vec3(0,1,0), fwd));\n\
+  vec3  up  = cross(fwd, rgt);\n\
+  vec3  rd  = normalize(uv.x*rgt + uv.y*up + 1.45*fwd);\n\
+\n\
+  /* --- the sky --- \n\
+     At the origin it is nearly black, so the ray has something to be\n\
+     bright against. Once the feet are on the sand it is night. */\n\
+  float sunAmt = max(dot(rd, sunDir), 0.0);\n\
+  float ray  = 1.0 - night;\n\
+  vec3 deep  = mix(vec3(0.018,0.006,0.048), vec3(0.055,0.016,0.16), smoothstep(-0.35,0.55,rd.y));\n\
+  /* indigo at the zenith, a faint warm breath of the city low on the horizon */\n\
+  vec3 nsky  = mix(vec3(0.060,0.048,0.075), vec3(0.006,0.010,0.030), smoothstep(-0.02,0.45,rd.y));\n\
+  vec3 col   = mix(deep, nsky, night);\n\
+\n\
+  /* the shaft. not a disc — a blade with an edge, and a core that burns out */\n\
+  float blade = pow(sunAmt, mix(900.0, 90.0, p));\n\
+  float halo  = pow(sunAmt, mix(46.0, 12.0, p));\n\
+  float bloom = pow(sunAmt, mix(7.0, 3.0, p));\n\
+  col += vec3(0.86,0.97,1.00) * blade * mix(7.0, 1.4, p) * ray;\n\
+  col += spec(0.58 + (1.0-sunAmt)*6.0) * halo  * mix(1.5, 0.38, p) * ray;\n\
+  col += spec(0.74 + (1.0-sunAmt)*1.1) * bloom * mix(0.20, 0.06, p) * ray;\n\
+\n\
+  /* god rays: the shaft broken into slats by dust, strongest at the origin */\n\
+  vec2 sp = vec2(dot(rd,rgt), dot(rd,up)) - vec2(dot(sunDir,rgt), dot(sunDir,up));\n\
+  float ang = atan(sp.y, sp.x);\n\
+  float slats = fbm(vec2(ang*6.0, uTime*0.05)) * fbm(vec2(ang*17.0, uTime*0.08));\n\
+  col += spec(0.52 + ang*0.19 + slats*0.45) * slats * pow(sunAmt, 4.0) * mix(2.4, 0.26, p) * ray;\n\
+\n\
+  /* falling rays: a tight bundle of light falling from the top of the frame that fans out\n\
+     to the right and the left as it nears the bottom; pulses run down each strand */\n\
+  vec2  fq  = gl_FragCoord.xy / uRes;\n\
+  float asp = uRes.x / uRes.y;\n\
+  float ft  = 1.0 - fq.y;                          /* 0 at the top, 1 at the bottom */\n\
+  vec3  rc1 = vec3(0.322, 0.153, 1.000);           /* #5227FF */\n\
+  vec3  rc2 = vec3(1.000, 0.624, 0.988);           /* #FF9FFC */\n\
+  vec3  fray = vec3(0.0);\n\
+  for(int i = 0; i < 15; i++){\n\
+    float fi = float(i);\n\
+    float o  = (fi - 7.0) / 7.0;                   /* -1 .. 1 across the bundle */\n\
+    float h1 = hash(vec2(fi, 3.1)), h2 = hash(vec2(fi, 8.7));\n\
+    float xc = 0.5 + o*(0.010 + 0.035*ft) + o*0.42*pow(ft, 3.2);\n\
+    float sl = o*(0.035 + 0.42*3.2*pow(ft, 2.2)) * asp;   /* slope, so the strand keeps its width as it bends */\n\
+    float d  = abs(fq.x - xc) * asp / sqrt(1.0 + sl*sl);\n\
+    float w  = 0.0022 + 0.0022*ft;\n\
+    float core = exp(-d*d / (w*w));\n\
+    float tH = fract(uTime*(0.10 + 0.07*h1) + h2) * 1.5 - 0.25;   /* the pulse head, falling */\n\
+    float dt = tH - ft;\n\
+    float pulse = exp(-dt*dt / (0.03*0.03));\n\
+    float trail = dt > 0.0 ? exp(-dt / 0.30 * 3.0) : 0.0;\n\
+    fray += mix(rc1, rc2, pulse*0.8) * core * (0.10 + pulse*2.4 + trail*0.9);\n\
+  }\n\
+  fray *= smoothstep(0.0, 0.08, ft);               /* born just below the top edge */\n\
+  col += fray * (1.0 - smoothstep(0.26, 0.40, p));\n\
+\n\
+  /* stars, and a moon low in the east */\n\
+  vec3 moonDir = normalize(vec3(0.42, 0.30, 0.86));\n\
+  if(rd.y > 0.0){\n\
+    vec3  sq  = rd*260.0;\n\
+    vec3  sid = floor(sq);\n\
+    float sh  = hash(sid.xy + sid.z*13.7);\n\
+    float tw  = 0.6 + 0.4*sin(uTime*(1.0 + sh*3.0) + sh*40.0);\n\
+    col += vec3(0.85,0.90,1.00) * step(0.975, sh) * smoothstep(0.22, 0.0, length(fract(sq)-0.5)) * tw * night * smoothstep(0.0, 0.12, rd.y) * 1.3;\n\
+  }\n\
+  float md = dot(rd, moonDir);\n\
+  col += vec3(1.00,0.97,0.90) * smoothstep(0.99955, 0.99970, md) * 2.2 * night;\n\
+  col += vec3(0.50,0.58,0.80) * pow(max(md, 0.0), 300.0) * 0.35 * night;\n\
+\n\
+  /* --- the ground, once there is any reason to look for it --- */\n\
+  float reveal = smoothstep(0.14, 0.38, p);\n\
+  if(reveal > 0.001 && rd.y < 0.90){\n\
+    /* start the march where the ground can first possibly be, not at the eye */\n\
+    float t = max(1.0, (ro.y - 60.0) / max(0.02, -rd.y) * 0.55);\n\
+    float hit = -1.0;\n\
+    float far = 5200.0;\n\
+    for(int i=0;i<110;i++){\n\
+      vec3 pos = ro + rd*t;\n\
+      float d = map(pos);\n\
+      if(d < 0.004*t){ hit = t; break; }\n\
+      t += max(d * 0.85, t*0.006);\n\
+      if(t > far) break;\n\
+    }\n\
+    if(hit > 0.0){\n\
+      vec3 pos = ro + rd*hit;\n\
+      vec3 n   = normalAt(pos, max(0.35, hit*0.0016));\n\
+      float isStone = smoothstep(2.5, 0.0, pyramids(pos));\n\
+\n\
+      vec3 sand  = vec3(0.60,0.50,0.38) * (0.88 + 0.24*fbm(pos.xz*0.7));\n\
+      vec3 stone = vec3(0.78,0.64,0.46) * (0.90 + 0.12*fbm(pos.xz*0.08 + pos.y*0.05));\n\
+      /* the courses of the stone, as faint horizontal bands */\n\
+      stone *= mix(1.0, 0.90 + 0.10*smoothstep(0.30, 0.50, abs(fract(pos.y*0.35) - 0.5)), exp(-hit*0.0025)); /* the bands only up close, or they shimmer */\n\
+      vec3 alb = mix(sand, stone, isStone);\n\
+\n\
+      float sky = 0.5 + 0.5*n.y;\n\
+      float rim = pow(1.0 - max(dot(n, -rd), 0.0), 3.0);\n\
+\n\
+      /* the frames before night keep the light of the fall */\n\
+      float dif = max(dot(n, sunDir), 0.0);\n\
+      vec3  dayLit = alb*0.5*(dif*vec3(1.10,1.72,1.92) + sky*vec3(0.16,0.11,0.30)) + vec3(1.00,0.34,0.92)*rim*0.42;\n\
+\n\
+      /* at night: cold moonlight on the sand, and the stone floodlit gold from the ground, fading as it rises */\n\
+      vec3  nightLit = alb*(max(dot(n, moonDir), 0.0)*vec3(0.30,0.36,0.52) + sky*vec3(0.030,0.036,0.070));\n\
+      vec3  floodDir = normalize(vec3(-0.35, 0.28, -1.0));\n\
+      float fh = exp(-max(pos.y, 0.0)*0.010);\n\
+      nightLit += alb * vec3(1.00,0.60,0.26) * max(dot(n, floodDir), 0.0) * (0.35 + 1.1*fh) * isStone * 1.3;\n\
+      nightLit += vec3(0.35,0.45,0.75) * rim * 0.12;\n\
+\n\
+      vec3 lit = mix(dayLit, nightLit, night);\n\
+\n\
+      /* the night air eats the distance; the stone arrives out of it */\n\
+      float fog = 1.0 - exp(-hit*1.6e-4 - hit*hit*0.8e-8);\n\
+      fog = max(fog, smoothstep(far*0.72, far, hit));\n\
+      vec3  fogCol = mix(vec3(0.30,0.50,0.74), vec3(0.030,0.034,0.070), night);\n\
+      lit = mix(lit, fogCol, fog);\n\
+\n\
+      col = mix(col, lit, reveal);\n\
+    }\n\
+  }\n\
+\n\
+  /* dust riding the light */\n\
+  float dust = fbm(uv*7.0 + vec2(uTime*0.022, -uTime*0.014));\n\
+  col += spec(0.46 + dust*1.3) * pow(dust, 3.0) * 0.09 * (1.0 - night*0.85);\n\
+\n\
+  /* the frame is held down so cream text can sit on it and be read */\n\
+  col *= mix(0.62, 0.86, smoothstep(0.20, 0.80, p));\n\
+\n\
+  /* tonemap, vignette, grain */\n\
+  col = col / (col + 0.82);\n\
+  col = pow(col, vec3(0.4545));\n\
+  /* the corners fall away hardest at the origin, so the ray keeps its edge */\n\
+  col *= 1.0 - mix(0.74, 0.28, smoothstep(0.15, 0.75, p)) * dot(uv,uv);\n\
+  col += (hash(gl_FragCoord.xy + uTime) - 0.5) * 0.016;\n\
+\n\
+  outColor = vec4(col, 1.0);\n\
+}';
+
+  function sh(type, src){
+    var s = gl.createShader(type);
+    gl.shaderSource(s, src); gl.compileShader(s);
+    if(!gl.getShaderParameter(s, gl.COMPILE_STATUS)) throw new Error(gl.getShaderInfoLog(s));
+    return s;
+  }
+  var prog;
+  try {
+    prog = gl.createProgram();
+    gl.attachShader(prog, sh(gl.VERTEX_SHADER, VERT));
+    gl.attachShader(prog, sh(gl.FRAGMENT_SHADER, FRAG));
+    gl.linkProgram(prog);
+    if(!gl.getProgramParameter(prog, gl.LINK_STATUS)) throw new Error(gl.getProgramInfoLog(prog));
+  } catch(e){
+    console.error(e);
+    document.body.style.background = 'linear-gradient(180deg,#9ef4ff,#7a6cf0 34%,#3a1a6e 68%,#080418)';
+    return;
+  }
+  gl.useProgram(prog);
+  var uRes = gl.getUniformLocation(prog,'uRes'),
+      uTime = gl.getUniformLocation(prog,'uTime'),
+      uP = gl.getUniformLocation(prog,'uP');
+  gl.bindVertexArray(gl.createVertexArray());
+
+  /* a weak GPU gets fewer pixels rather than fewer frames */
+  /* the shader is the expensive part, so it never runs at more than 1 device pixel */
+  var scale = 1.0;
+  function size(){
+    var d = Math.min(window.devicePixelRatio || 1, 1.0) * scale;
+    cv.width  = Math.max(1, Math.round(innerWidth  * d));
+    cv.height = Math.max(1, Math.round(innerHeight * d));
+    gl.viewport(0, 0, cv.width, cv.height);
+  }
+  addEventListener('resize', size); size();
+
+  /* a lost context leaves a black page, so say so rather than show nothing */
+  cv.addEventListener('webglcontextlost', function(e){
+    e.preventDefault();
+    document.body.style.background = 'linear-gradient(180deg,#9ef4ff,#7a6cf0 34%,#3a1a6e 68%,#080418)';
+    cv.style.display = 'none';
+    console.warn('WebGL context lost — falling back to the painted sky.');
+  });
+
+  /* scroll -> descent */
+  var target = 0, shown = 0;
+  var altv = document.getElementById('altv'),
+      altp = document.getElementById('altp'),
+      cue  = document.getElementById('cue');
+  function readScroll(){
+    var max = document.body.scrollHeight - innerHeight;
+    target = max > 0 ? Math.min(1, Math.max(0, scrollY / max)) : 0;
+    cue.classList.toggle('gone', target > 0.04);
+  }
+  addEventListener('scroll', readScroll, {passive:true});
+  addEventListener('resize', readScroll); readScroll();
+
+  /* the wheel is slowed to a crawl and eased, so the descent is taken slowly */
+  var want = scrollY, cur = scrollY, ours = false;
+  addEventListener('wheel', function(e){
+    if(e.ctrlKey) return;
+    e.preventDefault();
+    var max = document.documentElement.scrollHeight - innerHeight;
+    want = Math.max(0, Math.min(max, want + e.deltaY * 0.25));
+  }, {passive:false});
+  addEventListener('scroll', function(){ if(!ours){ want = cur = scrollY; } ours = false; }, {passive:true});
+  (function glide(){
+    requestAnimationFrame(glide);
+    if(Math.abs(want - cur) < 0.5) return;
+    cur += (want - cur) * 0.06;
+    ours = true;
+    window.scrollTo({top:cur, behavior:'instant'});
+  })();
+
+  /* the stations light up as they arrive */
+  var legs = [].slice.call(document.querySelectorAll('.leg'));
+  var io = new IntersectionObserver(function(es){
+    /* one sentence at a time: it appears while its station holds the middle of the screen, and leaves with it */
+    es.forEach(function(e){ e.target.classList.toggle('lit', e.isIntersecting); });
+  }, {rootMargin:'-49% 0px -49% 0px', threshold:0});
+  legs.forEach(function(l){ io.observe(l); });
+
+  /* the ripple: each sentence fills the screen row by row, faint, like the surface of still water.
+     A wave simulation runs underneath; wherever a wave passes, the glyphs bend, brighten and change,
+     gold on the crests and silver in the troughs. Only a click disturbs it. */
+  var SEP = String.fromCodePoint(0x1340D);
+  var FONT = '"Noto Sans Egyptian Hieroglyphs", serif';
+  var ripples = [].slice.call(document.querySelectorAll('.glyphs')).map(function(g){
+    var glyphs = Array.from(g.textContent.trim()).filter(function(c){ return c !== SEP; });
+    g.textContent = '';
+    var cv = document.createElement('canvas'); g.appendChild(cv);
+    var R = {g:g, leg:g.closest('.leg'), cv:cv, ctx:cv.getContext('2d'), glyphs:glyphs, cols:0, rows:0, a:null, b:null, rain:0, tick:0, scr:null};
+    function drop(cx, cy, s, rad){
+      for(var y = -rad; y <= rad; y++) for(var x = -rad; x <= rad; x++){
+        var d = Math.sqrt(x*x + y*y); if(d > rad) continue;
+        var i = (cy + y) * R.cols + (cx + x);
+        if(cx + x > 0 && cx + x < R.cols - 1 && cy + y > 0 && cy + y < R.rows - 1) R.a[i] += s * (0.5 + 0.5*Math.cos(Math.PI * d / rad));
+      }
+    }
+    R.drop = drop;
+    function at(e){ var r = cv.getBoundingClientRect(); return [Math.floor((e.clientX - r.left) / R.cw), Math.floor((e.clientY - r.top) / R.ch)]; }
+    g.addEventListener('pointerdown', function(e){ var p = at(e); drop(p[0], p[1], 1.2, 3); });
+    return R;
+  });
+  function sizeRipple(R){
+    var dpr = Math.min(devicePixelRatio || 1, 2);
+    var W = R.g.clientWidth, H = R.g.clientHeight;
+    R.fs = Math.max(15, Math.min(24, Math.round(H / 34)));
+    R.cw = R.fs * 1.15; R.ch = R.fs * 1.25;
+    R.cols = Math.ceil(W / R.cw) + 1; R.rows = Math.ceil(H / R.ch) + 1;
+    R.a = new Float32Array(R.cols * R.rows); R.b = new Float32Array(R.cols * R.rows);
+    R.scr = new Int16Array(R.cols * R.rows).fill(-1);
+    R.cv.width = Math.round(W * dpr); R.cv.height = Math.round(H * dpr);
+    R.ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    R.ctx.font = R.fs + 'px ' + FONT; R.ctx.textAlign = 'center'; R.ctx.textBaseline = 'middle';
+  }
+  ripples.forEach(sizeRipple);
+  var rsT; addEventListener('resize', function(){ clearTimeout(rsT); rsT = setTimeout(function(){ ripples.forEach(sizeRipple); }, 200); });
+  document.fonts && document.fonts.ready.then(function(){ ripples.forEach(sizeRipple); });
+
+  function stepRipple(R){
+    var c = R.cols, a = R.a, b = R.b, damp = 0.955;
+    for(var y = 1; y < R.rows - 1; y++) for(var x = 1; x < c - 1; x++){
+      var i = y*c + x;
+      b[i] = ((a[i-1] + a[i+1] + a[i-c] + a[i+c]) * 0.5 - b[i]) * damp;
+    }
+    R.a = b; R.b = a;
+  }
+  var rLast = performance.now();
+  function rippleFrame(now){
+    requestAnimationFrame(rippleFrame);
+    var dt = Math.min(0.05, (now - rLast) / 1000); rLast = now;
+    ripples.forEach(function(R){
+      if(!R.leg.classList.contains('lit') || !R.a) return;
+      stepRipple(R);
+      R.tick += dt;
+      var reshuffle = R.tick > 0.09; if(reshuffle) R.tick = 0;
+      var ctx = R.ctx, c = R.cols, a = R.a, n = R.glyphs.length;
+      var W = R.g.clientWidth, H = R.g.clientHeight, half = Math.min(W, H) / 2;
+      ctx.clearRect(0, 0, W, H);
+      for(var y = 1; y < R.rows - 1; y++) for(var x = 1; x < c - 1; x++){
+        var i = y*c + x, v = a[i];
+        var sx = a[i+1] - a[i-1], sy = a[i+c] - a[i-c];
+        var k = Math.min(1, Math.abs(v)*2.2 + Math.sqrt(sx*sx + sy*sy)*1.0);
+        /* refraction: the text underneath is read from a cell pushed by the slope */
+        var ox = Math.round(sx * 4), oy = Math.round(sy * 4);
+        var gi = (((y + oy) * c + (x + ox)) % n + n) % n;
+        if(k > 0.35){ if(reshuffle || R.scr[i] < 0) R.scr[i] = Math.floor(Math.random()*n); gi = R.scr[i]; } else R.scr[i] = -1;
+        var px = x * R.cw, py = y * R.ch;
+        var edge = Math.min(px, W - px, py, H - py) / (half * 0.6);
+        var alpha = (0.14 + 0.86*k) * Math.min(1, Math.max(0, edge));
+        if(alpha < 0.02) continue;
+        ctx.globalAlpha = alpha;
+        ctx.fillStyle = v >= 0 ? (k > 0.5 ? '#fff1c2' : '#e2bd62') : '#c9d1dc';
+        ctx.fillText(R.glyphs[gi], px, py);
+      }
+      ctx.globalAlpha = 1;
+    });
+  }
+  requestAnimationFrame(rippleFrame);
+
+  /* clicking the hieroglyphs reveals the English beneath them; clicking again hides it */
+  [].forEach.call(document.querySelectorAll('.glyphs'), function(g){
+    g.setAttribute('role', 'button'); g.setAttribute('tabindex', '0');
+    function flip(){ g.closest('.leg').classList.toggle('read'); }
+    g.addEventListener('click', flip);
+    g.addEventListener('keydown', function(e){ if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); flip(); } });
+  });
+
+  var t0 = performance.now(), slow = 0;
+  function frame(now){
+    requestAnimationFrame(frame);
+    var dt = now - (frame._last || now); frame._last = now;
+    if(dt > 34){ slow++; } else { slow = Math.max(0, slow-1); }
+    if(slow > 90 && scale > 0.6){ scale = 0.6; size(); slow = 0; }
+
+    shown += (target - shown) * 0.03;
+
+    /* the altitude reaches zero when the feet touch the sand, not at the end of the page */
+    var fell = Math.min(1, shown / 0.40);
+    var km = Math.round((1 - fell) * 240000);
+    altv.textContent = km.toLocaleString('en-US');
+    altp.style.top = (fell * 100) + '%';
+
+    gl.uniform2f(uRes, cv.width, cv.height);
+    gl.uniform1f(uTime, (now - t0) * 0.001);
+    gl.uniform1f(uP, shown);
+    gl.drawArrays(gl.TRIANGLES, 0, 3);
+  }
+  requestAnimationFrame(frame);
+})();
+</script>
+</body>
+</html>
