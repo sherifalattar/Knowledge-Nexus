@@ -1,0 +1,12 @@
+cff-version: 1.2.0
+message: "If you use this work, please cite it as below."
+title: "Knowledge Nexus: The First Integrated DRG Validation Platform Fully Authored by a Physician"
+type: software
+abstract: "The first integrated DRG validation platform fully authored by a physician. It unites clinical guidelines, coding guidelines, DRG-system analysis, and regulatory law in one connected analytical frame, with utilization and denial management read through a value-based lens. The analysis and every final judgment are the physician's. Artificial intelligence serves in defined supporting roles — research, citation, retrieval-augmented generation over a Zotero library, and maintenance of the codebase and repository by Claude — and takes no part in the final evaluation."
+authors:
+  - family-names: "Alattar"
+    given-names: "Sherif"
+    orcid: "https://orcid.org/0009-0000-8799-9395"
+url: "https://sherifalattar.github.io/Knowledge-Nexus"
+repository-code: "https://github.com/sherifalattar/Knowledge-Nexus"
+keywords: [DRG validation, IR-DRG, clinical validation, denial management, utilization management]
